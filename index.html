@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>To Bee Honest — the hive is taking shape</title>
+  <meta name="description" content="The new To Bee Honest home is under active construction. Peek inside the work in progress.">
+  <link rel="icon" href="assets/IMG_5190.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Shantell+Sans:ital,wght@0,400;0,500;1,400&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="interim.css">
+  <link rel="stylesheet" href="bee-cursor.css">
+</head>
+<body>
+  <a class="skip-link" href="#interim-main">Skip to the construction update</a>
+
+  <main class="construction-view" id="interim-main">
+    <div class="paper-grain" aria-hidden="true"></div>
+
+    <header class="construction-header">
+      <a class="brand-mark" href="#interim-main" aria-label="To Bee Honest construction page">
+        <svg class="brand-hive" viewBox="0 0 32 32" aria-hidden="true">
+          <circle class="brand-hive-field" cx="16" cy="16" r="14"/>
+          <circle cx="16" cy="16" r="9"/>
+          <circle cx="16" cy="16" r="4"/>
+        </svg>
+        <span>To Bee Honest</span>
+      </a>
+      <span class="status-stamp">
+        <span aria-hidden="true"></span>
+        Under active construction
+      </span>
+    </header>
+
+    <section class="construction-stage" aria-labelledby="construction-title">
+      <div class="editorial-copy">
+        <p class="eyebrow">A new home is being assembled</p>
+        <h1 id="construction-title">The hive is <em>taking shape.</em></h1>
+        <p class="lede">Our worker bees are building a new home for the stories, art, and ideas of To Bee Honest.</p>
+        <p class="work-note">What you can explore today is a work in progress: real rooms are taking form, paper edges are still being trimmed, and a few cells are waiting for their finishing touch.</p>
+        <button class="peek-button" id="peek-button" type="button" aria-controls="site-preview" aria-expanded="false">
+          <span>Peek inside the hive</span>
+          <svg aria-hidden="true" viewBox="0 0 42 20">
+            <path d="M1 10h35M28 2l9 8-9 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <p class="attribution">Being developed by <strong>Foreman AI</strong></p>
+      </div>
+
+      <div class="hive-workbench" aria-label="A honeycomb map of the site taking shape">
+        <div class="art-scrap" aria-hidden="true">
+          <img src="assets/IMG_5791.jpeg" alt="">
+        </div>
+
+        <div class="honeycomb">
+          <button class="comb-cell cell-story" type="button" data-note="The book is opening one page at a time.">
+            <span class="cell-number">01</span>
+            <span class="cell-label">THE Book</span>
+          </button>
+          <button class="comb-cell cell-art" type="button" data-note="The mantra deck is settling into its ritual.">
+            <span class="cell-number">02</span>
+            <span class="cell-label">The Mantra Deck</span>
+          </button>
+          <button class="comb-cell cell-book" type="button" data-note="The gallery walls are being framed.">
+            <span class="cell-number">03</span>
+            <span class="cell-label">The Gallery</span>
+          </button>
+          <button class="comb-cell cell-deck" type="button" data-note="Custom products are being made slowly and thoughtfully.">
+            <span class="cell-number">04</span>
+            <span class="cell-label">Make It Yours! Custom Products</span>
+          </button>
+          <button class="comb-cell cell-voice" type="button" data-note="The podcast is being tuned for stories and conversations.">
+            <span class="cell-number">05</span>
+            <span class="cell-label">The Podcast</span>
+          </button>
+          <button class="comb-cell cell-market" type="button" data-note="The marketplace is making room for art, books, and shared creations.">
+            <span class="cell-number">06</span>
+            <span class="cell-label">The Marketplace</span>
+          </button>
+          <button class="comb-cell cell-center" type="button" data-note="The library shelves are beginning to grow.">
+            <span class="cell-number">07</span>
+            <span class="cell-label">The Library</span>
+          </button>
+        </div>
+
+        <div class="worker-bee bee-one" aria-hidden="true">
+          <svg viewBox="0 0 68 52">
+            <path class="worker-wing left" d="M31 26C14 27 8 10 17 7c10-3 17 8 14 19Z"/>
+            <path class="worker-wing right" d="M37 26c17 1 23-16 14-19-10-3-17 8-14 19Z"/>
+            <ellipse cx="34" cy="31" rx="13" ry="16"/>
+            <path d="M23 25h22M21 33h26M25 41h18"/>
+          </svg>
+        </div>
+        <p class="comb-note" id="comb-note" aria-live="polite">Choose a cell to see what the bees are building.</p>
+      </div>
+    </section>
+
+    <footer class="construction-footer">
+      <span>A transparent look at the work in progress</span>
+      <span>Stories · art · ideas · community</span>
+    </footer>
+  </main>
+
+  <button class="corner-bee" id="corner-bee" type="button" aria-describedby="corner-bee-help">
+    <span class="sr-only">Play with the worker bee</span>
+    <svg aria-hidden="true" viewBox="0 0 68 52">
+      <path class="corner-wing corner-wing-left" d="M31 26C14 27 8 10 17 7c10-3 17 8 14 19Z"/>
+      <path class="corner-wing corner-wing-right" d="M37 26c17 1 23-16 14-19-10-3-17 8-14 19Z"/>
+      <ellipse cx="34" cy="31" rx="13" ry="16"/>
+      <path class="corner-stripes" d="M23 25h22M21 33h26M25 41h18"/>
+    </svg>
+  </button>
+  <p class="sr-only" id="corner-bee-help">Drag the bee a short distance and release it. It will return to its corner.</p>
+
+  <section class="preview-shell" id="site-preview" aria-label="Current To Bee Honest website preview" aria-hidden="true" inert>
+    <div class="preview-banner">
+      <p><strong>Work in progress</strong> <span>You are looking inside the hive while it is still being built.</span></p>
+      <button id="return-button" type="button">
+        <svg aria-hidden="true" viewBox="0 0 32 18">
+          <path d="M31 9H4m7-7-8 7 8 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Return to construction view
+      </button>
+    </div>
+    <iframe
+      id="approved-site"
+      title="Current To Bee Honest website — work in progress"
+      data-src="index-pre-rev5-backup.html"
+      loading="lazy"
+    ></iframe>
+  </section>
+
+  <script src="interim.js"></script>
+  <script src="bee-cursor.js"></script>
+</body>
+</html>

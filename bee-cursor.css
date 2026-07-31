@@ -1,0 +1,115 @@
+/*
+ * To Bee Honest ink bee cursor.
+ * Remove this file and the bee-cursor.js references to restore the native cursor.
+ */
+@media (pointer: fine) and (hover: hover) {
+  html.bee-cursor-enabled,
+  html.bee-cursor-enabled body,
+  html.bee-cursor-enabled a,
+  html.bee-cursor-enabled button,
+  html.bee-cursor-enabled [role="button"],
+  html.bee-cursor-enabled [tabindex]:not([tabindex="-1"]),
+  html.bee-cursor-enabled label,
+  html.bee-cursor-enabled select {
+    cursor: none !important;
+  }
+
+  html.bee-cursor-enabled input,
+  html.bee-cursor-enabled textarea,
+  html.bee-cursor-enabled [contenteditable="true"],
+  html.bee-cursor-enabled [contenteditable="plaintext-only"] {
+    cursor: text !important;
+  }
+}
+
+.tbh-bee-cursor {
+  position: fixed;
+  z-index: 2147483647;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: 19px 24px;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 4px 3px rgba(38, 32, 21, .22));
+  transition: opacity .16s ease;
+}
+
+.tbh-bee-cursor.is-visible {
+  opacity: 1;
+}
+
+.tbh-bee-cursor .tbh-bee-body {
+  transform-origin: 24px 25px;
+  transition: transform .14s ease;
+}
+
+.tbh-bee-cursor.is-hovering .tbh-bee-body {
+  transform: scale(1.08);
+}
+
+.tbh-bee-cursor.is-clicking .tbh-bee-body {
+  transform: scale(.82);
+}
+
+.tbh-bee-cursor .tbh-wing {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation-duration: .22s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.tbh-bee-cursor .tbh-wing-left {
+  animation-name: tbh-flap-left;
+}
+
+.tbh-bee-cursor .tbh-wing-right {
+  animation-name: tbh-flap-right;
+}
+
+.tbh-bee-cursor.is-hovering .tbh-wing {
+  animation-duration: .09s;
+}
+
+@keyframes tbh-flap-left {
+  from { transform: rotate(0) scale(1.25); }
+  to { transform: rotate(-22deg) scale(1.25, .975); }
+}
+
+@keyframes tbh-flap-right {
+  from { transform: rotate(0) scale(1.25); }
+  to { transform: rotate(22deg) scale(1.25, .975); }
+}
+
+.tbh-pollen {
+  position: fixed;
+  z-index: 2147483646;
+  top: 0;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border: 2px solid #262015;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 1;
+  background: #ffd650;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .9), 0 0 0 6px rgba(255, 189, 22, .65);
+  animation: tbh-pollen-pop .78s cubic-bezier(.16, .72, .32, 1) forwards;
+}
+
+@keyframes tbh-pollen-pop {
+  0% { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(.45); }
+  30% { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate3d(var(--tbh-dx), var(--tbh-dy), 0) scale(.15) rotate(90deg); }
+}
+
+@media (pointer: coarse), (hover: none), (prefers-reduced-motion: reduce) {
+  .tbh-bee-cursor,
+  .tbh-pollen {
+    display: none !important;
+  }
+}
