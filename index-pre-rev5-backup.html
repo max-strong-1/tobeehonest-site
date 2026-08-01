@@ -45,6 +45,7 @@ body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.35;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.33 0 0 0 0 0.19 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:fixed;left:1rem;top:.6rem;z-index:70;background:var(--sun);padding:.4rem .8rem;font-family:'Shantell Sans',cursive;font-size:.85rem;text-decoration:none;clip-path:polygon(2% 8%,98% 0,100% 92%,0 100%);box-shadow:var(--shadow);transform:translateY(-160%);transition:transform .3s}
 .skip:focus-visible{transform:none;outline:3px solid var(--bark)}
 
@@ -204,10 +205,16 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 .card:focus-visible{outline:3px solid var(--bark);outline-offset:4px}
 .card-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:1.2rem;box-shadow:var(--shadow-lift);clip-path:polygon(0 1.5%,3% 0,50% .8%,97% 0,100% 1.8%,99.4% 50%,100% 98.4%,96% 100%,50% 99.2%,4% 100%,0 98%,.5% 50%)}
 .card-front .mantra{font-family:'Shantell Sans',cursive;font-size:1rem;line-height:1.4;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45);position:relative;z-index:1}
-.card-front::before{content:"";position:absolute;inset:0 0 auto 0;height:46%;opacity:.9;background:var(--sun);clip-path:polygon(0 0,100% 0,100% 34%,88% 46%,72% 38%,55% 50%,38% 40%,20% 52%,8% 42%,0 50%)}
-.card-front::after{content:"";position:absolute;inset:0 0 auto 0;height:30%;opacity:.85;background:var(--paper);clip-path:polygon(0 0,100% 0,100% 52%,84% 68%,66% 56%,48% 72%,30% 58%,14% 74%,0 62%)}
-.card:nth-child(2n) .card-front::before{background:var(--bloom)}
-.card:nth-child(3n) .card-front::before{background:var(--terra);opacity:.7}
+.card-front:not(.has-photo)::before{content:"";position:absolute;inset:0 0 auto 0;height:46%;opacity:.9;background:var(--sun);clip-path:polygon(0 0,100% 0,100% 34%,88% 46%,72% 38%,55% 50%,38% 40%,20% 52%,8% 42%,0 50%)}
+.card-front:not(.has-photo)::after{content:"";position:absolute;inset:0 0 auto 0;height:30%;opacity:.85;background:var(--paper);clip-path:polygon(0 0,100% 0,100% 52%,84% 68%,66% 56%,48% 72%,30% 58%,14% 74%,0 62%)}
+.card:nth-child(2n) .card-front:not(.has-photo)::before{background:var(--bloom)}
+.card:nth-child(3n) .card-front:not(.has-photo)::before{background:var(--terra);opacity:.7}
+/* photo-backed fronts (placeholder card art — swap assets/web/deck-card-*.jpg later) */
+.card-front.has-photo{overflow:hidden}
+.card-front .card-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.card-front .card-scrim{position:absolute;inset:auto 0 0 0;height:62%;z-index:1;
+  background:linear-gradient(0deg,rgba(20,14,6,.78),rgba(20,14,6,0))}
+.card-front.has-photo .mantra{position:relative;z-index:2}
 .card-back{transform:rotateY(180deg);background:var(--paper-deep);align-items:center;justify-content:center;text-align:center;padding:1.4rem}
 .card-back img{width:78%;aspect-ratio:5/7;object-fit:cover;object-position:center 20%;filter:drop-shadow(0 4px 8px rgba(70,53,31,.3));clip-path:polygon(0 2%,4% 0,50% 1.5%,96% 0,100% 2.5%,99% 50%,100% 97.5%,95% 100%,50% 98.5%,5% 100%,0 98%,1% 50%)}
 .c1{background:linear-gradient(160deg,#c2703f,#8a4a26 70%)}
@@ -264,6 +271,14 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 .comb-row:nth-child(2) .comb-cell:nth-child(2),
 .comb-row:nth-child(2) .comb-cell:nth-child(3){background:var(--comb-mauve)}
 .comb-caption{max-width:38ch;margin:1.2rem auto 1.8rem;text-align:center;font-size:1.02rem}
+/* one honeycomb cell carries the real Foreman AI mark — a dark navy hex so the
+   gold beveled "F" reads clearly against the parchment palette around it */
+.comb-cell.foreman{background:#0d1420 !important;overflow:hidden}
+.comb-cell.foreman::before,.comb-cell.foreman::after{content:none}
+.comb-cell.foreman img{position:absolute;inset:14%;width:72%;height:72%;object-fit:cover;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.foreman-caption{position:absolute;left:50%;bottom:-1.3rem;transform:translateX(-50%);
+  font-family:'Shantell Sans',cursive;font-size:.58rem;line-height:1;white-space:nowrap;color:var(--bark);opacity:.85}
 .soon{padding:1.8rem 1.6rem 2rem;background:var(--paper);box-shadow:var(--shadow)}
 .soon .hand{font-size:.85rem;display:inline-block;background:var(--sun);padding:.15rem .6rem;margin-bottom:.8rem;transform:rotate(-1.5deg)}
 .soon h3{font-size:1.25rem;margin-bottom:.5rem}
@@ -384,6 +399,77 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 @media (max-width:520px){
   .gallery-preview{grid-template-columns:1fr;max-width:340px}
 }
+
+/* ============ BATCH B/C/D additions ============ */
+
+/* B1: book cover art + sneak peeks */
+.book-cover{overflow:hidden;padding:0;background:var(--bark)}
+.book-cover img.book-cover-art{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.book-cover .cover-caption{position:relative;z-index:1;margin-top:auto;padding:1.1rem 1rem .9rem;width:100%;background:linear-gradient(0deg,rgba(20,14,6,.82),rgba(20,14,6,0));text-align:center}
+.book-cover .cover-caption h3{color:#fff;font-size:1.35rem;margin-bottom:.2rem}
+.book-cover .cover-caption .hand{color:var(--sun)}
+.peek-row{display:flex;gap:1.4rem;margin-top:1.6rem;justify-content:center;flex-wrap:wrap}
+.peek-card{width:150px}
+.peek-card.polaroid{padding:.6rem .6rem 2.2rem}
+.peek-card img{width:100%;aspect-ratio:2/3;object-fit:cover}
+.peek-card figcaption{font-size:.78rem}
+.peek-card:nth-child(1){transform:rotate(-4deg)}
+.peek-card:nth-child(2){transform:rotate(3deg)}
+.peek-label{text-align:center;margin-top:.4rem}
+
+/* B2: podcast full-bleed background */
+.podcast-art{position:absolute;inset:0;z-index:0}
+.podcast-art img{width:100%;height:100%;object-fit:cover;object-position:78% 42%}
+.podcast-art::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,rgba(221,195,154,.88) 0%,rgba(221,195,154,.62) 38%,rgba(221,195,154,.32) 68%,rgba(221,195,154,.22) 100%)}
+#t-podcast .tier-inner{position:relative;z-index:1}
+#t-podcast .two-col .panel{background:rgba(247,239,226,.94)}
+
+/* B3: hive comb — matched to the cover tier's brand palette (root vars, not the
+   softened comb-* tones) so the honeycomb visually rhymes with the cover art */
+.comb-row:nth-child(1) .comb-cell:nth-child(1),
+.comb-row:nth-child(3) .comb-cell:nth-child(3){background:var(--terra)}
+.comb-row:nth-child(1) .comb-cell:nth-child(2),
+.comb-row:nth-child(2) .comb-cell:nth-child(4){background:var(--honey)}
+.comb-row:nth-child(1) .comb-cell:nth-child(3),
+.comb-row:nth-child(3) .comb-cell:nth-child(1){background:var(--sage)}
+.comb-row:nth-child(2) .comb-cell:nth-child(1),
+.comb-row:nth-child(3) .comb-cell:nth-child(2){background:var(--dusty)}
+.comb-row:nth-child(2) .comb-cell:nth-child(2),
+.comb-row:nth-child(2) .comb-cell:nth-child(3){background:var(--mauve)}
+
+/* C1: mantra deck — starts face (back) up, 1x4 desktop / 2x2 mobile */
+.deck{grid-template-columns:repeat(2,minmax(0,240px))}
+@media (min-width:900px){
+  /* card art source is ~110px wide — cap the rendered card near 2x that so it stays crisp */
+  .deck{grid-template-columns:repeat(4,minmax(0,215px));gap:1.6rem;max-width:1000px;margin:0 auto}
+}
+.card-face.card-back{transform:rotateY(0deg)}
+.card-face.card-front{transform:rotateY(180deg)}
+.card-back .flip-hint{position:absolute;bottom:.6rem;left:0;right:0;text-align:center;font-size:.78rem;opacity:.8}
+.deck-cta{text-align:center;margin-top:2.2rem}
+.deck-mockup{width:260px;max-width:80vw;margin:0 auto 1.6rem;transform:rotate(-1.5deg)}
+.deck-mockup img{width:100%;aspect-ratio:4/3;object-fit:cover}
+
+/* D1/D2/D3: order forms — hand-drawn scrapbook styling shared across all three */
+.order-form{background:var(--paper);box-shadow:var(--shadow);padding:1.8rem 1.8rem 2rem;max-width:560px;margin:1.6rem auto 0;text-align:left}
+.order-form .field{display:flex;flex-direction:column;margin-bottom:1rem}
+.order-form label{font-family:'Shantell Sans',cursive;font-size:.92rem;margin-bottom:.35rem;color:var(--bark)}
+.order-form input,.order-form select,.order-form textarea{
+  font-family:'Alegreya',serif;font-size:1rem;color:var(--ink);padding:.65rem .85rem;
+  border:2px solid var(--bark);background:#fff;width:100%;
+}
+.order-form input:focus,.order-form select:focus,.order-form textarea:focus{outline:3px solid var(--honey);outline-offset:1px}
+.order-form textarea{resize:vertical;min-height:4.2rem}
+.order-form .field-row{display:flex;gap:1rem;flex-wrap:wrap}
+.order-form .field-row .field{flex:1 1 180px}
+.order-form .form-actions{margin-top:.4rem;text-align:center}
+.order-form .form-note{font-size:.85rem;opacity:.75;margin-top:.6rem;text-align:center}
+.order-confirm{background:var(--sun);box-shadow:var(--shadow);padding:1.1rem 1.4rem;max-width:560px;margin:1.2rem auto 0;
+  font-family:'Shantell Sans',cursive;text-align:center}
+.order-confirm[hidden]{display:none}
+
+
 </style>
 </head>
 <body>
@@ -444,19 +530,31 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
               <small>— page one</small>
             </span>
             <span class="book-cover" style="display:flex" aria-hidden="false">
-              <span class="sunstone" aria-hidden="true"></span>
-              <span class="book-stack" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span>
-              <h3>The Sun Stone Theory</h3>
-              <p class="hand">Nicolas Bettinger</p>
+              <img class="book-cover-art" src="assets/web/book-cover.jpg" alt="" loading="lazy" decoding="async">
+              <span class="cover-caption">
+                <h3>The Sun Stone Theory</h3>
+                <p class="hand">Nicolas Bettinger</p>
+              </span>
             </span>
           </button>
           <p class="book-hint hand">psst — open the cover</p>
+          <div class="peek-row" aria-label="A peek inside the book">
+            <figure class="peek-card polaroid">
+              <img src="assets/web/book-sneak-1.jpg" alt="A page from The Sun Stone Theory: a torn-paper steel sculpture with the mantra ‘I lead and support, I don’t compare. We are all on the same team.’" loading="lazy" decoding="async">
+              <figcaption class="hand">a peek inside</figcaption>
+            </figure>
+            <figure class="peek-card polaroid">
+              <img src="assets/web/book-sneak-2.jpg" alt="A page from The Sun Stone Theory: a torn-paper art-deco figure with the mantra ‘I nurture and protect my authenticity. It guides my journey. It shapes my experience.’" loading="lazy" decoding="async">
+              <figcaption class="hand">a peek inside</figcaption>
+            </figure>
+          </div>
         </div>
         <div>
           <h3 style="font-size:1.6rem;margin-bottom:.9rem">What if you could level up from the inside?</h3>
           <p>A compact manual of affirmations and reframings built around one image: the sun stone — the thing that triggers evolution. Short declarative passages you can hold onto, come back to, and read in under a minute.</p>
-          <blockquote class="pull">“Happiness and sadness are two flavors of the same milkshake.”</blockquote>
-          <blockquote class="pull" style="transform:rotate(.8deg)">“Pause. Listen. Feel. Trust.”</blockquote>
+          <p class="hand" style="margin-top:1.4rem;opacity:.75">featured mantras</p>
+          <blockquote class="pull">“Who I am is what I choose to stand for; plain and simple”</blockquote>
+          <blockquote class="pull" style="transform:rotate(.8deg)">“Happiness and sadness are two flavors of the same milkshake; perspective is everything”</blockquote>
           <p>For anyone with seeds of curiosity — who feels out of place, knows there’s potential in there somewhere, and wants to stop feeling like the world happens <em>to</em> them.</p>
         </div>
       </div>
@@ -467,25 +565,81 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   <section class="tier below" id="t-deck" data-title="The Mantra Deck" aria-label="The Mantra Deck" hidden>
     <div class="tier-inner">
       <div class="ch-head"><h2>The Mantra Deck</h2><p class="hand">flip a card — go on</p></div>
+      <!-- real printed card art, sliced from the production sheet: back.png is the
+           shared tower-of-books back; front-NN.png are individual card fronts.
+           "Unconditional love…" had no matching printed card, so that slot uses
+           front-16's real printed mantra instead of inventing a pairing. -->
       <div class="deck">
-        <div class="card" tabindex="0" role="button" aria-label="Mantra card: Is people pleasing worth betraying myself?">
-          <div class="card-face card-front c1"><p class="mantra">“Is people pleasing worth betraying myself?”</p></div>
-          <div class="card-face card-back"><img src="assets/IMG_5110.PNG" alt=""><p class="hand">to bee honest</p></div>
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Is people pleasing worth betraying myself?" aria-label="Mantra card, face down. Activate to reveal the mantra: Is people pleasing worth betraying myself?">
+          <div class="card-face card-back"><img src="assets/web/deck-cards/back.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+          <div class="card-face card-front has-photo">
+            <img class="card-photo" src="assets/web/deck-cards/front-20.png" alt="" aria-hidden="true">
+            <span class="sr-only">“Is people pleasing worth betraying myself?”</span>
+          </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-label="Mantra card: Unconditional love is unrealistic. A true act of love is unconditional acceptance.">
-          <div class="card-face card-front c2"><p class="mantra">“Unconditional love is unrealistic. A true act of love is unconditional acceptance.”</p></div>
-          <div class="card-face card-back"><img src="assets/IMG_5110.PNG" alt=""><p class="hand">to bee honest</p></div>
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I am the mastermind. I am in control. I give life to the things of my choosing. How will I use that power?" aria-label="Mantra card, face down. Activate to reveal the mantra: I am the mastermind. I am in control. I give life to the things of my choosing. How will I use that power?">
+          <div class="card-face card-back"><img src="assets/web/deck-cards/back.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+          <div class="card-face card-front has-photo">
+            <img class="card-photo" src="assets/web/deck-cards/front-16.png" alt="" aria-hidden="true">
+            <span class="sr-only">“I am the mastermind. I am in control. I give life to the things of my choosing. How will I use that power?”</span>
+          </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-label="Mantra card: I move with integrity and intention, free from expectations. Expectations ruin the fun.">
-          <div class="card-face card-front c3"><p class="mantra">“I move with integrity and intention, free from expectations. Expectations ruin the fun.”</p></div>
-          <div class="card-face card-back"><img src="assets/IMG_5110.PNG" alt=""><p class="hand">to bee honest</p></div>
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I move with integrity and intention, free from expectations. Expectations ruin the fun." aria-label="Mantra card, face down. Activate to reveal the mantra: I move with integrity and intention, free from expectations. Expectations ruin the fun.">
+          <div class="card-face card-back"><img src="assets/web/deck-cards/back.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+          <div class="card-face card-front has-photo">
+            <img class="card-photo" src="assets/web/deck-cards/front-18.png" alt="" aria-hidden="true">
+            <span class="sr-only">“I move with integrity and intention, free from expectations. Expectations ruin the fun.”</span>
+          </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-label="Mantra card: Mediocrity is not on the menu. I am on a diet of reaching for the stars.">
-          <div class="card-face card-front c4"><p class="mantra">“Mediocrity is not on the menu. I am on a diet of reaching for the stars.”</p></div>
-          <div class="card-face card-back"><img src="assets/IMG_5110.PNG" alt=""><p class="hand">to bee honest</p></div>
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu. I am on a diet of reaching for the stars." aria-label="Mantra card, face down. Activate to reveal the mantra: Mediocrity is not on the menu. I am on a diet of reaching for the stars.">
+          <div class="card-face card-back"><img src="assets/web/deck-cards/back.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+          <div class="card-face card-front has-photo">
+            <img class="card-photo" src="assets/web/deck-cards/front-19.png" alt="" aria-hidden="true">
+            <span class="sr-only">“Mediocrity is not on the menu. I am on a diet of reaching for the stars.”</span>
+          </div>
         </div>
       </div>
       <p style="text-align:center;margin-top:1.8rem">Every card: a photograph Nicolas took, torn into scrapbook art, carrying a mantra written over years. <span class="hand">The printed deck is on its way.</span></p>
+
+      <div class="deck-cta">
+        <figure class="deck-mockup polaroid">
+          <img src="assets/web/deck-mockup.jpg" alt="The mantra deck box with cards fanned out, all showing the tower-of-books back design" loading="lazy" decoding="async">
+          <figcaption class="hand">the deck, for real</figcaption>
+        </figure>
+        <button class="tag-btn" id="deckOrderOpen" aria-expanded="false" aria-controls="deckOrderForm">Order the Deck</button>
+        <form class="order-form" id="deckOrderForm" hidden data-vendor="QPMN" data-airtable-table="Mantra Deck Orders" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="deckQty">Quantity</label>
+              <input type="number" id="deckQty" name="Quantity" min="1" max="10" step="1" value="1" required>
+            </div>
+            <div class="field">
+              <label for="deckVariant">Variant</label>
+              <select id="deckVariant" name="Variant" required>
+                <option value="Standard Deck">Standard Deck</option>
+                <option value="Velvet Pouch + Booklet">Velvet Pouch + Booklet</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="deckName">Customer Name</label>
+            <input type="text" id="deckName" name="Customer Name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="deckEmail">Customer Email</label>
+            <input type="email" id="deckEmail" name="Customer Email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="deckAddress">Ship-To Address</label>
+            <textarea id="deckAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="tag-btn" type="submit">Reserve mine</button>
+          </div>
+          <p class="form-note">No payment yet — checkout wires up soon. This just gets you on the list.</p>
+        </form>
+        <p class="order-confirm" id="deckOrderConfirm" role="status" hidden>🐝 Order noted — checkout is being wired up. We’ll email you the moment it’s live.</p>
+      </div>
     </div>
   </section>
 
@@ -556,10 +710,11 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 
   <!-- PODCAST -->
   <section class="tier below" id="t-podcast" data-title="The Podcast - Nikko &amp; The Cool Kids" aria-label="The Podcast - Nikko &amp; The Cool Kids" hidden>
+    <div class="podcast-art" aria-hidden="true"><img src="assets/web/podcast-wall.jpg" alt=""></div>
     <div class="tier-inner">
       <div class="ch-head"><h2>The Podcast</h2><p class="hand">the podcast, coming</p></div>
       <div class="two-col">
-        <div>
+        <div class="panel torn">
           <h3 style="font-size:1.9rem;margin-bottom:.9rem">Nikko &amp; the Cool Kids</h3>
           <p>The mantra themes, out loud — stories and conversations, never lectures. The same voice that’s on the cards, just with the scissors put down for an hour.</p>
           <blockquote class="pull">“When it starts, episode one is the sun stone itself. Just me, a mic, and the mantra that started everything.”</blockquote>
@@ -582,11 +737,11 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
     <div class="tier-inner">
       <div class="ch-head"><h2>The Library</h2><p class="hand">a shelf that grows</p></div>
       <div class="pod torn" style="transform:rotate(.45deg)">
-        <span class="eyebrow hand">mostly empty, on purpose</span>
-        <h3>The things worth reading</h3>
-        <p class="lede">Some of To Bee Honest came out of my own head. A lot of it came out of other people’s — books, essays, scraps of writing I kept coming back to until they quietly became part of how I see things.</p>
+        <span class="eyebrow hand">storybooks, not lectures</span>
+        <h3>Children’s novels, grown from the mantras</h3>
+        <p class="lede">Every mantra started as a lesson I had to learn the hard way. The Library is where those lessons become children’s novels — real stories, not sermons, each one built around a principle from the journey so far.</p>
         <blockquote class="hand">“Nothing to finish. Nothing due back.”</blockquote>
-        <p style="max-width:46ch;margin:0 auto 1.6rem">The Library is where I’ll keep those, next to writing of my own that doesn’t belong on a card. A shelf that grows slowly, in no particular order. It’s empty for now — I’m still deciding what earns a spot on it.</p>
+        <p style="max-width:46ch;margin:0 auto 1.6rem">Simple enough for a kid to follow, honest enough for the adult reading it out loud. A shelf that grows one story at a time, in no particular order — I know what belongs on it now, I just haven’t built it yet.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">tell me when the first shelf goes up</a>
       </div>
     </div>
@@ -603,18 +758,68 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
         <p style="max-width:46ch;margin:0 auto 1.6rem">A small corner, chosen by hand, one person at a time, where nobody bought their way in. Nothing is set up yet, and nobody has been volunteered for anything — I’d rather ask properly first.</p>
       </div>
 
-      <div class="comb" aria-hidden="true">
-        <div class="comb-row"><span class="comb-cell"></span><span class="comb-cell"></span><span class="comb-cell"></span></div>
-        <div class="comb-row"><span class="comb-cell"></span><span class="comb-cell"></span><span class="comb-cell"></span><span class="comb-cell"></span></div>
-        <div class="comb-row"><span class="comb-cell"></span><span class="comb-cell"></span><span class="comb-cell"></span></div>
+      <div class="comb">
+        <div class="comb-row"><span class="comb-cell" aria-hidden="true"></span><span class="comb-cell" aria-hidden="true"></span><span class="comb-cell" aria-hidden="true"></span></div>
+        <div class="comb-row">
+          <span class="comb-cell foreman" role="img" aria-label="Foreman AI" title="Foreman AI">
+            <img src="assets/web/foreman-f-mark.jpg" alt="" aria-hidden="true">
+            <span class="foreman-caption" aria-hidden="true">Foreman AI</span>
+          </span>
+          <span class="comb-cell" aria-hidden="true"></span><span class="comb-cell" aria-hidden="true"></span><span class="comb-cell" aria-hidden="true"></span>
+        </div>
+        <div class="comb-row"><span class="comb-cell" aria-hidden="true"></span><span class="comb-cell" aria-hidden="true"></span><span class="comb-cell" aria-hidden="true"></span></div>
       </div>
-      <p class="comb-caption">Ten empty cells in the comb. Every one of them is a seat waiting for a person — no names up yet, because nobody has said yes yet.</p>
+      <p class="comb-caption">Nine empty cells in the comb — the tenth runs quietly in the background, built by Foreman AI. Every empty one is a seat waiting for a person, no names up yet, because nobody has said yes yet.</p>
 
       <div style="max-width:640px;margin:1rem auto 0;text-align:center">
         <h3 style="font-size:1.5rem;margin-bottom:.8rem">The captain &amp; the crew</h3>
         <p>“I am the captain of the boat, but I am no one without the crew — and the crew members are sacred to me.” Community isn’t a section of this site. It’s the operating principle.</p>
         <p class="hand" style="margin-top:.8rem;color:var(--bark)">Playfulness. Childlike excitement. Love. Empowerment. Community.</p>
         <p style="margin-top:1.6rem"><a class="tag-btn" href="#t-join" data-jump="t-join">show me the corner when it’s ready</a></p>
+      </div>
+
+      <div class="deck-cta" style="margin-top:2.4rem">
+        <button class="tag-btn" id="marketOrderOpen" aria-expanded="false" aria-controls="marketOrderForm">Submit your creation</button>
+        <form class="order-form" id="marketOrderForm" hidden data-airtable-table="Marketplace Submissions" novalidate>
+          <div class="field">
+            <label for="marketTitle">Item Title</label>
+            <input type="text" id="marketTitle" name="Item Title" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="marketName">Submitter Name</label>
+              <input type="text" id="marketName" name="Submitter Name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="marketEmail">Submitter Email</label>
+              <input type="email" id="marketEmail" name="Submitter Email" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="marketDesc">Item Description</label>
+            <textarea id="marketDesc" name="Item Description" required></textarea>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="marketCategory">Category</label>
+              <select id="marketCategory" name="Category" required>
+                <option value="Art">Art</option>
+                <option value="Craft">Craft</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="marketPrice">Asking Price</label>
+              <input type="text" id="marketPrice" name="Asking Price" inputmode="decimal" placeholder="$" required>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="tag-btn" type="submit">Submit for review</button>
+          </div>
+          <p class="form-note">Chosen by hand, one person at a time — nobody buys their way in.</p>
+        </form>
+        <p class="order-confirm" id="marketOrderConfirm" role="status" hidden>🐝 Order noted — checkout is being wired up. We’ll email you the moment it’s live.</p>
       </div>
     </div>
   </section>
@@ -771,8 +976,18 @@ addEventListener('touchend',e=>{
   ty=null;
 },{passive:true});
 // card flip: tap/click on touch devices and keyboard everywhere
+// cards now start showing the BACK (tower-of-books design); activating
+// reveals the FRONT (the mantra). aria-pressed + aria-label track state.
 document.querySelectorAll('.card').forEach(c=>{
-  const toggle=()=>c.classList.toggle('flipped');
+  const mantra=c.dataset.mantra||'';
+  const setState=flipped=>{
+    c.classList.toggle('flipped',flipped);
+    c.setAttribute('aria-pressed',String(flipped));
+    c.setAttribute('aria-label', flipped
+      ? `Mantra card, revealed: “${mantra}”. Activate to turn it face down again.`
+      : `Mantra card, face down. Activate to reveal the mantra: ${mantra}`);
+  };
+  const toggle=()=>setState(!c.classList.contains('flipped'));
   c.addEventListener('click',toggle);
   c.addEventListener('keydown',e=>{
     if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}
@@ -828,6 +1043,28 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
   scrapBurst(r.left+r.width/2,r.top+r.height/2);
   btn.textContent='You’re in the hive 🐝';btn.disabled=true;
 });
+
+/* ---------- D1 & D3: inline placeholder order/submission forms ----------
+   Client-side validate only — no network call. QPMN/Airtable wiring lands later. */
+function wireInlineForm(openBtnId,formId,confirmId){
+  const openBtn=document.getElementById(openBtnId),form=document.getElementById(formId),confirm=document.getElementById(confirmId);
+  if(!openBtn||!form||!confirm)return;
+  openBtn.addEventListener('click',()=>{
+    form.hidden=false;confirm.hidden=true;openBtn.hidden=true;
+    openBtn.setAttribute('aria-expanded','true');
+    form.querySelector('input,select,textarea')?.focus();
+  });
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();return}
+    form.hidden=true;
+    confirm.hidden=false;
+    confirm.setAttribute('tabindex','-1');confirm.focus();
+  });
+}
+wireInlineForm('deckOrderOpen','deckOrderForm','deckOrderConfirm');
+wireInlineForm('marketOrderOpen','marketOrderForm','marketOrderConfirm');
+
 paint();
 </script>
 <script src="bee-cursor.js"></script>
