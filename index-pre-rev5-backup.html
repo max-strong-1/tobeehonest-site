@@ -38,7 +38,7 @@ body{
   font-size:1.1rem;line-height:1.62;overflow:hidden;height:100dvh;
 }
 img{max-width:100%;display:block}
-h1,h2,h3{font-family:'Caprasimo',serif;font-weight:400;color:var(--bark);line-height:1.08;text-wrap:balance}
+h1,h2,h3{font-family:'Caprasimo',serif;font-weight:400;color:var(--bark);line-height:1.08;text-wrap:balance;overflow-wrap:break-word}
 .hand{font-family:'Shantell Sans',cursive}
 a{color:var(--bark)}
 body::before{
@@ -90,11 +90,12 @@ body::before{
 /* bookmark rail */
 #marks{position:fixed;right:.6rem;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:.45rem;align-items:stretch;max-height:88vh;overflow-y:auto;padding:.2rem 0}
 #marks button{
-  border:none;cursor:pointer;font-family:'Shantell Sans',cursive;font-size:1.12rem;font-weight:500;color:var(--ink);
-  line-height:1.15;padding:.85rem 1.7rem .85rem 2.1rem;min-width:14rem;
+  border:none;cursor:pointer;font-family:'Shantell Sans',cursive;font-weight:500;color:var(--ink);
+  font-size:clamp(.82rem,.5vw + .7rem,1.12rem);
+  line-height:1.22;padding:.75rem 1.15rem .75rem 1.7rem;width:14.5rem;max-width:14.5rem;
   background:var(--paper-deep);box-shadow:var(--shadow);
   clip-path:polygon(9% 0,100% 0,100% 100%,9% 100%,0 50%);
-  white-space:nowrap;text-align:left;
+  white-space:normal;overflow-wrap:break-word;text-align:left;
   transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s;
 }
 #marks button:hover,#marks button:focus-visible{transform:translateX(-6px)}
@@ -329,14 +330,20 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 @media (max-width:820px){
   .two-col,.book-grid{grid-template-columns:1fr}
   .gallery-preview{grid-template-columns:repeat(2,minmax(0,1fr));max-width:620px}
-  .cover-panel{margin:6vh auto 0;max-width:88vw}
+  /* left-aligned, like desktop, and width-capped so the headline never runs
+     under the fixed bookmark rail on the right (that rail sits outside the
+     normal .tier-inner padding-box on this tier — see #t-cover override) */
+  .cover-panel{margin:6vh 0 0 6vw;max-width:min(92vw,calc(100vw - 6vw - 7.5rem))}
   /* Keep one navigation model at every width: a compact, independently scrollable
-     right-hand bookmark rail with safe-area clearance. */
+     right-hand bookmark rail with safe-area clearance. transform:translateZ(0)
+     (rather than "none") keeps the rail on its own compositor layer, which
+     avoids a known WebKit/iOS issue where a fixed-position element with its
+     own overflow-y:auto scroll region can fail to paint until first touched. */
   #marks{
     top:calc(.65rem + env(safe-area-inset-top,0px));
     right:max(.3rem,env(safe-area-inset-right,0px));
     bottom:calc(.65rem + env(safe-area-inset-bottom,0px));
-    left:auto;transform:none;width:6.75rem;
+    left:auto;transform:translateZ(0);will-change:transform;width:6.75rem;
     flex-direction:column;align-items:stretch;justify-content:flex-start;
     max-height:none;overflow-x:hidden;overflow-y:auto;
     gap:.28rem;padding:.18rem .12rem;
@@ -360,6 +367,18 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   }
   #draw{padding:calc(1rem + env(safe-area-inset-top,0px)) 1rem calc(1rem + env(safe-area-inset-bottom,0px));background:rgba(70,53,31,.96)}
   #draw .draw-inner{width:min(100%,360px);max-height:100%;overflow-y:auto;padding:.25rem}
+  /* #t-join centers .core as a shrink-wrapped flex item (align-items:center).
+     The email input's 260px min-width was wider than the space this tier
+     reserves for the bookmark rail, so the whole centered block (including
+     the heading) grew past that box and sat under the rail. Let it shrink
+     with the viewport instead. */
+  .core{max-width:100%}
+  .core form{width:100%}
+  .core input{min-width:0;width:100%;max-width:22rem}
+  /* the honeycomb's 4-cell row was wider than this tier's reserved column at
+     narrow widths (4 hexes at their 58px CSS floor + gaps > the space left
+     once the rail is reserved), so it bled out on both sides under the rail */
+  .comb{--hex:clamp(42px,10vw,92px)}
 }
 /* one frame at a time once two-up would shrink the art below reading size */
 @media (max-width:520px){
@@ -471,9 +490,9 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   </section>
 
   <!-- GALLERY -->
-  <section class="tier below" id="t-gallery" data-title="The Gallery" aria-label="The Gallery" hidden>
+  <section class="tier below" id="t-gallery" data-title="The Moody Gallery" aria-label="The Moody Gallery" hidden>
     <div class="tier-inner">
-      <div class="ch-head"><h2>The Gallery</h2><p class="hand">the art, up close</p></div>
+      <div class="ch-head"><h2>The Moody Gallery</h2><p class="hand">the art, up close</p></div>
       <div class="pod torn">
         <span class="eyebrow hand">a room being built</span>
         <h3>Every image was a photograph first</h3>
@@ -513,7 +532,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   </section>
 
   <!-- MAKE IT YOURS -->
-  <section class="tier below" id="t-yours" data-title="Make It Yours! Custom Products" aria-label="Make It Yours! Custom Products" hidden>
+  <section class="tier below" id="t-yours" data-title="Make It Yours! Customs Products" aria-label="Make It Yours! Customs Products" hidden>
     <div class="tier-inner">
       <div class="ch-head"><h2>Make It Yours!</h2><p class="hand">custom products, made slowly</p></div>
       <div class="two-col">
@@ -536,7 +555,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   </section>
 
   <!-- PODCAST -->
-  <section class="tier below" id="t-podcast" data-title="Podcast" aria-label="The Podcast" hidden>
+  <section class="tier below" id="t-podcast" data-title="The Podcast - Nikko &amp; The Cool Kids" aria-label="The Podcast - Nikko &amp; The Cool Kids" hidden>
     <div class="tier-inner">
       <div class="ch-head"><h2>The Podcast</h2><p class="hand">the podcast, coming</p></div>
       <div class="two-col">
@@ -558,10 +577,25 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
     </div>
   </section>
 
-  <!-- MARKETPLACE -->
-  <section class="tier below" id="t-market" data-title="Marketplace" aria-label="The Marketplace" hidden>
+  <!-- LIBRARY -->
+  <section class="tier below" id="t-library" data-title="The Library" aria-label="The Library" hidden>
     <div class="tier-inner">
-      <div class="ch-head"><h2>The Marketplace</h2><p class="hand">a corner for the crew</p></div>
+      <div class="ch-head"><h2>The Library</h2><p class="hand">a shelf that grows</p></div>
+      <div class="pod torn" style="transform:rotate(.45deg)">
+        <span class="eyebrow hand">mostly empty, on purpose</span>
+        <h3>The things worth reading</h3>
+        <p class="lede">Some of To Bee Honest came out of my own head. A lot of it came out of other people’s — books, essays, scraps of writing I kept coming back to until they quietly became part of how I see things.</p>
+        <blockquote class="hand">“Nothing to finish. Nothing due back.”</blockquote>
+        <p style="max-width:46ch;margin:0 auto 1.6rem">The Library is where I’ll keep those, next to writing of my own that doesn’t belong on a card. A shelf that grows slowly, in no particular order. It’s empty for now — I’m still deciding what earns a spot on it.</p>
+        <a class="tag-btn" href="#t-join" data-jump="t-join">tell me when the first shelf goes up</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETPLACE -->
+  <section class="tier below" id="t-market" data-title="The Community Marketplace" aria-label="The Community Marketplace" hidden>
+    <div class="tier-inner">
+      <div class="ch-head"><h2>The Community Marketplace</h2><p class="hand">a corner for the crew</p></div>
       <div class="pod torn" style="transform:rotate(-.4deg)">
         <span class="eyebrow hand">not a storefront — a hub</span>
         <h3>I don’t make things alone</h3>
@@ -581,21 +615,6 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
         <p>“I am the captain of the boat, but I am no one without the crew — and the crew members are sacred to me.” Community isn’t a section of this site. It’s the operating principle.</p>
         <p class="hand" style="margin-top:.8rem;color:var(--bark)">Playfulness. Childlike excitement. Love. Empowerment. Community.</p>
         <p style="margin-top:1.6rem"><a class="tag-btn" href="#t-join" data-jump="t-join">show me the corner when it’s ready</a></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- LIBRARY -->
-  <section class="tier below" id="t-library" data-title="The Library" aria-label="The Library" hidden>
-    <div class="tier-inner">
-      <div class="ch-head"><h2>The Library</h2><p class="hand">a shelf that grows</p></div>
-      <div class="pod torn" style="transform:rotate(.45deg)">
-        <span class="eyebrow hand">mostly empty, on purpose</span>
-        <h3>The things worth reading</h3>
-        <p class="lede">Some of To Bee Honest came out of my own head. A lot of it came out of other people’s — books, essays, scraps of writing I kept coming back to until they quietly became part of how I see things.</p>
-        <blockquote class="hand">“Nothing to finish. Nothing due back.”</blockquote>
-        <p style="max-width:46ch;margin:0 auto 1.6rem">The Library is where I’ll keep those, next to writing of my own that doesn’t belong on a card. A shelf that grows slowly, in no particular order. It’s empty for now — I’m still deciding what earns a spot on it.</p>
-        <a class="tag-btn" href="#t-join" data-jump="t-join">tell me when the first shelf goes up</a>
       </div>
     </div>
   </section>

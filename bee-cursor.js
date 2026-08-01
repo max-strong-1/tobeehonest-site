@@ -55,6 +55,19 @@
     bee.classList.toggle('is-visible', !overEditable);
   };
 
+  // Pages that embed this canonical page in an <iframe> (e.g. interim.html's
+  // "peek inside the hive" preview) run a *second*, independent copy of this
+  // script in the parent document. Once the pointer crosses into the iframe,
+  // the parent document stops receiving pointermove/pointerover events
+  // entirely (they belong to the iframe's own document), so the parent's bee
+  // freezes at the last coordinate it saw — visually "stuck" wherever the
+  // pointer last touched parent content before entering the frame (in
+  // practice, a thin top bar sitting above a nearly full-viewport iframe).
+  // Hide the bee the instant we detect that hand-off, and let it resume
+  // normally the moment pointer events return to this document.
+  const isIframe = (element) => element instanceof HTMLIFrameElement;
+  const hideForIframe = () => bee.classList.remove('is-visible', 'is-hovering');
+
   const createPollenBurst = (x, y) => {
     const count = 10;
     for (let index = 0; index < count; index += 1) {
@@ -84,14 +97,33 @@
   };
 
   window.addEventListener('pointermove', (event) => {
+    if (isIframe(event.target)) {
+      hideForIframe();
+      return;
+    }
     target.x = event.clientX;
     target.y = event.clientY;
     setHoverState(event);
   }, { passive: true });
 
-  window.addEventListener('pointerover', setHoverState, { passive: true });
+  window.addEventListener('pointerover', (event) => {
+    if (isIframe(event.target)) {
+      hideForIframe();
+      return;
+    }
+    setHoverState(event);
+  }, { passive: true });
   document.documentElement.addEventListener('mouseleave', () => {
     bee.classList.remove('is-visible', 'is-hovering');
+  });
+  // Fallback for the same iframe hand-off: moving the pointer into a same- or
+  // cross-origin iframe can shift focus there without a clean final
+  // pointerover on the frame edge (fast movement, trackpads). A blur where
+  // the new activeElement is an <iframe> is the standard cross-browser tell.
+  window.addEventListener('blur', () => {
+    window.setTimeout(() => {
+      if (isIframe(document.activeElement)) hideForIframe();
+    }, 0);
   });
 
   window.addEventListener('pointerdown', (event) => {

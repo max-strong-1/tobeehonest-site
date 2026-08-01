@@ -430,8 +430,25 @@ h1 em {
 
 .cell-label {
   position: relative;
+  max-width: 94%;
   font-family: "Caprasimo", Georgia, serif;
   font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  line-height: 1.08;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Longer tab names ("Make It Yours! Customs Products", "The Podcast - Nikko
+   & The Cool Kids", "The Community Marketplace") need a much smaller,
+   tighter label than the rest of the comb so they stay inside the hex's
+   clipped silhouette instead of bleeding into its pointed top/bottom. */
+.cell-long {
+  padding: 1rem .55rem;
+}
+.cell-long .cell-label {
+  max-width: 96%;
+  font-size: clamp(.6rem, 1vw, .92rem);
+  line-height: 1.12;
 }
 
 .cell-story {
@@ -800,6 +817,13 @@ body.is-previewing .preview-shell {
 
   .cell-label {
     font-size: clamp(.84rem, 3.7vw, 1.1rem);
+  }
+
+  .cell-long { padding: .4rem .3rem; }
+  .cell-long .cell-number { font-size: .58rem; }
+  .cell-long .cell-label {
+    font-size: clamp(.5rem, 2.6vw, .72rem);
+    line-height: 1.1;
   }
 
   .art-scrap {
