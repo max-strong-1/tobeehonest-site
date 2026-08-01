@@ -469,7 +469,67 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   font-family:'Shantell Sans',cursive;text-align:center}
 .order-confirm[hidden]{display:none}
 
+/* D2: gallery order dialog */
+dialog.order-dialog{border:none;padding:0;background:transparent;max-width:min(94vw,520px);width:100%}
+dialog.order-dialog::backdrop{background:rgba(70,53,31,.6)}
+dialog.order-dialog .panel{max-height:88vh;overflow-y:auto}
+dialog.order-dialog .dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.6rem}
+dialog.order-dialog .dialog-close{border:none;background:var(--paper-deep);cursor:pointer;font-family:'Shantell Sans',cursive;
+  padding:.35rem .7rem;box-shadow:var(--shadow);flex:0 0 auto}
+dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 
+/* C2: The Moody Gallery — dark wall room, art-first.
+   Rendering note: images use box-shadow (not filter:drop-shadow) and the room
+   is promoted to its own compositing layer up front (transform:translateZ(0)).
+   A nested filter (this tier already has .tier{filter:drop-shadow(...)} on the
+   torn-paper edge) stacked with a *second*, per-image filter is what produced
+   the paint bug where frames rendered empty on a direct/fresh jump into this
+   tier — the images decoded fine but the browser failed to composite the
+   layer until something forced a repaint (scroll, resize). Forcing the layer
+   to exist from the start, and dropping the redundant per-image filter,
+   avoids relying on that repaint ever happening. */
+.moody-room{background:linear-gradient(180deg,#221a12,#17110b);box-shadow:inset 0 0 60px rgba(0,0,0,.6),var(--shadow-lift);
+  padding:1.3rem 1.2rem 2.2rem;margin:0;transform:translateZ(0);will-change:transform;backface-visibility:hidden}
+.moody-room .moody-head{text-align:center;margin-bottom:1rem}
+.moody-room .moody-head h2{color:var(--sun);font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:.3rem}
+.moody-room .moody-head .hand{color:#f4ead0;font-size:.92rem}
+.moody-room .gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.8rem 1rem;max-width:960px;margin:0 auto}
+@media (min-width:700px){.moody-room .gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1000px){.moody-room .gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.frame-item{position:relative;text-align:center;padding-top:1.3rem;transform:translateZ(0)}
+.frame-item .spotlight{position:absolute;top:0;left:50%;width:130%;height:90px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at 50% 0%,rgba(255,238,190,.5),rgba(255,238,190,0) 70%);pointer-events:none;z-index:0}
+.frame-item .frame-art{position:relative;z-index:1;display:block;margin:0 auto;max-width:100%;
+  box-shadow:0 14px 22px rgba(0,0,0,.55)}
+.frame-item .frame-art img{width:100%;display:block}
+/* pieces already baked with a gold frame in the source image */
+.frame-item.framed-native .frame-art img{border-radius:1px}
+/* pieces needing a CSS-built antique gold frame */
+.frame-item.framed-css .frame-art{
+  padding:.9rem;background:linear-gradient(135deg,#f3d98a,#a9781f 35%,#7a5514 55%,#f3d98a 80%,#c99a3d);
+  box-shadow:0 0 0 1px rgba(0,0,0,.4) inset,0 14px 22px rgba(0,0,0,.55);
+}
+.frame-item.framed-css .frame-art .mat{display:block;padding:.55rem;background:#1c1712}
+.frame-item.framed-css .frame-art img{width:100%;display:block}
+.frame-item figcaption{position:relative;z-index:1;color:var(--sun);font-family:'Shantell Sans',cursive;
+  font-size:.92rem;margin-top:.7rem}
+.frame-item .bring-home{margin-top:.5rem;font-size:.8rem;padding:.55rem 1rem .55rem 1.5rem}
+.moody-intro{color:#f4ead0;text-align:center;max-width:44ch;margin:1rem auto 0;font-size:.9rem}
+/* real card art is low-res (~110px source) — cap its rendered frame so it stays crisp */
+.frame-item.card-art .frame-art{max-width:170px;margin-inline:auto}
+/* "the cards themselves" — a scattered handful of real, unframed cards */
+.card-scatter{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem 1.2rem;margin:2rem auto 0;max-width:900px}
+.card-scatter img{width:100px;max-width:24vw;aspect-ratio:110/186;object-fit:cover;box-shadow:0 10px 18px rgba(0,0,0,.5);
+  clip-path:polygon(0 1.5%,3% 0,50% .8%,97% 0,100% 1.8%,99.4% 50%,100% 98.4%,96% 100%,50% 99.2%,4% 100%,0 98%,.5% 50%)}
+.card-scatter img:nth-child(1){transform:rotate(-6deg)}
+.card-scatter img:nth-child(2){transform:rotate(4deg) translateY(6px)}
+.card-scatter img:nth-child(3){transform:rotate(-2deg) translateY(-4px)}
+.card-scatter img:nth-child(4){transform:rotate(7deg)}
+.card-scatter img:nth-child(5){transform:rotate(-8deg) translateY(4px)}
+/* art-first: no vertical centering, minimal top padding, so the first row of
+   frames is inside the first viewport with zero scroll at 1280x800 + 375x812 */
+#t-gallery .tier-inner{justify-content:flex-start;padding-top:1.1rem;padding-bottom:3rem}
+@media (max-width:820px){#t-gallery .tier-inner{padding-top:.7rem}}
 </style>
 </head>
 <body>
@@ -644,44 +704,285 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   </section>
 
   <!-- GALLERY -->
+  <section class="tier below" </section>
+
+  <!-- STORY -->
+  <section class="tier below" id="t-story" data-title="The Story" aria-label="The Story" hidden>
+    <div class="tier-inner">
+      <div class="ch-head"><h2>Not a lecture. A conversation.</h2><p class="hand">— the whole idea, honestly</p></div>
+      <div class="two-col">
+        <div>
+          <p>To Bee Honest isn’t here to sell you a fix. It’s a quiet invitation: a one-on-one conversation with yourself, disguised as beautiful paper things.</p>
+          <p>Every image here started as a photograph Nicolas took — then tore, layered, and rebuilt by hand into scrapbook worlds. The tower of books? A real pile he photographed in Paris one December. Nothing stock. Nothing borrowed.</p>
+          <p class="big-hand hand">“We’re not selling products. We’re letting you know there’s a way to invest in your mental health — and feel better for a small fee.”</p>
+        </div>
+        <div class="polaroid pol-front story-polaroid">
+          <span class="tape" aria-hidden="true"></span>
+          <img src="assets/IMG_5577.jpeg" alt="The original tower-of-books collage, printed and photographed on a marble counter">
+          <span class="hand" style="display:block;text-align:center;margin-top:.8rem">the real thing — cut, torn &amp; glued</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK -->
+  <section class="tier below" id="t-book" data-title="THE Book" aria-label="The Book" hidden>
+    <div class="tier-inner">
+      <div class="ch-head"><h2>The Sun Stone Theory</h2><p class="hand">the book — coming very soon</p></div>
+      <div class="book-grid">
+        <div class="book3d">
+          <button class="book-wrap" id="bookWrap" aria-expanded="false" aria-label="The Sun Stone Theory book. Activate to open the cover and read the first page.">
+            <span class="book-page" aria-hidden="true">
+              <span class="hand">“You are not the voices in your head. You are the one who hears them.<br><br>Pause. Listen. Feel. Trust.”</span>
+              <small>— page one</small>
+            </span>
+            <span class="book-cover" style="display:flex" aria-hidden="false">
+              <img class="book-cover-art" src="assets/web/book-cover.jpg" alt="" loading="lazy" decoding="async">
+              <span class="cover-caption">
+                <h3>The Sun Stone Theory</h3>
+                <p class="hand">Nicolas Bettinger</p>
+              </span>
+            </span>
+          </button>
+          <p class="book-hint hand">psst — open the cover</p>
+          <div class="peek-row" aria-label="A peek inside the book">
+            <figure class="peek-card polaroid">
+              <img src="assets/web/book-sneak-1.jpg" alt="A page from The Sun Stone Theory: a torn-paper steel sculpture with the mantra ‘I lead and support, I don’t compare. We are all on the same team.’" loading="lazy" decoding="async">
+              <figcaption class="hand">a peek inside</figcaption>
+            </figure>
+            <figure class="peek-card polaroid">
+              <img src="assets/web/book-sneak-2.jpg" alt="A page from The Sun Stone Theory: a torn-paper art-deco figure with the mantra ‘I nurture and protect my authenticity. It guides my journey. It shapes my experience.’" loading="lazy" decoding="async">
+              <figcaption class="hand">a peek inside</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-size:1.6rem;margin-bottom:.9rem">What if you could level up from the inside?</h3>
+          <p>A compact manual of affirmations and reframings built around one image: the sun stone — the thing that triggers evolution. Short declarative passages you can hold onto, come back to, and read in under a minute.</p>
+          <p class="hand" style="margin-top:1.4rem;opacity:.75">featured mantras</p>
+          <blockquote class="pull">“Who I am is what I choose to stand for; plain and simple”</blockquote>
+          <blockquote class="pull" style="transform:rotate(.8deg)">“Happiness and sadness are two flavors of the same milkshake; perspective is everything”</blockquote>
+          <p>For anyone with seeds of curiosity — who feels out of place, knows there’s potential in there somewhere, and wants to stop feeling like the world happens <em>to</em> them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECK -->
+  <section class="tier below" id="t-deck" data-title="The Mantra Deck" aria-label="The Mantra Deck" hidden>
+    <div class="tier-inner">
+      <div class="ch-head"><h2>The Mantra Deck</h2><p class="hand">flip a card — go on</p></div>
+      <!-- real printed card art, sliced from the production sheet: back.png is the
+           shared tower-of-books back; front-NN.png are individual card fronts.
+           "Unconditional love…" had no matching printed card, so that slot uses
+           front-16's real printed mantra instead of inventing a pairing. -->
+      <div class="deck">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Is people pleasing worth betraying myself?" aria-label="Mantra card, face down. Activate to reveal the mantra: Is people pleasing worth betraying myself?">
+          <div class="card-face card-back"><img src="assets/web/deck-cards/back.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+          <div class="card-face card-front has-photo">
+            <img class="card-photo" src="assets/web/deck-cards/front-20.png" alt="" aria-hidden="true">
+            <span class="sr-only">“Is people pleasing worth betraying myself?”</span>
+          </div>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I am the mastermind. I am in control. I give life to the things of my choosing. How will I use that power?" aria-label="Mantra card, face down. Activate to reveal the mantra: I am the mastermind. I am in control. I give life to the things of my choosing. How will I use that power?">
+          <div class="card-face card-back"><img src="assets/web/deck-cards/back.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+          <div class="card-face card-front has-photo">
+            <img class="card-photo" src="assets/web/deck-cards/front-16.png" alt="" aria-hidden="true">
+            <span class="sr-only">“I am the mastermind. I am in control. I give life to the things of my choosing. How will I use that power?”</span>
+          </div>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I move with integrity and intention, free from expectations. Expectations ruin the fun." aria-label="Mantra card, face down. Activate to reveal the mantra: I move with integrity and intention, free from expectations. Expectations ruin the fun.">
+          <div class="card-face card-back"><img src="assets/web/deck-cards/back.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+          <div class="card-face card-front has-photo">
+            <img class="card-photo" src="assets/web/deck-cards/front-18.png" alt="" aria-hidden="true">
+            <span class="sr-only">“I move with integrity and intention, free from expectations. Expectations ruin the fun.”</span>
+          </div>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu. I am on a diet of reaching for the stars." aria-label="Mantra card, face down. Activate to reveal the mantra: Mediocrity is not on the menu. I am on a diet of reaching for the stars.">
+          <div class="card-face card-back"><img src="assets/web/deck-cards/back.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+          <div class="card-face card-front has-photo">
+            <img class="card-photo" src="assets/web/deck-cards/front-19.png" alt="" aria-hidden="true">
+            <span class="sr-only">“Mediocrity is not on the menu. I am on a diet of reaching for the stars.”</span>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:1.8rem">Every card: a photograph Nicolas took, torn into scrapbook art, carrying a mantra written over years. <span class="hand">The printed deck is on its way.</span></p>
+
+      <div class="deck-cta">
+        <figure class="deck-mockup polaroid">
+          <img src="assets/web/deck-mockup.jpg" alt="The mantra deck box with cards fanned out, all showing the tower-of-books back design" loading="lazy" decoding="async">
+          <figcaption class="hand">the deck, for real</figcaption>
+        </figure>
+        <button class="tag-btn" id="deckOrderOpen" aria-expanded="false" aria-controls="deckOrderForm">Order the Deck</button>
+        <form class="order-form" id="deckOrderForm" hidden data-vendor="QPMN" data-airtable-table="Mantra Deck Orders" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="deckQty">Quantity</label>
+              <input type="number" id="deckQty" name="Quantity" min="1" max="10" step="1" value="1" required>
+            </div>
+            <div class="field">
+              <label for="deckVariant">Variant</label>
+              <select id="deckVariant" name="Variant" required>
+                <option value="Standard Deck">Standard Deck</option>
+                <option value="Velvet Pouch + Booklet">Velvet Pouch + Booklet</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="deckName">Customer Name</label>
+            <input type="text" id="deckName" name="Customer Name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="deckEmail">Customer Email</label>
+            <input type="email" id="deckEmail" name="Customer Email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="deckAddress">Ship-To Address</label>
+            <textarea id="deckAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="tag-btn" type="submit">Reserve mine</button>
+          </div>
+          <p class="form-note">No payment yet — checkout wires up soon. This just gets you on the list.</p>
+        </form>
+        <p class="order-confirm" id="deckOrderConfirm" role="status" hidden>🐝 Order noted — checkout is being wired up. We’ll email you the moment it’s live.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
   <section class="tier below" id="t-gallery" data-title="The Moody Gallery" aria-label="The Moody Gallery" hidden>
     <div class="tier-inner">
-      <div class="ch-head"><h2>The Moody Gallery</h2><p class="hand">the art, up close</p></div>
-      <div class="pod torn">
+      <div class="moody-room">
+        <div class="moody-head">
+          <h2>The Moody Gallery</h2>
+          <p class="hand">the walls are dark on purpose — so the paper does the talking</p>
+        </div>
+        <div class="gallery-grid">
+          <figure class="frame-item framed-native">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><img src="assets/gallery/leopard-gold-frame.webp" alt="Nicolas Bettinger’s leopard collage in an ornate gold frame" decoding="sync"></span>
+            <figcaption>Leopard</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Leopard">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-native">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><img src="assets/gallery/pomegranate-gold-frame.webp" alt="Nicolas Bettinger’s pomegranate collage in an ornate gold frame" decoding="sync"></span>
+            <figcaption>Pomegranate</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Pomegranate">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-native">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><img src="assets/gallery/sun-stone-tower-gold-frame.webp" alt="Nicolas Bettinger’s Sun Stone tower collage in an ornate gold frame" decoding="sync"></span>
+            <figcaption>Sun Stone Tower</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Sun Stone Tower">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-native">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><img src="assets/gallery/purple-field-gold-frame.webp" alt="Nicolas Bettinger’s purple field collage in an ornate gold frame" decoding="sync"></span>
+            <figcaption>Purple Field</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Purple Field">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-native">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><img src="assets/gallery/fruit-basket-gold-frame.webp" alt="Nicolas Bettinger’s fruit basket collage in an ornate gold frame" decoding="sync"></span>
+            <figcaption>Fruit Basket</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Fruit Basket">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-native">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><img src="assets/gallery/bali-jungle-gold-frame.webp" alt="Nicolas Bettinger’s Bali jungle collage in an ornate gold frame" decoding="sync"></span>
+            <figcaption>Bali Jungle</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Bali Jungle">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/gallery-midnight-flight.jpg" alt="A surreal torn-paper scene of a figure reaching toward a rising orange moon" decoding="sync"></span></span>
+            <figcaption>Midnight Flight</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Midnight Flight">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/gallery-ivy-house.jpg" alt="An ivy-covered stone house with a yellow vintage car parked outside" decoding="sync"></span></span>
+            <figcaption>The Ivy House</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="The Ivy House">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/gallery-held-gently.jpg" alt="A hand holding a jeweled, egg-shaped ornament" decoding="sync"></span></span>
+            <figcaption>Held Gently</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Held Gently">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/gallery-the-watchman.jpg" alt="A bronze monument statue in a sunlit plaza" decoding="sync"></span></span>
+            <figcaption>The Watchman</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="The Watchman">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/gallery-through-the-keyhole.jpg" alt="A keyhole-shaped archway framing a sunlit garden path" decoding="sync"></span></span>
+            <figcaption>Through the Keyhole</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Through the Keyhole">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/gallery-all-aboard.jpg" alt="A folk-art illustration of animals riding in an ornate boat under a red umbrella" decoding="sync"></span></span>
+            <figcaption>All Aboard</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="All Aboard">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/gallery-the-bath-house.jpg" alt="A sunlit stone colonnade surrounding a turquoise pool" decoding="sync"></span></span>
+            <figcaption>The Bath House</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="The Bath House">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/gallery-fast-and-feral.jpg" alt="A vintage red race car above a tiger’s face among jungle leaves" decoding="sync"></span></span>
+            <figcaption>Fast &amp; Feral</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Fast &amp; Feral">Bring it home</button>
+          </figure>
+          <!-- three of the actual mantra card fronts, blown up and framed alongside the larger pieces -->
+          <figure class="frame-item framed-css card-art">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/deck-cards/front-20.png" alt="The leopard mantra card, framed" decoding="sync"></span></span>
+            <figcaption>Leopard (the card)</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Leopard (the card)">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css card-art">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/deck-cards/front-15.png" alt="The beach umbrella mantra card, framed" decoding="sync"></span></span>
+            <figcaption>Beach Day (the card)</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Beach Day (the card)">Bring it home</button>
+          </figure>
+          <figure class="frame-item framed-css card-art">
+            <span class="spotlight" aria-hidden="true"></span>
+            <span class="frame-art"><span class="mat"><img src="assets/web/deck-cards/front-18.png" alt="The keyhole path mantra card, framed" decoding="sync"></span></span>
+            <figcaption>Through the Door (the card)</figcaption>
+            <button class="tag-btn bring-home" type="button" data-artwork="Through the Door (the card)">Bring it home</button>
+          </figure>
+        </div>
+
+        <div class="card-scatter" aria-label="A scatter of the actual mantra cards">
+          <img src="assets/web/deck-cards/front-13.png" alt="A mantra card featuring a torn-paper vine illustration" decoding="sync">
+          <img src="assets/web/deck-cards/front-17.png" alt="A mantra card featuring a torn-paper fruit still life" decoding="sync">
+          <img src="assets/web/deck-cards/front-21.png" alt="A mantra card featuring a mid-century desert house" decoding="sync">
+          <img src="assets/web/deck-cards/front-22.png" alt="A mantra card featuring a small house beneath a giant umbrella" decoding="sync">
+          <img src="assets/web/deck-cards/front-24.png" alt="A mantra card featuring a jar spilling colorful circles" decoding="sync">
+        </div>
+        <p class="moody-intro hand">the cards themselves, dropped on the table</p>
+      </div>
+
+      <div class="pod torn" style="margin-top:2.2rem">
         <span class="eyebrow hand">a room being built</span>
         <h3>Every image was a photograph first</h3>
         <p class="lede">Nicolas took the picture, tore it up, layered it, glued it back into a little world — then wrote a mantra across it. The Gallery is where those worlds get to be big.</p>
         <blockquote class="hand">“Close enough to see the paper fibers, and the bit of glue that never dried flat.”</blockquote>
-        <p style="max-width:44ch;margin:0 auto 1.6rem">The pieces get hung with room to breathe, and I’ve left the captions off on purpose so you can decide for yourself what you’re looking at. We’re still arguing about what goes on which wall.</p>
+        <p style="max-width:44ch;margin:0 auto 1.6rem">The pieces get hung with room to breathe. We’re still arguing about what goes on which wall.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">show me when the room opens</a>
       </div>
-      <div class="gallery-preview" aria-label="Featured framed artwork">
-        <figure class="gallery-piece">
-          <img src="assets/gallery/leopard-gold-frame.webp" alt="Nicolas Bettinger’s leopard collage in an ornate gold frame" loading="lazy" decoding="async">
-          <figcaption>Available as an unframed print or framed in ornate gold.</figcaption>
-        </figure>
-        <figure class="gallery-piece">
-          <img src="assets/gallery/pomegranate-gold-frame.webp" alt="Nicolas Bettinger’s pomegranate collage in an ornate gold frame" loading="lazy" decoding="async">
-          <figcaption>Available as an unframed print or framed in ornate gold.</figcaption>
-        </figure>
-        <figure class="gallery-piece">
-          <img src="assets/gallery/sun-stone-tower-gold-frame.webp" alt="Nicolas Bettinger’s Sun Stone tower collage in an ornate gold frame" loading="lazy" decoding="async">
-          <figcaption>Available as an unframed print or framed in ornate gold.</figcaption>
-        </figure>
-        <figure class="gallery-piece">
-          <img src="assets/gallery/purple-field-gold-frame.webp" alt="Nicolas Bettinger’s purple field collage in an ornate gold frame" loading="lazy" decoding="async">
-          <figcaption>Available as an unframed print or framed in ornate gold.</figcaption>
-        </figure>
-        <figure class="gallery-piece">
-          <img src="assets/gallery/fruit-basket-gold-frame.webp" alt="Nicolas Bettinger’s fruit basket collage in an ornate gold frame" loading="lazy" decoding="async">
-          <figcaption>Available as an unframed print or framed in ornate gold.</figcaption>
-        </figure>
-        <figure class="gallery-piece">
-          <img src="assets/gallery/bali-jungle-gold-frame.webp" alt="Nicolas Bettinger’s Bali jungle collage in an ornate gold frame" loading="lazy" decoding="async">
-          <figcaption>Available as an unframed print or framed in ornate gold.</figcaption>
-        </figure>
-      </div>
-      <p class="tease hand">Six pieces are on the wall. More are on their way.</p>
+      <p class="tease hand">Seventeen pieces are on the wall — plus the cards, just because. More are on their way.</p>
     </div>
   </section>
 
@@ -846,6 +1147,63 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 </div>
 
 <button class="back" id="backBtn" hidden>← put it back</button>
+
+<!-- gallery order dialog (D2) -->
+<dialog class="order-dialog" id="galleryOrderDialog" aria-label="Bring an artwork home">
+  <div class="panel torn">
+    <div class="dialog-head">
+      <h3 style="font-size:1.4rem">Bring it home</h3>
+      <button type="button" class="dialog-close" id="galleryDialogClose" aria-label="Close this form">✕</button>
+    </div>
+    <form id="galleryOrderForm" data-vendor="Prodigi" data-airtable-table="Gallery Orders" novalidate>
+      <div class="field">
+        <label for="galleryArtwork">Artwork</label>
+        <input type="text" id="galleryArtwork" name="Artwork" readonly>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="galleryFormat">Format</label>
+          <select id="galleryFormat" name="Format" required>
+            <option value="Print">Print</option>
+            <option value="Framed">Framed</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="gallerySize">Size</label>
+          <select id="gallerySize" name="Size" required>
+            <option value="12x16">12x16</option>
+            <option value="20x28">20x28</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" id="galleryFrameColorField" hidden>
+        <label for="galleryFrameColor">Frame Color</label>
+        <select id="galleryFrameColor" name="Frame Color">
+          <option value="Antique Gold">Antique Gold</option>
+          <option value="Black">Black</option>
+          <option value="White">White</option>
+          <option value="Natural">Natural</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="galleryName">Customer Name</label>
+        <input type="text" id="galleryName" name="Customer Name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="galleryEmail">Customer Email</label>
+        <input type="email" id="galleryEmail" name="Customer Email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="galleryAddress">Ship-To Address</label>
+        <textarea id="galleryAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="tag-btn" type="submit">Reserve mine</button>
+      </div>
+    </form>
+    <p class="order-confirm" id="galleryOrderConfirm" role="status" hidden>🐝 Order noted — checkout is being wired up. We’ll email you the moment it’s live.</p>
+  </div>
+</dialog>
 
 <!-- pull-the-card transition -->
 <div id="draw" role="dialog" aria-modal="true" aria-label="Draw a mantra card">
@@ -1064,6 +1422,47 @@ function wireInlineForm(openBtnId,formId,confirmId){
 }
 wireInlineForm('deckOrderOpen','deckOrderForm','deckOrderConfirm');
 wireInlineForm('marketOrderOpen','marketOrderForm','marketOrderConfirm');
+
+/* ---------- D2: gallery "bring it home" order dialog ----------
+   One shared dialog, populated per artwork. Client-side validate only. */
+(()=>{
+  const dialog=document.getElementById('galleryOrderDialog');
+  const form=document.getElementById('galleryOrderForm');
+  const confirm=document.getElementById('galleryOrderConfirm');
+  const artworkInput=document.getElementById('galleryArtwork');
+  const formatSelect=document.getElementById('galleryFormat');
+  const frameColorField=document.getElementById('galleryFrameColorField');
+  if(!dialog||!form)return;
+  const supportsDialog=typeof dialog.showModal==='function';
+  let opener=null;
+  function syncFrameColor(){frameColorField.hidden = formatSelect.value!=='Framed';}
+  formatSelect.addEventListener('change',syncFrameColor);
+  function openDialog(btn){
+    opener=btn;
+    form.hidden=false;confirm.hidden=true;
+    form.reset();
+    artworkInput.value=btn.dataset.artwork||'';
+    formatSelect.value='Print';
+    syncFrameColor();
+    if(supportsDialog)dialog.showModal();else dialog.setAttribute('open','');
+  }
+  function closeDialog(){
+    if(supportsDialog)dialog.close();else dialog.removeAttribute('open');
+    opener?.focus();
+  }
+  document.querySelectorAll('.bring-home').forEach(btn=>{
+    btn.addEventListener('click',()=>openDialog(btn));
+  });
+  document.getElementById('galleryDialogClose').addEventListener('click',closeDialog);
+  dialog.addEventListener('cancel',closeDialog);
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();return}
+    form.hidden=true;
+    confirm.hidden=false;
+    confirm.setAttribute('tabindex','-1');confirm.focus();
+  });
+})();
 
 paint();
 </script>
