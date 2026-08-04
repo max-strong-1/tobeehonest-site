@@ -337,6 +337,7 @@ h1 em {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  object-position: center 28%;
   opacity: .38;
   filter: sepia(.12);
 }
