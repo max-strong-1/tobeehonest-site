@@ -167,7 +167,7 @@ body::before{
 .cover-panel{position:relative;z-index:2;max-width:540px;margin:10vh 0 0 6vw}
 .cover-panel .panel{padding:3rem 2.6rem 3.2rem}
 .cover-panel h1{font-size:clamp(2.4rem,4.8vw,4rem);margin-bottom:1rem}
-.cover-panel h1 em{font-style:normal;color:var(--honey)}
+.cover-panel h1 em{font-style:normal;color:#8a611a}/* darkened from --honey (#d99a2b, 2.14:1) for WCAG AA 4.5:1 on --paper */
 .cover-panel .lede{font-size:1.18rem;max-width:34ch;margin-bottom:1.8rem}
 .cover-logo{width:92px;height:92px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow);margin-bottom:1.3rem;border:5px solid #fff}
 .cover-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
@@ -278,7 +278,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 .comb-cell.foreman img{position:absolute;inset:14%;width:72%;height:72%;object-fit:cover;
   clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
 .foreman-caption{position:absolute;left:50%;bottom:-1.3rem;transform:translateX(-50%);
-  font-family:'Shantell Sans',cursive;font-size:.58rem;line-height:1;white-space:nowrap;color:var(--bark);opacity:.85}
+  font-family:'Shantell Sans',cursive;font-size:12px;line-height:1;white-space:nowrap;color:var(--bark);opacity:.85}
 .soon{padding:1.8rem 1.6rem 2rem;background:var(--paper);box-shadow:var(--shadow)}
 .soon .hand{font-size:.85rem;display:inline-block;background:var(--sun);padding:.15rem .6rem;margin-bottom:.8rem;transform:rotate(-1.5deg)}
 .soon h3{font-size:1.25rem;margin-bottom:.5rem}
@@ -393,6 +393,12 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   .core form{width:100%}
   .core input{min-width:0;width:100%;max-width:22rem}
   .comb{--hex:clamp(52px,14vw,92px)}
+}
+/* #mobileNavToggle is fixed at bottom:1rem, height 52px (measured footprint
+   from viewport bottom: 68px @ 390x844). Give every tier's scroll content
+   that much clearance plus a 16px buffer so panel text never sits under it. */
+@media (max-width:900px){
+  .tier{ padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 }
 @media (min-width:821px){#mobileNavToggle{display:none}}
 body.is-interim-preview #marks,
@@ -1227,6 +1233,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 const interimPreview=new URLSearchParams(location.search).get('interim')==='1';
 document.body.classList.toggle('is-interim-preview',interimPreview);
 const allTiers=[...document.querySelectorAll('.tier')];
+allTiers.forEach(t=>t.setAttribute('tabindex','0')); // keyboard-scrollable panels
 const excludedInterimIds=new Set(['t-cover','t-library','t-market']);
 if(interimPreview){
   allTiers.filter(t=>excludedInterimIds.has(t.id)).forEach(t=>{t.hidden=true});
@@ -1267,14 +1274,19 @@ function paint(){
   const t=tiers[cur]; t.scrollTop=0;
   t.querySelector('h1,h2')?.setAttribute('tabindex','-1');
 }
-let busy=false;
+let busy=false,pendingIdx=null;
 function go(i,viaDraw){
   const next=Math.max(0,Math.min(tiers.length-1,i));
-  if(busy||next===cur)return;
+  if(busy){ if(next!==cur) pendingIdx=next; return; }
+  if(next===cur)return;
   // the pull-a-card ritual now happens once: on the last step into the hive.
   // direct jumps (rail, cover CTA, skip link) go straight through, as before.
   if(!viaDraw&&!drawShown&&next===tiers.length-1&&next===cur+1){openDraw(next);return}
-  busy=true;setTimeout(()=>busy=false,750);
+  busy=true;
+  setTimeout(()=>{
+    busy=false;
+    if(pendingIdx!==null){ const n=pendingIdx; pendingIdx=null; go(n); }
+  },750);
   cur=next;paint();
 }
 /* ---------- pull-the-card ---------- */
