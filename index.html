@@ -497,9 +497,9 @@ body.is-interim-preview #mobileNavToggle{display:none!important}
 .market-form input[type=file]{font-family:'Alegreya',serif;font-size:.9rem;padding:.5rem;background:#fff}
 .market-form .check-field label{display:flex;align-items:flex-start;gap:.6rem;font-size:.92rem;line-height:1.45;cursor:pointer}
 .market-form .check-field input[type=checkbox]{width:1.1rem;height:1.1rem;flex:0 0 auto;margin-top:.15rem;accent-color:var(--bark)}
-.market-form .form-error{font-family:'Shantell Sans',cursive;font-size:.9rem;color:#8c2f16;background:#fbe6de;
+.form-error{font-family:'Shantell Sans',cursive;font-size:.9rem;color:#8c2f16;background:#fbe6de;
   border:2px solid #8c2f16;padding:.6rem .8rem;margin-top:.8rem;text-align:center}
-.market-form button[aria-busy=true]{opacity:.6;cursor:progress}
+.market-form button[aria-busy=true],.order-form button[aria-busy=true]{opacity:.6;cursor:progress}
 .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .order-confirm{background:var(--sun);box-shadow:var(--shadow);padding:1.1rem 1.4rem;max-width:560px;margin:1.2rem auto 0;
   font-family:'Shantell Sans',cursive;text-align:center}
@@ -746,10 +746,11 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
           </div>
           <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
           <div class="form-actions">
-            <button class="tag-btn" type="submit">Reserve mine</button>
+            <button class="tag-btn" type="submit" id="deckSubmitBtn">Reserve mine</button>
           </div>
+          <p class="form-error" id="deckOrderErr" role="alert" hidden></p>
         </form>
-        <p class="order-confirm" id="deckOrderConfirm" role="status" hidden>🐝 Order noted — checkout is being wired up. We’ll email you the moment it’s live.</p>
+        <p class="order-confirm" id="deckOrderConfirm" role="status" hidden>🐝 Deck order noted — you'll get an email from us to confirm price and payment. Nothing is charged today.</p>
       </div>
     </div>
   </section>
@@ -1211,10 +1212,11 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
       </div>
       <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
       <div class="form-actions">
-        <button class="tag-btn" type="submit">Reserve mine</button>
+        <button class="tag-btn" type="submit" id="gallerySubmitBtn">Reserve mine</button>
       </div>
+      <p class="form-error" id="galleryOrderErr" role="alert" hidden></p>
     </form>
-    <p class="order-confirm" id="galleryOrderConfirm" role="status" hidden>🐝 Order noted — checkout is being wired up. We’ll email you the moment it’s live.</p>
+    <p class="order-confirm" id="galleryOrderConfirm" role="status" hidden>🐝 Saved — we'll email you to confirm your print, price and payment. Nothing is charged today.</p>
   </div>
 </dialog>
 
@@ -1458,28 +1460,52 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
   btn.textContent='You’re in the hive 🐝';btn.disabled=true;
 });
 
-/* ---------- D1 & D3: inline placeholder order/submission forms ----------
-   Client-side validate only — no network call. QPMN/Airtable wiring lands later. */
-function wireInlineForm(openBtnId,formId,confirmId){
-  const openBtn=document.getElementById(openBtnId),form=document.getElementById(formId),confirm=document.getElementById(confirmId);
+/* ---------- D1: deck order form ----------
+   Posts straight to /api/order-intent — no payment, just an Airtable record + email. */
+(()=>{
+  const openBtn=document.getElementById('deckOrderOpen');
+  const form=document.getElementById('deckOrderForm');
+  const confirm=document.getElementById('deckOrderConfirm');
+  const errBox=document.getElementById('deckOrderErr');
+  const btn=document.getElementById('deckSubmitBtn');
   if(!openBtn||!form||!confirm)return;
+
+  const deckPriceLine=document.getElementById('deckPriceLine');
+  if(deckPriceLine)deckPriceLine.textContent=`Launch price: $${TBH_PRICES.deck} each · confirmed by email before any payment`;
+
   openBtn.addEventListener('click',()=>{
     form.hidden=false;confirm.hidden=true;openBtn.hidden=true;
     openBtn.setAttribute('aria-expanded','true');
     form.querySelector('input,select,textarea')?.focus();
   });
-  form.addEventListener('submit',e=>{
+
+  form.addEventListener('submit',async e=>{
     e.preventDefault();
     if(!form.checkValidity()){form.reportValidity();return}
-    form.hidden=true;
-    confirm.hidden=false;
-    confirm.setAttribute('tabindex','-1');confirm.focus();
+    errBox.hidden=true;btn.disabled=true;btn.setAttribute('aria-busy','true');
+    const payload={
+      product:'deck',
+      quantity:+document.getElementById('deckQty').value,
+      variant:document.getElementById('deckVariant').value,
+      customerName:document.getElementById('deckName').value,
+      customerEmail:document.getElementById('deckEmail').value,
+      shipTo:document.getElementById('deckAddress').value,
+      company_website:''
+    };
+    try{
+      const r=await fetch('/api/order-intent',{method:'POST',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!r.ok)throw new Error('order-intent '+r.status);
+      form.hidden=true;confirm.hidden=false;
+      confirm.setAttribute('tabindex','-1');confirm.focus();
+    }catch(err){
+      errBox.textContent="That didn't go through — nothing was saved. Try again, or email kel@4manai.com and we'll take it by hand.";
+      errBox.hidden=false;
+      errBox.scrollIntoView({behavior:'smooth',block:'center'});
+    }finally{
+      btn.disabled=false;btn.removeAttribute('aria-busy');
+    }
   });
-}
-wireInlineForm('deckOrderOpen','deckOrderForm','deckOrderConfirm');
-(()=>{
-  const deckPriceLine=document.getElementById('deckPriceLine');
-  if(deckPriceLine)deckPriceLine.textContent=`Launch price: $${TBH_PRICES.deck} each · confirmed by email before any payment`;
 })();
 
 /* ---------- Marketplace submission: the one form that actually posts ----------
@@ -1699,12 +1725,38 @@ wireInlineForm('deckOrderOpen','deckOrderForm','deckOrderConfirm');
   });
   document.getElementById('galleryDialogClose').addEventListener('click',closeDialog);
   dialog.addEventListener('cancel',closeDialog);
-  form.addEventListener('submit',e=>{
+
+  const errBox=document.getElementById('galleryOrderErr');
+  const btn=document.getElementById('gallerySubmitBtn');
+  form.addEventListener('submit',async e=>{
     e.preventDefault();
     if(!form.checkValidity()){form.reportValidity();return}
-    form.hidden=true;
-    confirm.hidden=false;
-    confirm.setAttribute('tabindex','-1');confirm.focus();
+    errBox.hidden=true;btn.disabled=true;btn.setAttribute('aria-busy','true');
+    const fmt=formatSelect.value;
+    const payload={
+      product:'gallery',
+      artwork:artworkInput.value,
+      format:fmt,
+      size:sizeSelect.value,
+      ...(fmt==='Framed'?{frameColor:frameColorSelect.value}:{}),
+      customerName:document.getElementById('galleryName').value,
+      customerEmail:document.getElementById('galleryEmail').value,
+      shipTo:document.getElementById('galleryAddress').value,
+      company_website:''
+    };
+    try{
+      const r=await fetch('/api/order-intent',{method:'POST',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!r.ok)throw new Error('order-intent '+r.status);
+      form.hidden=true;confirm.hidden=false;
+      confirm.setAttribute('tabindex','-1');confirm.focus();
+    }catch(err){
+      errBox.textContent="That didn't go through — nothing was saved. Try again, or email kel@4manai.com and we'll take it by hand.";
+      errBox.hidden=false;
+      errBox.scrollIntoView({behavior:'smooth',block:'center'});
+    }finally{
+      btn.disabled=false;btn.removeAttribute('aria-busy');
+    }
   });
 })();
 
