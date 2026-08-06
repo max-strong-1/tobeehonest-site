@@ -28,3 +28,8 @@ test("frameColor only accepts launch colours", () => {
     frameColor:"White", size:"12x16", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
 });
+test("gallery Print rejects a frameColor being sent at all", () => {
+  const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard", format:"Print",
+    frameColor:"Black", size:"12x16", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+  assert.equal(r.success, false);
+});

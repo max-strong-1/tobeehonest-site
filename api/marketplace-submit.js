@@ -1,5 +1,5 @@
 import { Problem, allowMethods, readJson, sendJson, sendProblem } from "./_lib/http.js";
-import { createRecord, uploadAttachment } from "./_lib/airtable.js";
+import { MAX_ATTACHMENT_BYTES, createRecord, uploadAttachment } from "./_lib/airtable.js";
 
 const TABLE_ID = process.env.AIRTABLE_MARKETPLACE_TABLE_ID || "tbl3XaHLIZlkriMNb";
 
@@ -48,8 +48,8 @@ const ALLOWED_DOC_TYPES = new Set([...ALLOWED_IMAGE_TYPES, "application/pdf"]);
 
 const MAX_FILES_PER_FIELD = 6;
 /* Vercel's serverless function body limit is ~4.5MB — that's the real ceiling for the
-   whole JSON payload, so per-file and total caps must fit under it (base64 inflates ~33%). */
-const MAX_FILE_BYTES = 3_000_000;
+   whole JSON payload, so per-file (MAX_ATTACHMENT_BYTES, from _lib/airtable.js) and
+   total caps must fit under it (base64 inflates ~33%). */
 const MAX_TOTAL_UPLOAD_BYTES = 4_000_000;
 
 function text(value, { max, label, required = false }) {
@@ -119,7 +119,7 @@ function normalizeFiles(raw, { label, allowedTypes }) {
     }
 
     const bytes = base64Bytes(file.replace(/\s/g, ""));
-    if (bytes > MAX_FILE_BYTES) {
+    if (bytes > MAX_ATTACHMENT_BYTES) {
       throw new Problem(413, "File Too Large", `${label}: each file must be under 3 MB.`);
     }
 

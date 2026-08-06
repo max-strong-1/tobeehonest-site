@@ -30,6 +30,9 @@ export const galleryOrder = z.object({
   if (value.format === "Framed" && !value.frameColor) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["frameColor"], message: "frameColor is required when format is Framed" });
   }
+  if (value.format === "Print" && value.frameColor) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["frameColor"], message: "frameColor must not be set when format is Print" });
+  }
 });
 
 /* Optional honeypot field, present on both order forms but not part of the
@@ -87,6 +90,15 @@ export function buildAirtableFields(input, orderId) {
   };
 }
 
+/* Airtable returns 422 with one of these error types when a select field is sent a
+   value that isn't an existing option and typecast wasn't set. Anything else (network
+   failure, 503 config-missing, 502 generic upstream) is not this case and must rethrow. */
+const SELECT_VALUE_REJECTION_TYPES = new Set(["INVALID_MULTIPLE_CHOICE_OPTIONS", "INVALID_VALUE_FOR_COLUMN"]);
+
+function isSelectValueRejection(err) {
+  return err?.airtableStatus === 422 && SELECT_VALUE_REJECTION_TYPES.has(err?.airtableErrorType);
+}
+
 function alertText(input, orderId) {
   const lines = [
     `Product: ${input.product}`,
@@ -137,9 +149,14 @@ export default async function handler(req, res) {
     try {
       record = await createRecord(tableId, fields);
     } catch (err) {
-      /* If Airtable rejects a select value (e.g. a not-yet-added option), retry once
-         with typecast so the record still lands instead of losing the order. */
-      record = await createRecord(tableId, fields, { typecast: true });
+      /* Only retry with typecast when Airtable specifically rejected a select value
+         (e.g. a not-yet-added option) — any other failure (network, bad token,
+         real outage) rethrows immediately instead of firing a duplicate write. */
+      if (isSelectValueRejection(err)) {
+        record = await createRecord(tableId, fields, { typecast: true });
+      } else {
+        throw err;
+      }
     }
     if (!record?.id) throw new Problem(502, "Upstream Error", "The order could not be saved.");
 

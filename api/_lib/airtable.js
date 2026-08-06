@@ -3,9 +3,11 @@ import { Problem } from "./http.js";
 const API_BASE = "https://api.airtable.com/v0";
 const CONTENT_BASE = "https://content.airtable.com/v0";
 
-/* Airtable caps a single inline attachment upload at 5MB. We stay under it on
-   purpose so a borderline file fails here rather than halfway through Airtable. */
-export const MAX_ATTACHMENT_BYTES = 4_500_000;
+/* Airtable caps a single inline attachment upload at 5MB, and Vercel's serverless
+   function body limit is ~4.5MB for the whole request (base64 inflates ~33%), so the
+   per-file cap actually enforced (marketplace-submit.js) stays well under both. This
+   is the single source of truth — do not redeclare a separate per-file constant. */
+export const MAX_ATTACHMENT_BYTES = 3_000_000;
 
 export function airtableConfig() {
   const token = process.env.AIRTABLE_TOKEN;
@@ -36,12 +38,22 @@ async function airtableFetch(url, token, init) {
     /* Airtable's own error text can quote submitted values back. Keep it in the
        server log, never in the response body the visitor sees. */
     console.error("[airtable]", res.status, url, detail.slice(0, 500));
-    throw new Problem(
+    const problem = new Problem(
       502,
       "Upstream Error",
       "The submission could not be saved. Please try again shortly.",
       "https://tobeehonest.com/problems/airtable-error"
     );
+    /* Surface Airtable's own error type/status (not shown to the caller — sendProblem
+       never reads these fields) so a caller can distinguish "this select value doesn't
+       exist yet" from a real outage without re-parsing response text itself. */
+    problem.airtableStatus = res.status;
+    try {
+      problem.airtableErrorType = JSON.parse(detail)?.error?.type;
+    } catch {
+      problem.airtableErrorType = undefined;
+    }
+    throw problem;
   }
   return res.json();
 }
