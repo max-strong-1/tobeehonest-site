@@ -12,6 +12,22 @@
   const cornerBee = document.querySelector('#corner-bee');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let focusTimer = 0;
+  let pendingChapter = null;
+
+  const openPreviewChapter = () => {
+    if (pendingChapter === null) return;
+
+    try {
+      const navigate = iframe.contentWindow?.go;
+      if (typeof navigate !== 'function') return;
+      navigate(pendingChapter);
+      pendingChapter = null;
+    } catch (error) {
+      // The preview is same-origin in production. If that ever changes, leave the
+      // selected chapter pending instead of breaking the construction page.
+      console.warn('Unable to open the selected preview chapter.', error);
+    }
+  };
 
   const setPreviewState = (isPreviewing) => {
     if (isPreviewing && !iframe.src) {
@@ -39,11 +55,15 @@
 
   peekButton.addEventListener('click', () => setPreviewState(true));
   returnButton.addEventListener('click', () => setPreviewState(false));
+  iframe.addEventListener('load', openPreviewChapter);
 
   cells.forEach((cell) => {
     cell.addEventListener('click', () => {
       cells.forEach((item) => item.classList.toggle('is-active', item === cell));
       combNote.textContent = cell.dataset.note;
+      pendingChapter = Number.parseInt(cell.dataset.target, 10);
+      setPreviewState(true);
+      openPreviewChapter();
     });
   });
 

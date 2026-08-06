@@ -347,8 +347,8 @@ h1 em {
   --cell-width: clamp(122px, 12vw, 178px);
   top: 10%;
   left: 50%;
-  width: calc(var(--cell-width) * 4);
-  height: calc((var(--cell-width) / .866) * 1.75);
+  width: calc(var(--cell-width) * 3);
+  height: calc((var(--cell-width) / .866) * 2.5);
   transform: translate3d(-50%, 0, 0);
 }
 
@@ -439,46 +439,33 @@ h1 em {
   hyphens: auto;
 }
 
-/* Longer tab names ("Make It Yours! Customs Products", "The Podcast - Nikko
-   & The Cool Kids", "The Community Marketplace") need a much smaller,
-   tighter label than the rest of the comb so they stay inside the hex's
-   clipped silhouette instead of bleeding into its pointed top/bottom. */
-.cell-long {
-  padding: 1rem .55rem;
-}
-.cell-long .cell-label {
-  max-width: 96%;
-  font-size: clamp(.6rem, 1vw, .92rem);
-  line-height: 1.12;
-}
-
 .cell-story {
   --cell-light: rgba(244, 210, 132, .92); --cell: rgba(220, 164, 58, .9); --cell-deep: rgba(183, 116, 28, .92);
-  --cell-tilt: -.18deg; top: 0; left: 12.5%; animation-delay: .08s;
+  --cell-tilt: -.18deg; top: 0; left: calc(var(--cell-width) * .5); animation-delay: .08s;
 }
 .cell-art {
   --cell-light: rgba(248, 218, 146, .94); --cell: rgba(226, 172, 67, .9); --cell-deep: rgba(188, 121, 31, .92);
-  --cell-tilt: .14deg; top: 0; left: 37.5%; animation-delay: .135s;
+  --cell-tilt: .14deg; top: 0; left: calc(var(--cell-width) * 1.5); animation-delay: .135s;
 }
 .cell-book {
   --cell-light: rgba(239, 203, 120, .92); --cell: rgba(211, 150, 46, .91); --cell-deep: rgba(169, 102, 22, .93);
-  --cell-tilt: -.1deg; top: 0; left: 62.5%; animation-delay: .19s;
+  --cell-tilt: -.1deg; top: calc((var(--cell-width) / .866) * .75); left: 0; animation-delay: .19s;
 }
 .cell-deck {
   --cell-light: rgba(250, 222, 148, .94); --cell: rgba(230, 180, 73, .9); --cell-deep: rgba(190, 127, 35, .92);
-  --cell-tilt: .12deg; top: 42.86%; left: 0; animation-delay: .245s;
+  --cell-tilt: .12deg; top: calc((var(--cell-width) / .866) * .75); left: var(--cell-width); animation-delay: .245s;
 }
 .cell-voice {
   --cell-light: rgba(242, 207, 129, .92); --cell: rgba(216, 158, 53, .9); --cell-deep: rgba(177, 108, 25, .93);
-  --cell-tilt: -.16deg; top: 42.86%; left: 25%; animation-delay: .3s;
+  --cell-tilt: -.16deg; top: calc((var(--cell-width) / .866) * .75); left: calc(var(--cell-width) * 2); animation-delay: .3s;
 }
 .cell-market {
   --cell-light: rgba(247, 215, 137, .93); --cell: rgba(223, 169, 63, .9); --cell-deep: rgba(184, 118, 29, .92);
-  --cell-tilt: .08deg; top: 42.86%; left: 50%; animation-delay: .355s;
+  --cell-tilt: .08deg; top: calc((var(--cell-width) / .866) * 1.5); left: calc(var(--cell-width) * .5); animation-delay: .355s;
 }
 .cell-center {
   --cell-light: rgba(255, 229, 143, .96); --cell: rgba(239, 184, 55, .94); --cell-deep: rgba(198, 126, 22, .94);
-  --cell-tilt: -.06deg; top: 42.86%; left: 75%; animation-delay: .41s;
+  --cell-tilt: -.06deg; top: calc((var(--cell-width) / .866) * 1.5); left: calc(var(--cell-width) * 1.5); animation-delay: .41s;
 }
 
 .worker-bee {
@@ -805,26 +792,41 @@ body.is-previewing .preview-shell {
   }
 
   .hive-workbench {
-    min-height: 500px;
-    margin-top: 2.5rem;
+    min-height: 0;
+    margin-top: 1.5rem;
+    padding-bottom: 1rem;
   }
 
   .honeycomb {
-    --cell-width: min(22.5vw, 90px);
-    top: 12%;
+    --cell-width: min(calc((100vw - 2rem) / 3), 118px);
+    position: relative;
+    inset: auto;
+    width: calc(var(--cell-width) * 3);
+    height: calc((var(--cell-width) / .866) * 2.5);
+    margin: 0 auto;
+    transform: none;
+    display: block;
   }
 
-  .comb-cell { padding: .65rem; }
+  .comb-cell {
+    --cell-tilt: 0deg;
+    position: absolute;
+    width: var(--cell-width);
+    aspect-ratio: .866;
+    padding: 1rem .65rem;
+  }
+
+  /* Seven connected cells form one larger hexagon: 2 / 3 / 2. */
+  .comb-cell:nth-child(1) { top: 0; left: calc(var(--cell-width) * .5); }
+  .comb-cell:nth-child(2) { top: 0; left: calc(var(--cell-width) * 1.5); }
+  .comb-cell:nth-child(3) { top: calc((var(--cell-width) / .866) * .75); left: 0; }
+  .comb-cell:nth-child(4) { top: calc((var(--cell-width) / .866) * .75); left: var(--cell-width); }
+  .comb-cell:nth-child(5) { top: calc((var(--cell-width) / .866) * .75); left: calc(var(--cell-width) * 2); }
+  .comb-cell:nth-child(6) { top: calc((var(--cell-width) / .866) * 1.5); left: calc(var(--cell-width) * .5); }
+  .comb-cell:nth-child(7) { top: calc((var(--cell-width) / .866) * 1.5); left: calc(var(--cell-width) * 1.5); }
 
   .cell-label {
     font-size: clamp(.84rem, 3.7vw, 1.1rem);
-  }
-
-  .cell-long { padding: .4rem .3rem; }
-  .cell-long .cell-number { font-size: .58rem; }
-  .cell-long .cell-label {
-    font-size: clamp(.5rem, 2.6vw, .72rem);
-    line-height: 1.1;
   }
 
   .art-scrap {
@@ -834,9 +836,11 @@ body.is-previewing .preview-shell {
   }
 
   .comb-note {
-    right: 0;
+    position: relative;
+    inset: auto;
+    margin: 1rem auto 0;
     max-width: 16rem;
-    font-size: .68rem;
+    font-size: .78rem;
   }
 
   .construction-footer {

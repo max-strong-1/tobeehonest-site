@@ -24,7 +24,7 @@ Torn-paper scrapbook collage, softened. Every surface reads as layered paper: to
 - **Paper panel**: torn-edge container (mask/clip-path with irregular polygon), 1–2° rotation, layered shadow (offset + blur)
 - **Tab-as-bookmark nav**: top nav = paper bookmarks tucked behind the page edge; active tab pulls forward
 - **Page-turn reveal**: section entrances lift like a lifted scrap tier — clip-path + rotate on scroll, exponential ease-out, content visible by default
-- **Mantra card**: CSS-built torn-paper card in deck ratio, front scene color field + Shantell mantra, back = tower motif
+- **Mantra card**: CSS-built torn-paper card in deck ratio, real printed front art, back = approved softened sky-only hero
 - **Buttons**: paper tags with punched-hole + string look; hover = lift (translate + shadow deepen)
 
 ## Motion
