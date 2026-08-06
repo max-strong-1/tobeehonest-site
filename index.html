@@ -483,6 +483,8 @@ body.is-interim-preview #mobileNavToggle{display:none!important}
 .order-form .field-row .field{flex:1 1 180px}
 .order-form .form-actions{margin-top:.4rem;text-align:center}
 .order-form .form-note{font-size:.85rem;opacity:.75;margin-top:.6rem;text-align:center}
+.price-line{font-family:'Shantell Sans',cursive;font-size:.9rem;color:var(--bark);margin:.2rem 0 .8rem}
+#galleryOrderForm .form-note{font-size:.85rem;opacity:.75;margin:.6rem 0;text-align:center}
 
 /* Marketplace submission: longer form, so it gets grouped blocks instead of one wall of fields */
 .market-form{max-width:620px}
@@ -720,6 +722,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
             <div class="field">
               <label for="deckQty">Quantity</label>
               <input type="number" id="deckQty" name="Quantity" min="1" max="10" step="1" value="1" required>
+              <p class="price-line" id="deckPriceLine"></p>
             </div>
             <div class="field">
               <label for="deckVariant">Variant</label>
@@ -741,10 +744,10 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
             <label for="deckAddress">Ship-To Address</label>
             <textarea id="deckAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
           </div>
+          <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
           <div class="form-actions">
             <button class="tag-btn" type="submit">Reserve mine</button>
           </div>
-          <p class="form-note">No payment yet — checkout wires up soon. This just gets you on the list.</p>
         </form>
         <p class="order-confirm" id="deckOrderConfirm" role="status" hidden>🐝 Order noted — checkout is being wired up. We’ll email you the moment it’s live.</p>
       </div>
@@ -784,7 +787,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
             <span class="spotlight" aria-hidden="true"></span>
             <span class="frame-art"><img src="assets/gallery/sun-stone-tower-gold-frame.webp" alt="Nicolas Bettinger’s Sun Stone tower collage in an ornate gold frame" decoding="sync"></span>
             <figcaption>Sun Stone Tower</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Sun Stone Tower">Bring it home</button>
+            <span class="tag-btn" aria-disabled="true" style="cursor:default;opacity:.6;pointer-events:none">original only — prints coming</span>
           </figure>
           <figure class="frame-item framed-css">
             <span class="spotlight" aria-hidden="true"></span>
@@ -1183,6 +1186,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
             <option value="12x16">12x16</option>
             <option value="20x28">20x28</option>
           </select>
+          <p class="hand">the size on the label is always the print you get — framed pieces step the frame up around it.</p>
         </div>
       </div>
       <div class="field" id="galleryFrameColorField" hidden>
@@ -1190,10 +1194,9 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
         <select id="galleryFrameColor" name="Frame Color">
           <option value="Antique Gold">Antique Gold</option>
           <option value="Black">Black</option>
-          <option value="White">White</option>
-          <option value="Natural">Natural</option>
         </select>
       </div>
+      <p class="price-line" id="galleryPriceLine"></p>
       <div class="field">
         <label for="galleryName">Customer Name</label>
         <input type="text" id="galleryName" name="Customer Name" autocomplete="name" required>
@@ -1206,6 +1209,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
         <label for="galleryAddress">Ship-To Address</label>
         <textarea id="galleryAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
       </div>
+      <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
       <div class="form-actions">
         <button class="tag-btn" type="submit">Reserve mine</button>
       </div>
@@ -1230,6 +1234,10 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 </div>
 
 <script>
+// PLACEHOLDER-PRICING — replace with confirmed numbers before enabling payment.
+const TBH_PRICES = { deck: 33,
+  gallery: { "Print": { "12x16": 95, "20x28": 145 },
+             "Framed": { "12x16": 189, "20x28": 265 } } };
 const interimPreview=new URLSearchParams(location.search).get('interim')==='1';
 document.body.classList.toggle('is-interim-preview',interimPreview);
 const allTiers=[...document.querySelectorAll('.tier')];
@@ -1469,6 +1477,10 @@ function wireInlineForm(openBtnId,formId,confirmId){
   });
 }
 wireInlineForm('deckOrderOpen','deckOrderForm','deckOrderConfirm');
+(()=>{
+  const deckPriceLine=document.getElementById('deckPriceLine');
+  if(deckPriceLine)deckPriceLine.textContent=`Launch price: $${TBH_PRICES.deck} each · confirmed by email before any payment`;
+})();
 
 /* ---------- Marketplace submission: the one form that actually posts ----------
    Photos are downscaled in-browser before encoding — a raw phone photo is several MB
@@ -1647,12 +1659,27 @@ wireInlineForm('deckOrderOpen','deckOrderForm','deckOrderConfirm');
   const confirm=document.getElementById('galleryOrderConfirm');
   const artworkInput=document.getElementById('galleryArtwork');
   const formatSelect=document.getElementById('galleryFormat');
+  const sizeSelect=document.getElementById('gallerySize');
   const frameColorField=document.getElementById('galleryFrameColorField');
+  const frameColorSelect=document.getElementById('galleryFrameColor');
+  const priceLine=document.getElementById('galleryPriceLine');
   if(!dialog||!form)return;
   const supportsDialog=typeof dialog.showModal==='function';
   let opener=null;
-  function syncFrameColor(){frameColorField.hidden = formatSelect.value!=='Framed';}
-  formatSelect.addEventListener('change',syncFrameColor);
+  function syncFrameColor(){
+    const isFramed=formatSelect.value==='Framed';
+    frameColorField.hidden = !isFramed;
+    if(frameColorSelect)frameColorSelect.disabled = !isFramed;
+  }
+  function syncPriceLine(){
+    const fmt=formatSelect.value,size=sizeSelect.value;
+    const price=TBH_PRICES.gallery[fmt]?.[size];
+    if(priceLine)priceLine.textContent = price!=null
+      ? `Launch price: $${price} · ${fmt} ${size.replace('x','×')} · confirmed by email before any payment`
+      : '';
+  }
+  formatSelect.addEventListener('change',()=>{syncFrameColor();syncPriceLine();});
+  sizeSelect.addEventListener('change',syncPriceLine);
   function openDialog(btn){
     opener=btn;
     form.hidden=false;confirm.hidden=true;
@@ -1660,6 +1687,7 @@ wireInlineForm('deckOrderOpen','deckOrderForm','deckOrderConfirm');
     artworkInput.value=btn.dataset.artwork||'';
     formatSelect.value='Print';
     syncFrameColor();
+    syncPriceLine();
     if(supportsDialog)dialog.showModal();else dialog.setAttribute('open','');
   }
   function closeDialog(){
