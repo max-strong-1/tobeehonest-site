@@ -1,5 +1,5 @@
 import { Problem, allowMethods, readJson, sendJson, sendProblem } from "./_lib/http.js";
-import { MAX_ATTACHMENT_BYTES, createRecord, uploadAttachment } from "./_lib/airtable.js";
+import { createRecord, uploadAttachment } from "./_lib/airtable.js";
 
 const TABLE_ID = process.env.AIRTABLE_MARKETPLACE_TABLE_ID || "tbl3XaHLIZlkriMNb";
 
@@ -47,7 +47,10 @@ const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "i
 const ALLOWED_DOC_TYPES = new Set([...ALLOWED_IMAGE_TYPES, "application/pdf"]);
 
 const MAX_FILES_PER_FIELD = 6;
-const MAX_TOTAL_UPLOAD_BYTES = 18_000_000;
+/* Vercel's serverless function body limit is ~4.5MB — that's the real ceiling for the
+   whole JSON payload, so per-file and total caps must fit under it (base64 inflates ~33%). */
+const MAX_FILE_BYTES = 3_000_000;
+const MAX_TOTAL_UPLOAD_BYTES = 4_000_000;
 
 function text(value, { max, label, required = false }) {
   const trimmed = typeof value === "string" ? value.trim() : "";
@@ -116,8 +119,8 @@ function normalizeFiles(raw, { label, allowedTypes }) {
     }
 
     const bytes = base64Bytes(file.replace(/\s/g, ""));
-    if (bytes > MAX_ATTACHMENT_BYTES) {
-      throw new Problem(413, "File Too Large", `${label}: each file must be under 4.5 MB.`);
+    if (bytes > MAX_FILE_BYTES) {
+      throw new Problem(413, "File Too Large", `${label}: each file must be under 3 MB.`);
     }
 
     return { filename, contentType, file: file.replace(/\s/g, ""), bytes };
@@ -131,7 +134,7 @@ function today() {
 export default async function handler(req, res) {
   try {
     allowMethods(req, ["POST"]);
-    const body = await readJson(req);
+    const body = await readJson(req, 4_500_000);
 
     /* Honeypot: a real person never fills a hidden field. */
     if (text(body.company_website, { max: 200, label: "Ignore" })) {

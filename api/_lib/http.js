@@ -48,9 +48,9 @@ export async function readRawBody(req, limit = 1_000_000) {
   return Buffer.concat(chunks);
 }
 
-export async function readJson(req) {
+export async function readJson(req, limitBytes) {
   if (req.body && typeof req.body === "object" && !Buffer.isBuffer(req.body)) return req.body;
-  const raw = await readRawBody(req);
+  const raw = await readRawBody(req, limitBytes);
   try {
     return JSON.parse(raw.toString("utf8") || "{}");
   } catch {
