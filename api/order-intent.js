@@ -35,8 +35,8 @@ export const galleryOrder = z.object({
   }
 });
 
-/* Optional honeypot field, present on both order forms but not part of the
-   business schema — stripped before validation, checked separately. */
+/* Optional honeypot field, present on both order forms (deck and gallery) — not
+   part of the business schema, stripped before validation, checked separately. */
 const orderIntentSchema = z.union([deckOrder, galleryOrder]);
 
 function today() {
