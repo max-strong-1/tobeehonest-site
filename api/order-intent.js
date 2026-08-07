@@ -22,18 +22,11 @@ export const deckOrder = z.object({
 export const galleryOrder = z.object({
   product: z.literal("gallery"),
   artwork: z.string().trim().min(1).max(120),
-  format: z.enum(["Print", "Framed"]),
   size: z.enum(["12x16", "20x28"]),
-  frameColor: z.enum(["Black", "Antique Gold"]).optional(),
+  frameColor: z.enum(["Black", "Antique Gold"]),
+  mat: z.enum(["White", "Black"]),
   ...base
-}).strict().superRefine((value, ctx) => {
-  if (value.format === "Framed" && !value.frameColor) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["frameColor"], message: "frameColor is required when format is Framed" });
-  }
-  if (value.format === "Print" && value.frameColor) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["frameColor"], message: "frameColor must not be set when format is Print" });
-  }
-});
+}).strict();
 
 /* Optional honeypot field, present on both order forms (deck and gallery) — not
    part of the business schema, stripped before validation, checked separately. */
@@ -68,9 +61,10 @@ export function buildAirtableFields(input, orderId) {
   if (input.product === "gallery") {
     return {
       "Order ID": `${orderId} · ${input.artwork}`,
-      "Format": input.format,
+      "Format": "Framed",
       "Size": input.size,
-      ...(input.frameColor ? { "Frame Color": input.frameColor } : {}),
+      "Frame Color": input.frameColor,
+      "Mat Color": input.mat,
       "Customer Name": input.customerName,
       "Customer Email": input.customerEmail,
       "Ship-To Address": input.shipTo,
@@ -106,7 +100,7 @@ function alertText(input, orderId) {
       ? `Artwork: ${input.artwork}`
       : `Variant: ${input.variant}`,
     input.product === "gallery"
-      ? `Size/Format/Colour: ${input.size} / ${input.format}${input.frameColor ? " / " + input.frameColor : ""}`
+      ? `Size/Frame/Mat: ${input.size} / ${input.frameColor} / ${input.mat} mat`
       : `Quantity: ${input.quantity}`,
     `Customer: ${input.customerName} <${input.customerEmail}>`,
     `Ship to: ${input.shipTo}`,
