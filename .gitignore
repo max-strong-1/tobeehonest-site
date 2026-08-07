@@ -1,6 +1,7 @@
 .vercel
 .DS_Store
 .superpowers/
+.impeccable/hook.cache.json
 .env.local
 .env*.local
 node_modules/
