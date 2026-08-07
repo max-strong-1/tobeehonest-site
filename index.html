@@ -552,7 +552,10 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
    layer until something forced a repaint (scroll, resize). Forcing the layer
    to exist from the start, and dropping the redundant per-image filter,
    avoids relying on that repaint ever happening. */
-.moody-room{background:linear-gradient(180deg,#221a12,#17110b);box-shadow:inset 0 0 60px rgba(0,0,0,.6),var(--shadow-lift);
+.moody-room{background:
+  radial-gradient(ellipse 140% 70% at 50% 0%,rgba(255,230,175,.16),rgba(255,224,154,.07) 32%,rgba(255,224,154,0) 62%),
+  linear-gradient(180deg,#221a12,#17110b);
+  box-shadow:inset 0 0 60px rgba(0,0,0,.6),var(--shadow-lift);
   padding:1.3rem 1.2rem 2.2rem;margin:0;transform:translateZ(0);will-change:transform;backface-visibility:hidden}
 .moody-room .moody-head{text-align:center;margin-bottom:1rem}
 .moody-room .moody-head h2{color:var(--sun);font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:.3rem}
@@ -562,10 +565,18 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 @media (min-width:1000px){.moody-room .gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .frame-item{position:relative;text-align:center;padding-top:3rem;transform:translateZ(0)}
 /* Every work gets a real picture-light silhouette, not just an anonymous glow.
-   The fixture scales with its frame while the warm beam stays behind the art. */
-.frame-item .spotlight{position:absolute;top:.15rem;left:50%;width:min(72%,190px);height:110px;transform:translateX(-50%);
-  background:radial-gradient(ellipse at 50% 15%,rgba(255,238,190,.62),rgba(255,224,154,.18) 42%,rgba(255,238,190,0) 74%);
-  pointer-events:none;z-index:0;filter:drop-shadow(0 3px 4px rgba(0,0,0,.45))}
+   The fixture scales with its frame while the warm beam stays behind the art.
+   Glow is built from several soft, wide-overlapping stops (not a hard-edged
+   ellipse) so it feathers into the dark wall with no visible seam. */
+.frame-item .spotlight{position:absolute;top:.15rem;left:50%;width:min(78%,210px);height:130px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at 50% 10%,
+    rgba(255,238,190,.55) 0%,
+    rgba(255,232,180,.4) 18%,
+    rgba(255,226,166,.24) 36%,
+    rgba(255,222,158,.12) 54%,
+    rgba(255,222,158,.05) 70%,
+    rgba(255,222,158,0) 88%);
+  pointer-events:none;z-index:0}
 .frame-item .spotlight::before{content:"";position:absolute;left:50%;top:.35rem;width:78%;height:.42rem;
   transform:translateX(-50%);border-radius:999px;
   background:linear-gradient(180deg,#fff0ad 0%,#d2a43e 28%,#775019 62%,#d9aa3e 100%);
@@ -574,36 +585,19 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
   transform:translateX(-50%);border-radius:.22rem .22rem .08rem .08rem;
   background:linear-gradient(90deg,#6d4817,#d5a73e 45%,#f3d879 58%,#78501a);
   box-shadow:0 -2px 0 rgba(255,240,164,.4) inset,0 2px 5px rgba(0,0,0,.5)}
-.frame-item .frame-art{position:relative;z-index:1;display:block;margin:0 auto;max-width:100%;
-  box-shadow:0 14px 22px rgba(0,0,0,.55)}
-.frame-item .frame-art img{width:100%;display:block}
-/* pieces already baked with a gold frame in the source image */
-.frame-item.framed-native .frame-art img{border-radius:1px}
-/* pieces needing a CSS-built antique gold frame */
-/* Antique Gold sampled from Prodigi's own Classic frame swatch, so the site matches what the
-   frame picker shows a buyer. Ramp runs outer edge -> inner edge. */
-.frame-item.framed-css .frame-art{
-  padding:.9rem;
-  background:linear-gradient(135deg,#ba944d,#b8914c 20%,#c5a151 40%,#c5a252 60%,#c9a657 80%,#c6a253);
-  box-shadow:0 0 0 1px rgba(0,0,0,.4) inset,0 14px 22px rgba(0,0,0,.55);
-}
-.frame-item.framed-css .frame-art .mat{display:block;padding:.55rem;background:#1c1712}
-.frame-item.framed-css .frame-art img{width:100%;display:block}
+/* NO frame graphics — art + mat only. frame-art is just a positioning shell,
+   the drop shadow gives the paper lift off the wall without drawing a border,
+   bevel or moulding around it (the product still ships framed; the display doesn't). */
+.frame-item .frame-art{position:relative;z-index:1;display:block;margin:0 auto;max-width:100%}
+.frame-item .frame-art img{width:100%;display:block;box-shadow:0 14px 22px rgba(0,0,0,.55)}
+/* Mat: white by default, black on pieces the artist called out (both Red Bird pieces). */
+.frame-item .frame-art .mat{display:block;padding:.6rem;background:#f4ead0;box-shadow:0 14px 22px rgba(0,0,0,.55)}
+.frame-item .frame-art .mat img{box-shadow:none}
+.frame-item .frame-art .mat.mat-black{background:#17130f}
 .frame-item figcaption{position:relative;z-index:1;color:var(--sun);font-family:'Shantell Sans',cursive;
   font-size:.92rem;margin-top:.7rem}
 .frame-item .bring-home{margin-top:.5rem;font-size:.8rem;padding:.55rem 1rem .55rem 1.5rem}
 .moody-intro{color:#f4ead0;text-align:center;max-width:44ch;margin:1rem auto 0;font-size:.9rem}
-/* real card art is low-res (~110px source) — cap its rendered frame so it stays crisp */
-.frame-item.card-art .frame-art{max-width:170px;margin-inline:auto}
-/* "the cards themselves" — a scattered handful of real, unframed cards */
-.card-scatter{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem 1.2rem;margin:2rem auto 0;max-width:900px}
-.card-scatter img{width:100px;max-width:24vw;aspect-ratio:110/186;object-fit:cover;box-shadow:0 10px 18px rgba(0,0,0,.5);
-  clip-path:polygon(0 1.5%,3% 0,50% .8%,97% 0,100% 1.8%,99.4% 50%,100% 98.4%,96% 100%,50% 99.2%,4% 100%,0 98%,.5% 50%)}
-.card-scatter img:nth-child(1){transform:rotate(-6deg)}
-.card-scatter img:nth-child(2){transform:rotate(4deg) translateY(6px)}
-.card-scatter img:nth-child(3){transform:rotate(-2deg) translateY(-4px)}
-.card-scatter img:nth-child(4){transform:rotate(7deg)}
-.card-scatter img:nth-child(5){transform:rotate(-8deg) translateY(4px)}
 /* art-first: no vertical centering, minimal top padding, so the first row of
    frames is inside the first viewport with zero scroll at 1280x800 + 375x812 */
 #t-gallery .tier-inner{justify-content:flex-start;padding-top:1.1rem;padding-bottom:3rem}
@@ -817,139 +811,23 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
           <h2>The Moody Gallery</h2>
           <p class="hand">the walls are dark on purpose — so the paper does the talking</p>
         </div>
-        <div class="gallery-grid">
-          <!-- These six used to hang assets/gallery/*-gold-frame.webp: pictures of an
-               already-framed print. A buyer can't swap a frame that's baked into the artwork,
-               so they now show the bare print (assets/prints/*) inside the CSS frame like
-               every other piece. Frames recovered off the old composites by
-               client-reviews/to-bee-honest/2026-08-05-frame-viewer/strip_frames.py. -->
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/leopard.jpg" srcset="assets/prints/thumb/leopard.jpg 658w, assets/prints/leopard.jpg 978w" sizes="(max-width:900px) 45vw, 22vw" alt="Nicolas Bettinger’s leopard collage — a leopard’s face amid green leaves" decoding="sync"></span></span>
-            <figcaption>Leopard</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Leopard">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/pomegranate.jpg" srcset="assets/prints/thumb/pomegranate.jpg 658w, assets/prints/pomegranate.jpg 978w" sizes="(max-width:900px) 45vw, 22vw" alt="Nicolas Bettinger’s pomegranate collage — split pomegranates on a striped cloth" decoding="sync"></span></span>
-            <figcaption>Pomegranate</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Pomegranate">Bring it home</button>
-          </figure>
-          <!-- BLOCKED: Sun Stone Tower exists only as an angled photo of a carved frame, so the
-               bare print can't be recovered from it. Left framed on purpose until Nicolas sends
-               the original file; do not "fix" this by cropping the composite. -->
-          <figure class="frame-item framed-native">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><img src="assets/gallery/sun-stone-tower-gold-frame.webp" alt="Nicolas Bettinger’s Sun Stone tower collage in an ornate gold frame" decoding="sync"></span>
-            <figcaption>Sun Stone Tower</figcaption>
-            <span class="tag-btn" aria-disabled="true" style="cursor:default;opacity:.6;pointer-events:none">original only — prints coming</span>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/purple-field.jpg" srcset="assets/prints/thumb/purple-field.jpg 600w, assets/prints/purple-field.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="Nicolas Bettinger’s purple field collage — dense purple blooms around dark seed pods" decoding="sync"></span></span>
-            <figcaption>Purple Field</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Purple Field">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/fruit-basket.jpg" srcset="assets/prints/thumb/fruit-basket.jpg 600w, assets/prints/fruit-basket.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="Nicolas Bettinger’s fruit basket collage — berries and citrus in a woven bowl" decoding="sync"></span></span>
-            <figcaption>Fruit Basket</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Fruit Basket">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/bali-jungle.jpg" srcset="assets/prints/thumb/bali-jungle.jpg 600w, assets/prints/bali-jungle.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="Nicolas Bettinger’s Bali jungle collage — figures working terraced green hillsides" decoding="sync"></span></span>
-            <figcaption>Bali Jungle</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Bali Jungle">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/midnight-flight.jpg" srcset="assets/prints/thumb/midnight-flight.jpg 600w, assets/prints/midnight-flight.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="A surreal torn-paper scene of a figure reaching toward a rising orange moon" decoding="sync"></span></span>
-            <figcaption>Midnight Flight</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Midnight Flight">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/ivy-house.jpg" srcset="assets/prints/thumb/ivy-house.jpg 600w, assets/prints/ivy-house.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="An ivy-covered stone house with a yellow vintage car parked outside" decoding="sync"></span></span>
-            <figcaption>The Ivy House</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="The Ivy House">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/held-gently.jpg" srcset="assets/prints/thumb/held-gently.jpg 600w, assets/prints/held-gently.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="A hand holding a jeweled, egg-shaped ornament" decoding="sync"></span></span>
-            <figcaption>Held Gently</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Held Gently">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/the-watchman.jpg" srcset="assets/prints/thumb/the-watchman.jpg 600w, assets/prints/the-watchman.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="A bronze monument statue in a sunlit plaza" decoding="sync"></span></span>
-            <figcaption>The Watchman</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="The Watchman">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/through-the-keyhole.jpg" srcset="assets/prints/thumb/through-the-keyhole.jpg 600w, assets/prints/through-the-keyhole.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="A keyhole-shaped archway framing a sunlit garden path" decoding="sync"></span></span>
-            <figcaption>Through the Keyhole</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Through the Keyhole">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/all-aboard.jpg" srcset="assets/prints/thumb/all-aboard.jpg 600w, assets/prints/all-aboard.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="A folk-art illustration of animals riding in an ornate boat under a red umbrella" decoding="sync"></span></span>
-            <figcaption>All Aboard</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="All Aboard">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/the-bath-house.jpg" srcset="assets/prints/thumb/the-bath-house.jpg 600w, assets/prints/the-bath-house.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="A sunlit stone colonnade surrounding a turquoise pool" decoding="sync"></span></span>
-            <figcaption>The Bath House</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="The Bath House">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/prints/thumb/fast-and-feral.jpg" srcset="assets/prints/thumb/fast-and-feral.jpg 600w, assets/prints/fast-and-feral.jpg 1500w" sizes="(max-width:900px) 45vw, 22vw" alt="A vintage red race car above a tiger’s face among jungle leaves" decoding="sync"></span></span>
-            <figcaption>Fast &amp; Feral</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Fast &amp; Feral">Bring it home</button>
-          </figure>
-          <!-- three of the actual mantra card fronts, blown up and framed alongside the larger pieces -->
-          <figure class="frame-item framed-css card-art">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/web/deck-cards/front-20.png" alt="The leopard mantra card, framed" decoding="sync"></span></span>
-            <figcaption>Leopard (the card)</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Leopard (the card)">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css card-art">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/web/deck-cards/front-15.png" alt="The beach umbrella mantra card, framed" decoding="sync"></span></span>
-            <figcaption>Beach Day (the card)</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Beach Day (the card)">Bring it home</button>
-          </figure>
-          <figure class="frame-item framed-css card-art">
-            <span class="spotlight" aria-hidden="true"></span>
-            <span class="frame-art"><span class="mat"><img src="assets/web/deck-cards/front-18.png" alt="The keyhole path mantra card, framed" decoding="sync"></span></span>
-            <figcaption>Through the Door (the card)</figcaption>
-            <button class="tag-btn bring-home" type="button" data-artwork="Through the Door (the card)">Bring it home</button>
-          </figure>
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Populated from GALLERY_CATALOG (single source of truth, see script at
+               end of body). Art + mat only — no frame graphics in the display; the
+               product still ships framed, the piece just isn't shown behind glass here. -->
         </div>
-
-        <div class="card-scatter" aria-label="A scatter of the actual mantra cards">
-          <img src="assets/web/deck-cards/front-13.png" alt="A mantra card featuring a torn-paper vine illustration" decoding="sync">
-          <img src="assets/web/deck-cards/front-17.png" alt="A mantra card featuring a torn-paper fruit still life" decoding="sync">
-          <img src="assets/web/deck-cards/front-21.png" alt="A mantra card featuring a mid-century desert house" decoding="sync">
-          <img src="assets/web/deck-cards/front-22.png" alt="A mantra card featuring a small house beneath a giant umbrella" decoding="sync">
-          <img src="assets/web/deck-cards/front-24.png" alt="A mantra card featuring a jar spilling colorful circles" decoding="sync">
-        </div>
-        <p class="moody-intro hand">the cards themselves, dropped on the table</p>
+        <p class="moody-intro hand">close enough to see the paper grain</p>
       </div>
 
       <div class="pod torn" style="margin-top:2.2rem">
         <span class="eyebrow hand">a room being built</span>
         <h3>Every image was a photograph first</h3>
-        <p class="lede">Nicolas took the picture, tore it up, layered it, glued it back into a little world — then wrote a mantra across it. The Gallery is where those worlds get to be big.</p>
+        <p class="lede">Nicolas took the picture, tore it up, layered it, glued it back into a little world of its own. The Gallery is where those worlds get to be big.</p>
         <blockquote class="hand">“Close enough to see the paper fibers, and the bit of glue that never dried flat.”</blockquote>
         <p style="max-width:44ch;margin:0 auto 1.6rem">The pieces get hung with room to breathe. We’re still arguing about what goes on which wall.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">show me when the room opens</a>
       </div>
-      <p class="tease hand">Seventeen pieces are on the wall — plus the cards, just because. More are on their way.</p>
+      <p class="tease hand">Ten pieces are on the wall. More are on their way.</p>
     </div>
   </section>
 
@@ -1211,27 +1089,29 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
       </div>
       <div class="field-row">
         <div class="field">
-          <label for="galleryFormat">Format</label>
-          <select id="galleryFormat" name="Format" required>
-            <option value="Print">Print</option>
-            <option value="Framed">Framed</option>
-          </select>
-        </div>
-        <div class="field">
           <label for="gallerySize">Size</label>
           <select id="gallerySize" name="Size" required>
             <option value="12x16">12x16</option>
             <option value="20x28">20x28</option>
           </select>
-          <p class="hand">the size on the label is always the print you get — framed pieces step the frame up around it.</p>
+          <p class="hand">every piece ships printed, matted &amp; framed — the size on the label is the print inside the frame.</p>
         </div>
       </div>
-      <div class="field" id="galleryFrameColorField" hidden>
-        <label for="galleryFrameColor">Frame Color</label>
-        <select id="galleryFrameColor" name="Frame Color">
-          <option value="Antique Gold">Antique Gold</option>
-          <option value="Black">Black</option>
-        </select>
+      <div class="field-row">
+        <div class="field">
+          <label for="galleryFrameColor">Frame Color</label>
+          <select id="galleryFrameColor" name="Frame Color" required>
+            <option value="Antique Gold">Antique Gold</option>
+            <option value="Black">Black</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="galleryMat">Mat</label>
+          <select id="galleryMat" name="Mat" required>
+            <option value="White">White</option>
+            <option value="Black">Black</option>
+          </select>
+        </div>
       </div>
       <p class="price-line" id="galleryPriceLine"></p>
       <div class="field">
@@ -1278,9 +1158,49 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 
 <script>
 // PLACEHOLDER-PRICING — replace with confirmed numbers before enabling payment.
+// Gallery is framed-only (print + mat + frame) — there is no print-alone product.
 const TBH_PRICES = { deck: 33,
-  gallery: { "Print": { "12x16": 95, "20x28": 145 },
-             "Framed": { "12x16": 189, "20x28": 265 } } };
+  gallery: { "12x16": 189, "20x28": 265 } };
+
+/* GALLERY_CATALOG — single source of truth for The Moody Gallery. Exactly the ten
+   pieces Kel confirmed. Each needs assets/prints/<slug>.jpg + assets/prints/thumb/<slug>.jpg.
+   mat: 'white' (default) or 'black' — both Red Bird pieces are Nicolas's explicit
+   black-mat call. Trimming/adding the gallery is a one-line edit to this array. */
+const GALLERY_CATALOG = [
+  { slug:'blue-dolphins', title:'Blue Dolphins', mat:'white',
+    alt:'A fresco-style collage of blue dolphins and darting fish beneath a wood-beamed roofline, bordered in painted flowers' },
+  { slug:'yellow-retro-car', title:'Yellow Retro Car', mat:'white',
+    alt:'A yellow vintage convertible parked outside an ivy-covered building with arched windows' },
+  { slug:'whimsical-sofa', title:'Whimsical Sofa', mat:'white',
+    alt:'A floral upholstered sofa in front of a wall of shelved handbags in bright colors' },
+  { slug:'vespa-selfie', title:'Vespa Selfie', mat:'white',
+    alt:'A helmeted rider snapping a mirror selfie on a scooter, trees reflected behind him' },
+  { slug:'crete-beach', title:'Crete Beach', mat:'white',
+    alt:'A beach umbrella overlooking a turquoise sea and distant mountains under a cloud-streaked sky' },
+  { slug:'art-deco-deity', title:'Art Deco Deity', mat:'white',
+    alt:'An art-deco winged goddess figure in blue and cream with a tall draped headdress' },
+  { slug:'nayarit-view', title:'Nayarit View', mat:'white',
+    alt:'An infinity pool deck overlooking a jungle coastline and a quiet bay' },
+  { slug:'daydreaming-red-bird', title:'Daydreaming Red Bird', mat:'black',
+    alt:'A red bird arcing across an orange sun toward a bright star in a blue sky with soft white clouds' },
+  { slug:'stargazing-red-bird', title:'Stargazing Red Bird', mat:'black',
+    alt:'The same red bird reaching for a star over an orange sun, set against a night sky with dark clouds' },
+  { slug:'iron-lady', title:'Iron Lady', mat:'white',
+    alt:'A bronze bell-shaped statue of a hooded woman before a European plaza and domed church' }
+];
+(function renderGalleryCatalog(){
+  const grid=document.getElementById('galleryGrid');
+  if(!grid)return;
+  grid.innerHTML=GALLERY_CATALOG.map(p=>{
+    const matClass = p.mat==='black' ? ' mat-black' : '';
+    return `<figure class="frame-item" data-mat="${p.mat}">
+      <span class="spotlight" aria-hidden="true"></span>
+      <span class="frame-art"><span class="mat${matClass}"><img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:900px) 45vw, 22vw" alt="${p.alt}" decoding="sync"></span></span>
+      <figcaption>${p.title}</figcaption>
+      <button class="tag-btn bring-home" type="button" data-artwork="${p.title}" data-mat="${p.mat==='black'?'Black':'White'}">Bring it home</button>
+    </figure>`;
+  }).join('');
+})();
 const interimPreview=new URLSearchParams(location.search).get('interim')==='1';
 document.body.classList.toggle('is-interim-preview',interimPreview);
 const allTiers=[...document.querySelectorAll('.tier')];
@@ -1740,35 +1660,27 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
   const form=document.getElementById('galleryOrderForm');
   const confirm=document.getElementById('galleryOrderConfirm');
   const artworkInput=document.getElementById('galleryArtwork');
-  const formatSelect=document.getElementById('galleryFormat');
   const sizeSelect=document.getElementById('gallerySize');
-  const frameColorField=document.getElementById('galleryFrameColorField');
   const frameColorSelect=document.getElementById('galleryFrameColor');
+  const matSelect=document.getElementById('galleryMat');
   const priceLine=document.getElementById('galleryPriceLine');
   if(!dialog||!form)return;
   const supportsDialog=typeof dialog.showModal==='function';
   let opener=null;
-  function syncFrameColor(){
-    const isFramed=formatSelect.value==='Framed';
-    frameColorField.hidden = !isFramed;
-    if(frameColorSelect)frameColorSelect.disabled = !isFramed;
-  }
   function syncPriceLine(){
-    const fmt=formatSelect.value,size=sizeSelect.value;
-    const price=TBH_PRICES.gallery[fmt]?.[size];
+    const size=sizeSelect.value;
+    const price=TBH_PRICES.gallery[size];
     if(priceLine)priceLine.textContent = price!=null
-      ? `Launch price: $${price} · ${fmt} ${size.replace('x','×')} · confirmed by email before any payment`
+      ? `Launch price: $${price} · Framed ${size.replace('x','×')} · confirmed by email before any payment`
       : '';
   }
-  formatSelect.addEventListener('change',()=>{syncFrameColor();syncPriceLine();});
   sizeSelect.addEventListener('change',syncPriceLine);
   function openDialog(btn){
     opener=btn;
     form.hidden=false;confirm.hidden=true;
     form.reset();
     artworkInput.value=btn.dataset.artwork||'';
-    formatSelect.value='Print';
-    syncFrameColor();
+    matSelect.value=btn.dataset.mat||'White';
     syncPriceLine();
     if(supportsDialog)dialog.showModal();else dialog.setAttribute('open','');
   }
@@ -1788,13 +1700,12 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
     e.preventDefault();
     if(!form.checkValidity()){form.reportValidity();return}
     errBox.hidden=true;btn.disabled=true;btn.setAttribute('aria-busy','true');
-    const fmt=formatSelect.value;
     const payload={
       product:'gallery',
       artwork:artworkInput.value,
-      format:fmt,
       size:sizeSelect.value,
-      ...(fmt==='Framed'?{frameColor:frameColorSelect.value}:{}),
+      frameColor:frameColorSelect.value,
+      mat:matSelect.value,
       customerName:document.getElementById('galleryName').value,
       customerEmail:document.getElementById('galleryEmail').value,
       shipTo:document.getElementById('galleryAddress').value,
