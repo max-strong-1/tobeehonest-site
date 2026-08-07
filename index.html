@@ -745,6 +745,11 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
             <textarea id="deckAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
           </div>
           <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
+          <!-- honeypot: hidden from people, catnip for bots -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="deckCompanyWebsite">Company website</label>
+            <input type="text" id="deckCompanyWebsite" name="company_website" tabindex="-1" autocomplete="off">
+          </div>
           <div class="form-actions">
             <button class="tag-btn" type="submit" id="deckSubmitBtn">Save my order</button>
           </div>
@@ -1168,7 +1173,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
       <h3 style="font-size:1.4rem">Bring it home</h3>
       <button type="button" class="dialog-close" id="galleryDialogClose" aria-label="Close this form">✕</button>
     </div>
-    <form id="galleryOrderForm" data-vendor="Prodigi" data-airtable-table="Gallery Orders" novalidate>
+    <form class="order-form" id="galleryOrderForm" data-vendor="Prodigi" data-airtable-table="Gallery Orders" novalidate>
       <div class="field">
         <label for="galleryArtwork">Artwork</label>
         <input type="text" id="galleryArtwork" name="Artwork" readonly>
@@ -1211,6 +1216,11 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
         <textarea id="galleryAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
       </div>
       <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
+      <!-- honeypot: hidden from people, catnip for bots -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="galleryCompanyWebsite">Company website</label>
+        <input type="text" id="galleryCompanyWebsite" name="company_website" tabindex="-1" autocomplete="off">
+      </div>
       <div class="form-actions">
         <button class="tag-btn" type="submit" id="gallerySubmitBtn">Save my order</button>
       </div>
@@ -1490,7 +1500,7 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
       customerName:document.getElementById('deckName').value,
       customerEmail:document.getElementById('deckEmail').value,
       shipTo:document.getElementById('deckAddress').value,
-      company_website:''
+      company_website:document.getElementById('deckCompanyWebsite').value
     };
     try{
       const r=await fetch('/api/order-intent',{method:'POST',
@@ -1519,7 +1529,7 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
   const submitBtn=document.getElementById('marketSubmitBtn');
   if(!openBtn||!form||!confirm)return;
 
-  const MAX_EDGE=1600, JPEG_Q=.82, MAX_FILE_BYTES=4_500_000, MAX_TOTAL_BYTES=18_000_000;
+  const MAX_EDGE=1600, JPEG_Q=.82, MAX_FILE_BYTES=4_500_000, MAX_TOTAL_BYTES=3_300_000;
 
   openBtn.addEventListener('click',()=>{
     form.hidden=false;confirm.hidden=true;openBtn.hidden=true;
@@ -1628,7 +1638,7 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
       const total=[...photos,...proofOfWork,...businessProof]
         .reduce((sum,f)=>sum+decodedBytes(f.file),0);
       if(total>MAX_TOTAL_BYTES){
-        throw new Error('Those attachments add up to more than 18 MB. Try fewer or smaller files.');
+        throw new Error('Those attachments add up to more than 3.3 MB. Try fewer or smaller files.');
       }
 
       const data=new FormData(form);
@@ -1742,7 +1752,7 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
       customerName:document.getElementById('galleryName').value,
       customerEmail:document.getElementById('galleryEmail').value,
       shipTo:document.getElementById('galleryAddress').value,
-      company_website:''
+      company_website:document.getElementById('galleryCompanyWebsite').value
     };
     try{
       const r=await fetch('/api/order-intent',{method:'POST',
