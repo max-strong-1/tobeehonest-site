@@ -22,7 +22,11 @@ export const deckOrder = z.object({
 export const galleryOrder = z.object({
   product: z.literal("gallery"),
   artwork: z.string().trim().min(1).max(120),
-  size: z.enum(["12x16", "20x28"]),
+  /* PRINT sizes — the artwork the customer receives, not the glaze/frame size.
+     Prodigi's mount adds a fixed 2" border per side, so glaze = print + 4".
+     Must stay byte-identical with index.html's TBH_PRICES keys and the Airtable
+     Size select — fulfillment joins on these exact strings. */
+  size: z.enum(["8x12", "12x18", "16x24"]),
   frameColor: z.enum(["Black", "Antique Gold"]),
   mat: z.enum(["White", "Black"]),
   ...base

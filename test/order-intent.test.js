@@ -4,21 +4,21 @@ import { deckOrder, galleryOrder, buildAirtableFields } from "../api/order-inten
 
 test("gallery order requires frameColor", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
-    size:"12x16", mat:"White", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+    size:"8x12", mat:"White", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
 });
 test("gallery order requires mat", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
-    size:"12x16", frameColor:"Black", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+    size:"8x12", frameColor:"Black", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
 });
 test("gallery order with mat + frameColor passes and maps fields", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
-    size:"20x28", frameColor:"Antique Gold", mat:"White",
+    size:"16x24", frameColor:"Antique Gold", mat:"White",
     customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, true);
   const f = buildAirtableFields(r.data, "TBH-G-20260806-TEST");
-  assert.equal(f["Size"], "20x28");
+  assert.equal(f["Size"], "16x24");
   assert.equal(f["Status"], "New");
   assert.equal(f["Format"], "Framed");
   assert.equal(f["Mat Color"], "White");
@@ -33,16 +33,16 @@ test("deck order maps Variant and Quantity", () => {
 });
 test("frameColor only accepts launch colours", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
-    frameColor:"White", mat:"White", size:"12x16", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+    frameColor:"White", mat:"White", size:"8x12", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
 });
 test("mat only accepts White or Black", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
-    frameColor:"Black", mat:"Gold", size:"12x16", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+    frameColor:"Black", mat:"Gold", size:"8x12", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
 });
 test("gallery order rejects a format field being sent at all (strict, no print-alone)", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard", format:"Framed",
-    frameColor:"Black", mat:"White", size:"12x16", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+    frameColor:"Black", mat:"White", size:"8x12", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
 });

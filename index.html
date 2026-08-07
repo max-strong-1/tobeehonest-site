@@ -407,7 +407,10 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   #mobileNavToggle:focus-visible{outline:3px solid var(--bark);outline-offset:3px}
   .back{left:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px))}
   .tier-inner{
-    padding:3.5rem 6vw calc(5.5rem + env(safe-area-inset-bottom,0px));
+    /* Bottom padding must clear BOTH fixed mobile controls: #mobileNavToggle
+       (52px min-height + 1rem offset) and .back (same band). 5.5rem left the tail of
+       long tiers colliding with them. 8rem clears the 68px control band with margin. */
+    padding:3.5rem 6vw calc(8rem + env(safe-area-inset-bottom,0px));
     justify-content:flex-start;
   }
   #draw{padding:calc(1rem + env(safe-area-inset-top,0px)) 1rem calc(1rem + env(safe-area-inset-bottom,0px));background:rgba(70,53,31,.96)}
@@ -1146,8 +1149,9 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
         <div class="field">
           <label for="gallerySize">Size</label>
           <select id="gallerySize" name="Size" required>
-            <option value="12x16">12x16</option>
-            <option value="20x28">20x28</option>
+            <option value="8x12">8x12</option>
+            <option value="12x18">12x18</option>
+            <option value="16x24">16x24</option>
           </select>
           <p class="hand">every piece ships printed, matted &amp; framed — the size on the label is the print inside the frame.</p>
         </div>
@@ -1214,8 +1218,14 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 <script>
 // PLACEHOLDER-PRICING — replace with confirmed numbers before enabling payment.
 // Gallery is framed-only (print + mat + frame) — there is no print-alone product.
+/* Prices confirmed by Kel 2026-08-07. Gallery keys are PRINT sizes — the artwork the
+   customer receives — not glaze/frame sizes. Prodigi's mount adds a fixed 2" border per
+   side, so glaze = print + 4": 8x12 -> CFPM-12x16, 16x24 -> CFPM-20x28 (both confirmed);
+   12x18 -> 16x22 glaze, whose SKU is NOT yet confirmed in Prodigi's catalogue. Keep these
+   strings byte-identical with the Airtable Size select — fulfillment joins on them.
+   Customer pays tax AND shipping on top of every price here. */
 const TBH_PRICES = { deck: 49, book: 59,
-  gallery: { "12x16": 189, "20x28": 265 } };
+  gallery: { "8x12": 249, "12x18": 279, "16x24": 429 } };
 
 /* GALLERY_CATALOG — single source of truth for The Moody Gallery. Wave C-2: all 17
    confirmed gallery prints (book-cover-hires and tower-of-knowledge excluded — not
