@@ -168,7 +168,11 @@ body::before{
 .cover-panel h1{font-size:clamp(2.4rem,4.8vw,4rem);margin-bottom:1rem}
 .cover-panel h1 em{font-style:normal;color:#8a611a}/* darkened from --honey (#d99a2b, 2.14:1) for WCAG AA 4.5:1 on --paper */
 .cover-panel .lede{font-size:1.18rem;max-width:34ch;margin-bottom:1.8rem}
-.cover-logo{width:92px;height:92px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow);margin-bottom:1.3rem;border:5px solid #fff}
+/* Sized up from 92px — the logo is now an animation with a bee flying into frame, and at
+   92px that motion is illegible. No blend mode: `multiply` was tried to knock out the
+   clip's near-white background, but it dragged the whole disc grey against the cream
+   paper. The white border already reads as intentional, same as the static logo did. */
+.cover-logo{width:132px;height:132px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow);margin-bottom:1.3rem;border:5px solid #fff;background:#fff;display:block}
 .cover-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
 .wordmark{position:absolute;top:1.5rem;left:6vw;z-index:5;display:flex;align-items:center;gap:.38rem}
 /* Concentric-ring mark. Was opacity:0 per an earlier "keep it invisible" call; the client
@@ -688,7 +692,18 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
       <div class="cover-content">
         <div class="cover-panel">
           <div class="panel torn">
-            <img class="cover-logo" src="assets/IMG_5190.jpeg" alt="To Bee Honest — watercolor bee on a yellow flower">
+            <!-- Animated logo reveal (client-supplied). Drops into the exact slot the static
+                 logo held, so no layout change. Poster is the clip's own final frame, so
+                 anything that can't or shouldn't play it still lands on the finished lockup.
+                 Autoplay is granted by JS only when the visitor hasn't asked for reduced motion. -->
+            <video class="cover-logo" id="coverLogoVideo"
+                   poster="assets/video/logo-reveal-poster.jpg"
+                   muted playsinline preload="metadata"
+                   aria-label="To Bee Honest — a bee lands on a yellow flower and the logo forms around it">
+              <source src="assets/video/logo-reveal.webm" type="video/webm">
+              <source src="assets/video/logo-reveal.mp4" type="video/mp4">
+              <img src="assets/video/logo-reveal-poster.jpg" alt="To Bee Honest — a bee on a yellow flower inside a ring">
+            </video>
             <h1>Scrapbook for your <em>inner world</em>.</h1>
             <p class="lede">A book, a deck of mantras, and a growing universe of playful ways to feel better about being you.</p>
             <div class="cover-actions">
@@ -1816,6 +1831,23 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
       btn.disabled=false;btn.removeAttribute('aria-busy');
     }
   });
+})();
+
+/* Cover logo reveal. The <video> deliberately has no `autoplay` attribute — autoplay is
+   granted here, and only when the visitor hasn't asked for reduced motion. Without it they
+   keep the poster, which is the clip's own final frame, so they still see the finished logo
+   rather than a blank box. Plays once and holds; a logo that loops reads as a glitch.
+   If play() is refused (some mobile power-saving modes), the poster stands in silently. */
+(function(){
+  const v = document.getElementById('coverLogoVideo');
+  if (!v) return;
+  const stillness = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function offer(){
+    if (stillness.matches) { v.pause(); v.currentTime = 0; return; }
+    v.play().catch(() => {});
+  }
+  offer();
+  stillness.addEventListener?.('change', offer);
 })();
 
 paint();
