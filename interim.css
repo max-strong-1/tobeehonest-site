@@ -304,6 +304,10 @@ h1 em {
 }
 
 .hive-workbench {
+  /* --cell-width lives HERE, not on .honeycomb, so .comb-note (a sibling of the comb)
+     can read the same value and position itself below the comb instead of guessing.
+     Every responsive override of this variable must also target .hive-workbench. */
+  --cell-width: clamp(122px, 12vw, 178px);
   position: relative;
   min-height: min(690px, 72vh);
   opacity: 0;
@@ -344,7 +348,6 @@ h1 em {
 
 .honeycomb {
   position: absolute;
-  --cell-width: clamp(122px, 12vw, 178px);
   top: 10%;
   left: 50%;
   width: calc(var(--cell-width) * 3);
@@ -584,17 +587,25 @@ h1 em {
   animation: corner-pollen-pop .52s cubic-bezier(.16, .72, .32, 1) forwards;
 }
 
+/* The note used to sit at `right:5%; bottom:1%` — anchored to the workbench, with no
+   relationship to where the honeycomb actually ends. The comb is absolute at top:10%
+   with a height driven by --cell-width, so on narrower viewports it grew down THROUGH
+   the note and the text collided with cells 06/07.
+   Anchoring off the comb's own geometry instead (same top offset, same height formula,
+   plus clearance) puts the note below the comb at every width by construction. */
 .comb-note {
   position: absolute;
-  right: 5%;
-  bottom: 1%;
-  max-width: 20rem;
+  top: calc(10% + (var(--cell-width) / .866) * 2.5 + 1.4rem);
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  max-width: 22rem;
   margin: 0;
   padding: .65rem .9rem;
   border-bottom: 1px solid var(--ink);
   font-size: .78rem;
-  text-align: right;
-  transform: rotate(-1deg);
+  text-align: center;
+  transform: translateX(-50%) rotate(-1deg);
 }
 
 .construction-footer {
@@ -750,7 +761,7 @@ body.is-previewing .preview-shell {
     margin: 0 auto;
   }
 
-  .honeycomb { --cell-width: clamp(118px, 19vw, 170px); }
+  .hive-workbench { --cell-width: clamp(118px, 19vw, 170px); }
 }
 
 @media (max-width: 650px) {
@@ -797,8 +808,9 @@ body.is-previewing .preview-shell {
     padding-bottom: 1rem;
   }
 
+  .hive-workbench { --cell-width: min(calc((100vw - 2rem) / 3), 118px); }
+
   .honeycomb {
-    --cell-width: min(calc((100vw - 2rem) / 3), 118px);
     position: relative;
     inset: auto;
     width: calc(var(--cell-width) * 3);
