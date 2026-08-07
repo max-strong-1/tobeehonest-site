@@ -27,8 +27,6 @@ FORM: Hybrid of pinned concepts 1+2 (page-turn mechanics on a tier stack), per o
   --paper:#f7efe2; --paper-deep:#eadfca; --honey:#d99a2b; --sun:#f2c94c;
   --bloom:#e8b64c; --bark:#6b4b28; --ink:#46351f;
   --terra:#d98d68; --sage:#a9b380; --dusty:#92a8bd; --mauve:#b393a8;
-  --comb-honey:#c6a16a; --comb-terra:#c9a38e; --comb-sage:#b5b99d;
-  --comb-dusty:#a8b3ba; --comb-mauve:#bea9b5;
   --shadow: 0 6px 18px rgba(70,53,31,.18), 0 2px 4px rgba(70,53,31,.12);
   --shadow-lift: 0 14px 34px rgba(70,53,31,.24), 0 4px 8px rgba(70,53,31,.14);
 }
@@ -76,39 +74,23 @@ body::before{
   content:"";position:sticky;display:block;bottom:0;height:0;
 }
 
+/* The one navigation control that exists off the cover. The honeycomb on the cover is
+   the ONLY way into a chapter (client call 2026-08-07 — the side bookmark rail is gone
+   site-wide), so every chapter needs an unmissable way back to it or the visitor is
+   stranded. It sits bottom-left, out of the reading column, on every tier but the cover. */
 .back{
-  position:fixed;left:2.2rem;bottom:2rem;z-index:50;border:none;cursor:pointer;
-  font-family:'Shantell Sans',cursive;font-size:.9rem;color:var(--ink);background:var(--paper-deep);
-  padding:.6rem 1.1rem;clip-path:polygon(3% 10%,97% 0,100% 90%,0 100%);box-shadow:var(--shadow);
-  transition:transform .3s;
+  position:fixed;left:1.6rem;bottom:1.6rem;z-index:50;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Shantell Sans',cursive;font-weight:500;font-size:.95rem;color:var(--ink);
+  background:var(--paper);padding:.7rem 1.3rem .7rem 1.1rem;
+  clip-path:polygon(3% 10%,97% 0,100% 90%,0 100%);box-shadow:var(--shadow);
+  transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s;
 }
-.back:hover,.back:focus-visible{transform:translateY(-3px)}
-.back:focus-visible{outline:3px solid var(--bark)}
+.back .back-comb{width:1.05rem;height:1.2rem;flex:0 0 auto;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--sun)}
+.back:hover,.back:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.back:focus-visible{outline:3px solid var(--bark);outline-offset:3px}
 .back[hidden]{display:none}
-
-/* bookmark rail */
-#marks{position:fixed;right:.6rem;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:.45rem;align-items:stretch;max-height:88vh;overflow-y:auto;padding:.2rem 0}
-#marks button{
-  border:none;cursor:pointer;font-family:'Shantell Sans',cursive;font-weight:500;color:var(--ink);
-  font-size:clamp(.82rem,.5vw + .7rem,1.12rem);
-  line-height:1.22;padding:.75rem 1.15rem .75rem 1.7rem;width:14.5rem;max-width:14.5rem;
-  background:var(--paper-deep);box-shadow:var(--shadow);
-  clip-path:polygon(9% 0,100% 0,100% 100%,9% 100%,0 50%);
-  white-space:normal;overflow-wrap:break-word;text-align:left;
-  transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s;
-}
-#marks button:hover,#marks button:focus-visible{transform:translateX(-6px)}
-#marks button:focus-visible{outline:3px solid var(--bark)}
-#marks button[aria-current="true"]{transform:translateX(-6px);background:var(--sun)}
-
-/* progress rings (corner) */
-#rings{position:fixed;left:1.4rem;top:1.2rem;z-index:50;width:52px;height:52px}
-#rings span{position:absolute;inset:0;border-radius:50%;border:3px solid var(--paper-deep);opacity:.35;transition:opacity .5s,border-color .5s}
-#rings span.done{opacity:1;border-color:var(--sun)}
-#rings span:nth-child(2){inset:7px}#rings span:nth-child(3){inset:14px}
-#rings span:nth-child(4){inset:21px}#rings span:nth-child(5){inset:28px}
-#rings b{position:absolute;inset:35px;border-radius:50%;background:var(--honey);opacity:0;transition:opacity .5s;transform:scale(1)}
-#rings b.done{opacity:1}
 
 /* ---------- shared components (from v1) ---------- */
 .panel{background:var(--paper);padding:2.4rem 2.2rem 2.6rem;position:relative;filter:drop-shadow(0 10px 16px rgba(70,53,31,.22))}
@@ -123,8 +105,8 @@ body::before{
 .tape{position:absolute;width:110px;height:34px;background:rgba(242,201,76,.55);top:-16px;left:50%;transform:translateX(-50%) rotate(-3deg);box-shadow:0 1px 3px rgba(70,53,31,.15);z-index:2}
 
 /* story polaroid */
-.pol-front,.soon-inner,.soon-face,.soon-face .soon,.book-page,.book-cover{display:block}
-.soon-flip,.book-wrap{font:inherit;color:inherit;text-align:inherit;line-height:inherit}
+.pol-front,.book-page,.book-cover{display:block}
+.book-wrap{font:inherit;color:inherit;text-align:inherit;line-height:inherit}
 .story-polaroid{transform:rotate(2.2deg)}
 
 /* 3D book (book tier) */
@@ -138,21 +120,6 @@ body::before{
 .book-wrap:hover .book-cover{transform:rotateY(-32deg)}
 .book-wrap.open .book-cover,.book-wrap.open:hover .book-cover{transform:rotateY(-142deg)}
 .book-hint{text-align:center;margin-top:.9rem;font-size:.9rem}
-
-/* flip scraps (universe tier) */
-.soon-flip{perspective:1100px;border:none;background:none;padding:0;cursor:pointer;display:block;width:100%;min-height:240px}
-.soon-flip:focus-visible{outline:3px solid var(--bark);outline-offset:4px}
-.soon-inner{position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.16,1,.3,1);min-height:240px;height:100%}
-.soon-flip:hover .soon-inner,.soon-flip.flipped .soon-inner{transform:rotateY(180deg)}
-.soon-flip:nth-child(1) .soon-inner{transform:rotate(-1deg)}
-.soon-flip:nth-child(3) .soon-inner{transform:rotate(1.1deg)}
-.soon-flip:nth-child(1):hover .soon-inner,.soon-flip:nth-child(1).flipped .soon-inner{transform:rotate(-1deg) rotateY(180deg)}
-.soon-flip:nth-child(3):hover .soon-inner,.soon-flip:nth-child(3).flipped .soon-inner{transform:rotate(1.1deg) rotateY(180deg)}
-.soon-face{position:absolute;inset:0;backface-visibility:hidden}
-.soon-face .soon{height:100%;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
-.soon-back{transform:rotateY(180deg)}
-.soon-back .soon{background:var(--sun);justify-content:center}
-.soon-back .hand{font-size:1.05rem;line-height:1.55}
 
 /* paper confetti (hive tier) */
 .scrap{position:fixed;width:16px;height:20px;z-index:90;pointer-events:none;clip-path:polygon(0 12%,18% 0,55% 8%,100% 2%,92% 48%,100% 88%,60% 100%,20% 92%,6% 100%,0 60%)}
@@ -201,8 +168,6 @@ body::before{
 .hc-6{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * .5);--hc-light:#f7db8d;--hc-base:#ebbc48;--hc-deep:#b48318}
 .hc-7{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#fbe9b2;--hc-base:var(--sun);--hc-deep:#c99a22}
 .hc-note{margin:1.4rem auto 0;max-width:22rem;font-family:'Shantell Sans',cursive;font-size:.8rem;color:var(--ink);opacity:.85}
-/* the honeycomb IS the cover's nav — the side rail stays out of the way while on the cover */
-body.cover-active #marks,body.cover-active #mobileNavToggle{display:none}
 @media(max-width:1050px){
   .cover-content{flex-direction:column;align-items:flex-start;padding-top:6.5vh}
   .cover-honeycomb{margin:.5rem auto 0}
@@ -219,7 +184,13 @@ body.cover-active #marks,body.cover-active #mobileNavToggle{display:none}
 .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
 .two-col p{margin-bottom:1rem;max-width:56ch}
 .big-hand{font-size:1.3rem;line-height:1.45;color:var(--bark);margin-top:1.2rem}
-blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);clip-path:polygon(1% 8%,99% 0,100% 92%,0 100%);box-shadow:var(--shadow);font-family:'Shantell Sans',cursive;font-size:1.1rem;color:var(--bark)}
+/* A torn scrap laid on the page. It used to be --paper on a --paper panel with a soft
+   shadow, which on the book tier made it a ghost — the same colour as its own ground.
+   It now carries the deeper stock so it reads as a separate piece of paper. */
+blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-deep);
+  clip-path:polygon(1% 8%,99% 0,100% 92%,0 100%);
+  filter:drop-shadow(0 4px 7px rgba(70,53,31,.24));
+  font-family:'Shantell Sans',cursive;font-size:1.1rem;color:var(--bark)}
 
 .book-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:center}
 .book-cover{aspect-ratio:5/7;max-width:320px;background:var(--bark);position:relative;transform:rotate(-2deg);box-shadow:var(--shadow-lift);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:1.8rem}
@@ -262,24 +233,23 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 .c3{background:linear-gradient(160deg,#5d7d99,#3d566e 70%)}
 .c4{background:linear-gradient(160deg,#96718c,#6a4a62 70%)}
 
-.soon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2rem}
 /* rev 1: the universe tier now leads with the podcast alone, so it gets a single
    centred panel instead of a three-up grid with two empty seats */
 .pod{max-width:620px;margin:0 auto;padding:2.4rem 2rem 2.7rem;background:var(--paper);
   box-shadow:var(--shadow);text-align:center}
 .pod .eyebrow{display:block;font-size:1.05rem;color:var(--bark);margin-bottom:.2rem}
 .pod h3{font-size:clamp(1.7rem,4.4vw,2.15rem);line-height:1.1;margin:0 0 .7rem}
-.pod .lede{margin:0 auto 1.3rem;max-width:44ch}
-.pod blockquote{margin:0 0 1.6rem;padding:1rem 1.2rem;background:var(--sun);
-  font-size:1.05rem;line-height:1.5}
+/* Heads stay centred; running copy does not. A centred paragraph gives the eye a new
+   left edge to hunt for on every line, which is fine for one line and punishing for
+   five — and these panels carry five. The block stays centred, the text inside it
+   ranges left at a 46ch measure. */
+.pod .lede,.pod>p{margin-left:auto;margin-right:auto;max-width:46ch;text-align:left}
+.pod .lede{margin-bottom:1.3rem}
+.pod blockquote{margin:0 auto 1.6rem;max-width:46ch;padding:1rem 1.2rem;background:var(--sun);
+  font-size:1.05rem;line-height:1.5;text-align:left}
 .tease{max-width:34ch;margin:2.4rem auto 0;text-align:center;font-size:1.2rem;line-height:1.5;
   color:var(--bark)}
-.gallery-preview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.1rem,2.4vw,2rem);max-width:1080px;margin:2rem auto}
-.gallery-piece{margin:0;text-align:center}
-/* the six crops differ by a few pixels; a shared box keeps the captions on one line across each row */
-.gallery-piece img{display:block;width:100%;height:auto;aspect-ratio:4/5;max-height:46vh;object-fit:contain;background:transparent;filter:drop-shadow(0 12px 26px rgba(70,53,31,.28))}
-.gallery-piece figcaption{margin-top:.8rem;color:var(--bark);font-family:'Shantell Sans',cursive;font-size:1rem}
-/* honeycomb — the established brand palette, softened into weathered paper tones */
+/* honeycomb — the established brand palette */
 .comb{--hex:clamp(58px,9vw,92px);margin:2.2rem auto .6rem;width:fit-content}
 .comb-row{display:flex;justify-content:center;gap:8px}
 .comb-row+.comb-row{margin-top:calc(var(--hex) * -0.2887)}
@@ -300,16 +270,6 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
   background:var(--honey);opacity:.26;
 }
-.comb-row:nth-child(1) .comb-cell:nth-child(1),
-.comb-row:nth-child(3) .comb-cell:nth-child(3){background:var(--comb-terra)}
-.comb-row:nth-child(1) .comb-cell:nth-child(2),
-.comb-row:nth-child(2) .comb-cell:nth-child(4){background:var(--comb-honey)}
-.comb-row:nth-child(1) .comb-cell:nth-child(3),
-.comb-row:nth-child(3) .comb-cell:nth-child(1){background:var(--comb-sage)}
-.comb-row:nth-child(2) .comb-cell:nth-child(1),
-.comb-row:nth-child(3) .comb-cell:nth-child(2){background:var(--comb-dusty)}
-.comb-row:nth-child(2) .comb-cell:nth-child(2),
-.comb-row:nth-child(2) .comb-cell:nth-child(3){background:var(--comb-mauve)}
 .comb-caption{max-width:38ch;margin:1.2rem auto 1.8rem;text-align:center;font-size:1.02rem}
 /* one honeycomb cell carries the real Foreman AI mark — a dark navy hex so the
    gold beveled "F" reads clearly against the parchment palette around it */
@@ -319,10 +279,6 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
   clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
 .foreman-caption{position:absolute;left:50%;bottom:-1.3rem;transform:translateX(-50%);
   font-family:'Shantell Sans',cursive;font-size:12px;line-height:1;white-space:nowrap;color:var(--bark);opacity:.85}
-.soon{padding:1.8rem 1.6rem 2rem;background:var(--paper);box-shadow:var(--shadow)}
-.soon .hand{font-size:.85rem;display:inline-block;background:var(--sun);padding:.15rem .6rem;margin-bottom:.8rem;transform:rotate(-1.5deg)}
-.soon h3{font-size:1.25rem;margin-bottom:.5rem}
-
 /* core / join */
 #t-market #t-join{margin:2.6rem auto 0}
 .core{max-width:640px;margin:0 auto;text-align:center}
@@ -340,116 +296,30 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 .core input:invalid:not(:placeholder-shown){border-color:#a54e2a;background:#fbf3ec}
 .footnote{margin-top:2.2rem;font-size:.9rem;opacity:.85}
 
-/* ---------- pull-the-card transition ---------- */
-#draw{
-  position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;
-  background:rgba(70,53,31,.55);
-}
-#draw.open{display:flex}
-#draw .draw-inner{text-align:center;perspective:1400px}
-#draw .hint{font-family:'Shantell Sans',cursive;color:#fdf6e8;font-size:1.15rem;margin-bottom:1.2rem;text-shadow:0 1px 4px rgba(0,0,0,.4)}
-#drawCard{
-  width:min(300px,72vw);aspect-ratio:5/8;margin:0 auto;position:relative;cursor:pointer;border:none;background:none;padding:0;
-  transform-style:preserve-3d;transition:transform .8s cubic-bezier(.16,1,.3,1);display:block;
-}
-#drawCard.flipped{transform:rotateY(180deg)}
-#drawCard:focus-visible{outline:4px solid var(--sun);outline-offset:6px}
-#drawCard .face{
-  position:absolute;inset:0;backface-visibility:hidden;
-  box-shadow:var(--shadow-lift);
-  clip-path:polygon(0 1.5%,3% 0,50% .8%,97% 0,100% 1.8%,99.4% 50%,100% 98.4%,96% 100%,50% 99.2%,4% 100%,0 98%,.5% 50%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.6rem;
-}
-#drawCard .face-down{background:var(--paper-deep)}
-#drawCard .face-down img{width:80%;aspect-ratio:5/7;object-fit:cover;object-position:center 20%;filter:drop-shadow(0 4px 8px rgba(70,53,31,.3));clip-path:inherit}
-#drawCard .face-down .hand{margin-top:.9rem;color:var(--ink)}
-#drawCard .face-up{transform:rotateY(180deg);justify-content:flex-end;padding:1.6rem 1.4rem}
-#drawCard .face-up .mantra{font-family:'Shantell Sans',cursive;font-size:1.25rem;line-height:1.45;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5);position:relative;z-index:1}
-#drawCard .face-up::before{content:"";position:absolute;inset:0 0 auto 0;height:46%;opacity:.9;background:var(--sun);clip-path:polygon(0 0,100% 0,100% 34%,88% 46%,72% 38%,55% 50%,38% 40%,20% 52%,8% 42%,0 50%)}
-#drawCard .face-up::after{content:"";position:absolute;inset:0 0 auto 0;height:30%;opacity:.85;background:var(--paper);clip-path:polygon(0 0,100% 0,100% 52%,84% 68%,66% 56%,48% 72%,30% 58%,14% 74%,0 62%)}
-#draw .draw-actions{margin-top:1.5rem;min-height:3.4rem}
-#draw .draw-actions[hidden]{visibility:hidden}
-#draw .skip-card{display:block;margin-top:1rem;font-family:'Shantell Sans',cursive;font-size:.9rem;color:#fdf6e8;background:none;border:none;cursor:pointer;text-decoration:underline;margin-left:auto;margin-right:auto}
-#draw .skip-card:focus-visible{outline:3px solid var(--sun)}
-
 @media (prefers-reduced-motion:reduce){
   .tier{transition:opacity .3s}
   .tier.lifted{transform:none}
   .card{transition:none}
-  #drawCard{transition:none}
-}
-/* keep the bookmark rail from sitting on top of the text on wide screens */
-@media (min-width:821px){
-  .tier-inner{padding-right:calc(5vw + 15.5rem)}
 }
 @media (max-width:820px){
   .two-col,.book-grid{grid-template-columns:1fr}
-  .gallery-preview{grid-template-columns:repeat(2,minmax(0,1fr));max-width:620px}
   .cover-panel{margin:0;max-width:88vw}
-  /* Mobile chapter navigation opens as a deliberate honeycomb menu. The desktop
-     bookmark rail remains unchanged above this breakpoint. */
-  #marks{
-    top:auto;right:.75rem;bottom:calc(4.8rem + env(safe-area-inset-bottom,0px));left:.75rem;
-    transform:translateY(1rem) scale(.98);width:auto;max-height:min(70vh,620px);
-    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;
-    gap:.55rem;padding:1rem;overflow-y:auto;background:rgba(247,239,226,.97);
-    border:1px solid rgba(70,53,31,.2);border-radius:1.6rem;box-shadow:0 16px 42px rgba(45,31,14,.34);
-    opacity:0;visibility:hidden;pointer-events:none;-webkit-overflow-scrolling:touch;
-    transition:opacity .22s ease,transform .22s ease,visibility .22s;
-  }
-  #marks.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1)}
-  #marks button{
-    position:relative;width:100%;min-width:0;min-height:78px;padding:.8rem .65rem;
-    display:flex;align-items:center;justify-content:center;text-align:center;
-    font-family:'Caprasimo',Georgia,serif;font-size:clamp(.78rem,3.4vw,1rem);line-height:1.08;
-    background:linear-gradient(145deg,#f6d98e,#d99a2b 62%,#b97519);color:var(--ink);
-    clip-path:polygon(42% 4%,50% 2%,58% 4%,91% 21%,97% 27%,99% 34%,99% 66%,97% 73%,91% 79%,58% 96%,50% 98%,42% 96%,9% 79%,3% 73%,1% 66%,1% 34%,3% 27%,9% 21%);
-    white-space:normal;overflow-wrap:normal;touch-action:manipulation;box-shadow:none;
-  }
-  #marks button:hover,#marks button:focus-visible{transform:translateY(-2px)}
-  #marks button[aria-current="true"]{transform:none;background:linear-gradient(145deg,#fff1a9,var(--sun) 65%,#d99a2b)}
-  #marks button[data-mobile-hidden="true"]{display:none}
-  #marks button[data-tier-id="t-story"]{grid-column:1/-1;width:calc((100% - .55rem)/2);justify-self:center}
-  #mobileNavToggle{
-    position:fixed;z-index:55;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));
-    min-width:104px;min-height:52px;padding:.65rem 1rem;border:0;border-radius:999px;
-    font-family:'Shantell Sans',cursive;font-weight:600;font-size:.92rem;color:var(--ink);
-    background:var(--sun);box-shadow:var(--shadow);cursor:pointer;touch-action:manipulation;
-  }
-  #mobileNavToggle:focus-visible{outline:3px solid var(--bark);outline-offset:3px}
-  .back{left:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px))}
+  .back{left:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));font-size:.88rem;padding:.6rem 1rem .6rem .85rem}
   .tier-inner{
-    /* Bottom padding must clear BOTH fixed mobile controls: #mobileNavToggle
-       (52px min-height + 1rem offset) and .back (same band). 5.5rem left the tail of
-       long tiers colliding with them. 8rem clears the 68px control band with margin. */
-    padding:3.5rem 6vw calc(8rem + env(safe-area-inset-bottom,0px));
+    /* Bottom padding clears the one remaining fixed control, .back (≈52px tall in the
+       1rem band). 5.5rem left the tail of long tiers colliding with it. */
+    padding:3.5rem 6vw calc(7rem + env(safe-area-inset-bottom,0px));
     justify-content:flex-start;
   }
-  #draw{padding:calc(1rem + env(safe-area-inset-top,0px)) 1rem calc(1rem + env(safe-area-inset-bottom,0px));background:rgba(70,53,31,.96)}
-  #draw .draw-inner{width:min(100%,360px);max-height:100%;overflow-y:auto;padding:.25rem}
-  /* #t-join centers .core as a shrink-wrapped flex item (align-items:center).
-     The email input's 260px min-width was wider than the space this tier
-     reserves for the bookmark rail, so the whole centered block (including
-     the heading) grew past that box and sat under the rail. Let it shrink
-     with the viewport instead. */
   .core{max-width:100%}
   .core form{width:100%}
   .core input{min-width:0;width:100%;max-width:22rem}
   .comb{--hex:clamp(52px,14vw,92px)}
 }
-/* #mobileNavToggle is fixed at bottom:1rem, height 52px (measured footprint
-   from viewport bottom: 68px @ 390x844). Give every tier's scroll content
-   that much clearance plus a 16px buffer so panel text never sits under it. */
+/* .back is fixed at bottom:1rem, ~52px tall. Give every tier's scroll content that
+   much clearance plus a buffer so panel text never sits under it. */
 @media (max-width:900px){
   .tier{ padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
-}
-@media (min-width:821px){#mobileNavToggle{display:none}}
-body.is-interim-preview #marks,
-body.is-interim-preview #mobileNavToggle{display:none!important}
-@media (min-width:821px){body.is-interim-preview .tier-inner{padding-right:5vw}}
-/* one frame at a time once two-up would shrink the art below reading size */
-@media (max-width:520px){
-  .gallery-preview{grid-template-columns:1fr;max-width:340px}
 }
 
 /* ============ BATCH B/C/D additions ============ */
@@ -457,9 +327,6 @@ body.is-interim-preview #mobileNavToggle{display:none!important}
 /* B1: book cover art + sneak peeks */
 .book-cover{overflow:hidden;padding:0;background:var(--bark)}
 .book-cover img.book-cover-art{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.book-cover .cover-caption{position:relative;z-index:1;margin-top:auto;padding:1.1rem 1rem .9rem;width:100%;background:linear-gradient(0deg,rgba(20,14,6,.82),rgba(20,14,6,0));text-align:center}
-.book-cover .cover-caption h3{color:#fff;font-size:1.35rem;margin-bottom:.2rem}
-.book-cover .cover-caption .hand{color:var(--sun)}
 .peek-row{display:flex;gap:1.4rem;margin-top:1.6rem;justify-content:center;flex-wrap:wrap}
 .peek-card{width:150px}
 .peek-card.polaroid{padding:.6rem .6rem 2.2rem}
@@ -469,15 +336,24 @@ body.is-interim-preview #mobileNavToggle{display:none!important}
 .peek-card:nth-child(2){transform:rotate(3deg)}
 .peek-label{text-align:center;margin-top:.4rem}
 
-/* B2: podcast full-bleed background */
+/* B2: podcast full-bleed background.
+   Nicolas is on the LEFT of this photograph, mid-brushstroke. The tier used to float a
+   centred "The Podcast" chapter heading over the picture, which landed square on his
+   forehead — his face was the one thing you couldn't see. The heading is gone; the show
+   title inside the teaser was already saying the same thing twice. Everything typographic
+   now lives in the panel on the right, and the scrim only darkens the right third so his
+   half of the wall stays at full colour. */
 .podcast-art{position:absolute;inset:0;z-index:0}
-.podcast-art img{width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.podcast-art img{width:100%;height:100%;object-fit:cover;object-position:26% 50%}
 .podcast-art::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(25,18,10,.05) 0%,rgba(25,18,10,.08) 48%,rgba(25,18,10,.56) 100%)}
-#t-podcast .tier-inner{position:relative;z-index:1}
-#t-podcast .ch-head{text-shadow:0 2px 18px rgba(255,248,226,.92)}
-.podcast-teaser{width:min(430px,100%);margin-left:auto;padding:1.7rem 1.8rem;background:rgba(247,239,226,.9);box-shadow:var(--shadow);transform:rotate(.45deg);clip-path:polygon(0 3%,4% 0,10% 3%,17% 0,25% 3%,34% 0,43% 3%,52% 0,61% 3%,70% 0,79% 3%,88% 0,96% 3%,100% 1%,100% 97%,94% 100%,86% 97%,77% 100%,68% 97%,59% 100%,50% 97%,41% 100%,32% 97%,23% 100%,14% 97%,6% 100%,0 97%)}
-.podcast-teaser h3{font-size:clamp(2rem,4vw,3.4rem);margin:.2rem 0 .75rem}.podcast-teaser p{font-size:1.12rem}
+  background:linear-gradient(90deg,rgba(25,18,10,0) 0%,rgba(25,18,10,0) 42%,rgba(25,18,10,.34) 66%,rgba(25,18,10,.62) 100%)}
+/* full width: with the rail gone the panel can sit against the true right edge,
+   which is what keeps its torn edge clear of him at every width */
+#t-podcast .tier-inner{position:relative;z-index:1;max-width:1560px;justify-content:center}
+.podcast-teaser{width:min(430px,100%);margin-left:auto;padding:1.9rem 1.9rem 2rem;background:rgba(247,239,226,.93);box-shadow:var(--shadow-lift);transform:rotate(.45deg);clip-path:polygon(0 3%,4% 0,10% 3%,17% 0,25% 3%,34% 0,43% 3%,52% 0,61% 3%,70% 0,79% 3%,88% 0,96% 3%,100% 1%,100% 97%,94% 100%,86% 97%,77% 100%,68% 97%,59% 100%,50% 97%,41% 100%,32% 97%,23% 100%,14% 97%,6% 100%,0 97%)}
+.podcast-teaser .kicker{display:block;font-family:'Shantell Sans',cursive;font-size:.9rem;
+  color:var(--bark);opacity:.8;margin-bottom:.15rem}
+.podcast-teaser h2{font-size:clamp(2rem,4vw,3.4rem);margin:.2rem 0 .75rem}.podcast-teaser p{font-size:1.12rem}
 
 /* Wave D: The Book + Make It Yours — faded Butterfly Tower of Knowledge background */
 .tier-bg-photo{position:absolute;inset:0;z-index:0;overflow:hidden}
@@ -486,7 +362,13 @@ body.is-interim-preview #mobileNavToggle{display:none!important}
   background:radial-gradient(ellipse at 50% 26%,rgba(247,239,226,.5) 0%,rgba(236,217,188,.88) 55%,rgba(224,199,160,.95) 100%)}
 #t-book .tier-inner,#t-yours .tier-inner{position:relative;z-index:1}
 #t-book .ch-head,#t-yours .ch-head{text-shadow:0 2px 16px rgba(255,248,226,.9)}
-#t-book .book-grid>div:last-child,#t-yours .two-col>div:first-child{background:rgba(247,239,226,.78);padding:1.5rem 1.6rem;box-shadow:var(--shadow)}
+/* These two sit on a photographic background and need their own ground to stay legible.
+   A plain translucent rectangle is the thing DESIGN.md rules out by name, so they get the
+   same torn edge every other paper surface on the site has. */
+#t-book .book-grid>div:last-child,#t-yours .two-col>div:first-child{
+  background:rgba(247,239,226,.86);padding:1.8rem 1.9rem 2rem;
+  filter:drop-shadow(0 10px 16px rgba(70,53,31,.22));
+  clip-path:polygon(0 3.2%,2.5% 1%,6% 2.8%,10% .6%,14% 2.4%,19% .9%,24% 2.9%,29% 1.2%,34% 3%,39% 1%,44% 2.6%,50% .7%,56% 2.8%,62% 1.1%,68% 2.7%,74% .8%,80% 2.5%,86% 1%,91% 2.7%,95.5% 1.2%,98.5% 2.9%,100% 1.4%,100% 97%,97.5% 99%,94% 97.4%,89% 99.2%,84% 97.6%,78% 99.1%,72% 97.3%,66% 99%,60% 97.5%,54% 99.3%,48% 97.4%,42% 99%,36% 97.6%,30% 99.2%,24% 97.3%,18% 99%,12% 97.5%,7% 99.2%,3% 97.6%,0 99%)}
 
 /* book cover elevation — "like the book is basically salvation" */
 #t-book .book3d{position:relative;padding-top:1.4rem}
@@ -502,11 +384,19 @@ body.is-interim-preview #mobileNavToggle{display:none!important}
   #t-book .book-wrap.open .book-cover,#t-book .book-wrap.open:hover .book-cover{transform:translateY(-4px) scale(1.02) rotateY(-142deg)}
 }
 @media(max-width:820px){
-  .podcast-art img{object-position:27% 50%}
-  .podcast-art::after{background:linear-gradient(0deg,rgba(25,18,10,.5) 0%,rgba(25,18,10,.02) 62%)}
+  /* portrait: he occupies the top of the frame, so the panel drops to the bottom
+     and the scrim runs vertically instead of across */
+  .podcast-art img{object-position:30% 42%}
+  .podcast-art::after{background:linear-gradient(0deg,rgba(25,18,10,.55) 0%,rgba(25,18,10,.06) 54%,rgba(25,18,10,0) 78%)}
   #t-podcast .tier-inner{justify-content:flex-end;padding-top:4.2rem}
-  #t-podcast .ch-head{position:absolute;top:3.2rem;left:6vw;text-align:left;color:#fff;text-shadow:0 2px 16px rgba(20,13,6,.75)}
-  .podcast-teaser{margin-top:auto;margin-left:0;padding:1.25rem 1.3rem;background:rgba(247,239,226,.88)}
+  /* In portrait the panel is the only thing that can cover him, so it gets as short as
+     it can be and still say everything: smaller title, tighter leading, no extra room
+     at the top. Measured at 390x844 — his face clears the torn top edge. */
+  .podcast-teaser{margin-top:auto;margin-left:0;padding:1.1rem 1.2rem 1.2rem;background:rgba(247,239,226,.94)}
+  .podcast-teaser h2{font-size:clamp(1.55rem,7.4vw,2.1rem);margin:.1rem 0 .5rem}
+  .podcast-teaser .kicker{font-size:.82rem}
+  .podcast-teaser .eyebrow{font-size:.95rem;line-height:1.35}
+  .podcast-teaser p{font-size:1rem;line-height:1.5}
 }
 
 /* B3: hive comb — matched to the cover tier's brand palette (root vars, not the
@@ -590,90 +480,111 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
    layer until something forced a repaint (scroll, resize). Forcing the layer
    to exist from the start, and dropping the redundant per-image filter,
    avoids relying on that repaint ever happening. */
+/* The room is lit by ONE source, not seventeen. The previous build hung a rendered
+   brass picture-light over every frame; each fixture clipped its own beam at a fixed
+   140px box, which is what read as a hard edge no amount of stop-feathering could fix
+   (flagged three times). The fixtures are gone. What is left is a single ambient wash
+   that belongs to the wall itself — brightest where the ceiling meets it, falling to
+   nothing before the floor — plus a real contact shadow under each frame, which is
+   what actually tells the eye the work is hanging on something. */
 .moody-room{background:
-  radial-gradient(ellipse 150% 80% at 50% 0%,
-    rgba(255,230,175,.14) 0%,
-    rgba(255,228,172,.1) 14%,
-    rgba(255,226,168,.065) 28%,
-    rgba(255,224,162,.04) 42%,
-    rgba(255,224,158,.02) 56%,
-    rgba(255,224,154,.008) 72%,
-    rgba(255,224,154,0) 90%),
-  linear-gradient(180deg,#221a12,#17110b);
-  box-shadow:inset 0 0 60px rgba(0,0,0,.6),var(--shadow-lift);
-  padding:1.3rem 1.2rem 2.2rem;margin:0;transform:translateZ(0);will-change:transform;backface-visibility:hidden}
-.moody-room .moody-head{text-align:center;margin-bottom:1rem}
-.moody-room .moody-head h2{color:var(--sun);font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:.3rem}
-.moody-room .moody-head .hand{color:#f4ead0;font-size:.92rem}
-.moody-room .gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.8rem 1rem;max-width:960px;margin:0 auto}
-@media (min-width:700px){.moody-room .gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (min-width:1000px){.moody-room .gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.frame-item{position:relative;text-align:center;padding-top:3rem;transform:translateZ(0)}
-/* Every work gets a real picture-light silhouette, not just an anonymous glow.
-   The fixture scales with its frame while the warm beam stays behind the art.
-   Glow is built from several soft, wide-overlapping stops (not a hard-edged
-   ellipse) so it feathers into the dark wall with no visible seam. */
-.frame-item .spotlight{position:absolute;top:.15rem;left:50%;width:min(82%,220px);height:140px;transform:translateX(-50%);
-  background:radial-gradient(ellipse at 50% 10%,
-    rgba(255,238,190,.52) 0%,
-    rgba(255,234,184,.42) 12%,
-    rgba(255,230,178,.32) 24%,
-    rgba(255,227,170,.22) 36%,
-    rgba(255,224,164,.14) 48%,
-    rgba(255,222,160,.08) 60%,
-    rgba(255,222,158,.04) 72%,
-    rgba(255,222,158,.015) 84%,
-    rgba(255,222,158,0) 100%);
-  pointer-events:none;z-index:0}
-.frame-item .spotlight::before{content:"";position:absolute;left:50%;top:.35rem;width:78%;height:.42rem;
-  transform:translateX(-50%);border-radius:999px;
-  background:linear-gradient(180deg,#fff0ad 0%,#d2a43e 28%,#775019 62%,#d9aa3e 100%);
-  box-shadow:0 1px 0 rgba(255,244,190,.65) inset,0 3px 7px rgba(0,0,0,.55)}
-.frame-item .spotlight::after{content:"";position:absolute;left:50%;top:-.05rem;width:1.6rem;height:.75rem;
-  transform:translateX(-50%);border-radius:.22rem .22rem .08rem .08rem;
-  background:linear-gradient(90deg,#6d4817,#d5a73e 45%,#f3d879 58%,#78501a);
-  box-shadow:0 -2px 0 rgba(255,240,164,.4) inset,0 2px 5px rgba(0,0,0,.5)}
-/* Antique Gold frame, restored per Wave C-2. CSS-drawn moulding: 4 strips clipped to
-   trapezoids so the corners auto-miter — no image assets. Ramp sampled from Prodigi's
-   own Classic Antique Gold swatch (reference: client-reviews/to-bee-honest/
-   2026-08-05-frame-viewer/viewer.html, the working technique this project already has).
-   --face approximates the 20mm moulding face at on-screen thumbnail scale. */
-.frame-item .frame-art{--face:.85rem;position:relative;z-index:1;display:block;margin:0 auto;max-width:100%;
-  padding:var(--face);box-shadow:0 14px 22px rgba(0,0,0,.55)}
+  radial-gradient(ellipse 120% 62% at 50% -8%,
+    rgba(255,232,182,.13) 0%,
+    rgba(255,228,174,.075) 30%,
+    rgba(255,226,168,.032) 55%,
+    rgba(255,224,160,.009) 78%,
+    rgba(255,224,158,0) 100%),
+  linear-gradient(180deg,#241c13 0%,#1c150e 46%,#120d08 100%);
+  box-shadow:inset 0 0 90px rgba(0,0,0,.55),var(--shadow-lift);
+  padding:2.4rem clamp(1.2rem,3vw,2.6rem) 3rem;margin:0;
+  transform:translateZ(0);will-change:transform;backface-visibility:hidden}
+.moody-room .moody-head{text-align:center;margin-bottom:2.4rem}
+/* Parchment, not gold. When the frame, the mat edge, the caption, the buttons and the
+   headline were all the same amber, nothing could recede and the art had no way to be
+   the brightest thing in the room. Gold now appears in exactly one place per frame —
+   nowhere — and colour belongs to the paintings. */
+.moody-room .moody-head h2{color:#efe3c9;font-size:clamp(1.5rem,2.8vw,2.1rem);margin-bottom:.35rem}
+.moody-room .moody-head .hand{color:#bfae92;font-size:.95rem}
+.moody-room .gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(2.4rem,4vw,3.6rem) clamp(1.6rem,3vw,2.8rem);max-width:1320px;margin:0 auto}
+@media (max-width:560px){.moody-room .gallery-grid{grid-template-columns:1fr;max-width:420px}}
+@media (min-width:1000px){.moody-room .gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.frame-item{position:relative;text-align:center;transform:translateZ(0)}
+/* Dark walnut moulding. CSS-drawn: 4 strips clipped to trapezoids so the corners
+   auto-miter — no image assets. The six-stop ramp is Prodigi's own Classic "Brown"
+   swatch, sampled in client-reviews/to-bee-honest/2026-08-05-frame-viewer/viewer.html.
+   Each side runs the ramp in its own direction, so the light reads as coming from
+   above-left and the moulding has an actual profile instead of four flat bars.
+   --face approximates the 20mm Prodigi moulding face at on-screen scale. */
+.frame-item .frame-art{--face:clamp(.8rem,1.15vw,1.05rem);--ramp:#6b432c 0%,#4d341a 22%,#5a3922 42%,#623e21 62%,#69452b 82%,#5b3b26 100%;
+  position:relative;z-index:1;display:block;margin:0 auto;max-width:100%;
+  padding:var(--face);
+  box-shadow:0 2px 3px rgba(0,0,0,.5),0 22px 34px -8px rgba(0,0,0,.72)}
 .frame-item .mould{position:absolute;inset:0;pointer-events:none}
 .frame-item .mould i{position:absolute;display:block}
+/* wood grain: fine, irregular repeating streaks running along each strip's length,
+   at low enough alpha to read as figure in the timber rather than as stripes */
+.frame-item .mould i::after{content:"";position:absolute;inset:0;opacity:.5;
+  background:repeating-linear-gradient(90deg,
+    rgba(255,225,190,.055) 0 1px,rgba(0,0,0,.05) 1px 2px,transparent 2px 5px,
+    rgba(0,0,0,.06) 5px 6px,transparent 6px 11px)}
+.frame-item .mould i.l::after,.frame-item .mould i.r::after{
+  background:repeating-linear-gradient(0deg,
+    rgba(255,225,190,.055) 0 1px,rgba(0,0,0,.05) 1px 2px,transparent 2px 5px,
+    rgba(0,0,0,.06) 5px 6px,transparent 6px 11px)}
 .frame-item .mould i.t{top:0;left:0;width:100%;height:var(--face);
-  background:linear-gradient(to bottom,#c9a657,#b8914c 30%,#c5a151 55%,#c9a657 80%,#c6a253);
+  background:linear-gradient(to bottom,var(--ramp));
   clip-path:polygon(0 0,100% 0,calc(100% - var(--face)) 100%,var(--face) 100%)}
 .frame-item .mould i.b{bottom:0;left:0;width:100%;height:var(--face);
-  background:linear-gradient(to top,#c9a657,#b8914c 30%,#c5a151 55%,#c9a657 80%,#c6a253);
+  background:linear-gradient(to top,var(--ramp));
   clip-path:polygon(var(--face) 0,calc(100% - var(--face)) 0,100% 100%,0 100%)}
 .frame-item .mould i.l{left:0;top:0;height:100%;width:var(--face);
-  background:linear-gradient(to right,#c9a657,#b8914c 30%,#c5a151 55%,#c9a657 80%,#c6a253);
+  background:linear-gradient(to right,var(--ramp));
   clip-path:polygon(0 0,100% var(--face),100% calc(100% - var(--face)),0 100%)}
 .frame-item .mould i.r{right:0;top:0;height:100%;width:var(--face);
-  background:linear-gradient(to left,#c9a657,#b8914c 30%,#c5a151 55%,#c9a657 80%,#c6a253);
+  background:linear-gradient(to left,var(--ramp));
   clip-path:polygon(100% 0,100% 100%,0 calc(100% - var(--face)),0 var(--face))}
-/* Mat: white by default, black on the one piece the artist called out for contrast. */
-.frame-item .frame-art .mat{position:relative;z-index:1;display:block;padding:.6rem;background:#f4ead0}
-.frame-item .frame-art .mat img{width:100%;display:block}
-.frame-item .frame-art .mat.mat-black{background:#17130f}
-.frame-item figcaption{position:relative;z-index:1;color:var(--sun);font-family:'Shantell Sans',cursive;
-  font-size:.92rem;margin-top:.7rem}
-.frame-item .bring-home{margin-top:.5rem;font-size:.8rem;padding:.55rem 1rem .55rem 1.5rem}
-.moody-intro{color:#f4ead0;text-align:center;max-width:44ch;margin:1rem auto 0;font-size:.9rem}
+/* One light source, above and slightly left: the top rail catches it, the bottom rail
+   falls into its own shade, and the whole moulding gets a faint diagonal so the four
+   strips read as one continuous piece of timber instead of four separate bars. */
+.frame-item .mould::after{content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(163deg,rgba(255,236,198,.11) 0%,rgba(255,236,198,0) 34%,
+      rgba(0,0,0,0) 62%,rgba(0,0,0,.26) 100%),
+    linear-gradient(180deg,rgba(255,240,208,.2) 0%,rgba(255,240,208,0) 5%)}
+/* the rabbet: the shadowed step where the moulding meets the mat */
+.frame-item .frame-art::after{content:"";position:absolute;z-index:2;pointer-events:none;
+  inset:calc(var(--face) - 1px);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.42)}
+/* Mat: white by default, black on the one piece the artist called out for contrast.
+   The bevel line is the cut edge of the board — it is what makes a mat read as a
+   physical thing rather than a coloured border. */
+.frame-item .frame-art .mat{position:relative;z-index:1;display:block;
+  padding:clamp(.7rem,1.4vw,1.15rem);background:#f2efe7;
+  box-shadow:inset 0 0 30px rgba(70,53,31,.09)}
+.frame-item .frame-art .mat img{width:100%;display:block;
+  box-shadow:0 0 0 1px rgba(0,0,0,.28),0 1px 5px rgba(0,0,0,.3)}
+.frame-item .frame-art .mat.mat-black{background:#17161a}
+.frame-item .frame-art .mat.mat-black img{box-shadow:0 0 0 1px rgba(255,255,255,.22),0 1px 5px rgba(0,0,0,.5)}
+.frame-item figcaption{position:relative;z-index:1;color:#e6dac2;font-family:'Shantell Sans',cursive;
+  font-size:1rem;margin-top:1.1rem}
+/* A wall label, not a paper price tag — it stays quiet until you go for it. */
+.frame-item .bring-home{margin-top:.7rem;font-size:.82rem;padding:.5rem 1.1rem;
+  background:none;color:#c3b291;clip-path:none;box-shadow:inset 0 0 0 1px rgba(214,196,160,.4)}
+.frame-item .bring-home::before{content:none}
+.frame-item .bring-home:hover,.frame-item .bring-home:focus-visible{
+  background:var(--sun);color:var(--ink);transform:translateY(-2px);
+  box-shadow:inset 0 0 0 1px transparent,0 6px 16px rgba(0,0,0,.5)}
+.moody-intro{color:#b3a288;text-align:center;max-width:44ch;margin:2.4rem auto 0;font-size:.9rem}
 /* art-first: no vertical centering, minimal top padding, so the first row of
-   frames is inside the first viewport with zero scroll at 1280x800 + 375x812 */
-#t-gallery .tier-inner{justify-content:flex-start;padding-top:1.1rem;padding-bottom:3rem}
+   frames is inside the first viewport with zero scroll at 1280x800 + 375x812.
+   With the bookmark rail gone the room gets the full width it was never given. */
+#t-gallery .tier-inner{justify-content:flex-start;padding-top:1.1rem;padding-bottom:3rem;max-width:1560px}
 @media (max-width:820px){#t-gallery .tier-inner{padding-top:.7rem}}
 </style>
 </head>
 <body>
 <a class="skip" href="#t-join" id="skiplink">skip to Join the Hive</a>
-
-<div id="rings" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><b></b></div>
-
-<div id="marks" role="navigation" aria-label="Chapters"></div>
 
 <div id="stack">
 
@@ -739,12 +650,13 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
               <span class="hand">“You are not the voices in your head. You are the one who hears them.<br><br>Pause. Listen. Feel. Trust.”</span>
               <small>— page one</small>
             </span>
+            <!-- The real cover art already carries its own title and byline in Nicolas's
+                 own torn-paper lettering. The overlaid caption printed both a second time,
+                 in a different typeface, across the bottom third of his artwork. -->
             <span class="book-cover" style="display:flex" aria-hidden="false">
-              <img class="book-cover-art" src="assets/web/book-cover-hires.jpg" alt="" loading="lazy" decoding="async">
-              <span class="cover-caption">
-                <h3>The Sun Stone Theory</h3>
-                <p class="hand">Nicolas Bettinger</p>
-              </span>
+              <img class="book-cover-art" src="assets/web/book-cover-hires.jpg"
+                   alt="The Sun Stone Theory by Nicolas Bettinger — a torn-paper tower of books rising into a sunburst of coloured rings"
+                   loading="lazy" decoding="async">
             </span>
           </button>
           <p class="book-hint hand">psst — open the cover</p>
@@ -939,10 +851,10 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
   <section class="tier below" id="t-podcast" data-title="The Podcast — Nikko &amp; The Cool Kids" aria-label="The Podcast — Nikko &amp; The Cool Kids" hidden>
     <div class="podcast-art" aria-hidden="true"><img src="assets/web/nico-signing-only-v2.jpg" alt="" loading="lazy"></div>
     <div class="tier-inner">
-      <div class="ch-head"><h2>The Podcast</h2><p class="hand">the podcast, coming</p></div>
       <div class="podcast-teaser">
-        <p class="eyebrow hand">Stories · art · honest conversations</p>
-        <h3>Nikko &amp; The Cool Kids</h3>
+        <span class="kicker">The Podcast — coming</span>
+        <h2>Nikko &amp; The Cool Kids</h2>
+        <p class="eyebrow hand" style="margin-bottom:.6rem">Stories · art · honest conversations</p>
         <p>Nikko and the people who make things with him pull one mantra apart at a time—through art, stories, and conversations that stay honest.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">tell me when it drops</a>
       </div>
@@ -1154,7 +1066,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 
 </div>
 
-<button class="back" id="backBtn" hidden>← put it back</button>
+<button class="back" id="backBtn" hidden><span class="back-comb" aria-hidden="true"></span>Back to the Honeycomb</button>
 
 <!-- gallery order dialog (D2) -->
 <dialog class="order-dialog" id="galleryOrderDialog" aria-label="Bring an artwork home">
@@ -1182,9 +1094,15 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
       <div class="field-row">
         <div class="field">
           <label for="galleryFrameColor">Frame Color</label>
+          <!-- Brown is the frame the Gallery actually shows on the wall, so it leads and
+               it is the default. All three are stocked colours of the Prodigi Classic
+               moulding (the same catalogue the frame-viewer ramps were sampled from).
+               NOTE: "Brown" is a new value for the Airtable Size/Frame select — the first
+               order through will create the choice via typecast. -->
           <select id="galleryFrameColor" name="Frame Color" required>
-            <option value="Antique Gold">Antique Gold</option>
+            <option value="Brown">Walnut Brown — as hung</option>
             <option value="Black">Black</option>
+            <option value="Antique Gold">Antique Gold</option>
           </select>
         </div>
         <div class="field">
@@ -1222,21 +1140,6 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
     <p class="order-confirm" id="galleryOrderConfirm" role="status" hidden>🐝 Saved — we'll email you to confirm your print, price and payment. Nothing is charged today.</p>
   </div>
 </dialog>
-
-<!-- pull-the-card transition -->
-<div id="draw" role="dialog" aria-modal="true" aria-label="Draw a mantra card">
-  <div class="draw-inner">
-    <p class="hint" id="drawHint">pull a card before you go —</p>
-    <button id="drawCard" aria-label="Face-down mantra card. Activate to flip it over.">
-      <span class="face face-down"><img src="assets/IMG_5110.PNG" alt=""><span class="hand">to bee honest</span></span>
-      <span class="face face-up c1"><span class="mantra" id="drawMantra"></span></span>
-    </button>
-    <div class="draw-actions" hidden id="drawActions">
-      <button class="tag-btn" id="drawGo">carry it with you →</button>
-    </div>
-    <button class="skip-card" id="drawSkip">skip the card, continue</button>
-  </div>
-</div>
 
 <script>
 // PLACEHOLDER-PRICING — replace with confirmed numbers before enabling payment.
@@ -1300,7 +1203,6 @@ const GALLERY_CATALOG = [
   grid.innerHTML=GALLERY_CATALOG.map(p=>{
     const matClass = p.mat==='black' ? ' mat-black' : '';
     return `<figure class="frame-item" data-mat="${p.mat}">
-      <span class="spotlight" aria-hidden="true"></span>
       <span class="frame-art"><span class="mould" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span><span class="mat${matClass}"><img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:900px) 45vw, 22vw" alt="${p.alt}" loading="lazy" decoding="sync"></span></span>
       <figcaption>${p.title}</figcaption>
       <button class="tag-btn bring-home" type="button" data-artwork="${p.title}" data-mat="${p.mat==='black'?'Black':'White'}">Bring it home</button>
@@ -1317,15 +1219,6 @@ if(interimPreview){
 }
 const tiers=interimPreview?allTiers.filter(t=>!excludedInterimIds.has(t.id)):allTiers;
 const backBtn=document.getElementById('backBtn');
-const marks=document.getElementById('marks');
-const mobileNavToggle=document.createElement('button');
-mobileNavToggle.id='mobileNavToggle';
-mobileNavToggle.type='button';
-mobileNavToggle.textContent='Explore the hive';
-mobileNavToggle.setAttribute('aria-controls','marks');
-mobileNavToggle.setAttribute('aria-expanded','false');
-document.body.appendChild(mobileNavToggle);
-const rings=[...document.querySelectorAll('#rings span'),document.querySelector('#rings b')];
 let cur=0;
 // stack z-order + reveal only current & next (perf)
 function paint(){
@@ -1336,31 +1229,14 @@ function paint(){
     t.classList.toggle('below', i>cur);
   });
   backBtn.hidden = cur===0;
-  // the honeycomb IS the cover's nav — keep the side rail out of the way while on the cover
-  document.body.classList.toggle('cover-active', cur===0);
-  [...marks.children].forEach(b=>b.setAttribute('aria-current', Number(b.dataset.tierIndex)===cur ? 'true':'false'));
-  const activeMark=marks.querySelector(`[data-tier-index="${cur}"]`);
-  if(activeMark&&matchMedia('(max-width:820px)').matches){
-    activeMark.scrollIntoView({
-      behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',
-      block:'center',
-      inline:'nearest'
-    });
-  }
-  // rings show proportional progress, so the stack can grow past 6 tiers
-  const lit=Math.round((cur/(tiers.length-1))*rings.length);
-  rings.forEach((r,i)=>r.classList.toggle('done', i<lit));
   const t=tiers[cur]; t.scrollTop=0;
   t.querySelector('h1,h2')?.setAttribute('tabindex','-1');
 }
 let busy=false,pendingIdx=null;
-function go(i,viaDraw){
+function go(i){
   const next=Math.max(0,Math.min(tiers.length-1,i));
   if(busy){ if(next!==cur) pendingIdx=next; return; }
   if(next===cur)return;
-  // the pull-a-card ritual now happens once: on the last step into the hive.
-  // direct jumps (rail, cover CTA, skip link) go straight through, as before.
-  if(!viaDraw&&!drawShown&&next===tiers.length-1&&next===cur+1){openDraw(next);return}
   busy=true;
   setTimeout(()=>{
     busy=false;
@@ -1368,78 +1244,10 @@ function go(i,viaDraw){
   },750);
   cur=next;paint();
 }
-/* ---------- pull-the-card ---------- */
-const MANTRAS=[
-  '“Pause. Listen. Feel. Trust.”',
-  '“Happiness and sadness are two flavors of the same milkshake.”',
-  '“Is people pleasing worth betraying myself?”',
-  '“I move with integrity and intention, free from expectations. Expectations ruin the fun.”',
-  '“Mediocrity is not on the menu. I am on a diet of reaching for the stars.”'
-];
-const CARD_TONES=['c1','c2','c3','c4','c1'];
-const draw=document.getElementById('draw'),drawCard=document.getElementById('drawCard'),
-      drawMantra=document.getElementById('drawMantra'),drawActions=document.getElementById('drawActions'),
-      drawGo=document.getElementById('drawGo'),drawSkip=document.getElementById('drawSkip'),
-      drawHint=document.getElementById('drawHint');
-let pending=null,drawShown=false;
-function openDraw(target){
-  pending=target;drawShown=true;
-  const i=Math.min(cur,MANTRAS.length-1);
-  drawMantra.textContent=MANTRAS[i];
-  const up=drawCard.querySelector('.face-up');
-  up.className='face face-up '+CARD_TONES[i];
-  drawCard.classList.remove('flipped');
-  drawActions.hidden=true;
-  drawHint.textContent='pull a card before you go —';
-  draw.classList.add('open');
-  drawCard.focus();
-}
-function closeDraw(advance){
-  draw.classList.remove('open');
-  const t=pending;pending=null;
-  if(advance&&t!==null)go(t,true);
-}
-drawCard.addEventListener('click',()=>{
-  if(drawCard.classList.contains('flipped'))return;
-  drawCard.classList.add('flipped');
-  drawHint.textContent='yours to keep —';
-  setTimeout(()=>{drawActions.hidden=false;drawGo.focus()},650);
-});
-drawGo.addEventListener('click',()=>closeDraw(true));
-drawSkip.addEventListener('click',()=>closeDraw(true));
-draw.addEventListener('keydown',e=>{if(e.key==='Escape')closeDraw(true)});
-
-backBtn.addEventListener('click',()=>go(cur-1));
-// bookmarks — the cover has its own honeycomb nav now, so the rail only lists
-// the 7 sections (never the cover itself)
-tiers.forEach((t,i)=>{
-  if(t.id==='t-cover')return;
-  const b=document.createElement('button');
-  const mobileLabels={
-    'Make It Yours':'Make It Yours',
-    'The Podcast — Nikko & The Cool Kids':'The Podcast',
-    'The Community Marketplace':'Marketplace'
-  };
-  b.textContent=mobileLabels[t.dataset.title]||t.dataset.title;
-  b.type='button';
-  b.dataset.tierIndex=String(i);
-  b.dataset.tierId=t.id;
-  b.dataset.mobileHidden=String(excludedInterimIds.has(t.id));
-  b.setAttribute('aria-label',`Open ${t.dataset.title}`);
-  b.addEventListener('click',()=>{
-    go(i);
-    marks.classList.remove('is-open');
-    mobileNavToggle.setAttribute('aria-expanded','false');
-    mobileNavToggle.textContent='Explore the hive';
-  });
-  marks.appendChild(b);
-});
-mobileNavToggle.addEventListener('click',()=>{
-  const open=marks.classList.toggle('is-open');
-  mobileNavToggle.setAttribute('aria-expanded',String(open));
-  mobileNavToggle.textContent=open?'Close the hive':'Explore the hive';
-  if(open)marks.querySelector('[aria-current="true"]')?.focus();
-});
+// The honeycomb on the cover is the only navigation, so the one control every other
+// tier carries goes back to it — not one tier back. Stepping backwards through a stack
+// the visitor never stepped forward through was the confusing half of the old rail.
+backBtn.addEventListener('click',()=>go(0));
 // cover CTA + honeycomb cells + skip link jump straight to a tier — or, for a
 // target id that lives INSIDE a tier (e.g. #t-join, now nested in Marketplace
 // since the Hive tier was merged in), jump to that tier then scroll to the id
@@ -1506,10 +1314,6 @@ if(!noMotion&&coverPanel){
   coverPanel.style.transition='transform .25s ease-out';
   document.querySelector('#t-cover .cover-panel').style.perspective='1100px';
 }
-// universe scraps: click/keyboard flip (hover handled in CSS)
-document.querySelectorAll('.soon-flip').forEach(b=>{
-  b.addEventListener('click',()=>b.classList.toggle('flipped'));
-});
 // book: open the cover
 const bookWrap=document.getElementById('bookWrap');
 bookWrap.addEventListener('click',()=>{
