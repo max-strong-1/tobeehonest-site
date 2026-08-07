@@ -2,6 +2,12 @@
 .DS_Store
 .superpowers/
 .impeccable/hook.cache.json
+.env
+.env.*
+!.env.example
 .env.local
 .env*.local
+*.pem
+*.key
+secrets/
 node_modules/
