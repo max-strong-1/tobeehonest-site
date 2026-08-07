@@ -553,7 +553,14 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
    to exist from the start, and dropping the redundant per-image filter,
    avoids relying on that repaint ever happening. */
 .moody-room{background:
-  radial-gradient(ellipse 140% 70% at 50% 0%,rgba(255,230,175,.16),rgba(255,224,154,.07) 32%,rgba(255,224,154,0) 62%),
+  radial-gradient(ellipse 150% 80% at 50% 0%,
+    rgba(255,230,175,.14) 0%,
+    rgba(255,228,172,.1) 14%,
+    rgba(255,226,168,.065) 28%,
+    rgba(255,224,162,.04) 42%,
+    rgba(255,224,158,.02) 56%,
+    rgba(255,224,154,.008) 72%,
+    rgba(255,224,154,0) 90%),
   linear-gradient(180deg,#221a12,#17110b);
   box-shadow:inset 0 0 60px rgba(0,0,0,.6),var(--shadow-lift);
   padding:1.3rem 1.2rem 2.2rem;margin:0;transform:translateZ(0);will-change:transform;backface-visibility:hidden}
@@ -568,14 +575,17 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
    The fixture scales with its frame while the warm beam stays behind the art.
    Glow is built from several soft, wide-overlapping stops (not a hard-edged
    ellipse) so it feathers into the dark wall with no visible seam. */
-.frame-item .spotlight{position:absolute;top:.15rem;left:50%;width:min(78%,210px);height:130px;transform:translateX(-50%);
+.frame-item .spotlight{position:absolute;top:.15rem;left:50%;width:min(82%,220px);height:140px;transform:translateX(-50%);
   background:radial-gradient(ellipse at 50% 10%,
-    rgba(255,238,190,.55) 0%,
-    rgba(255,232,180,.4) 18%,
-    rgba(255,226,166,.24) 36%,
-    rgba(255,222,158,.12) 54%,
-    rgba(255,222,158,.05) 70%,
-    rgba(255,222,158,0) 88%);
+    rgba(255,238,190,.52) 0%,
+    rgba(255,234,184,.42) 12%,
+    rgba(255,230,178,.32) 24%,
+    rgba(255,227,170,.22) 36%,
+    rgba(255,224,164,.14) 48%,
+    rgba(255,222,160,.08) 60%,
+    rgba(255,222,158,.04) 72%,
+    rgba(255,222,158,.015) 84%,
+    rgba(255,222,158,0) 100%);
   pointer-events:none;z-index:0}
 .frame-item .spotlight::before{content:"";position:absolute;left:50%;top:.35rem;width:78%;height:.42rem;
   transform:translateX(-50%);border-radius:999px;
@@ -585,14 +595,30 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
   transform:translateX(-50%);border-radius:.22rem .22rem .08rem .08rem;
   background:linear-gradient(90deg,#6d4817,#d5a73e 45%,#f3d879 58%,#78501a);
   box-shadow:0 -2px 0 rgba(255,240,164,.4) inset,0 2px 5px rgba(0,0,0,.5)}
-/* NO frame graphics — art + mat only. frame-art is just a positioning shell,
-   the drop shadow gives the paper lift off the wall without drawing a border,
-   bevel or moulding around it (the product still ships framed; the display doesn't). */
-.frame-item .frame-art{position:relative;z-index:1;display:block;margin:0 auto;max-width:100%}
-.frame-item .frame-art img{width:100%;display:block;box-shadow:0 14px 22px rgba(0,0,0,.55)}
-/* Mat: white by default, black on pieces the artist called out (both Red Bird pieces). */
-.frame-item .frame-art .mat{display:block;padding:.6rem;background:#f4ead0;box-shadow:0 14px 22px rgba(0,0,0,.55)}
-.frame-item .frame-art .mat img{box-shadow:none}
+/* Antique Gold frame, restored per Wave C-2. CSS-drawn moulding: 4 strips clipped to
+   trapezoids so the corners auto-miter — no image assets. Ramp sampled from Prodigi's
+   own Classic Antique Gold swatch (reference: client-reviews/to-bee-honest/
+   2026-08-05-frame-viewer/viewer.html, the working technique this project already has).
+   --face approximates the 20mm moulding face at on-screen thumbnail scale. */
+.frame-item .frame-art{--face:.85rem;position:relative;z-index:1;display:block;margin:0 auto;max-width:100%;
+  padding:var(--face);box-shadow:0 14px 22px rgba(0,0,0,.55)}
+.frame-item .mould{position:absolute;inset:0;pointer-events:none}
+.frame-item .mould i{position:absolute;display:block}
+.frame-item .mould i.t{top:0;left:0;width:100%;height:var(--face);
+  background:linear-gradient(to bottom,#c9a657,#b8914c 30%,#c5a151 55%,#c9a657 80%,#c6a253);
+  clip-path:polygon(0 0,100% 0,calc(100% - var(--face)) 100%,var(--face) 100%)}
+.frame-item .mould i.b{bottom:0;left:0;width:100%;height:var(--face);
+  background:linear-gradient(to top,#c9a657,#b8914c 30%,#c5a151 55%,#c9a657 80%,#c6a253);
+  clip-path:polygon(var(--face) 0,calc(100% - var(--face)) 0,100% 100%,0 100%)}
+.frame-item .mould i.l{left:0;top:0;height:100%;width:var(--face);
+  background:linear-gradient(to right,#c9a657,#b8914c 30%,#c5a151 55%,#c9a657 80%,#c6a253);
+  clip-path:polygon(0 0,100% var(--face),100% calc(100% - var(--face)),0 100%)}
+.frame-item .mould i.r{right:0;top:0;height:100%;width:var(--face);
+  background:linear-gradient(to left,#c9a657,#b8914c 30%,#c5a151 55%,#c9a657 80%,#c6a253);
+  clip-path:polygon(100% 0,100% 100%,0 calc(100% - var(--face)),0 var(--face))}
+/* Mat: white by default, black on the one piece the artist called out for contrast. */
+.frame-item .frame-art .mat{position:relative;z-index:1;display:block;padding:.6rem;background:#f4ead0}
+.frame-item .frame-art .mat img{width:100%;display:block}
 .frame-item .frame-art .mat.mat-black{background:#17130f}
 .frame-item figcaption{position:relative;z-index:1;color:var(--sun);font-family:'Shantell Sans',cursive;
   font-size:.92rem;margin-top:.7rem}
@@ -813,8 +839,8 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
         </div>
         <div class="gallery-grid" id="galleryGrid">
           <!-- Populated from GALLERY_CATALOG (single source of truth, see script at
-               end of body). Art + mat only — no frame graphics in the display; the
-               product still ships framed, the piece just isn't shown behind glass here. -->
+               end of body). Every piece renders in a CSS-drawn Antique Gold frame +
+               mat (white, except the one black-mat exception in the catalog data). -->
         </div>
         <p class="moody-intro hand">close enough to see the paper grain</p>
       </div>
@@ -827,7 +853,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
         <p style="max-width:44ch;margin:0 auto 1.6rem">The pieces get hung with room to breathe. We’re still arguing about what goes on which wall.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">show me when the room opens</a>
       </div>
-      <p class="tease hand">Ten pieces are on the wall. More are on their way.</p>
+      <p class="tease hand">Seventeen pieces are on the wall. More are on their way.</p>
     </div>
   </section>
 
@@ -1162,10 +1188,14 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 const TBH_PRICES = { deck: 33,
   gallery: { "12x16": 189, "20x28": 265 } };
 
-/* GALLERY_CATALOG — single source of truth for The Moody Gallery. Exactly the ten
-   pieces Kel confirmed. Each needs assets/prints/<slug>.jpg + assets/prints/thumb/<slug>.jpg.
-   mat: 'white' (default) or 'black' — both Red Bird pieces are Nicolas's explicit
-   black-mat call. Trimming/adding the gallery is a one-line edit to this array. */
+/* GALLERY_CATALOG — single source of truth for The Moody Gallery. Wave C-2: all 17
+   confirmed gallery prints (book-cover-hires and tower-of-knowledge excluded — not
+   gallery prints). Each needs assets/prints/<slug>.jpg + assets/prints/thumb/<slug>.jpg.
+   mat: 'white' (default) or 'black' — a per-piece field, not a hardcoded conditional.
+   daydreaming-red-bird is the white-clouds/white-ground variant, so it gets the black
+   mat for contrast; its sibling stargazing-red-bird is the black-clouds/black-ground
+   variant and keeps white for the same reason inverted. Trimming/adding the gallery
+   is a one-line edit to this array. */
 const GALLERY_CATALOG = [
   { slug:'blue-dolphins', title:'Blue Dolphins', mat:'white',
     alt:'A fresco-style collage of blue dolphins and darting fish beneath a wood-beamed roofline, bordered in painted flowers' },
@@ -1177,16 +1207,30 @@ const GALLERY_CATALOG = [
     alt:'A helmeted rider snapping a mirror selfie on a scooter, trees reflected behind him' },
   { slug:'crete-beach', title:'Crete Beach', mat:'white',
     alt:'A beach umbrella overlooking a turquoise sea and distant mountains under a cloud-streaked sky' },
+  { slug:'crete-archway', title:'Crete Archway', mat:'white',
+    alt:'A stone archway shaped like a head in profile, framing a sunlit courtyard with a shaded pergola and a stone path' },
   { slug:'art-deco-deity', title:'Art Deco Deity', mat:'white',
     alt:'An art-deco winged goddess figure in blue and cream with a tall draped headdress' },
   { slug:'nayarit-view', title:'Nayarit View', mat:'white',
     alt:'An infinity pool deck overlooking a jungle coastline and a quiet bay' },
   { slug:'daydreaming-red-bird', title:'Daydreaming Red Bird', mat:'black',
     alt:'A red bird arcing across an orange sun toward a bright star in a blue sky with soft white clouds' },
-  { slug:'stargazing-red-bird', title:'Stargazing Red Bird', mat:'black',
+  { slug:'stargazing-red-bird', title:'Stargazing Red Bird', mat:'white',
     alt:'The same red bird reaching for a star over an orange sun, set against a night sky with dark clouds' },
   { slug:'iron-lady', title:'Iron Lady', mat:'white',
-    alt:'A bronze bell-shaped statue of a hooded woman before a European plaza and domed church' }
+    alt:'A bronze bell-shaped statue of a hooded woman before a European plaza and domed church' },
+  { slug:'leopard-stare', title:'Leopard Stare', mat:'white',
+    alt:"A paper-collage close-up of a leopard's face peering through green jungle leaves" },
+  { slug:'animals-ark', title:"Animals' Ark", mat:'white',
+    alt:'A folk-art ark under a red-and-yellow canopy carrying elephants, giraffes, camels and other animals across a patterned sea, with fish and a turtle below' },
+  { slug:'bali-people', title:'Bali Rice Terraces', mat:'white',
+    alt:'A lush green Balinese rice-terrace landscape with palm trees and workers carrying baskets through the paddies' },
+  { slug:'cashew-medley', title:'Cashew Medley', mat:'white',
+    alt:'A close-up pile of ripe cashew apples in orange, yellow and pink beside their curved grey-brown nuts' },
+  { slug:'guatemala-fruits', title:'Guatemala Fruits', mat:'white',
+    alt:'A paper-collage still life of a woven basket overflowing with red and yellow fruit, held by a hand in a striped sleeve, above a brick wall' },
+  { slug:'milan-spa', title:'Milan Spa', mat:'white',
+    alt:'A vaulted stone spa interior with rows of columns reflected in a turquoise pool' }
 ];
 (function renderGalleryCatalog(){
   const grid=document.getElementById('galleryGrid');
@@ -1195,7 +1239,7 @@ const GALLERY_CATALOG = [
     const matClass = p.mat==='black' ? ' mat-black' : '';
     return `<figure class="frame-item" data-mat="${p.mat}">
       <span class="spotlight" aria-hidden="true"></span>
-      <span class="frame-art"><span class="mat${matClass}"><img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:900px) 45vw, 22vw" alt="${p.alt}" decoding="sync"></span></span>
+      <span class="frame-art"><span class="mould" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span><span class="mat${matClass}"><img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:900px) 45vw, 22vw" alt="${p.alt}" loading="lazy" decoding="sync"></span></span>
       <figcaption>${p.title}</figcaption>
       <button class="tag-btn bring-home" type="button" data-artwork="${p.title}" data-mat="${p.mat==='black'?'Black':'White'}">Bring it home</button>
     </figure>`;
