@@ -1529,7 +1529,7 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
   const submitBtn=document.getElementById('marketSubmitBtn');
   if(!openBtn||!form||!confirm)return;
 
-  const MAX_EDGE=1600, JPEG_Q=.82, MAX_FILE_BYTES=4_500_000, MAX_TOTAL_BYTES=3_300_000;
+  const MAX_EDGE=1600, JPEG_Q=.82, MAX_FILE_BYTES=3_000_000, MAX_TOTAL_BYTES=3_300_000;
 
   openBtn.addEventListener('click',()=>{
     form.hidden=false;confirm.hidden=true;openBtn.hidden=true;
