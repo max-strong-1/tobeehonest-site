@@ -28,8 +28,13 @@ export const galleryOrder = z.object({
      Must stay byte-identical with index.html's TBH_PRICES keys and the Airtable
      Size select — fulfillment joins on these exact strings. */
   size: z.enum(["8x12", "12x18", "16x24"]),
-  frameColor: z.enum(["Black", "Antique Gold"]),
-  mat: z.enum(["White", "Black"]),
+  /* The Gallery hangs the work bare and the viewer is where it gets dressed, so
+     unframed and unmounted are real, orderable outcomes — "No frame"/"No mat" are
+     products, not missing values. "Brown" is the walnut Classic moulding.
+     These strings are written straight into Airtable, so they must stay byte-identical
+     with the viewer's FRAMES/MATS values in index.html. */
+  frameColor: z.enum(["No frame", "Brown", "Black", "Antique Gold"]),
+  mat: z.enum(["No mat", "White", "Black"]),
   ...base
 }).strict();
 
@@ -66,7 +71,10 @@ export function buildAirtableFields(input, orderId) {
   if (input.product === "gallery") {
     return {
       "Order ID": `${orderId} · ${input.artwork}`,
-      "Format": "Framed",
+      /* Was hardcoded "Framed" back when framed was the only outcome. An unframed print
+         is now orderable, and fulfillment picks a different Prodigi SKU for it, so this
+         has to follow what the customer actually chose. */
+      "Format": input.frameColor === "No frame" ? "Print only" : "Framed",
       "Size": input.size,
       "Frame Color": input.frameColor,
       "Mat Color": input.mat,

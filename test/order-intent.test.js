@@ -36,10 +36,29 @@ test("frameColor only accepts launch colours", () => {
     frameColor:"White", mat:"White", size:"8x12", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
 });
-test("mat only accepts White or Black", () => {
+test("mat only accepts No mat, White or Black", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
     frameColor:"Black", mat:"Gold", size:"8x12", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
+});
+/* The Gallery hangs the work bare, so unframed and unmounted are orderable outcomes,
+   and Format has to follow the choice instead of always saying "Framed". */
+test("bare print (No frame / No mat) is a valid order and maps Format", () => {
+  const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
+    size:"12x18", frameColor:"No frame", mat:"No mat",
+    customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+  assert.equal(r.success, true);
+  const f = buildAirtableFields(r.data, "TBH-G-20260807-TEST");
+  assert.equal(f["Format"], "Print only");
+  assert.equal(f["Frame Color"], "No frame");
+  assert.equal(f["Mat Color"], "No mat");
+});
+test("walnut Brown is an accepted frame colour and still ships Framed", () => {
+  const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
+    size:"8x12", frameColor:"Brown", mat:"White",
+    customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+  assert.equal(r.success, true);
+  assert.equal(buildAirtableFields(r.data, "TBH-G-20260807-TEST")["Format"], "Framed");
 });
 test("gallery order rejects a format field being sent at all (strict, no print-alone)", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard", format:"Framed",

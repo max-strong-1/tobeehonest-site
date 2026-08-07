@@ -461,14 +461,107 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
   font-family:'Shantell Sans',cursive;text-align:center}
 .order-confirm[hidden]{display:none}
 
-/* D2: gallery order dialog */
-dialog.order-dialog{border:none;padding:0;background:transparent;max-width:min(94vw,520px);width:100%}
-dialog.order-dialog::backdrop{background:rgba(70,53,31,.6)}
-dialog.order-dialog .panel{max-height:88vh;overflow-y:auto}
-dialog.order-dialog .dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.6rem}
-dialog.order-dialog .dialog-close{border:none;background:var(--paper-deep);cursor:pointer;font-family:'Shantell Sans',cursive;
-  padding:.35rem .7rem;box-shadow:var(--shadow);flex:0 0 auto}
-dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
+/* ---------- The viewer ----------
+   ONE viewer, no per-piece anything. It is handed a slug/title/alt from
+   GALLERY_CATALOG and renders that. Add a row to the catalog and the new piece works
+   in here on the next load with no viewer change — there is nothing in this component
+   that names an artwork.
+
+   The wall shows the bare print; the viewer is where the work gets dressed. Frame and
+   mat are live-previewed around the real image, so what you pick is what you see
+   before you buy it. */
+/* margin:auto is how a native <dialog> centres itself, and the global `*{margin:0}`
+   reset was zeroing it — the viewer opened pinned to the top-left corner. */
+dialog.order-dialog{border:none;padding:0;background:transparent;margin:auto;
+  max-width:min(96vw,1180px);width:100%;max-height:94vh;color:#e6dac2}
+dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
+.viewer-shell{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:clamp(1.2rem,2.4vw,2.4rem);max-height:94vh;
+  background:linear-gradient(180deg,#241c13,#141009);
+  box-shadow:0 30px 70px rgba(0,0,0,.7);padding:clamp(1.1rem,2vw,1.9rem)}
+@media (max-width:900px){
+  .viewer-shell{grid-template-columns:1fr;overflow-y:auto}
+}
+/* stage: the piece, lit by the same single wall wash the room uses */
+.viewer-stage{position:relative;display:flex;align-items:center;justify-content:center;
+  min-height:min(62vh,540px);
+  background:radial-gradient(ellipse 110% 70% at 50% -6%,
+    rgba(255,232,182,.12) 0%,rgba(255,228,174,.06) 34%,
+    rgba(255,226,168,.02) 62%,rgba(255,224,158,0) 100%),
+  linear-gradient(180deg,#2a2117,#161009);
+  box-shadow:inset 0 0 70px rgba(0,0,0,.6);padding:clamp(1rem,3vw,2.4rem)}
+.viewer-piece{--face:0px;--ramp:transparent 0%,transparent 100%;--matpad:0px;--matcol:transparent;
+  position:relative;display:block;max-height:min(62vh,540px);padding:var(--face);
+  /* Deliberately not transitioned. Frame and mat are driven by padding, and animating
+     padding relayouts the whole stage on every frame. Picking a frame is a discrete
+     choice anyway — the moulding should just be there, the way swapping a real frame
+     works. */
+  box-shadow:0 3px 6px rgba(0,0,0,.55),0 26px 44px -12px rgba(0,0,0,.75)}
+/* mitred moulding, same four-trapezoid renderer the wall used to carry, driven now by
+   --face and --ramp so any stocked colour is one variable change */
+.viewer-piece .mould{position:absolute;inset:0;pointer-events:none}
+.viewer-piece .mould i{position:absolute;display:block}
+.viewer-piece .mould i.t{top:0;left:0;width:100%;height:var(--face);
+  background:linear-gradient(to bottom,var(--ramp));
+  clip-path:polygon(0 0,100% 0,calc(100% - var(--face)) 100%,var(--face) 100%)}
+.viewer-piece .mould i.b{bottom:0;left:0;width:100%;height:var(--face);
+  background:linear-gradient(to top,var(--ramp));
+  clip-path:polygon(var(--face) 0,calc(100% - var(--face)) 0,100% 100%,0 100%)}
+.viewer-piece .mould i.l{left:0;top:0;height:100%;width:var(--face);
+  background:linear-gradient(to right,var(--ramp));
+  clip-path:polygon(0 0,100% var(--face),100% calc(100% - var(--face)),0 100%)}
+.viewer-piece .mould i.r{right:0;top:0;height:100%;width:var(--face);
+  background:linear-gradient(to left,var(--ramp));
+  clip-path:polygon(100% 0,100% 100%,0 calc(100% - var(--face)),0 var(--face))}
+.viewer-piece .mould::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(163deg,rgba(255,236,198,.1) 0%,rgba(255,236,198,0) 34%,
+    rgba(0,0,0,0) 62%,rgba(0,0,0,.24) 100%)}
+.viewer-piece.has-frame .mould::before{content:"";position:absolute;z-index:2;
+  inset:calc(var(--face) - 1px);box-shadow:inset 0 2px 5px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.4)}
+.viewer-piece .plate{position:relative;z-index:1;display:block;
+  padding:var(--matpad);background:var(--matcol)}
+.viewer-piece.has-mat .plate{box-shadow:inset 0 0 34px rgba(70,53,31,.1)}
+.viewer-piece .plate img{display:block;max-width:100%;
+  max-height:calc(min(62vh,540px) - (2 * var(--face)) - (2 * var(--matpad)));
+  width:auto;height:auto;box-shadow:0 0 0 1px rgba(0,0,0,.3)}
+.viewer-piece.bare .plate img{box-shadow:0 0 0 1px rgba(255,244,222,.13)}
+/* controls side */
+.viewer-side{display:flex;flex-direction:column;min-height:0;overflow-y:auto}
+.viewer-side .dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.viewer-side h3{color:#f0e4cb;font-size:clamp(1.5rem,2.4vw,2rem);margin-bottom:.15rem}
+.viewer-side .viewer-sub{color:#a2937a;font-family:'Shantell Sans',cursive;font-size:.88rem;margin-bottom:1.1rem}
+.dialog-close{border:none;background:none;cursor:pointer;font-family:'Shantell Sans',cursive;
+  color:#c3b291;font-size:1.1rem;padding:.3rem .6rem;flex:0 0 auto;
+  box-shadow:inset 0 0 0 1px rgba(214,196,160,.35)}
+.dialog-close:hover{background:var(--sun);color:var(--ink)}
+.dialog-close:focus-visible{outline:2px solid var(--sun);outline-offset:3px}
+/* swatch pickers — a frame colour is a thing you look at, not a word in a dropdown */
+.viewer-side fieldset{border:0;padding:0;margin:0 0 1.1rem}
+.viewer-side legend{font-family:'Shantell Sans',cursive;font-size:.85rem;color:#a2937a;
+  padding:0;margin-bottom:.5rem}
+.swatches{display:flex;flex-wrap:wrap;gap:.5rem}
+.swatches label{position:relative;cursor:pointer}
+.swatches input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.swatches .chip{display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem .4rem .45rem;
+  font-family:'Shantell Sans',cursive;font-size:.85rem;color:#c3b291;
+  box-shadow:inset 0 0 0 1px rgba(214,196,160,.3);transition:box-shadow .2s,color .2s}
+.swatches .chip i{width:1.15rem;height:1.15rem;flex:0 0 auto;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.4)}
+.swatches input:hover+.chip{color:#e6dac2;box-shadow:inset 0 0 0 1px rgba(214,196,160,.6)}
+.swatches input:checked+.chip{color:var(--ink);background:var(--sun);
+  box-shadow:inset 0 0 0 1px var(--sun)}
+.swatches input:focus-visible+.chip{outline:2px solid var(--sun);outline-offset:3px}
+/* the order form, inside the viewer */
+.viewer-side .order-form{background:none;box-shadow:none;padding:0;margin:0;max-width:none}
+.viewer-side .order-form label{color:#a2937a}
+.viewer-side .order-form input,.viewer-side .order-form select,.viewer-side .order-form textarea{
+  background:rgba(255,250,238,.06);border:1px solid rgba(214,196,160,.32);color:#efe6d3}
+.viewer-side .order-form input::placeholder{color:#8f8267}
+.viewer-side .price-line{color:#e6dac2;font-size:1rem}
+.viewer-side .form-note{color:#8f8267}
+.viewer-side .order-confirm{background:var(--sun);color:var(--ink)}
+/* the paper tag stretches its arrow point into a wedge if you let it run full width */
+.viewer-buy{width:100%;max-width:17rem;justify-content:center;margin:0 auto}
 
 /* C2: The Moody Gallery — dark wall room, art-first.
    Rendering note: images use box-shadow (not filter:drop-shadow) and the room
@@ -510,71 +603,30 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 @media (max-width:560px){.moody-room .gallery-grid{grid-template-columns:1fr;max-width:420px}}
 @media (min-width:1000px){.moody-room .gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .frame-item{position:relative;text-align:center;transform:translateZ(0)}
-/* Dark walnut moulding. CSS-drawn: 4 strips clipped to trapezoids so the corners
-   auto-miter — no image assets. The six-stop ramp is Prodigi's own Classic "Brown"
-   swatch, sampled in client-reviews/to-bee-honest/2026-08-05-frame-viewer/viewer.html.
-   Each side runs the ramp in its own direction, so the light reads as coming from
-   above-left and the moulding has an actual profile instead of four flat bars.
-   --face approximates the 20mm Prodigi moulding face at on-screen scale. */
-.frame-item .frame-art{--face:clamp(.8rem,1.15vw,1.05rem);--ramp:#6b432c 0%,#4d341a 22%,#5a3922 42%,#623e21 62%,#69452b 82%,#5b3b26 100%;
-  position:relative;z-index:1;display:block;margin:0 auto;max-width:100%;
-  padding:var(--face);
-  box-shadow:0 2px 3px rgba(0,0,0,.5),0 22px 34px -8px rgba(0,0,0,.72)}
-.frame-item .mould{position:absolute;inset:0;pointer-events:none}
-.frame-item .mould i{position:absolute;display:block}
-/* wood grain: fine, irregular repeating streaks running along each strip's length,
-   at low enough alpha to read as figure in the timber rather than as stripes */
-.frame-item .mould i::after{content:"";position:absolute;inset:0;opacity:.5;
-  background:repeating-linear-gradient(90deg,
-    rgba(255,225,190,.055) 0 1px,rgba(0,0,0,.05) 1px 2px,transparent 2px 5px,
-    rgba(0,0,0,.06) 5px 6px,transparent 6px 11px)}
-.frame-item .mould i.l::after,.frame-item .mould i.r::after{
-  background:repeating-linear-gradient(0deg,
-    rgba(255,225,190,.055) 0 1px,rgba(0,0,0,.05) 1px 2px,transparent 2px 5px,
-    rgba(0,0,0,.06) 5px 6px,transparent 6px 11px)}
-.frame-item .mould i.t{top:0;left:0;width:100%;height:var(--face);
-  background:linear-gradient(to bottom,var(--ramp));
-  clip-path:polygon(0 0,100% 0,calc(100% - var(--face)) 100%,var(--face) 100%)}
-.frame-item .mould i.b{bottom:0;left:0;width:100%;height:var(--face);
-  background:linear-gradient(to top,var(--ramp));
-  clip-path:polygon(var(--face) 0,calc(100% - var(--face)) 0,100% 100%,0 100%)}
-.frame-item .mould i.l{left:0;top:0;height:100%;width:var(--face);
-  background:linear-gradient(to right,var(--ramp));
-  clip-path:polygon(0 0,100% var(--face),100% calc(100% - var(--face)),0 100%)}
-.frame-item .mould i.r{right:0;top:0;height:100%;width:var(--face);
-  background:linear-gradient(to left,var(--ramp));
-  clip-path:polygon(100% 0,100% 100%,0 calc(100% - var(--face)),0 var(--face))}
-/* One light source, above and slightly left: the top rail catches it, the bottom rail
-   falls into its own shade, and the whole moulding gets a faint diagonal so the four
-   strips read as one continuous piece of timber instead of four separate bars. */
-.frame-item .mould::after{content:"";position:absolute;inset:0;
-  background:
-    linear-gradient(163deg,rgba(255,236,198,.11) 0%,rgba(255,236,198,0) 34%,
-      rgba(0,0,0,0) 62%,rgba(0,0,0,.26) 100%),
-    linear-gradient(180deg,rgba(255,240,208,.2) 0%,rgba(255,240,208,0) 5%)}
-/* the rabbet: the shadowed step where the moulding meets the mat */
-.frame-item .frame-art::after{content:"";position:absolute;z-index:2;pointer-events:none;
-  inset:calc(var(--face) - 1px);
-  box-shadow:inset 0 2px 5px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.42)}
-/* Mat: white by default, black on the one piece the artist called out for contrast.
-   The bevel line is the cut edge of the board — it is what makes a mat read as a
-   physical thing rather than a coloured border. */
-.frame-item .frame-art .mat{position:relative;z-index:1;display:block;
-  padding:clamp(.7rem,1.4vw,1.15rem);background:#f2efe7;
-  box-shadow:inset 0 0 30px rgba(70,53,31,.09)}
-.frame-item .frame-art .mat img{width:100%;display:block;
-  box-shadow:0 0 0 1px rgba(0,0,0,.28),0 1px 5px rgba(0,0,0,.3)}
-.frame-item .frame-art .mat.mat-black{background:#17161a}
-.frame-item .frame-art .mat.mat-black img{box-shadow:0 0 0 1px rgba(255,255,255,.22),0 1px 5px rgba(0,0,0,.5)}
+/* No frame, no mat — the bare print on the wall, lit (client call 2026-08-07).
+   The moulding and mat renderers are gone from the wall entirely; the frame and mat
+   are product options now, chosen downstream, not part of how the work is shown.
+   Deliberately there is NO per-piece light element. Every attempt at one — the brass
+   fixture, then the feathered ellipse — put a finite box over an infinite falloff and
+   the box's edge always showed. The illumination is the room's own wash plus the
+   shadow the paper casts, and nothing else. */
+.frame-item .art-plate{display:block;width:100%;padding:0;border:0;background:none;
+  cursor:pointer;position:relative;z-index:1;
+  transition:transform .32s cubic-bezier(.16,1,.3,1),filter .32s}
+.frame-item .art-plate img{width:100%;display:block;
+  /* the paper's own edge and the shadow it throws on the wall behind it */
+  box-shadow:0 0 0 1px rgba(255,244,222,.13),
+             0 2px 4px rgba(0,0,0,.55),
+             0 20px 34px -10px rgba(0,0,0,.7)}
+.frame-item .art-plate:hover,.frame-item .art-plate:focus-visible{
+  transform:translateY(-5px) scale(1.012);filter:brightness(1.06)}
+.frame-item .art-plate:focus-visible{outline:2px solid var(--sun);outline-offset:8px}
 .frame-item figcaption{position:relative;z-index:1;color:#e6dac2;font-family:'Shantell Sans',cursive;
   font-size:1rem;margin-top:1.1rem}
-/* A wall label, not a paper price tag — it stays quiet until you go for it. */
-.frame-item .bring-home{margin-top:.7rem;font-size:.82rem;padding:.5rem 1.1rem;
-  background:none;color:#c3b291;clip-path:none;box-shadow:inset 0 0 0 1px rgba(214,196,160,.4)}
-.frame-item .bring-home::before{content:none}
-.frame-item .bring-home:hover,.frame-item .bring-home:focus-visible{
-  background:var(--sun);color:var(--ink);transform:translateY(-2px);
-  box-shadow:inset 0 0 0 1px transparent,0 6px 16px rgba(0,0,0,.5)}
+.frame-item .art-hint{display:block;margin-top:.25rem;font-size:.8rem;color:#8f8267;
+  font-family:'Shantell Sans',cursive;transition:color .3s}
+.frame-item .art-plate:hover~figcaption .art-hint,
+.frame-item .art-plate:focus-visible~figcaption .art-hint{color:#cbb894}
 .moody-intro{color:#b3a288;text-align:center;max-width:44ch;margin:2.4rem auto 0;font-size:.9rem}
 /* art-first: no vertical centering, minimal top padding, so the first row of
    frames is inside the first viewport with zero scroll at 1280x800 + 375x812.
@@ -798,7 +850,7 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
         <p style="max-width:44ch;margin:0 auto 1.6rem">The pieces get hung with room to breathe. We’re still arguing about what goes on which wall.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">show me when the room opens</a>
       </div>
-      <p class="tease hand">Seventeen pieces are on the wall. More are on their way.</p>
+      <p class="tease hand">Fifteen pieces are on the wall. More are on their way.</p>
     </div>
   </section>
 
@@ -1068,76 +1120,89 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
 
 <button class="back" id="backBtn" hidden><span class="back-comb" aria-hidden="true"></span>Back to the Honeycomb</button>
 
-<!-- gallery order dialog (D2) -->
-<dialog class="order-dialog" id="galleryOrderDialog" aria-label="Bring an artwork home">
-  <div class="panel torn">
-    <div class="dialog-head">
-      <h3 style="font-size:1.4rem">Bring it home</h3>
-      <button type="button" class="dialog-close" id="galleryDialogClose" aria-label="Close this form">✕</button>
+<!-- THE VIEWER — one component for every piece in GALLERY_CATALOG.
+     Nothing here names an artwork: it is populated from whichever plate was clicked, so
+     adding a row to the catalog is all it takes for a new piece to work in here. -->
+<dialog class="order-dialog" id="galleryOrderDialog" aria-label="View and order an artwork">
+  <div class="viewer-shell">
+
+    <div class="viewer-stage">
+      <span class="viewer-piece bare" id="viewerPiece">
+        <span class="mould" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span>
+        <!-- no src until a piece is chosen: src="" re-requests the page URL as an image -->
+        <span class="plate"><img id="viewerArt" alt="" decoding="async"></span>
+      </span>
     </div>
-    <form class="order-form" id="galleryOrderForm" data-vendor="Prodigi" data-airtable-table="Gallery Orders" novalidate>
-      <div class="field">
-        <label for="galleryArtwork">Artwork</label>
-        <input type="text" id="galleryArtwork" name="Artwork" readonly>
+
+    <div class="viewer-side">
+      <div class="dialog-head">
+        <div>
+          <h3 id="viewerTitle">&nbsp;</h3>
+          <p class="viewer-sub">original torn-paper collage · archival giclée print</p>
+        </div>
+        <button type="button" class="dialog-close" id="galleryDialogClose" aria-label="Close the viewer">✕</button>
       </div>
-      <div class="field-row">
+
+      <fieldset>
+        <legend>Frame</legend>
+        <div class="swatches" id="viewerFrames"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Mat</legend>
+        <div class="swatches" id="viewerMats"></div>
+      </fieldset>
+
+      <form class="order-form" id="galleryOrderForm" data-vendor="Prodigi" data-airtable-table="Gallery Orders" novalidate>
+        <input type="hidden" id="galleryArtwork" name="Artwork">
+        <!-- The frame/mat swatches above write into these. They stay in the DOM as real
+             form controls so the payload, validation and Airtable field names are
+             unchanged from the tested contract. -->
+        <select id="galleryFrameColor" name="Frame Color" class="sr-only" tabindex="-1" aria-hidden="true">
+          <option value="No frame">No frame</option>
+          <option value="Brown">Brown</option>
+          <option value="Black">Black</option>
+          <option value="Antique Gold">Antique Gold</option>
+        </select>
+        <select id="galleryMat" name="Mat" class="sr-only" tabindex="-1" aria-hidden="true">
+          <option value="No mat">No mat</option>
+          <option value="White">White</option>
+          <option value="Black">Black</option>
+        </select>
         <div class="field">
           <label for="gallerySize">Size</label>
           <select id="gallerySize" name="Size" required>
-            <option value="8x12">8x12</option>
-            <option value="12x18">12x18</option>
-            <option value="16x24">16x24</option>
+            <option value="8x12">8 × 12 in</option>
+            <option value="12x18">12 × 18 in</option>
+            <option value="16x24">16 × 24 in</option>
           </select>
-          <p class="hand">every piece ships printed, matted &amp; framed — the size on the label is the print inside the frame.</p>
+          <p class="hand" style="font-size:.8rem;color:#8f8267;margin-top:.3rem">the size on the label is the print itself, not the frame around it.</p>
         </div>
-      </div>
-      <div class="field-row">
+        <p class="price-line" id="galleryPriceLine"></p>
         <div class="field">
-          <label for="galleryFrameColor">Frame Color</label>
-          <!-- Brown is the frame the Gallery actually shows on the wall, so it leads and
-               it is the default. All three are stocked colours of the Prodigi Classic
-               moulding (the same catalogue the frame-viewer ramps were sampled from).
-               NOTE: "Brown" is a new value for the Airtable Size/Frame select — the first
-               order through will create the choice via typecast. -->
-          <select id="galleryFrameColor" name="Frame Color" required>
-            <option value="Brown">Walnut Brown — as hung</option>
-            <option value="Black">Black</option>
-            <option value="Antique Gold">Antique Gold</option>
-          </select>
+          <label for="galleryName">Your name</label>
+          <input type="text" id="galleryName" name="Customer Name" autocomplete="name" required>
         </div>
         <div class="field">
-          <label for="galleryMat">Mat</label>
-          <select id="galleryMat" name="Mat" required>
-            <option value="White">White</option>
-            <option value="Black">Black</option>
-          </select>
+          <label for="galleryEmail">Email</label>
+          <input type="email" id="galleryEmail" name="Customer Email" autocomplete="email" required>
         </div>
-      </div>
-      <p class="price-line" id="galleryPriceLine"></p>
-      <div class="field">
-        <label for="galleryName">Customer Name</label>
-        <input type="text" id="galleryName" name="Customer Name" autocomplete="name" required>
-      </div>
-      <div class="field">
-        <label for="galleryEmail">Customer Email</label>
-        <input type="email" id="galleryEmail" name="Customer Email" autocomplete="email" required>
-      </div>
-      <div class="field">
-        <label for="galleryAddress">Ship-To Address</label>
-        <textarea id="galleryAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
-      </div>
-      <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
-      <!-- honeypot: hidden from people, catnip for bots -->
-      <div class="hp-field" aria-hidden="true">
-        <label for="galleryCompanyWebsite">Company website</label>
-        <input type="text" id="galleryCompanyWebsite" name="company_website" tabindex="-1" autocomplete="off">
-      </div>
-      <div class="form-actions">
-        <button class="tag-btn" type="submit" id="gallerySubmitBtn">Save my order</button>
-      </div>
-      <p class="form-error" id="galleryOrderErr" role="alert" hidden></p>
-    </form>
-    <p class="order-confirm" id="galleryOrderConfirm" role="status" hidden>🐝 Saved — we'll email you to confirm your print, price and payment. Nothing is charged today.</p>
+        <div class="field">
+          <label for="galleryAddress">Ship to</label>
+          <textarea id="galleryAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
+        </div>
+        <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
+        <!-- honeypot: hidden from people, catnip for bots -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="galleryCompanyWebsite">Company website</label>
+          <input type="text" id="galleryCompanyWebsite" name="company_website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="form-actions">
+          <button class="tag-btn viewer-buy" type="submit" id="gallerySubmitBtn">Bring it home</button>
+        </div>
+        <p class="form-error" id="galleryOrderErr" role="alert" hidden></p>
+      </form>
+      <p class="order-confirm" id="galleryOrderConfirm" role="status" hidden>🐝 Saved — we'll email you to confirm your print, price and payment. Nothing is charged today.</p>
+    </div>
   </div>
 </dialog>
 
@@ -1164,14 +1229,10 @@ const TBH_PRICES = { deck: 49, book: 59,
 const GALLERY_CATALOG = [
   { slug:'blue-dolphins', title:'Blue Dolphins', mat:'white',
     alt:'A fresco-style collage of blue dolphins and darting fish beneath a wood-beamed roofline, bordered in painted flowers' },
-  { slug:'yellow-retro-car', title:'Yellow Retro Car', mat:'white',
-    alt:'A yellow vintage convertible parked outside an ivy-covered building with arched windows' },
   { slug:'whimsical-sofa', title:'Whimsical Sofa', mat:'white',
     alt:'A floral upholstered sofa in front of a wall of shelved handbags in bright colors' },
   { slug:'vespa-selfie', title:'Vespa Selfie', mat:'white',
     alt:'A helmeted rider snapping a mirror selfie on a scooter, trees reflected behind him' },
-  { slug:'crete-beach', title:'Crete Beach', mat:'white',
-    alt:'A beach umbrella overlooking a turquoise sea and distant mountains under a cloud-streaked sky' },
   { slug:'crete-archway', title:'Crete Archway', mat:'white',
     alt:'A stone archway shaped like a head in profile, framing a sunlit courtyard with a shaded pergola and a stone path' },
   { slug:'art-deco-deity', title:'Art Deco Deity', mat:'white',
@@ -1197,17 +1258,19 @@ const GALLERY_CATALOG = [
   { slug:'milan-spa', title:'Milan Spa', mat:'white',
     alt:'A vaulted stone spa interior with rows of columns reflected in a turquoise pool' }
 ];
+/* The wall. Bare prints, no frame and no mat — the whole plate is the control, and
+   clicking it opens the viewer on that piece. There is no per-piece markup beyond what
+   the catalog row provides. */
 (function renderGalleryCatalog(){
   const grid=document.getElementById('galleryGrid');
   if(!grid)return;
-  grid.innerHTML=GALLERY_CATALOG.map(p=>{
-    const matClass = p.mat==='black' ? ' mat-black' : '';
-    return `<figure class="frame-item" data-mat="${p.mat}">
-      <span class="frame-art"><span class="mould" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span><span class="mat${matClass}"><img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:900px) 45vw, 22vw" alt="${p.alt}" loading="lazy" decoding="sync"></span></span>
-      <figcaption>${p.title}</figcaption>
-      <button class="tag-btn bring-home" type="button" data-artwork="${p.title}" data-mat="${p.mat==='black'?'Black':'White'}">Bring it home</button>
-    </figure>`;
-  }).join('');
+  grid.innerHTML=GALLERY_CATALOG.map((p,i)=>
+    `<figure class="frame-item">
+      <button class="art-plate" type="button" data-index="${i}" aria-label="View ${p.title} — open the viewer to see it framed and order a print">
+        <img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:900px) 45vw, 30vw" alt="${p.alt}" loading="lazy" decoding="sync">
+      </button>
+      <figcaption>${p.title}<span class="art-hint">click to see it closer</span></figcaption>
+    </figure>`).join('');
 })();
 const interimPreview=new URLSearchParams(location.search).get('interim')==='1';
 document.body.classList.toggle('is-interim-preview',interimPreview);
@@ -1563,8 +1626,14 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
   });
 })();
 
-/* ---------- D2: gallery "bring it home" order dialog ----------
-   One shared dialog, populated per artwork. Client-side validate only. */
+/* ---------- THE VIEWER ----------
+   Generic by construction. It is handed an index into GALLERY_CATALOG and renders that
+   row: nothing below names a piece, so a new catalog row needs no change in here.
+
+   Frame and mat are live-previewed around the real print. Ramps are Prodigi's own
+   Classic swatches (sampled in client-reviews/to-bee-honest/2026-08-05-frame-viewer),
+   so what the visitor picks is what the mill actually stocks. The wall shows the work
+   bare; this is where it gets dressed. */
 (()=>{
   const dialog=document.getElementById('galleryOrderDialog');
   const form=document.getElementById('galleryOrderForm');
@@ -1574,32 +1643,104 @@ document.querySelector('#t-join form').addEventListener('submit',e=>{
   const frameColorSelect=document.getElementById('galleryFrameColor');
   const matSelect=document.getElementById('galleryMat');
   const priceLine=document.getElementById('galleryPriceLine');
+  const piece=document.getElementById('viewerPiece');
+  const art=document.getElementById('viewerArt');
+  const titleEl=document.getElementById('viewerTitle');
   if(!dialog||!form)return;
-  const supportsDialog=typeof dialog.showModal==='function';
-  let opener=null;
+
+  /* Prodigi Classic moulding, 20mm face. Six stops so the strip has a profile. */
+  const FRAMES=[
+    {value:'No frame', label:'None',        chip:'transparent', ramp:null},
+    {value:'Brown',    label:'Walnut',      chip:'#5a3922',
+     ramp:'#6b432c 0%,#4d341a 22%,#5a3922 42%,#623e21 62%,#69452b 82%,#5b3b26 100%'},
+    {value:'Black',    label:'Black',       chip:'#1a1a1a',
+     ramp:'#242424 0%,#151515 22%,#171717 42%,#161616 62%,#1d1d1d 82%,#161616 100%'},
+    {value:'Antique Gold', label:'Antique gold', chip:'#c5a151',
+     ramp:'#ba944d 0%,#b8914c 22%,#c5a151 42%,#c5a252 62%,#c9a657 82%,#c6a253 100%'}
+  ];
+  const MATS=[
+    {value:'No mat', label:'None',  chip:'transparent', col:null},
+    {value:'White',  label:'White', chip:'#f2efe7', col:'#f2efe7'},
+    {value:'Black',  label:'Black', chip:'#17161a', col:'#17161a'}
+  ];
+
+  function buildSwatches(host,options,name,onPick){
+    host.innerHTML=options.map((o,i)=>`
+      <label>
+        <input type="radio" name="${name}" value="${o.value}"${i===0?' checked':''}>
+        <span class="chip"><i style="background:${o.chip};${o.chip==='transparent'
+          ?'box-shadow:inset 0 0 0 1px rgba(214,196,160,.45);background:repeating-linear-gradient(45deg,rgba(214,196,160,.18) 0 4px,transparent 4px 8px)':''}"></i>${o.label}</span>
+      </label>`).join('');
+    host.addEventListener('change',e=>{
+      const o=options.find(x=>x.value===e.target.value);
+      if(o)onPick(o);
+    });
+  }
+
+  function applyFrame(o){
+    frameColorSelect.value=o.value;
+    piece.classList.toggle('has-frame',!!o.ramp);
+    piece.style.setProperty('--face', o.ramp ? 'clamp(1.1rem,2.2vw,1.9rem)' : '0px');
+    piece.style.setProperty('--ramp', o.ramp || 'transparent 0%,transparent 100%');
+    updateBareState();
+    // setting .value programmatically fires no change event, so the price line has to
+    // be told directly — the listener alone left "framed" off the label.
+    syncPriceLine();
+  }
+  function applyMat(o){
+    matSelect.value=o.value;
+    piece.classList.toggle('has-mat',!!o.col);
+    piece.style.setProperty('--matpad', o.col ? 'clamp(1rem,2.4vw,2.1rem)' : '0px');
+    piece.style.setProperty('--matcol', o.col || 'transparent');
+    updateBareState();
+  }
+  function updateBareState(){
+    piece.classList.toggle('bare',
+      !piece.classList.contains('has-frame') && !piece.classList.contains('has-mat'));
+  }
+
+  buildSwatches(document.getElementById('viewerFrames'),FRAMES,'viewerFrame',applyFrame);
+  buildSwatches(document.getElementById('viewerMats'),MATS,'viewerMat',applyMat);
+
   function syncPriceLine(){
     const size=sizeSelect.value;
     const price=TBH_PRICES.gallery[size];
+    const framed=frameColorSelect.value!=='No frame';
     if(priceLine)priceLine.textContent = price!=null
-      ? `Launch price: $${price} · Framed ${size.replace('x','×')} · confirmed by email before any payment`
+      ? `$${price} · ${size.replace('x','×')} print${framed?', framed':''} · confirmed by email before any payment`
       : '';
   }
   sizeSelect.addEventListener('change',syncPriceLine);
-  function openDialog(btn){
+
+  const supportsDialog=typeof dialog.showModal==='function';
+  let opener=null;
+  function openViewer(btn){
+    const p=GALLERY_CATALOG[Number(btn.dataset.index)];
+    if(!p)return;
     opener=btn;
     form.hidden=false;confirm.hidden=true;
     form.reset();
-    artworkInput.value=btn.dataset.artwork||'';
-    matSelect.value=btn.dataset.mat||'White';
+    art.src=`assets/prints/${p.slug}.jpg`;
+    art.alt=p.alt;
+    titleEl.textContent=p.title;
+    artworkInput.value=p.title;
+    // every piece opens the way it hangs: bare. The catalog's mat field is the mat that
+    // suits it, so that is the one pre-selected if the visitor reaches for a mat.
+    document.querySelector('input[name=viewerFrame][value="No frame"]').checked=true;
+    document.querySelector('input[name=viewerMat][value="No mat"]').checked=true;
+    applyFrame(FRAMES[0]);
+    applyMat(MATS[0]);
+    matSelect.dataset.suggested = p.mat==='black' ? 'Black' : 'White';
     syncPriceLine();
     if(supportsDialog)dialog.showModal();else dialog.setAttribute('open','');
+    document.getElementById('galleryDialogClose').focus();
   }
   function closeDialog(){
     if(supportsDialog)dialog.close();else dialog.removeAttribute('open');
     opener?.focus();
   }
-  document.querySelectorAll('.bring-home').forEach(btn=>{
-    btn.addEventListener('click',()=>openDialog(btn));
+  document.querySelectorAll('.art-plate').forEach(btn=>{
+    btn.addEventListener('click',()=>openViewer(btn));
   });
   document.getElementById('galleryDialogClose').addEventListener('click',closeDialog);
   dialog.addEventListener('cancel',closeDialog);
