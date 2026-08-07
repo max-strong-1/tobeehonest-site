@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { Problem } from "./http.js";
+import { isKnownArtworkSlug } from "./artwork-allowlist.js";
 
 export const checkoutSchema = z.object({
   product: z.enum(["deck", "framed-art"]),
@@ -38,6 +39,10 @@ export function resolveCheckoutItem(input) {
       quantity: input.quantity,
       metadata: { product: "deck" }
     };
+  }
+
+  if (!isKnownArtworkSlug(input.artworkId)) {
+    throw new Problem(422, "Unknown Artwork", "That artwork is not in the approved gallery catalog.", "https://tobeehonest.com/problems/unknown-artwork");
   }
 
   const key = `${input.size}:${input.frameColor}`;

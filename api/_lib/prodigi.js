@@ -43,3 +43,27 @@ export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
   if (!response.ok) throw new Problem(502, "Fulfillment Provider Error", "Prodigi did not accept the order.");
   return result;
 }
+
+/* Strict Prodigi order id shape: "ord_" followed by digits (matches every id in
+   the reference docs and callback samples, e.g. "ord_1469466"). Anything else is
+   rejected before we ever build a URL or make a request with it. */
+export const PRODIGI_ORDER_ID_REGEX = /^ord_[0-9]+$/;
+
+/**
+ * Authenticated GET of a single order's current state, straight from Prodigi.
+ * This is the only source of truth for order status in this codebase — never
+ * trust a status/stage field read out of an inbound webhook body instead.
+ */
+export async function getProdigiOrder(orderId, { fetchImpl = fetch } = {}) {
+  if (!PRODIGI_ORDER_ID_REGEX.test(orderId)) {
+    throw new Problem(400, "Invalid Order Id", "The Prodigi order id is not a recognized shape.");
+  }
+  const apiKey = requireEnv("PRODIGI_API_KEY");
+  const response = await fetchImpl(`${prodigiBaseUrl()}/v4.0/orders/${encodeURIComponent(orderId)}`, {
+    method: "GET",
+    headers: { "X-API-Key": apiKey }
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Problem(502, "Fulfillment Provider Error", "Prodigi did not return order status.");
+  return result;
+}

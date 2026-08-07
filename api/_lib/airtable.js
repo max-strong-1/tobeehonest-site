@@ -67,6 +67,35 @@ export async function createRecord(tableId, fields, { typecast = false } = {}) {
   return data.records?.[0];
 }
 
+/**
+ * Lists records for a table, optionally filtered by an Airtable formula.
+ * Returns the plain records array (never the raw envelope) — callers don't
+ * need pagination offsets for the bounded fulfillment-tracking queries this
+ * is used for today.
+ */
+export async function listRecords(tableId, { filterByFormula, maxRecords = 100 } = {}) {
+  const { token, baseId } = airtableConfig();
+  const params = new URLSearchParams();
+  if (filterByFormula) params.set("filterByFormula", filterByFormula);
+  if (maxRecords) params.set("maxRecords", String(maxRecords));
+  const query = params.toString();
+  const data = await airtableFetch(
+    `${API_BASE}/${baseId}/${encodeURIComponent(tableId)}${query ? `?${query}` : ""}`,
+    token,
+    { method: "GET" }
+  );
+  return data.records || [];
+}
+
+export async function updateRecord(tableId, recordId, fields, { typecast = false } = {}) {
+  const { token, baseId } = airtableConfig();
+  const data = await airtableFetch(`${API_BASE}/${baseId}/${encodeURIComponent(tableId)}`, token, {
+    method: "PATCH",
+    body: JSON.stringify({ records: [{ id: recordId, fields }], typecast })
+  });
+  return data.records?.[0];
+}
+
 export async function deleteRecord(tableId, recordId) {
   const { token, baseId } = airtableConfig();
   return airtableFetch(

@@ -2,6 +2,7 @@ import { z } from "zod";
 import { Problem, allowMethods, readJson, sendJson, sendProblem } from "./_lib/http.js";
 import { createRecord } from "./_lib/airtable.js";
 import { sendOrderAlert } from "./_lib/notify.js";
+import { isKnownArtworkTitle } from "./_lib/artwork-allowlist.js";
 
 const GALLERY_TABLE_ID = process.env.AIRTABLE_GALLERY_TABLE_ID || "tblircNYKsWQXFEa3";
 const DECK_TABLE_ID = process.env.AIRTABLE_DECK_TABLE_ID || "tblVEa5PvIY9GIhMR";
@@ -115,6 +116,21 @@ function alertText(input, orderId) {
   return lines.join("\n");
 }
 
+/* Gallery orders name artwork by display title (no slug field in this
+   contract — see api/_lib/artwork-allowlist.js). Reject anything that isn't
+   one of the approved gallery pieces before it reaches Airtable. No-op for
+   deck orders, which have no artwork field. */
+export function assertKnownArtwork(input) {
+  if (input.product === "gallery" && !isKnownArtworkTitle(input.artwork)) {
+    throw new Problem(
+      422,
+      "Unknown Artwork",
+      "That artwork is not in the approved gallery catalog.",
+      "https://tobeehonest.com/problems/unknown-artwork"
+    );
+  }
+}
+
 export default async function handler(req, res) {
   try {
     allowMethods(req, ["POST"]);
@@ -137,6 +153,7 @@ export default async function handler(req, res) {
       );
     }
     const input = parsed.data;
+    assertKnownArtwork(input);
 
     const baseOrderId = makeOrderId(input.product);
     const fields = buildAirtableFields(input, baseOrderId);

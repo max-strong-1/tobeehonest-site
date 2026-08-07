@@ -15,7 +15,7 @@ test("deck rejects unexpected client-controlled fields", () => {
 test("catalog resolves approved server-side identifiers", () => {
   process.env.STRIPE_PRICE_FRAME_12X16_GOLD = "price_test";
   process.env.PRODIGI_SKU_FRAME_12X16_GOLD = "sku_test";
-  const item = resolveCheckoutItem(parseCheckoutInput({ product: "framed-art", artworkId: "leopard", size: "12x16", frameColor: "gold", quantity: 2 }));
+  const item = resolveCheckoutItem(parseCheckoutInput({ product: "framed-art", artworkId: "leopard-stare", size: "12x16", frameColor: "gold", quantity: 2 }));
   assert.equal(item.stripePriceId, "price_test");
   assert.equal(item.vendorSku, "sku_test");
   assert.equal(item.quantity, 2);
