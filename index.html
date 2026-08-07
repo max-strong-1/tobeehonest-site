@@ -71,8 +71,6 @@ body::before{
 #t-yours{--tier-bg:#e0c7a0}
 #t-podcast{--tier-bg:#ddc39a}
 #t-market{--tier-bg:#dabf94}
-#t-library{--tier-bg:#d7bb8e}
-#t-join{--tier-bg:var(--sun)}
 /* visible edge of the tier underneath: colored strip at bottom */
 .tier::after{
   content:"";position:sticky;display:block;bottom:0;height:0;
@@ -164,13 +162,43 @@ body::before{
 .cover-art{position:absolute;inset:0}
 .cover-art img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
 .cover-art::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(247,239,226,.96) 0%,rgba(247,239,226,.9) 34%,rgba(247,239,226,.25) 62%,rgba(247,239,226,0) 82%)}
-.cover-panel{position:relative;z-index:2;max-width:540px;margin:10vh 0 0 6vw}
+.cover-content{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.4rem;min-height:100%;padding:8vh 6vw 4vh}
+.cover-panel{position:relative;z-index:2;max-width:540px;margin:0;flex:1 1 420px}
 .cover-panel .panel{padding:3rem 2.6rem 3.2rem}
 .cover-panel h1{font-size:clamp(2.4rem,4.8vw,4rem);margin-bottom:1rem}
 .cover-panel h1 em{font-style:normal;color:#8a611a}/* darkened from --honey (#d99a2b, 2.14:1) for WCAG AA 4.5:1 on --paper */
 .cover-panel .lede{font-size:1.18rem;max-width:34ch;margin-bottom:1.8rem}
 .cover-logo{width:92px;height:92px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow);margin-bottom:1.3rem;border:5px solid #fff}
 .cover-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.wordmark{position:absolute;top:1.5rem;left:6vw;z-index:5;display:flex;align-items:center;gap:.65rem}
+.wordmark-mark{width:40px;height:40px;flex:0 0 auto;opacity:0;fill:none;stroke:var(--ink);stroke-width:1.5}
+.wordmark-text{font-family:'Shantell Sans',cursive;font-weight:500;font-size:1.05rem;color:var(--ink)}
+/* cover honeycomb — replaces the side rail as the cover's own navigation */
+.cover-honeycomb{position:relative;z-index:2;flex:0 1 460px;max-width:460px;margin:0;text-align:center}
+.hc-grid{position:relative;--hc-cell:clamp(84px,10vw,132px);width:calc(var(--hc-cell) * 3);height:calc((var(--hc-cell) / .866) * 2.5);margin:0 auto}
+.hc-cell{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;width:var(--hc-cell);aspect-ratio:.866;padding:.6rem;border:0;cursor:pointer;color:var(--ink);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);box-shadow:inset 0 0 0 1px rgba(70,53,31,.24);transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .22s;background:linear-gradient(150deg,var(--hc-light),var(--hc-base) 55%,var(--hc-deep))}
+.hc-cell:hover,.hc-cell:focus-visible{transform:translateY(-6px) scale(1.04);z-index:3;box-shadow:inset 0 0 0 1px rgba(70,53,31,.3),0 10px 20px rgba(70,53,31,.28)}
+.hc-cell:focus-visible{outline:3px solid var(--bark);outline-offset:4px}
+.hc-num{font-family:'Shantell Sans',cursive;font-size:.62rem;opacity:.65;margin-bottom:.15rem}
+.hc-label{font-family:'Caprasimo',serif;font-size:clamp(.68rem,1.4vw,.88rem);line-height:1.14;max-width:96%;overflow-wrap:break-word;hyphens:auto}
+.hc-1{top:0;left:calc(var(--hc-cell) * .5);--hc-light:#f4d284;--hc-base:var(--comb-honey);--hc-deep:#a9793a}
+.hc-2{top:0;left:calc(var(--hc-cell) * 1.5);--hc-light:#f0c9a0;--hc-base:var(--comb-terra);--hc-deep:#9c6a4a}
+.hc-3{top:calc((var(--hc-cell) / .866) * .75);left:0;--hc-light:#e3e2ba;--hc-base:var(--comb-sage);--hc-deep:#7c8055}
+.hc-4{top:calc((var(--hc-cell) / .866) * .75);left:var(--hc-cell);--hc-light:#f7e19b;--hc-base:var(--sun);--hc-deep:#b98a1e}
+.hc-5{top:calc((var(--hc-cell) / .866) * .75);left:calc(var(--hc-cell) * 2);--hc-light:#c9d3d8;--hc-base:var(--comb-dusty);--hc-deep:#5f717c}
+.hc-6{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * .5);--hc-light:#dcc3d1;--hc-base:var(--comb-mauve);--hc-deep:#7a5a6d}
+.hc-7{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#f6dd8f;--hc-base:var(--honey);--hc-deep:#a4700f}
+.hc-note{margin:1.4rem auto 0;max-width:22rem;font-family:'Shantell Sans',cursive;font-size:.8rem;color:var(--ink);opacity:.85}
+/* the honeycomb IS the cover's nav — the side rail stays out of the way while on the cover */
+body.cover-active #marks,body.cover-active #mobileNavToggle{display:none}
+@media(max-width:1050px){
+  .cover-content{flex-direction:column;align-items:flex-start;padding-top:6.5vh}
+  .cover-honeycomb{margin:.5rem auto 0}
+}
+@media(max-width:820px){
+  .hc-grid{--hc-cell:clamp(74px,22vw,96px)}
+  .wordmark{left:6vw;top:1.1rem}
+}
 
 /* chapter layouts */
 .ch-head{text-align:center;margin-bottom:2.4rem}
@@ -284,7 +312,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 .soon h3{font-size:1.25rem;margin-bottom:.5rem}
 
 /* core / join */
-#t-join .tier-inner{align-items:center;text-align:center}
+#t-market #t-join{margin:2.6rem auto 0}
 .core{max-width:640px;margin:0 auto;text-align:center}
 .core-rings{width:130px;height:130px;margin:0 auto 1.6rem;position:relative}
 .core-rings span{position:absolute;inset:0;border-radius:50%}
@@ -345,7 +373,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper);cl
 @media (max-width:820px){
   .two-col,.book-grid{grid-template-columns:1fr}
   .gallery-preview{grid-template-columns:repeat(2,minmax(0,1fr));max-width:620px}
-  .cover-panel{margin:6vh auto 0;max-width:88vw}
+  .cover-panel{margin:0;max-width:88vw}
   /* Mobile chapter navigation opens as a deliberate honeycomb menu. The desktop
      bookmark rail remains unchanged above this breakpoint. */
   #marks{
@@ -595,16 +623,37 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
   <section class="tier" id="t-cover" data-title="Cover" aria-label="Cover">
     <div class="tier-inner">
       <div class="cover-art" aria-hidden="true"><img src="assets/web/cover-hero.jpg" alt=""></div>
-      <div class="cover-panel">
-        <div class="panel torn">
-          <img class="cover-logo" src="assets/IMG_5190.jpeg" alt="To Bee Honest — watercolor bee on a yellow flower">
-          <h1>A scrapbook for your <em>inner world</em>.</h1>
-          <p class="lede">A book, a deck of mantras, and a growing universe of playful ways to feel better about being you.</p>
-          <div class="cover-actions">
-            <a class="tag-btn" href="#t-join" data-jump="t-join">Join the Hive</a>
-            <span class="hand" style="font-size:.95rem">or explore the tabs below ↘</span>
+      <div class="wordmark">
+        <svg class="wordmark-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="14"/>
+          <circle cx="16" cy="16" r="9"/>
+          <circle cx="16" cy="16" r="4"/>
+        </svg>
+        <span class="wordmark-text hand">To Bee Honest</span>
+      </div>
+      <div class="cover-content">
+        <div class="cover-panel">
+          <div class="panel torn">
+            <img class="cover-logo" src="assets/IMG_5190.jpeg" alt="To Bee Honest — watercolor bee on a yellow flower">
+            <h1>Scrapbook for your <em>inner world</em>.</h1>
+            <p class="lede">A book, a deck of mantras, and a growing universe of playful ways to feel better about being you.</p>
+            <div class="cover-actions">
+              <a class="tag-btn" href="#t-join" data-jump="t-join">Join the Hive</a>
+            </div>
           </div>
         </div>
+        <nav class="cover-honeycomb" aria-label="Choose a section to explore">
+          <div class="hc-grid">
+            <button class="hc-cell hc-1" type="button" data-jump="t-story" aria-label="Open The Story"><span class="hc-num">01</span><span class="hc-label">The Story</span></button>
+            <button class="hc-cell hc-2" type="button" data-jump="t-book" aria-label="Open The Book"><span class="hc-num">02</span><span class="hc-label">The Book</span></button>
+            <button class="hc-cell hc-3" type="button" data-jump="t-deck" aria-label="Open The Mantra Deck"><span class="hc-num">03</span><span class="hc-label">The Mantra Deck</span></button>
+            <button class="hc-cell hc-4" type="button" data-jump="t-gallery" aria-label="Open The Moody Gallery"><span class="hc-num">04</span><span class="hc-label">The Moody Gallery</span></button>
+            <button class="hc-cell hc-5" type="button" data-jump="t-yours" aria-label="Open Make It Yours"><span class="hc-num">05</span><span class="hc-label">Make It Yours</span></button>
+            <button class="hc-cell hc-6" type="button" data-jump="t-podcast" aria-label="Open The Podcast"><span class="hc-num">06</span><span class="hc-label">The Podcast</span></button>
+            <button class="hc-cell hc-7" type="button" data-jump="t-market" aria-label="Open The Marketplace"><span class="hc-num">07</span><span class="hc-label">The Marketplace</span></button>
+          </div>
+          <p class="hc-note" aria-live="polite">Choose a cell to see what the bees are building.</p>
+        </nav>
       </div>
     </div>
   </section>
@@ -941,21 +990,6 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
     </div>
   </section>
 
-  <!-- LIBRARY -->
-  <section class="tier below" id="t-library" data-title="The Library" aria-label="The Library" hidden>
-    <div class="tier-inner">
-      <div class="ch-head"><h2>The Library</h2><p class="hand">a shelf that grows</p></div>
-      <div class="pod torn" style="transform:rotate(.45deg)">
-        <span class="eyebrow hand">storybooks, not lectures</span>
-        <h3>Children’s novels, grown from the mantras</h3>
-        <p class="lede">Every mantra started as a lesson I had to learn the hard way. The Library is where those lessons become children’s novels — real stories, not sermons, each one built around a principle from the journey so far.</p>
-        <blockquote class="hand">“Nothing to finish. Nothing due back.”</blockquote>
-        <p style="max-width:46ch;margin:0 auto 1.6rem">Simple enough for a kid to follow, honest enough for the adult reading it out loud. A shelf that grows one story at a time, in no particular order — I know what belongs on it now, I just haven’t built it yet.</p>
-        <a class="tag-btn" href="#t-join" data-jump="t-join">tell me when the first shelf goes up</a>
-      </div>
-    </div>
-  </section>
-
   <!-- MARKETPLACE -->
   <section class="tier below" id="t-market" data-title="The Community Marketplace" aria-label="The Community Marketplace" hidden>
     <div class="tier-inner">
@@ -1140,14 +1174,11 @@ dialog.order-dialog .dialog-close:focus-visible{outline:3px solid var(--bark)}
         </form>
         <p class="order-confirm" id="marketOrderConfirm" role="status" hidden>🐝 Got it — your submission is in. Nicolas reads every one himself, so give it a few days. We’ll email you either way.</p>
       </div>
-    </div>
-  </section>
 
-  <!-- CORE / JOIN -->
-  <section class="tier below" id="t-join" data-title="The Hive" aria-label="Join the Hive" hidden>
-    <div class="tier-inner">
-      <div class="core">
+      <!-- THE HIVE — merged in from the old standalone Join tier; Marketplace is the last cell now -->
+      <div class="core" id="t-join">
         <div class="core-rings" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="hand" style="margin-bottom:.4rem;opacity:.8">tucked at the back of the marketplace</p>
         <h2>You reached the center.</h2>
         <p>This is the hive. Be first to hear when the book and the deck land — plus one honest note now and then. No noise, no spam, just the good stuff.</p>
         <form action="#" method="post" data-placeholder="wire-to-provider">
@@ -1254,7 +1285,7 @@ const interimPreview=new URLSearchParams(location.search).get('interim')==='1';
 document.body.classList.toggle('is-interim-preview',interimPreview);
 const allTiers=[...document.querySelectorAll('.tier')];
 allTiers.forEach(t=>t.setAttribute('tabindex','0')); // keyboard-scrollable panels
-const excludedInterimIds=new Set(['t-cover','t-library','t-market']);
+const excludedInterimIds=new Set(['t-cover']);
 if(interimPreview){
   allTiers.filter(t=>excludedInterimIds.has(t.id)).forEach(t=>{t.hidden=true});
 }
@@ -1279,6 +1310,8 @@ function paint(){
     t.classList.toggle('below', i>cur);
   });
   backBtn.hidden = cur===0;
+  // the honeycomb IS the cover's nav — keep the side rail out of the way while on the cover
+  document.body.classList.toggle('cover-active', cur===0);
   [...marks.children].forEach(b=>b.setAttribute('aria-current', Number(b.dataset.tierIndex)===cur ? 'true':'false'));
   const activeMark=marks.querySelector(`[data-tier-index="${cur}"]`);
   if(activeMark&&matchMedia('(max-width:820px)').matches){
@@ -1351,8 +1384,10 @@ drawSkip.addEventListener('click',()=>closeDraw(true));
 draw.addEventListener('keydown',e=>{if(e.key==='Escape')closeDraw(true)});
 
 backBtn.addEventListener('click',()=>go(cur-1));
-// bookmarks
+// bookmarks — the cover has its own honeycomb nav now, so the rail only lists
+// the 7 sections (never the cover itself)
 tiers.forEach((t,i)=>{
+  if(t.id==='t-cover')return;
   const b=document.createElement('button');
   const mobileLabels={
     'Make It Yours':'Make It Yours',
@@ -1379,9 +1414,20 @@ mobileNavToggle.addEventListener('click',()=>{
   mobileNavToggle.textContent=open?'Close the hive':'Explore the hive';
   if(open)marks.querySelector('[aria-current="true"]')?.focus();
 });
-// cover CTA + skip link jump straight to core
+// cover CTA + honeycomb cells + skip link jump straight to a tier — or, for a
+// target id that lives INSIDE a tier (e.g. #t-join, now nested in Marketplace
+// since the Hive tier was merged in), jump to that tier then scroll to the id
 document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',e=>{
-  e.preventDefault(); go(tiers.findIndex(t=>t.id===a.dataset.jump));
+  e.preventDefault();
+  const jumpId=a.dataset.jump;
+  const target=document.getElementById(jumpId);
+  const tierEl=target&&target.classList.contains('tier')?target:target?.closest('.tier');
+  const idx=tiers.findIndex(t=>t===tierEl||t.id===jumpId);
+  if(idx<0)return;
+  go(idx);
+  if(target&&!target.classList.contains('tier')){
+    setTimeout(()=>target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}),820);
+  }
 }));
 document.getElementById('skiplink').addEventListener('click',e=>{e.preventDefault();go(tiers.length-1)});
 // keyboard: arrows / page keys
