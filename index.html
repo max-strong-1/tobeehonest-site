@@ -170,8 +170,12 @@ body::before{
 .cover-panel .lede{font-size:1.18rem;max-width:34ch;margin-bottom:1.8rem}
 .cover-logo{width:92px;height:92px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow);margin-bottom:1.3rem;border:5px solid #fff}
 .cover-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
-.wordmark{position:absolute;top:1.5rem;left:6vw;z-index:5;display:flex;align-items:center;gap:.65rem}
-.wordmark-mark{width:40px;height:40px;flex:0 0 auto;opacity:0;fill:none;stroke:var(--ink);stroke-width:1.5}
+.wordmark{position:absolute;top:1.5rem;left:6vw;z-index:5;display:flex;align-items:center;gap:.38rem}
+/* Concentric-ring mark. Was opacity:0 per an earlier "keep it invisible" call; the client
+   reversed that 2026-08-07 — bring it out in the honey/orange, tighten it to the wordmark,
+   and size it up 15% (40px -> 46px). The rings deliberately echo the sun rings radiating
+   off the tower on The Sun Stone Theory's cover. */
+.wordmark-mark{width:46px;height:46px;flex:0 0 auto;opacity:1;fill:none;stroke:var(--honey);stroke-width:1.8}
 .wordmark-text{font-family:'Shantell Sans',cursive;font-weight:500;font-size:1.05rem;color:var(--ink)}
 /* cover honeycomb — replaces the side rail as the cover's own navigation */
 .cover-honeycomb{position:relative;z-index:2;flex:0 1 460px;max-width:460px;margin:0;text-align:center}
@@ -181,13 +185,17 @@ body::before{
 .hc-cell:focus-visible{outline:3px solid var(--bark);outline-offset:4px}
 .hc-num{font-family:'Shantell Sans',cursive;font-size:.62rem;opacity:.65;margin-bottom:.15rem}
 .hc-label{font-family:'Caprasimo',serif;font-size:clamp(.68rem,1.4vw,.88rem);line-height:1.14;max-width:96%;overflow-wrap:break-word;hyphens:auto}
-.hc-1{top:0;left:calc(var(--hc-cell) * .5);--hc-light:#f4d284;--hc-base:var(--comb-honey);--hc-deep:#a9793a}
-.hc-2{top:0;left:calc(var(--hc-cell) * 1.5);--hc-light:#f0c9a0;--hc-base:var(--comb-terra);--hc-deep:#9c6a4a}
-.hc-3{top:calc((var(--hc-cell) / .866) * .75);left:0;--hc-light:#e3e2ba;--hc-base:var(--comb-sage);--hc-deep:#7c8055}
-.hc-4{top:calc((var(--hc-cell) / .866) * .75);left:var(--hc-cell);--hc-light:#f7e19b;--hc-base:var(--sun);--hc-deep:#b98a1e}
-.hc-5{top:calc((var(--hc-cell) / .866) * .75);left:calc(var(--hc-cell) * 2);--hc-light:#c9d3d8;--hc-base:var(--comb-dusty);--hc-deep:#5f717c}
-.hc-6{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * .5);--hc-light:#dcc3d1;--hc-base:var(--comb-mauve);--hc-deep:#7a5a6d}
-.hc-7{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#f6dd8f;--hc-base:var(--honey);--hc-deep:#a4700f}
+/* All seven cells are one yellow family (client call 2026-08-07 — the multi-colour
+   terra/sage/dusty/mauve set is out). Each keeps the light -> base -> deep ramp so the
+   hexes still read dimensional, and the cells vary only slightly from each other so the
+   comb reads as one material catching light, not seven different colours. */
+.hc-1{top:0;left:calc(var(--hc-cell) * .5);--hc-light:#f9e3a2;--hc-base:var(--sun);--hc-deep:#c08f1e}
+.hc-2{top:0;left:calc(var(--hc-cell) * 1.5);--hc-light:#f7dd93;--hc-base:#eec244;--hc-deep:#b9871a}
+.hc-3{top:calc((var(--hc-cell) / .866) * .75);left:0;--hc-light:#fae7ad;--hc-base:#f4ce57;--hc-deep:#c5951f}
+.hc-4{top:calc((var(--hc-cell) / .866) * .75);left:var(--hc-cell);--hc-light:#f6d98a;--hc-base:var(--bloom);--hc-deep:#b07f16}
+.hc-5{top:calc((var(--hc-cell) / .866) * .75);left:calc(var(--hc-cell) * 2);--hc-light:#f9e5a7;--hc-base:#f0c64f;--hc-deep:#bd8c1c}
+.hc-6{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * .5);--hc-light:#f7db8d;--hc-base:#ebbc48;--hc-deep:#b48318}
+.hc-7{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#fbe9b2;--hc-base:var(--sun);--hc-deep:#c99a22}
 .hc-note{margin:1.4rem auto 0;max-width:22rem;font-family:'Shantell Sans',cursive;font-size:.8rem;color:var(--ink);opacity:.85}
 /* the honeycomb IS the cover's nav — the side rail stays out of the way while on the cover */
 body.cover-active #marks,body.cover-active #mobileNavToggle{display:none}
