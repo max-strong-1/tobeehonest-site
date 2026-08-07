@@ -47,10 +47,12 @@ const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "i
 const ALLOWED_DOC_TYPES = new Set([...ALLOWED_IMAGE_TYPES, "application/pdf"]);
 
 const MAX_FILES_PER_FIELD = 6;
-/* Vercel's serverless function body limit is ~4.5MB — that's the real ceiling for the
-   whole JSON payload, so per-file (MAX_ATTACHMENT_BYTES, from _lib/airtable.js) and
-   total caps must fit under it (base64 inflates ~33%). */
-const MAX_TOTAL_UPLOAD_BYTES = 4_000_000;
+/* Vercel's serverless function body limit is ~4.5MB, enforced as base64 bytes by
+   readJson(req, 4_500_000) below — but this cap counts DECODED bytes. 3.3MB decoded
+   ≈ 4.4MB base64, which stays under the 4.5MB transport cap; 4MB decoded (≈5.33MB
+   base64) would blow it, so that transport cap — not this one — would 413 first with
+   a generic message. Keep this below the transport cap so the friendlier message wins. */
+const MAX_TOTAL_UPLOAD_BYTES = 3_300_000;
 
 function text(value, { max, label, required = false }) {
   const trimmed = typeof value === "string" ? value.trim() : "";
@@ -164,7 +166,7 @@ export default async function handler(req, res) {
     const allFiles = [...photos, ...proofOfWork, ...businessProof];
     const totalBytes = allFiles.reduce((sum, f) => sum + f.bytes, 0);
     if (totalBytes > MAX_TOTAL_UPLOAD_BYTES) {
-      throw new Problem(413, "Upload Too Large", "Please keep total attachments under 18 MB.");
+      throw new Problem(413, "Upload Too Large", "Please keep total attachments under 3.3 MB.");
     }
 
     const fields = {
