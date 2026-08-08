@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { deckOrder, galleryOrder, buildAirtableFields } from "../api/order-intent.js";
+import { deckOrder, galleryOrder, commissionRequest, hiveSignup, buildAirtableFields } from "../api/order-intent.js";
 
 test("gallery order requires frameColor", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
@@ -64,4 +64,27 @@ test("gallery order rejects a format field being sent at all (strict, no print-a
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard", format:"Framed",
     frameColor:"Black", mat:"White", size:"8x12", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
+});
+
+/* Make It Yours and the hive: enquiry-shaped, no price, no address. */
+test("commission enquiry validates and maps", () => {
+  const r = commissionRequest.safeParse({ product:"commission",
+    customerName:"A", customerEmail:"a@b.co", subject:"my dog",
+    photoDescription:"asleep in the sun", size:"12x18",
+    timeline:"No rush", budget:"Not sure yet" });
+  assert.equal(r.success, true);
+  const f = buildAirtableFields(r.data, "TBH-C-20260807-TEST");
+  assert.equal(f["Subject"], "my dog");
+  assert.equal(f["Status"], "New");
+});
+test("commission rejects a shipping address (enquiry, not an order)", () => {
+  const r = commissionRequest.safeParse({ product:"commission",
+    customerName:"A", customerEmail:"a@b.co", subject:"x", photoDescription:"y",
+    size:"12x18", timeline:"No rush", budget:"Not sure yet", shipTo:"1 Way" });
+  assert.equal(r.success, false);
+});
+test("hive signup takes an email and nothing else it doesn't know", () => {
+  assert.equal(hiveSignup.safeParse({ product:"hive", customerEmail:"a@b.co" }).success, true);
+  assert.equal(hiveSignup.safeParse({ product:"hive", customerEmail:"nope" }).success, false);
+  assert.equal(hiveSignup.safeParse({ product:"hive", customerEmail:"a@b.co", surprise:1 }).success, false);
 });
