@@ -602,6 +602,53 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   max-width:calc((var(--stage-w,50vw) - (2 * var(--face)) - (2 * var(--matpad))) * var(--scale));
   box-shadow:0 0 0 1px rgba(0,0,0,.3)}
 .viewer-piece.bare .plate img{box-shadow:0 0 0 1px rgba(255,244,222,.13)}
+/* ---- "see it on a wall" ----
+   Ported from the frame-viewer prototype (client-reviews/to-bee-honest/2026-08-05).
+   The point of this view is scale, and scale only reads against objects a person
+   already knows the size of, so the room is a standard 80-inch door and an 84-inch
+   sofa on a 104-inch wall, with the piece hung at the 57-inch museum centre line.
+   Everything is drawn from real inches through one px-per-inch scalar, which is why
+   an 8x12 looks small next to that door and a 16x24 does not. */
+/* Scoped to the stage's own piece by id, NOT to .viewer-piece — the hung work in the
+   room is a clone and carries that class too, so a class selector hides the very thing
+   the room exists to show. */
+.viewer-stage.showroom #viewerPiece{display:none}
+.viewer-room{display:none;position:relative;width:100%;flex:1;min-height:0;
+  align-items:flex-end;justify-content:center;gap:clamp(.8rem,3vw,2.4rem)}
+.viewer-stage.showroom .viewer-room{display:flex}
+.viewer-room .roomfloor{position:absolute;left:0;right:0;bottom:0;height:5%;
+  background:linear-gradient(180deg,#241f1d,#191514);border-top:1px solid rgba(0,0,0,.6)}
+.viewer-room .roomcol{position:relative;display:flex;flex-direction:column;align-items:center}
+.viewer-room .roomcap{position:absolute;bottom:-1.25rem;left:50%;transform:translateX(-50%);
+  font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;
+  text-transform:uppercase;color:#8f8267;white-space:nowrap}
+.viewer-room .door{position:relative;background:linear-gradient(96deg,#4a3f39,#5c4f46 55%,#463c36);
+  box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.viewer-room .door::before{content:"";position:absolute;inset:8% 12%;
+  box-shadow:0 0 0 1px rgba(0,0,0,.32)}
+.viewer-room .door::after{content:"";position:absolute;top:52%;right:9%;width:.45rem;height:.45rem;
+  border-radius:50%;background:var(--sun);opacity:.75}
+.viewer-room .sofa{position:relative}
+.viewer-room .sofa i{position:absolute;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.viewer-room .sofa .back{left:6%;right:6%;top:0;bottom:38%;
+  background:linear-gradient(180deg,#6a5546,#513f34);border-radius:7px 7px 2px 2px}
+.viewer-room .sofa .arm{bottom:12%;width:9%;height:52%;
+  background:linear-gradient(180deg,#75604f,#57453a);border-radius:6px 6px 3px 3px}
+.viewer-room .sofa .arm.l{left:0}
+.viewer-room .sofa .arm.r{right:0}
+.viewer-room .sofa .seat{left:7%;right:7%;bottom:12%;height:30%;
+  background:linear-gradient(180deg,#836a56,#63503f);border-radius:4px}
+.viewer-room .sofa .leg{bottom:0;width:3.5%;height:12%;background:#3a2e26;box-shadow:none}
+.viewer-room .sofa .leg.l{left:8%}
+.viewer-room .sofa .leg.r{right:8%}
+.viewer-room .room-piece{position:absolute;left:50%;transform:translateX(-50%);
+  max-width:none;max-height:none}
+.roomtoggle{position:absolute;right:.7rem;bottom:.7rem;z-index:3;cursor:pointer;border:none;
+  font-family:'Shantell Sans',cursive;font-size:.8rem;padding:.42rem .9rem;
+  background:rgba(14,11,7,.72);color:#d9cbaf;box-shadow:inset 0 0 0 1px rgba(214,196,160,.3);
+  transition:background .2s,color .2s}
+.roomtoggle:hover{background:var(--sun);color:var(--ink)}
+.roomtoggle:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
 /* controls side */
 .viewer-side{display:flex;flex-direction:column;min-height:0;overflow-y:auto}
 .viewer-side .dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
@@ -675,18 +722,49 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
    nowhere — and colour belongs to the paintings. */
 .moody-room .moody-head h2{color:#efe3c9;font-size:clamp(1.5rem,2.8vw,2.1rem);margin-bottom:.35rem}
 .moody-room .moody-head .hand{color:#bfae92;font-size:.95rem}
+/* Four across on a wide screen, like the interim wall. Three filled the viewport with a
+   single row and pushed the captions off the bottom — a gallery is a wall you take in at
+   once, not one painting per screen. The frames are capped besides, so the room reads as
+   a room instead of a wall of maximum-size objects. */
 .moody-room .gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(2.4rem,4vw,3.6rem) clamp(1.6rem,3vw,2.8rem);max-width:1320px;margin:0 auto}
-@media (max-width:560px){.moody-room .gallery-grid{grid-template-columns:1fr;max-width:420px}}
-@media (min-width:1000px){.moody-room .gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.frame-item{position:relative;text-align:center;transform:translateZ(0)}
-/* No frame, no mat — the bare print on the wall, lit (client call 2026-08-07).
-   The moulding and mat renderers are gone from the wall entirely; the frame and mat
-   are product options now, chosen downstream, not part of how the work is shown.
-   Deliberately there is NO per-piece light element. Every attempt at one — the brass
-   fixture, then the feathered ellipse — put a finite box over an infinite falloff and
-   the box's edge always showed. The illumination is the room's own wash plus the
-   shadow the paper casts, and nothing else. */
+  gap:clamp(2.6rem,4vw,3.8rem) clamp(1.6rem,3vw,2.6rem);max-width:1120px;margin:0 auto}
+@media (max-width:560px){.moody-room .gallery-grid{grid-template-columns:1fr;max-width:340px}}
+@media (min-width:1100px){.moody-room .gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.frame-item{position:relative;text-align:center;transform:translateZ(0);padding-top:3.2rem}
+/* ---- the picture light ----
+   The interim page hung every piece under its own fixture and that is the room we want
+   back. The reason it was torn out was a real defect, not a matter of taste: the old
+   beam painted a radial-gradient inside a fixed 110px box, so the falloff was CLIPPED
+   at the box edge. That straight line across the wall is the "AI slop" tell, and no
+   amount of re-feathering the colour stops could remove it, because the stops were
+   never what was wrong.
+
+   Three structural changes make an edge impossible rather than merely unlikely:
+     a) the beam's box is far larger than the lit area (520x420 for a ~150px fixture),
+     b) the gradient reaches alpha 0 at 74% of its own radius, well inside that box,
+     c) the SAME ellipse is applied as a mask, so anything that survives the gradient —
+        including sub-pixel rounding — is multiplied by zero before the boundary.
+   The fixture itself keeps crisp edges on purpose: it is a solid brass object, the one
+   thing in this stack that is not light. */
+.picture-light{position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:min(240%,460px);height:440px;pointer-events:none;z-index:0}
+.picture-light .beam{position:absolute;inset:0;
+  background:radial-gradient(ellipse 48% 64% at 50% 5%,
+    rgba(255,239,201,.46) 0%,
+    rgba(255,233,187,.285) 22%,
+    rgba(255,229,175,.145) 42%,
+    rgba(255,226,168,.055) 60%,
+    rgba(255,224,160,0) 74%);
+  -webkit-mask-image:radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%);
+  mask-image:radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%)}
+.picture-light .bar{position:absolute;left:50%;top:1.15rem;width:min(44%,130px);height:.36rem;
+  transform:translateX(-50%);border-radius:999px;
+  background:linear-gradient(180deg,#fdf0bb 0%,#cfa03c 30%,#6f4a17 66%,#d7a83c 100%);
+  box-shadow:0 1px 0 rgba(255,244,190,.6) inset,0 3px 8px rgba(0,0,0,.6)}
+.picture-light .arm{position:absolute;left:50%;top:.45rem;width:1.5rem;height:.75rem;
+  transform:translateX(-50%);border-radius:.2rem .2rem .06rem .06rem;
+  background:linear-gradient(90deg,#6b4616,#d3a53c 45%,#f2d778 58%,#764f19);
+  box-shadow:0 -2px 0 rgba(255,240,164,.38) inset,0 2px 5px rgba(0,0,0,.5)}
 .frame-item .art-plate{display:block;width:100%;padding:0;border:0;background:none;
   cursor:pointer;position:relative;z-index:1;
   transition:transform .32s cubic-bezier(.16,1,.3,1),filter .32s}
@@ -695,16 +773,26 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   box-shadow:0 0 0 1px rgba(255,244,222,.13),
              0 2px 4px rgba(0,0,0,.55),
              0 20px 34px -10px rgba(0,0,0,.7)}
-/* ---- the framed rendition ----
-   Both hangings exist; the wall switches between them and remembers the choice. Bare
-   is the default. Framed puts the walnut moulding and the board back on, using the
-   same four-trapezoid renderer the viewer uses, so the two never drift apart. */
+/* ---- the framed rendition (the default: this is the interim page's wall) ----
+   Both hangings are real and the wall remembers the choice, but framed-and-matted is
+   what the room is for. The moulding is the Antique Gold sampled from Prodigi's own
+   Classic swatch, so the wall matches what the frame picker shows a buyer, and it is
+   drawn with the same four-trapezoid renderer the viewer uses — real mitred corners —
+   rather than the interim's flat padded box.
+
+   The mat is WHITE (client call 2026-08-07). The interim board was near-black, which
+   merged into the dark wall and left the art floating with nothing to sit on; a warm
+   gallery white gives the paper a border to breathe against and stops the frame and
+   the wall from being the same value. */
 .moody-room.framed .art-plate{--face:clamp(.7rem,1vw,1rem);
-  --ramp:#6b432c 0%,#4d341a 22%,#5a3922 42%,#623e21 62%,#69452b 82%,#5b3b26 100%;
+  --ramp:#ba944d 0%,#b8914c 20%,#c5a151 40%,#c5a252 60%,#c9a657 82%,#c6a253 100%;
   padding:var(--face);box-shadow:0 2px 3px rgba(0,0,0,.5),0 22px 34px -8px rgba(0,0,0,.72)}
-.moody-room.framed .art-plate .plate{display:block;padding:clamp(.6rem,1.2vw,1rem);
-  background:#f2efe7;box-shadow:inset 0 0 30px rgba(70,53,31,.09)}
-.moody-room.framed .frame-item[data-mat="black"] .art-plate .plate{background:#17161a}
+/* The mat is lit from above like everything else on this wall — the top edge catches
+   the fixture, the bottom sits in its own shade. Without this the board reads as a flat
+   white rectangle pasted over a lit room. */
+.moody-room.framed .art-plate .plate{display:block;padding:clamp(.7rem,1.5vw,1.15rem);
+  background:linear-gradient(180deg,rgba(255,249,236,.85) 0%,rgba(255,249,236,0) 46%),#f1ede3;
+  box-shadow:inset 0 0 30px rgba(70,53,31,.1)}
 .moody-room.framed .art-plate img{box-shadow:0 0 0 1px rgba(0,0,0,.28),0 1px 5px rgba(0,0,0,.3)}
 .frame-item .art-plate .mould{display:none}
 .moody-room.framed .art-plate .mould{display:block;position:absolute;inset:0;pointer-events:none}
@@ -960,8 +1048,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <h2>The Moody Gallery</h2>
           <p class="hand">the walls are dark on purpose — so the paper does the talking</p>
           <div class="hang-switch" id="hangSwitch" role="group" aria-label="How the work is hung">
-            <button type="button" data-hang="bare" aria-pressed="true">Bare prints</button>
-            <button type="button" data-hang="framed" aria-pressed="false">Framed &amp; matted</button>
+            <button type="button" data-hang="framed" aria-pressed="true">Framed &amp; matted</button>
+            <button type="button" data-hang="bare" aria-pressed="false">Bare prints</button>
           </div>
         </div>
         <div class="gallery-grid" id="galleryGrid">
@@ -1336,6 +1424,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <!-- no src until a piece is chosen: src="" re-requests the page URL as an image -->
         <span class="plate"><img id="viewerArt" alt="" decoding="async"></span>
       </span>
+      <!-- scale view: built from GALLERY_CATALOG + the chosen size, see the viewer script -->
+      <div class="viewer-room" id="viewerRoom" aria-hidden="true"></div>
+      <button class="roomtoggle" id="roomToggle" type="button" aria-pressed="false">See it on a wall</button>
     </div>
 
     <div class="viewer-side">
@@ -1470,6 +1561,7 @@ const GALLERY_CATALOG = [
   if(!grid)return;
   grid.innerHTML=GALLERY_CATALOG.map((p,i)=>
     `<figure class="frame-item" data-mat="${p.mat}">
+      <span class="picture-light" aria-hidden="true"><span class="beam"></span><span class="arm"></span><span class="bar"></span></span>
       <button class="art-plate" type="button" data-index="${i}" aria-label="View ${p.title} — open the viewer to see it framed and order a print">
         <span class="mould" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span>
         <span class="plate"><img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:900px) 45vw, 30vw" alt="${p.alt}" loading="lazy" decoding="sync"></span>
@@ -1494,7 +1586,9 @@ const GALLERY_CATALOG = [
   buttons.forEach(b=>b.addEventListener('click',()=>set(b.dataset.hang,true)));
   let saved=null;
   try{saved=localStorage.getItem('tbh-hang')}catch{}
-  set(saved==='framed'?'framed':'bare',false);
+  /* Framed is the default — it is the room the gallery is for. Bare stays one click
+     away for anyone who wants to see the paper with nothing around it. */
+  set(saved==='bare'?'bare':'framed',false);
 })();
 const interimPreview=new URLSearchParams(location.search).get('interim')==='1';
 document.body.classList.toggle('is-interim-preview',interimPreview);
@@ -2010,6 +2104,8 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   function updateBareState(){
     piece.classList.toggle('bare',
       !piece.classList.contains('has-frame') && !piece.classList.contains('has-mat'));
+    // the room hangs a clone of this piece, so any frame/mat change has to redraw it
+    refreshRoom();
   }
 
   buildSwatches(document.getElementById('viewerFrames'),FRAMES,'viewerFrame',applyFrame);
@@ -2036,8 +2132,93 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     piece.style.setProperty('--scale', String(SIZE_SCALE[sizeSelect.value] ?? 1));
     measureStage();
     syncPriceLine();
+    refreshRoom();
   }
-  addEventListener('resize',()=>{ if(dialog.open)measureStage(); });
+
+  /* ---------- "see it on a wall" ----------
+     Ported from the 2026-08-05 frame-viewer prototype. Scale is the whole point, and
+     scale only reads against objects whose size a person already knows — so this is a
+     standard 80" door and an 84" sofa on a 104" wall, with the work hung on the 57"
+     museum centre line. One px-per-inch scalar drives every dimension in here.
+
+     The piece itself is a CLONE of the live #viewerPiece rather than a second
+     renderer, so the frame and mat in the room are the same DOM the stage just drew.
+     They cannot drift, because there is nothing to keep in sync. */
+  const ROOM={doorH:80,doorW:32,sofaW:84,sofaH:33,hang:57,wallH:104};
+  const MAT_IN=2;      // Prodigi's mount is a fixed 2" border per side
+  const FACE_IN=0.8;   // Classic moulding, 20mm face
+  const roomEl=document.getElementById('viewerRoom');
+  const roomBtn=document.getElementById('roomToggle');
+  let roomOn=false;
+
+  /* The catalog carries no orientation, and it should not have to — the loaded image
+     knows. A landscape piece at "8x12" is an 12x8 print, not a rotated portrait. */
+  function printInches(){
+    const [a,b]=(sizeSelect.value||'12x18').split('x').map(Number);
+    const landscape=art.naturalWidth>art.naturalHeight;
+    return landscape?[Math.max(a,b),Math.min(a,b)]:[Math.min(a,b),Math.max(a,b)];
+  }
+
+  function renderRoom(){
+    if(!roomEl||!stage)return;
+    const box=stage.getBoundingClientRect();
+    if(!box.height||!box.width)return;
+    const scale=Math.min((box.height*0.9)/ROOM.wallH,
+                         (box.width*0.9)/(ROOM.doorW+ROOM.sofaW+34));
+    const px=i=>(i*scale).toFixed(1)+'px';
+    const matIn=piece.classList.contains('has-mat')?MAT_IN:0;
+    const faceIn=piece.classList.contains('has-frame')?FACE_IN:0;
+    const [pw,ph]=printInches();
+    const outer=[pw+2*(matIn+faceIn), ph+2*(matIn+faceIn)];
+
+    const hung=piece.cloneNode(true);
+    hung.removeAttribute('id');
+    hung.classList.add('room-piece');
+    hung.style.setProperty('--face',px(faceIn));
+    hung.style.setProperty('--matpad',px(matIn));
+    hung.style.bottom=px(ROOM.hang-outer[1]/2);
+    const hungImg=hung.querySelector('img');
+    hungImg.removeAttribute('id');
+    hungImg.alt='';
+    hungImg.style.cssText=`width:${px(pw)};height:${px(ph)};max-width:none;max-height:none`;
+
+    const col=(inner,cap,style='')=>{
+      const d=document.createElement('div');
+      d.className='roomcol';
+      d.style.cssText=style;
+      d.innerHTML=inner+`<span class="roomcap">${cap}</span>`;
+      return d;
+    };
+    const artCol=col('',`${outer[0].toFixed(1)}″ × ${outer[1].toFixed(1)}″`,
+      `width:${px(outer[0])};height:${px(ROOM.wallH)}`);
+    artCol.prepend(hung);
+
+    const floor=document.createElement('div');
+    floor.className='roomfloor';
+    roomEl.replaceChildren(
+      floor,
+      col(`<div class="door" style="width:${px(ROOM.doorW)};height:${px(ROOM.doorH)}"></div>`,'Door · 80″'),
+      artCol,
+      col(`<div class="sofa" style="width:${px(ROOM.sofaW)};height:${px(ROOM.sofaH)}">
+             <i class="back"></i><i class="arm l"></i><i class="arm r"></i>
+             <i class="seat"></i><i class="leg l"></i><i class="leg r"></i>
+           </div>`,'Sofa · 84″')
+    );
+  }
+  function refreshRoom(){ if(roomOn)renderRoom(); }
+  function setRoom(on){
+    roomOn=on;
+    stage?.classList.toggle('showroom',on);
+    roomEl.setAttribute('aria-hidden',String(!on));
+    roomBtn.setAttribute('aria-pressed',String(on));
+    roomBtn.textContent=on?'See the piece close up':'See it on a wall';
+    if(on)renderRoom();
+  }
+  roomBtn?.addEventListener('click',()=>setRoom(!roomOn));
+  // orientation comes from the decoded image, which is not known at src-set time
+  art.addEventListener('load',refreshRoom);
+
+  addEventListener('resize',()=>{ if(dialog.open){measureStage();refreshRoom();} });
   function syncPriceLine(){
     const size=sizeSelect.value;
     const price=TBH_PRICES.gallery[size];
@@ -2078,9 +2259,11 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     artworkInput.value=p.title;
     // Opens dressed the way the wall is currently showing it, so clicking a framed
     // piece does not strip the frame out from under the visitor.
+    // The wall hangs Antique Gold over a white mat, so that is what the viewer opens on.
     const wallFramed=document.querySelector('.moody-room')?.classList.contains('framed');
-    const f=wallFramed?FRAMES[1]:FRAMES[0];
-    const m=wallFramed?MATS.find(x=>x.value===(p.mat==='black'?'Black':'White')):MATS[0];
+    const f=wallFramed?FRAMES[3]:FRAMES[0];
+    const m=wallFramed?MATS[1]:MATS[0];
+    setRoom(false);
     document.querySelector(`input[name=viewerFrame][value="${f.value}"]`).checked=true;
     document.querySelector(`input[name=viewerMat][value="${m.value}"]`).checked=true;
     applyFrame(f);
