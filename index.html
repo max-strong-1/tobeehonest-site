@@ -556,14 +556,19 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 .comb-row:nth-child(2) .comb-cell:nth-child(2),
 .comb-row:nth-child(2) .comb-cell:nth-child(3){background:var(--mauve)}
 
-/* C1: mantra deck — starts face (back) up, 1x4 desktop / 2x2 mobile */
+/* C1: mantra deck — starts ART up, 1x4 desktop / 2x2 mobile.
+   This previously started back-up, which meant the tier opened with four identical
+   copies of the shared card back plus a fifth in the mockup below. The deck's whole
+   proposition is 54 DIFFERENT collages with 54 different mantras, and the first
+   viewport was arguing the opposite. The four printed faces are the merchandising;
+   turning a card over now shows the real back, the way handling a card actually works. */
 .deck{grid-template-columns:repeat(2,minmax(0,240px))}
 @media (min-width:900px){
   /* card art source is ~110px wide — cap the rendered card near 2x that so it stays crisp */
   .deck{grid-template-columns:repeat(4,minmax(0,215px));gap:1.6rem;max-width:1000px;margin:0 auto}
 }
-.card-face.card-back{transform:rotateY(0deg)}
-.card-face.card-front{transform:rotateY(180deg)}
+.card-face.card-front{transform:rotateY(0deg)}
+.card-face.card-back{transform:rotateY(180deg)}
 .card-back .flip-hint{position:absolute;bottom:.6rem;left:0;right:0;text-align:center;font-size:.78rem;opacity:.8}
 .deck-cta{text-align:center;margin-top:2.2rem}
 .deck-mockup{width:260px;max-width:80vw;margin:0 auto 1.6rem;transform:rotate(-1.5deg)}
@@ -1129,7 +1134,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
            2026-08-07). Captions below are transcribed directly off each
            card face so the accessible text matches what's printed. -->
       <div class="deck">
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod." aria-label="Mantra card, face down. Activate to reveal the mantra: I mean, what am I supposed to do? I am just a Demigod.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod." aria-label="Mantra card. Activate to turn it over. The mantra reads:I mean, what am I supposed to do? I am just a Demigod.">
           <div class="card-inner">
             <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
@@ -1138,7 +1143,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           </div>
           </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Standing in my power is a gift to the community. My surplus is your gain, everybody wins." aria-label="Mantra card, face down. Activate to reveal the mantra: Standing in my power is a gift to the community. My surplus is your gain, everybody wins.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Standing in my power is a gift to the community. My surplus is your gain, everybody wins." aria-label="Mantra card. Activate to turn it over. The mantra reads:Standing in my power is a gift to the community. My surplus is your gain, everybody wins.">
           <div class="card-inner">
             <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
@@ -1147,7 +1152,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           </div>
           </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I have no way to know, but I have every reason to trust." aria-label="Mantra card, face down. Activate to reveal the mantra: I have no way to know, but I have every reason to trust.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I have no way to know, but I have every reason to trust." aria-label="Mantra card. Activate to turn it over. The mantra reads:I have no way to know, but I have every reason to trust.">
           <div class="card-inner">
             <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
@@ -1156,7 +1161,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           </div>
           </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu; I am on a diet of reaching for the stars." aria-label="Mantra card, face down. Activate to reveal the mantra: Mediocrity is not on the menu; I am on a diet of reaching for the stars.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu; I am on a diet of reaching for the stars." aria-label="Mantra card. Activate to turn it over. The mantra reads:Mediocrity is not on the menu; I am on a diet of reaching for the stars.">
           <div class="card-inner">
             <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
