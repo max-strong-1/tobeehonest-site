@@ -218,15 +218,34 @@ tiers and only leaves the site from the cover.
 
 ## 5. impeccable
 
-Kel is upgrading to **impeccable 4.0**, so command names and flags may differ from what is
-described here. Before starting:
+Impeccable was upgraded on 2026-08-08 from a hand-installed 4.0.2 skill to the **official
+Claude Code plugin, 4.0.4** (`pbakaus/impeccable`, Apache-2.0). The old copy at
+`~/.claude/skills/impeccable/` **no longer exists** — do not reference that path.
+
+**Codex installs its own copy.** From the repo root:
 
 ```bash
 cd ~/tobeehonest-site
-node ~/.claude/skills/impeccable/scripts/context.mjs --target index.html
+npx impeccable install --providers=codex --scope=project
 ```
 
-Follow its directives and do not rerun it. Load the playbook that owns each task — `layout` for
+That writes `.codex/` skill files plus `.codex/hooks.json`. Then open `/hooks` and approve the
+project hook — Codex tracks trust by hook definition, so it will re-prompt after any update.
+
+Then, before starting work:
+
+```bash
+node .codex/skills/impeccable/scripts/context.mjs --target index.html
+```
+
+(adjust the path to wherever the installer put the skill). Follow its directives and do not
+rerun it.
+
+4.0.4 ships **23 commands**, **59 deterministic detector rules**, and four helper agents
+(`impeccable-manual-edit-applier`, `impeccable-asset-producer`, `impeccable-documenter`,
+`impeccable-finish-reviewer`). The critique flow wants two isolated sub-agents — one design
+review, one detector/browser evidence — and a single-context run must be banner-flagged
+`⚠️ DEGRADED`. Load the playbook that owns each task — `layout` for
 Task 1–2, `craft`/`new-work` for Task 3, `polish` for Task 5 — and load `craft-floor.md`
 immediately before editing UI.
 
