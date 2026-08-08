@@ -159,10 +159,10 @@ body.viewer-open .back{display:none}
 .cover-art{position:absolute;inset:0}
 .cover-art img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
 .cover-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,18,8,.08),transparent 24%,transparent 76%,rgba(28,18,8,.12));pointer-events:none}
-.cover-content{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.4rem;min-height:100%;padding:7vh 5vw 4vh}
-.cover-panel{position:relative;z-index:2;max-width:515px;margin:0;flex:1 1 400px}
+.cover-content{position:relative;z-index:2;display:grid;grid-template-columns:minmax(340px,.78fr) minmax(520px,1.22fr);align-items:center;justify-items:center;gap:clamp(1.5rem,3vw,4rem);min-height:100%;padding:7vh 4vw 4vh}
+.cover-panel{position:relative;z-index:2;max-width:515px;margin:0;width:100%}
 .cover-panel .panel{padding:2.35rem 2.15rem 2.5rem;background:rgba(247,239,226,.91);backdrop-filter:none;transform:rotate(-.45deg)}
-.cover-panel h1{font-size:clamp(2.4rem,4.8vw,4rem);margin-bottom:1rem}
+.cover-panel h1{font-size:clamp(2.4rem,4.25vw,3.5rem);margin-bottom:1rem}
 .cover-panel h1 em{font-style:normal;color:#8a611a}/* darkened from --honey (#d99a2b, 2.14:1) for WCAG AA 4.5:1 on --paper */
 .cover-panel .lede{font-size:1.18rem;max-width:34ch;margin-bottom:1.8rem}
 /* No outer circle (client call 2026-08-07). The logo artwork already ends in its own
@@ -180,8 +180,8 @@ body.viewer-open .back{display:none}
 .wordmark-mark{width:46px;height:46px;flex:0 0 auto;opacity:1;fill:none;stroke:var(--honey);stroke-width:1.8}
 .wordmark-text{font-family:'Shantell Sans',cursive;font-weight:500;font-size:1.05rem;color:var(--ink)}
 /* cover honeycomb — replaces the side rail as the cover's own navigation */
-.cover-honeycomb{position:relative;z-index:2;flex:0 1 460px;max-width:460px;margin:0;text-align:center}
-.hc-grid{position:relative;--hc-cell:clamp(84px,10vw,132px);width:calc(var(--hc-cell) * 3);height:calc((var(--hc-cell) / .866) * 2.5);margin:0 auto}
+.cover-honeycomb{position:relative;z-index:2;width:min(100%,570px);max-width:570px;margin:0 auto;text-align:center;align-self:center;justify-self:center}
+.hc-grid{position:relative;--hc-cell:clamp(101px,12vw,158px);width:calc(var(--hc-cell) * 3);height:calc((var(--hc-cell) / .866) * 2.5);margin:0 auto}
 /* Rounded corners, not mitred points. A clip-path polygon can only cut straight lines, so
    the six sharp vertices were unavoidable with it — that hard geometry is most of what read
    as aggressive. The shape is now an SVG clipPath (#hexSoft, defined in the markup) whose
@@ -222,10 +222,14 @@ body.viewer-open .back{display:none}
 .hc-7{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#fbe9b2;--hc-base:var(--sun);--hc-deep:#c99a22}
 /* The instruction sits ABOVE the comb, where it is read before the thing it explains
    rather than after. Full-strength ink, not the faded .85 it was at. */
-.hc-note{margin:0 auto 1.1rem;max-width:24rem;font-family:'Shantell Sans',cursive;
-  font-weight:500;font-size:.95rem;color:var(--bark);opacity:1}
+.hc-note{margin:0 auto 1rem;max-width:29rem;font-family:'Shantell Sans',cursive;
+  font-weight:600;font-size:1.05rem;line-height:1.25;color:var(--bark);opacity:1;text-wrap:balance}
+@media(min-width:1051px){
+  .cover-panel{max-width:400px;justify-self:start}
+  .cover-honeycomb{position:absolute;left:50%;top:50svh;transform:translate(-50%,-50%)}
+}
 @media(max-width:1050px){
-  .cover-content{flex-direction:column;align-items:flex-start;padding-top:6.5vh}
+  .cover-content{grid-template-columns:1fr;align-content:start;padding-top:6.5vh}
   .cover-honeycomb{margin:.5rem auto 0}
 }
 /* The cue is phone-only: on a wide screen the comb sits beside the panel, in view, and
@@ -244,7 +248,7 @@ body.viewer-open .back{display:none}
      svh, not vh: on iOS Safari `vh` is the height WITH the address bar collapsed, so a
      100vh cover is taller than what you can actually see on load — the comb's bottom row
      would sit under the chrome, which is exactly the bug being fixed. */
-  .cover-content{padding:1.2rem 4vw .8rem;gap:.25rem;justify-content:flex-start;
+  .cover-content{padding:1.2rem 4vw .8rem;gap:.2rem;align-content:start;
     min-height:100svh}
   .cover-panel{flex:0 0 auto;width:min(92%,34rem);max-width:none;margin:4.7rem 0 0}
   .cover-panel .panel{padding:.85rem 1.1rem .95rem;background:rgba(247,239,226,.78)}
@@ -253,8 +257,8 @@ body.viewer-open .back{display:none}
   .cover-panel .lede{font-size:.88rem;line-height:1.35;margin-bottom:.5rem;max-width:38ch}
   .cover-actions .tag-btn{font-size:.88rem;padding:.58rem 1rem .58rem 1.65rem}
   .cover-honeycomb{margin:0 auto;flex:0 0 auto}
-  .hc-note{margin-bottom:.2rem;font-size:.78rem;max-width:24rem;color:#4f351a;text-shadow:0 1px rgba(255,250,235,.72)}
-  .hc-grid{--hc-cell:clamp(72px,22vw,94px)}
+  .hc-note{margin-bottom:.25rem;font-size:.86rem;max-width:27rem;color:#4f351a;text-shadow:0 1px rgba(255,250,235,.72)}
+  .hc-grid{--hc-cell:clamp(86px,25vw,113px)}
   .wordmark{left:6vw;top:1.1rem}
 }
 
@@ -313,12 +317,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 .card-inner{position:absolute;inset:0;transform-style:preserve-3d;
   transition:transform .75s cubic-bezier(.22,1,.28,1);will-change:transform}
 .card.flipped .card-inner{transform:rotateY(180deg)}
-@media (hover:hover) and (pointer:fine){
-  .card:hover .card-inner{transform:rotateY(180deg)}
-  .card.flipped:hover .card-inner{transform:rotateY(180deg)}
-}
 .card:focus-visible{outline:3px solid var(--bark);outline-offset:4px}
-.card:focus-visible .card-inner{transform:rotateY(180deg)}
 .card-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:1.2rem;box-shadow:var(--shadow-lift);clip-path:polygon(0 1.5%,3% 0,50% .8%,97% 0,100% 1.8%,99.4% 50%,100% 98.4%,96% 100%,50% 99.2%,4% 100%,0 98%,.5% 50%)}
 .card-front .mantra{font-family:'Shantell Sans',cursive;font-size:1rem;line-height:1.4;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45);position:relative;z-index:1}
 .card-front:not(.has-photo)::before{content:"";position:absolute;inset:0 0 auto 0;height:46%;opacity:.9;background:var(--sun);clip-path:polygon(0 0,100% 0,100% 34%,88% 46%,72% 38%,55% 50%,38% 40%,20% 52%,8% 42%,0 50%)}
@@ -423,7 +422,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 @media (min-width:821px){
   .tier:not(#t-cover) .tier-inner{padding-top:5.2rem}
   #t-gallery .tier-inner{padding-top:1.1rem}
-  .moody-room .moody-head{padding-right:13rem}
+  .moody-room .moody-head{padding-right:0}
 }
 
 /* ============ BATCH B/C/D additions ============ */
@@ -556,8 +555,8 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
   /* card art source is ~110px wide — cap the rendered card near 2x that so it stays crisp */
   .deck{grid-template-columns:repeat(4,minmax(0,215px));gap:1.6rem;max-width:1000px;margin:0 auto}
 }
-.card-face.card-front{transform:rotateY(0deg)}
-.card-face.card-back{transform:rotateY(180deg)}
+.card-face.card-front{transform:rotateY(180deg)}
+.card-face.card-back{transform:rotateY(0deg)}
 .card-back .flip-hint{position:absolute;bottom:.6rem;left:0;right:0;text-align:center;font-size:.78rem;opacity:.8}
 .deck-cta{text-align:center;margin-top:2.2rem}
 .deck-mockup{width:260px;max-width:80vw;margin:0 auto 1.6rem;transform:rotate(-1.5deg)}
@@ -569,7 +568,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 .order-form label{font-family:'Shantell Sans',cursive;font-size:.92rem;margin-bottom:.35rem;color:var(--bark)}
 .order-form input,.order-form select,.order-form textarea{
   font-family:'Alegreya',serif;font-size:1rem;color:var(--ink);padding:.65rem .85rem;
-  border:1px solid rgba(107,75,40,.72);background:#fffaf1;width:100%;
+  border:1px solid rgba(107,75,40,.72);background:#fff;width:100%;
   clip-path:polygon(0 6%,2% 1%,51% 0,98% 2%,100% 8%,99% 94%,97% 99%,49% 100%,2% 98%,0 92%);
   box-shadow:inset 0 1px rgba(255,255,255,.8),0 3px 7px rgba(70,53,31,.12)
 }
@@ -736,22 +735,32 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .viewer-room .roomcap{position:absolute;bottom:-1.25rem;left:50%;transform:translateX(-50%);
   font-family:'Shantell Sans',cursive;font-size:.62rem;letter-spacing:.05em;
   text-transform:uppercase;color:#8f8267;white-space:nowrap}
-/* The scale reference is a flat silhouette of a person at 5'8", and nothing else.
-   The prototype's CSS-drawn door and sofa were replaced (client call 2026-08-07): a
-   box-and-gradient couch is an imitation of a real object, and a bad imitation is worse
-   than no object at all. A silhouette never falls into that trap because it is not
-   pretending to be a photograph — it reads as a scale diagram, which is exactly what it
-   is, and it is the reference an actual gallery uses. */
-.viewer-room .figure{position:relative;display:block}
-.viewer-room .figure svg{width:100%;height:100%;display:block;fill:#3b3129}
-.viewer-room .figure::after{content:"";position:absolute;left:50%;bottom:-2%;
-  width:150%;height:5%;transform:translateX(-50%);
-  background:radial-gradient(ellipse at center,rgba(0,0,0,.5),rgba(0,0,0,0) 70%)}
+/* Familiar room references, drawn as a quiet scale diagram rather than photoreal props.
+   Both use the same inch-to-pixel scalar as the print, frame and mat. */
+.viewer-room .door{position:relative;background:linear-gradient(96deg,#4a3f39,#5c4f46 55%,#463c36);
+  box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.viewer-room .door::before{content:"";position:absolute;inset:8% 12%;
+  box-shadow:0 0 0 1px rgba(0,0,0,.32)}
+.viewer-room .door::after{content:"";position:absolute;top:52%;right:9%;width:.45rem;height:.45rem;
+  border-radius:50%;background:var(--sun);opacity:.75}
+.viewer-room .sofa{position:relative}
+.viewer-room .sofa i{position:absolute;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.viewer-room .sofa .back{left:6%;right:6%;top:0;bottom:38%;
+  background:linear-gradient(180deg,#6a5546,#513f34);border-radius:7px 7px 2px 2px}
+.viewer-room .sofa .arm{bottom:12%;width:9%;height:52%;
+  background:linear-gradient(180deg,#75604f,#57453a);border-radius:6px 6px 3px 3px}
+.viewer-room .sofa .arm.l{left:0}
+.viewer-room .sofa .arm.r{right:0}
+.viewer-room .sofa .seat{left:7%;right:7%;bottom:12%;height:30%;
+  background:linear-gradient(180deg,#836a56,#63503f);border-radius:4px}
+.viewer-room .sofa .leg{bottom:0;width:3.5%;height:12%;background:#3a2e26;box-shadow:none}
+.viewer-room .sofa .leg.l{left:8%}
+.viewer-room .sofa .leg.r{right:8%}
 .viewer-room .room-piece{position:absolute;left:50%;transform:translateX(-50%);
   max-width:none;max-height:none}
 .roomtoggle{position:absolute;right:.7rem;bottom:.7rem;z-index:3;cursor:pointer;border:none;
-  font-family:'Shantell Sans',cursive;font-size:.8rem;padding:.42rem .9rem;
-  background:rgba(14,11,7,.72);color:#d9cbaf;box-shadow:inset 0 0 0 1px rgba(214,196,160,.3);
+  font-family:'Shantell Sans',cursive;font-size:.82rem;font-weight:600;padding:.62rem .95rem;
+  background:#fff;color:#2b2118;box-shadow:0 5px 16px rgba(0,0,0,.5);
   transition:background .2s,color .2s}
 .roomtoggle:hover{background:var(--sun);color:var(--ink)}
 .roomtoggle:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
@@ -807,8 +816,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .viewer-side .order-form{background:none;box-shadow:none;padding:0;margin:0;max-width:none}
 .viewer-side .order-form label{color:#a2937a}
 .viewer-side .order-form input,.viewer-side .order-form select,.viewer-side .order-form textarea{
-  background:rgba(255,250,238,.06);border:1px solid rgba(214,196,160,.32);color:#efe6d3}
-.viewer-side .order-form input::placeholder{color:#8f8267}
+  background:#fff;border:1px solid rgba(214,196,160,.58);color:var(--ink)}
+.viewer-side .order-form input::placeholder{color:#725f48}
 .viewer-side .price-line{color:#e6dac2;font-size:1rem}
 .viewer-side .form-note{color:#8f8267}
 .viewer-side .order-confirm{background:var(--sun);color:var(--ink)}
@@ -833,10 +842,10 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
    nothing before the floor — plus a real contact shadow under each frame, which is
    what actually tells the eye the work is hanging on something. */
 .moody-room{background:
-  radial-gradient(ellipse 120% 62% at 50% -8%,
-    rgba(255,232,182,.13) 0%,
-    rgba(255,228,174,.075) 30%,
-    rgba(255,226,168,.032) 55%,
+  radial-gradient(ellipse 120% 68% at 50% -8%,
+    rgba(255,232,182,.2) 0%,
+    rgba(255,228,174,.12) 30%,
+    rgba(255,226,168,.05) 55%,
     rgba(255,224,160,.009) 78%,
     rgba(255,224,158,0) 100%),
   linear-gradient(180deg,#241c13 0%,#1c150e 46%,#120d08 100%);
@@ -848,7 +857,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
    headline were all the same amber, nothing could recede and the art had no way to be
    the brightest thing in the room. Gold now appears in exactly one place per frame —
    nowhere — and colour belongs to the paintings. */
-.moody-room .moody-head h2{color:#efe3c9;font-size:clamp(1.5rem,2.8vw,2.1rem);margin-bottom:.35rem}
+.moody-room .moody-head h2{color:#fff7e8;font-size:clamp(1.8rem,3.2vw,2.55rem);margin:0 auto .55rem;text-align:center;text-shadow:0 2px 18px rgba(255,223,155,.22)}
 .moody-room .moody-head .hand{color:#bfae92;font-size:.95rem}
 /* Two pieces own the first wall. The rest become a denser salon only after the visitor
    has met the work at a scale where paper fibres and torn edges can actually register. */
@@ -857,7 +866,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .moody-room .gallery-grid.gallery-grid-rest{max-width:1120px;margin-top:3rem}
 @media (min-width:1100px){.moody-room .gallery-grid.gallery-grid-rest{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.moody-room .gallery-grid{grid-template-columns:1fr;max-width:calc(100vw - 1rem)}}
-.frame-item{position:relative;text-align:center;transform:translateZ(0);padding-top:.35rem}
+.frame-item{position:relative;text-align:center;transform:translateZ(0);padding-top:3.2rem}
 /* ---- the picture light ----
    The interim page hung every piece under its own fixture and that is the room we want
    back. The reason it was torn out was a real defect, not a matter of taste: the old
@@ -877,21 +886,21 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   width:min(240%,460px);height:440px;pointer-events:none;z-index:0}
 .picture-light .beam{position:absolute;inset:0;
   background:radial-gradient(ellipse 48% 64% at 50% 5%,
-    rgba(255,239,201,.46) 0%,
-    rgba(255,233,187,.285) 22%,
-    rgba(255,229,175,.145) 42%,
+    rgba(255,239,201,.62) 0%,
+    rgba(255,233,187,.38) 22%,
+    rgba(255,229,175,.19) 42%,
     rgba(255,226,168,.055) 60%,
     rgba(255,224,160,0) 74%);
   -webkit-mask-image:radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%);
-  mask-image:radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%)}
+  mask-image:radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%);z-index:0}
 .picture-light .bar{position:absolute;left:50%;top:1.15rem;width:min(44%,130px);height:.36rem;
   transform:translateX(-50%);border-radius:999px;
   background:linear-gradient(180deg,#fdf0bb 0%,#cfa03c 30%,#6f4a17 66%,#d7a83c 100%);
-  box-shadow:0 1px 0 rgba(255,244,190,.6) inset,0 3px 8px rgba(0,0,0,.6)}
+  box-shadow:0 1px 0 rgba(255,244,190,.6) inset,0 3px 8px rgba(0,0,0,.6);z-index:2}
 .picture-light .arm{position:absolute;left:50%;top:.45rem;width:1.5rem;height:.75rem;
   transform:translateX(-50%);border-radius:.2rem .2rem .06rem .06rem;
   background:linear-gradient(90deg,#6b4616,#d3a53c 45%,#f2d778 58%,#764f19);
-  box-shadow:0 -2px 0 rgba(255,240,164,.38) inset,0 2px 5px rgba(0,0,0,.5)}
+  box-shadow:0 -2px 0 rgba(255,240,164,.38) inset,0 2px 5px rgba(0,0,0,.5);z-index:2}
 .frame-item .art-plate{display:block;width:100%;padding:0;border:0;background:none;
   cursor:pointer;position:relative;z-index:1;
   transition:transform .32s cubic-bezier(.16,1,.3,1),filter .32s}
@@ -962,11 +971,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .frame-item .art-plate:focus-visible{outline:2px solid var(--sun);outline-offset:8px}
 .frame-item figcaption{position:relative;z-index:1;color:#e6dac2;font-family:'Shantell Sans',cursive;
   font-size:1rem;margin-top:1.1rem}
-.frame-item .art-hint{display:block;margin-top:.25rem;font-size:.8rem;color:#cbb894;
-  font-family:'Shantell Sans',cursive;opacity:0;visibility:hidden;transform:translateY(-3px);
-  transition:opacity .2s,visibility .2s,transform .2s}
-.frame-item .art-plate:hover~figcaption .art-hint,
-.frame-item .art-plate:focus-visible~figcaption .art-hint{opacity:1;visibility:visible;transform:none}
+.frame-item .art-hint{position:absolute;left:0;top:0;z-index:6;display:block;width:max-content;max-width:12rem;padding:.42rem .65rem;
+  font-size:.78rem;line-height:1.15;color:#24180d;background:#fff;border:1px solid rgba(107,75,40,.55);
+  font-family:'Shantell Sans',cursive;box-shadow:0 5px 14px rgba(0,0,0,.35);pointer-events:none;
+  opacity:0;visibility:hidden;transform:translate(12px,12px);transition:opacity .15s,visibility .15s}
+.frame-item .art-plate:hover .art-hint,
+.frame-item .art-plate:focus-visible .art-hint{opacity:1;visibility:visible}
 .moody-intro{color:#b3a288;text-align:center;max-width:44ch;margin:2.4rem auto 0;font-size:.9rem}
 /* art-first: no vertical centering, minimal top padding, so the first row of
    frames is inside the first viewport with zero scroll at 1280x800 + 375x812.
@@ -977,10 +987,10 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   #t-gallery .tier-inner{padding-left:0;padding-right:0}
   .moody-room{padding:.5rem .15rem 2rem}
   .moody-room .moody-head{margin-bottom:.35rem}
-  .moody-room .moody-head h2{font-size:1.08rem;text-align:left;padding-left:.65rem;max-width:9rem}
+  .moody-room .moody-head h2{font-size:1.35rem;text-align:center;padding:0;max-width:none}
   .moody-room .gallery-grid{row-gap:10rem}
   .moody-room .gallery-grid.gallery-grid-rest{row-gap:3rem}
-  .frame-item{padding-top:.25rem}
+  .frame-item{padding-top:2.7rem}
   .moody-room.framed .art-plate{--face:.14rem}
   .moody-room.framed .art-plate .plate{padding:.14rem}
   .frame-item figcaption{margin-top:.55rem}
@@ -1152,36 +1162,36 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
            2026-08-07). Captions below are transcribed directly off each
            card face so the accessible text matches what's printed. -->
       <div class="deck">
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod." aria-label="Mantra card. Activate to turn it over. The mantra reads:I mean, what am I supposed to do? I am just a Demigod.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/web/cover-hero.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-demigod.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I mean, what am I supposed to do? I am just a Demigod.”</span>
           </div>
           </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Standing in my power is a gift to the community. My surplus is your gain, everybody wins." aria-label="Mantra card. Activate to turn it over. The mantra reads:Standing in my power is a gift to the community. My surplus is your gain, everybody wins.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Standing in my power is a gift to the community. My surplus is your gain, everybody wins." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/web/cover-hero.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-standing-in-power.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Standing in my power is a gift to the community. My surplus is your gain, everybody wins.”</span>
           </div>
           </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I have no way to know, but I have every reason to trust." aria-label="Mantra card. Activate to turn it over. The mantra reads:I have no way to know, but I have every reason to trust.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I have no way to know, but I have every reason to trust." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/web/cover-hero.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-no-way-to-know.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I have no way to know, but I have every reason to trust.”</span>
           </div>
           </div>
         </div>
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu; I am on a diet of reaching for the stars." aria-label="Mantra card. Activate to turn it over. The mantra reads:Mediocrity is not on the menu; I am on a diet of reaching for the stars.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu; I am on a diet of reaching for the stars." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/web/cover-hero.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-mediocrity.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Mediocrity is not on the menu; I am on a diet of reaching for the stars.”</span>
@@ -1193,10 +1203,6 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       <p style="text-align:center;margin-top:1rem;max-width:60ch;margin-left:auto;margin-right:auto">The Sun Stone Theory is a compact affirmation and consciousness card deck that invites you to tap dormant personal power through short, declarative passages and metaphors, at your own, on your own terms. Let's go on this playful adventure, shall we?</p>
 
       <div class="deck-cta">
-        <figure class="deck-mockup polaroid">
-          <img src="assets/prints/tower-of-knowledge.jpg" alt="The Tower of Knowledge card back, shared reverse of every Mantra Deck card" loading="lazy" decoding="async">
-          <figcaption class="hand">the deck, for real</figcaption>
-        </figure>
         <button class="tag-btn" id="deckOrderOpen" aria-expanded="false" aria-controls="deckOrderForm">Order the Deck</button>
         <form class="order-form" id="deckOrderForm" hidden data-vendor="QPMN" data-airtable-table="Mantra Deck Orders" novalidate>
           <div class="field-row">
@@ -1789,11 +1795,29 @@ const GALLERY_CATALOG = [
       <button class="art-plate" type="button" data-index="${i+offset}" aria-label="View ${p.title} — open the viewer to see it framed and order a print">
         <span class="mould gold" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span>
         <span class="plate"><img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:560px) 94vw, (max-width:1099px) 44vw, 42vw" alt="${p.alt}" loading="lazy" decoding="sync"></span>
+        <span class="art-hint" aria-hidden="true">click to see it closer</span>
       </button>
-      <figcaption>${p.title}<span class="art-hint">click to see it closer</span></figcaption>
+      <figcaption>${p.title}</figcaption>
     </figure>`).join('');
   grid.innerHTML=render(GALLERY_CATALOG.slice(0,2),0);
   rest.innerHTML=render(GALLERY_CATALOG.slice(2),2);
+
+  /* Keep the invitation exactly where attention already is. The hint follows fine
+     pointers inside the artwork, while keyboard focus gets a stable centered label. */
+  [...document.querySelectorAll('.art-plate')].forEach(plate=>{
+    const hint=plate.querySelector('.art-hint');
+    if(!hint)return;
+    plate.addEventListener('pointermove',event=>{
+      if(event.pointerType==='touch')return;
+      const rect=plate.getBoundingClientRect();
+      hint.style.left=`${event.clientX-rect.left}px`;
+      hint.style.top=`${event.clientY-rect.top}px`;
+      hint.style.transform='translate(12px,12px)';
+    });
+    plate.addEventListener('focus',()=>{
+      hint.style.left='50%';hint.style.top='50%';hint.style.transform='translate(-50%,-50%)';
+    });
+  });
 })();
 
 /* How the work hangs: bare prints, or framed and matted. Both renditions are real and
@@ -1911,15 +1935,18 @@ document.querySelectorAll('.card').forEach(c=>{
   const setState=flipped=>{
     c.classList.toggle('flipped',flipped);
     c.setAttribute('aria-pressed',String(flipped));
+    c.querySelector('.card-front')?.setAttribute('aria-hidden',String(!flipped));
+    c.querySelector('.card-back')?.setAttribute('aria-hidden',String(flipped));
     c.setAttribute('aria-label', flipped
       ? `Mantra card, revealed: “${mantra}”. Activate to turn it face down again.`
-      : `Mantra card, face down. Activate to reveal the mantra: ${mantra}`);
+      : 'Mantra card, face down. Activate to reveal it.');
   };
   const toggle=()=>setState(!c.classList.contains('flipped'));
   c.addEventListener('click',toggle);
   c.addEventListener('keydown',e=>{
     if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}
   });
+  setState(false);
 });
 /* ---------- per-tier interactions ---------- */
 const noMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2441,16 +2468,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
      The piece itself is a CLONE of the live #viewerPiece rather than a second
      renderer, so the frame and mat in the room are the same DOM the stage just drew.
      They cannot drift, because there is nothing to keep in sync. */
-  const ROOM={figureH:68,figureW:22,hang:57,wallH:104,gapIn:26};
-  /* One flat silhouette at 5'8". The prototype's drawn door and sofa are gone — see the
-     .viewer-room comment in the stylesheet for why. The path is a standing figure in a
-     40 x 82 box; 82 units maps to ROOM.figureH inches. */
-  const FIGURE_SVG=`<svg viewBox="0 0 40 82" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
-    <circle cx="20" cy="8.4" r="6.4"/>
-    <path d="M20 16.6c-6 0-10 3.4-10.6 8.6L7.6 45.4c-.3 2.4 3.2 3 3.6.6L13 31.6l.6 12L11.8 74
-             c-.3 2.6 4 2.9 4.4.4L19.6 51.6h.8L23.8 74.4c.4 2.5 4.7 2.2 4.4-.4L26.4 43.6l.6-12
-             1.8 14.4c.4 2.4 3.9 1.8 3.6-.6L30.6 25.2C30 20 26 16.6 20 16.6Z"/>
-  </svg>`;
+  const ROOM={doorH:80,doorW:32,sofaW:84,sofaH:33,hang:57,wallH:104};
   const MAT_IN=2;      // Prodigi's mount is a fixed 2" border per side
   const FACE_IN=0.8;   // Classic moulding, 20mm face
   const roomEl=document.getElementById('viewerRoom');
@@ -2486,7 +2504,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     const box=stage.getBoundingClientRect();
     if(!box.height||!box.width)return;
     const scale=Math.min((box.height*0.9)/ROOM.wallH,
-                         (box.width*0.9)/(ROOM.figureW+ROOM.gapIn+42));
+                         (box.width*0.9)/(ROOM.doorW+ROOM.sofaW+34));
     const px=i=>(i*scale).toFixed(1)+'px';
     const matIn=piece.classList.contains('has-mat')?MAT_IN:0;
     const faceIn=piece.classList.contains('has-frame')?FACE_IN:0;
@@ -2520,9 +2538,12 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     floor.className='roomfloor';
     roomEl.replaceChildren(
       floor,
-      col(`<div class="figure" style="width:${px(ROOM.figureW)};height:${px(ROOM.figureH)}">${FIGURE_SVG}</div>`,
-          'someone 5′8″'),
-      artCol
+      col(`<div class="door" style="width:${px(ROOM.doorW)};height:${px(ROOM.doorH)}"></div>`,'Door · 80″'),
+      artCol,
+      col(`<div class="sofa" style="width:${px(ROOM.sofaW)};height:${px(ROOM.sofaH)}">
+             <i class="back"></i><i class="arm l"></i><i class="arm r"></i>
+             <i class="seat"></i><i class="leg l"></i><i class="leg r"></i>
+           </div>`,'Sofa · 84″')
     );
   }
   function refreshRoom(){ if(roomOn)renderRoom(); }
