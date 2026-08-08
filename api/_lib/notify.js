@@ -7,6 +7,13 @@
    The FROM address deliberately stays kel@4manai.com: that is the domain verified in
    Resend. tobeehonest.com is NOT verified there, and sending from an unverified domain
    fails outright. replyTo is what puts the customer's address on Reply. */
+/* ⚠️ This default reaches the CLIENT. On 2026-08-08 a wiring test run without
+   ORDER_ALERT_TO set delivered five "WIRING TEST / DELETE ME" alerts straight to
+   Nicolas. ORDER_ALERT_TO is now set per Vercel environment — preview and development
+   go to kel@4manai.com only, production carries Nicolas — so a test against a non-prod
+   deploy can no longer reach him. Before firing synthetic submissions at ANY
+   environment, pass an explicit `to` to sendOrderAlert rather than trusting the
+   ambient config. */
 const DEFAULT_ALERT_TO = "nicolas@tobeehonest.com,kel@4manai.com";
 
 export async function sendOrderAlert({ subject, text, to, replyTo }) {
