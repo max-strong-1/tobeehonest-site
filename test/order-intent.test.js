@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { deckOrder, galleryOrder, commissionRequest, hiveSignup, buildAirtableFields } from "../api/order-intent.js";
+import { deckOrder, bookOrder, galleryOrder, commissionRequest, hiveSignup, buildAirtableFields, makeOrderId } from "../api/order-intent.js";
 
 test("gallery order requires frameColor", () => {
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard",
@@ -64,6 +64,36 @@ test("gallery order rejects a format field being sent at all (strict, no print-a
   const r = galleryOrder.safeParse({ product:"gallery", artwork:"Leopard", format:"Framed",
     frameColor:"Black", mat:"White", size:"8x12", customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
   assert.equal(r.success, false);
+});
+
+/* The book. Same shape as the deck (real address, real quantity) but no payment is taken
+   and the Airtable column is "Edition", not "Variant". */
+test("book pre-order validates and maps to the Edition column", () => {
+  const r = bookOrder.safeParse({ product:"book", quantity:2, edition:"Signed by Nicolas",
+    customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+  assert.equal(r.success, true);
+  const f = buildAirtableFields(r.data, "TBH-B-20260808-TEST");
+  assert.equal(f["Edition"], "Signed by Nicolas");
+  assert.equal(f["Quantity"], 2);
+  assert.equal(f["Status"], "New");
+  /* Price must stay unset — a number here would read as money already collected. */
+  assert.equal("Price" in f, false);
+  /* Deck's column name must not leak in; Airtable silently drops unknown fields. */
+  assert.equal("Variant" in f, false);
+});
+test("book rejects an unknown edition", () => {
+  const r = bookOrder.safeParse({ product:"book", quantity:1, edition:"Hardcover",
+    customerName:"A", customerEmail:"a@b.co", shipTo:"1 Way" });
+  assert.equal(r.success, false);
+});
+test("book requires a shipping address — it is an order, not an enquiry", () => {
+  const r = bookOrder.safeParse({ product:"book", quantity:1, edition:"Paperback",
+    customerName:"A", customerEmail:"a@b.co" });
+  assert.equal(r.success, false);
+});
+test("book gets its own order-id prefix, distinct from the deck", () => {
+  assert.match(makeOrderId("book"), /^TBH-B-\d{8}-[A-Z0-9]{4}$/);
+  assert.match(makeOrderId("deck"), /^TBH-D-/);
 });
 
 /* Make It Yours and the hive: enquiry-shaped, no price, no address. */

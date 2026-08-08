@@ -6,13 +6,14 @@ import { isKnownArtworkTitle } from "./_lib/artwork-allowlist.js";
 
 const GALLERY_TABLE_ID = process.env.AIRTABLE_GALLERY_TABLE_ID || "tblircNYKsWQXFEa3";
 const DECK_TABLE_ID = process.env.AIRTABLE_DECK_TABLE_ID || "tblVEa5PvIY9GIhMR";
-/* Commissions and the waitlist have no Airtable table yet — that is still on Nicolas.
-   Deliberately NOT defaulted to a table id: writing a commission into the deck-orders
-   table would be worse than not writing it. When either env var is absent the request
-   still succeeds and still emails, so the form works today and starts recording the
-   moment a table exists. */
-const COMMISSION_TABLE_ID = process.env.AIRTABLE_COMMISSION_TABLE_ID || null;
-const HIVE_TABLE_ID = process.env.AIRTABLE_HIVE_TABLE_ID || null;
+const BOOK_TABLE_ID = process.env.AIRTABLE_BOOK_TABLE_ID || "tblMnQLEu7mQYh5mI";
+/* Created 2026-08-08 in the To Bee Honest commerce base alongside Gallery/Deck/Marketplace.
+   Column names in each table were written to match buildAirtableFields() below exactly —
+   renaming a column in Airtable silently drops that value, so change both together.
+   The `|| null` fallback is retained deliberately: if a table is ever deleted, the form
+   still accepts the visitor and still emails Nicolas rather than turning them away. */
+const COMMISSION_TABLE_ID = process.env.AIRTABLE_COMMISSION_TABLE_ID || "tblTl6EcKXrpiYcM6";
+const HIVE_TABLE_ID = process.env.AIRTABLE_HIVE_TABLE_ID || "tblel7vvojX0rTKgp";
 
 const base = {
   customerName: z.string().trim().min(1).max(120),
@@ -24,6 +25,18 @@ export const deckOrder = z.object({
   product: z.literal("deck"),
   quantity: z.number().int().min(1).max(10),
   variant: z.enum(["Standard Deck", "Velvet Pouch + Booklet"]),
+  ...base
+}).strict();
+
+/* The Sun Stone Theory — pre-order. Deliberately the same shape as deckOrder rather than
+   an enquiry: the book tier quotes a launch price and the site's established promise is
+   "confirmed by email before any payment", so we take the details needed to actually
+   ship a book and charge nothing. No print run is confirmed, so Nicolas can decline any
+   record in here without a refund to process. */
+export const bookOrder = z.object({
+  product: z.literal("book"),
+  quantity: z.number().int().min(1).max(10),
+  edition: z.enum(["Paperback", "Signed by Nicolas"]),
   ...base
 }).strict();
 
@@ -70,7 +83,7 @@ export const hiveSignup = z.object({
 
 /* Optional honeypot field, present on every form — not part of the business schema,
    stripped before validation, checked separately. */
-const orderIntentSchema = z.union([deckOrder, galleryOrder, commissionRequest, hiveSignup]);
+const orderIntentSchema = z.union([deckOrder, bookOrder, galleryOrder, commissionRequest, hiveSignup]);
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -89,7 +102,7 @@ function rand4() {
   return Math.random().toString(36).slice(2, 6).toUpperCase();
 }
 
-const ID_PREFIX = { gallery: "TBH-G", deck: "TBH-D", commission: "TBH-C", hive: "TBH-H" };
+const ID_PREFIX = { gallery: "TBH-G", deck: "TBH-D", book: "TBH-B", commission: "TBH-C", hive: "TBH-H" };
 
 export function makeOrderId(product) {
   return `${ID_PREFIX[product] || "TBH-D"}-${dateStamp()}-${rand4()}`;
@@ -120,6 +133,21 @@ export function buildAirtableFields(input, orderId) {
       "Order ID": orderId,
       "Customer Email": input.customerEmail,
       "Source": input.source,
+      "Status": "New",
+      "Order Date": today()
+    };
+  }
+  /* Book Orders uses "Edition" where the deck table uses "Variant", and Price is left
+     unset on purpose — no payment is taken at the form, so a number here would read as
+     money already collected. Nicolas fills it in when he confirms. */
+  if (input.product === "book") {
+    return {
+      "Order ID": orderId,
+      "Quantity": input.quantity,
+      "Edition": input.edition,
+      "Customer Name": input.customerName,
+      "Customer Email": input.customerEmail,
+      "Ship-To Address": input.shipTo,
       "Status": "New",
       "Order Date": today()
     };
@@ -187,6 +215,21 @@ function alertText(input, orderId) {
       `Ref: ${orderId}`
     ].join("\n");
   }
+  /* Book gets its own branch rather than falling through the deck path: it has no
+     `variant` field, so the shared ternary below would print "Variant: undefined". */
+  if (input.product === "book") {
+    return [
+      "Product: The Sun Stone Theory (book PRE-ORDER)",
+      `Edition: ${input.edition}`,
+      `Quantity: ${input.quantity}`,
+      `Customer: ${input.customerName} <${input.customerEmail}>`,
+      `Ship to: ${input.shipTo}`,
+      `Order ID: ${orderId}`,
+      "",
+      "NO PAYMENT TAKEN and no print run confirmed. This is an expression of interest —",
+      "confirm price and a realistic date with the customer before asking for money."
+    ].join("\n");
+  }
   const lines = [
     `Product: ${input.product}`,
     input.product === "gallery"
@@ -249,6 +292,7 @@ export default async function handler(req, res) {
     const TABLES = {
       gallery: GALLERY_TABLE_ID,
       deck: DECK_TABLE_ID,
+      book: BOOK_TABLE_ID,
       commission: COMMISSION_TABLE_ID,
       hive: HIVE_TABLE_ID
     };
@@ -273,14 +317,16 @@ export default async function handler(req, res) {
         }
       }
       if (!record?.id) throw new Problem(502, "Upstream Error", "The order could not be saved.");
-    } else if (input.product === "gallery" || input.product === "deck") {
+    } else if (input.product === "gallery" || input.product === "deck" || input.product === "book") {
       throw new Problem(503, "Not Configured", "Orders cannot be taken right now.");
     }
 
     try {
       const SUBJECTS = {
         commission: `Make It Yours enquiry — ${input.subject || orderId}`,
-        hive: `New hive signup — ${input.customerEmail}`
+        hive: `New hive signup — ${input.customerEmail}`,
+        /* Says PRE-ORDER in the subject so it never reads as a shipped-today sale. */
+        book: `Book PRE-ORDER — ${orderId}`
       };
       await sendOrderAlert({
         subject: SUBJECTS[input.product] || `New ${input.product} order intent — ${orderId}`,
