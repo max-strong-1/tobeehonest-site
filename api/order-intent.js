@@ -31,8 +31,8 @@ export const deckOrder = z.object({
 /* The Sun Stone Theory — pre-order. Deliberately the same shape as deckOrder rather than
    an enquiry: the book tier quotes a launch price and the site's established promise is
    "confirmed by email before any payment", so we take the details needed to actually
-   ship a book and charge nothing. No print run is confirmed, so Nicolas can decline any
-   record in here without a refund to process. */
+   ship a book and charge nothing. The printer and publisher are secured and production
+   is underway; price and timing are still confirmed before payment. */
 export const bookOrder = z.object({
   product: z.literal("book"),
   quantity: z.number().int().min(1).max(10),
@@ -226,8 +226,8 @@ function alertText(input, orderId) {
       `Ship to: ${input.shipTo}`,
       `Order ID: ${orderId}`,
       "",
-      "NO PAYMENT TAKEN and no print run confirmed. This is an expression of interest —",
-      "confirm price and a realistic date with the customer before asking for money."
+      "NO PAYMENT TAKEN. The printer and publisher are secured and production is underway —",
+      "confirm price and ship timing with the customer before asking for money."
     ].join("\n");
   }
   const lines = [
