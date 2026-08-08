@@ -645,6 +645,25 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   box-shadow:0 3px 6px rgba(0,0,0,.55),0 26px 44px -12px rgba(0,0,0,.75)}
 /* mitred moulding, same four-trapezoid renderer the wall used to carry, driven now by
    --face and --ramp so any stocked colour is one variable change */
+/* ---- the photographic gold moulding ----
+   The gradient-built frame was competent and not convincing. This one is the real thing:
+   the moulding profile cut straight out of Nicolas's own Sun Stone Tower composite —
+   the frame the client picked out as the one that is right (2026-08-07) — sampled from
+   the cleanest run of its left rail, away from the corners and away from the side the
+   camera's perspective widened. Four strips, one per side, each rotated so the OUTER
+   edge of the profile faces outward.
+
+   It rides the same four-trapezoid renderer the gradient version used, so the corners are
+   still truly mitred: each strip is stretched along its length and clipped to a trapezoid, and
+   the diagonals meet. A CSS border-image was the obvious alternative and is worse here —
+   the source frame is photographed at a slight angle, so its four sides are not the same
+   thickness, and a uniform 9-slice would cut art into the frame on two of them. */
+.mould.gold i.t{background:url("assets/frame/gold-top.png") 50% 50%/100% 100% no-repeat}
+.mould.gold i.b{background:url("assets/frame/gold-bottom.png") 50% 50%/100% 100% no-repeat}
+.mould.gold i.l{background:url("assets/frame/gold-left.png") 50% 50%/100% 100% no-repeat}
+.mould.gold i.r{background:url("assets/frame/gold-right.png") 50% 50%/100% 100% no-repeat}
+/* the profile already carries its own inner lip and shadow, so the drawn one comes off */
+.mould.gold::before{content:none !important}
 .viewer-piece .mould{position:absolute;inset:0;pointer-events:none}
 .viewer-piece .mould i{position:absolute;display:block}
 .viewer-piece .mould i.t{top:0;left:0;width:100%;height:var(--face);
@@ -674,6 +693,26 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   max-width:calc((var(--stage-w,50vw) - (2 * var(--face)) - (2 * var(--matpad))) * var(--scale));
   box-shadow:0 0 0 1px rgba(0,0,0,.3)}
 .viewer-piece.bare .plate img{box-shadow:0 0 0 1px rgba(255,244,222,.13)}
+/* ---- the 3x lens ----
+   Ported back from the frame-viewer prototype. Hovering the art shows a circular loupe at
+   3x, so a visitor can see the paper grain and the torn edges — which is the thing being
+   sold. The magnified layer is the same file the stage is already showing, scaled up as a
+   background, and clamped so the loupe can never run past the artwork's own edges and
+   reveal empty background. Pointer events only: this is an enhancement, and the piece is
+   fully legible without it. */
+.viewer-piece .plate.zoomable{cursor:none}
+.viewer-piece .lens{position:absolute;z-index:4;pointer-events:none;opacity:0;
+  width:var(--lens,168px);height:var(--lens,168px);
+  margin:calc(var(--lens,168px) / -2) 0 0 calc(var(--lens,168px) / -2);
+  border-radius:50%;background-repeat:no-repeat;
+  box-shadow:0 0 0 2px rgba(255,255,255,.85),0 0 0 3.5px rgba(0,0,0,.45),
+    0 10px 26px rgba(0,0,0,.55),inset 0 0 18px rgba(0,0,0,.22);
+  transition:opacity .14s ease}
+.viewer-piece .lens.on{opacity:1}
+.viewer-piece .lens::after{content:"";position:absolute;inset:0;border-radius:50%;
+  pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.3) 0 14%,transparent 34% 100%)}
+@media (prefers-reduced-motion:reduce){.viewer-piece .lens{transition:none}}
 /* ---- "see it on a wall" ----
    Ported from the frame-viewer prototype (client-reviews/to-bee-honest/2026-08-05).
    The point of this view is scale, and scale only reads against objects a person
@@ -694,25 +733,17 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .viewer-room .roomcap{position:absolute;bottom:-1.25rem;left:50%;transform:translateX(-50%);
   font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;
   text-transform:uppercase;color:#8f8267;white-space:nowrap}
-.viewer-room .door{position:relative;background:linear-gradient(96deg,#4a3f39,#5c4f46 55%,#463c36);
-  box-shadow:0 0 0 1px rgba(0,0,0,.5)}
-.viewer-room .door::before{content:"";position:absolute;inset:8% 12%;
-  box-shadow:0 0 0 1px rgba(0,0,0,.32)}
-.viewer-room .door::after{content:"";position:absolute;top:52%;right:9%;width:.45rem;height:.45rem;
-  border-radius:50%;background:var(--sun);opacity:.75}
-.viewer-room .sofa{position:relative}
-.viewer-room .sofa i{position:absolute;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
-.viewer-room .sofa .back{left:6%;right:6%;top:0;bottom:38%;
-  background:linear-gradient(180deg,#6a5546,#513f34);border-radius:7px 7px 2px 2px}
-.viewer-room .sofa .arm{bottom:12%;width:9%;height:52%;
-  background:linear-gradient(180deg,#75604f,#57453a);border-radius:6px 6px 3px 3px}
-.viewer-room .sofa .arm.l{left:0}
-.viewer-room .sofa .arm.r{right:0}
-.viewer-room .sofa .seat{left:7%;right:7%;bottom:12%;height:30%;
-  background:linear-gradient(180deg,#836a56,#63503f);border-radius:4px}
-.viewer-room .sofa .leg{bottom:0;width:3.5%;height:12%;background:#3a2e26;box-shadow:none}
-.viewer-room .sofa .leg.l{left:8%}
-.viewer-room .sofa .leg.r{right:8%}
+/* The scale reference is a flat silhouette of a person at 5'8", and nothing else.
+   The prototype's CSS-drawn door and sofa were replaced (client call 2026-08-07): a
+   box-and-gradient couch is an imitation of a real object, and a bad imitation is worse
+   than no object at all. A silhouette never falls into that trap because it is not
+   pretending to be a photograph — it reads as a scale diagram, which is exactly what it
+   is, and it is the reference an actual gallery uses. */
+.viewer-room .figure{position:relative;display:block}
+.viewer-room .figure svg{width:100%;height:100%;display:block;fill:#3b3129}
+.viewer-room .figure::after{content:"";position:absolute;left:50%;bottom:-2%;
+  width:150%;height:5%;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(0,0,0,.5),rgba(0,0,0,0) 70%)}
 .viewer-room .room-piece{position:absolute;left:50%;transform:translateX(-50%);
   max-width:none;max-height:none}
 .roomtoggle{position:absolute;right:.7rem;bottom:.7rem;z-index:3;cursor:pointer;border:none;
@@ -856,7 +887,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
    merged into the dark wall and left the art floating with nothing to sit on; a warm
    gallery white gives the paper a border to breathe against and stops the frame and
    the wall from being the same value. */
-.moody-room.framed .art-plate{--face:clamp(.7rem,1vw,1rem);
+.moody-room.framed .art-plate{--face:clamp(1rem,1.6vw,1.5rem);
   --ramp:#ba944d 0%,#b8914c 20%,#c5a151 40%,#c5a252 60%,#c9a657 82%,#c6a253 100%;
   padding:var(--face);box-shadow:0 2px 3px rgba(0,0,0,.5),0 22px 34px -8px rgba(0,0,0,.72)}
 /* The mat is lit from above like everything else on this wall — the top edge catches
@@ -865,6 +896,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .moody-room.framed .art-plate .plate{display:block;padding:clamp(.7rem,1.5vw,1.15rem);
   background:linear-gradient(180deg,rgba(255,249,236,.85) 0%,rgba(255,249,236,0) 46%),#f1ede3;
   box-shadow:inset 0 0 30px rgba(70,53,31,.1)}
+/* White is the house mat, but the catalog can call for black on a piece whose own ground
+   is dark — a white border round a night sky reads as a mistake. It keeps the same
+   top-lit gradient, at lower strength, so it sits under the same light as its neighbours. */
+.moody-room.framed .frame-item[data-mat="black"] .art-plate .plate{
+  background:linear-gradient(180deg,rgba(255,245,225,.16) 0%,rgba(255,245,225,0) 46%),#17161a;
+  box-shadow:inset 0 0 30px rgba(0,0,0,.4)}
 .moody-room.framed .art-plate img{box-shadow:0 0 0 1px rgba(0,0,0,.28),0 1px 5px rgba(0,0,0,.3)}
 .frame-item .art-plate .mould{display:none}
 .moody-room.framed .art-plate .mould{display:block;position:absolute;inset:0;pointer-events:none}
@@ -1509,7 +1546,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       <span class="viewer-piece bare" id="viewerPiece">
         <span class="mould" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span>
         <!-- no src until a piece is chosen: src="" re-requests the page URL as an image -->
-        <span class="plate"><img id="viewerArt" alt="" decoding="async"></span>
+        <span class="plate"><img id="viewerArt" alt="" decoding="async"><span class="lens" id="viewerLens" aria-hidden="true"></span></span>
       </span>
       <!-- scale view: built from GALLERY_CATALOG + the chosen size, see the viewer script -->
       <div class="viewer-room" id="viewerRoom" aria-hidden="true"></div>
@@ -1650,7 +1687,7 @@ const GALLERY_CATALOG = [
     `<figure class="frame-item" data-mat="${p.mat}">
       <span class="picture-light" aria-hidden="true"><span class="beam"></span><span class="arm"></span><span class="bar"></span></span>
       <button class="art-plate" type="button" data-index="${i}" aria-label="View ${p.title} — open the viewer to see it framed and order a print">
-        <span class="mould" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span>
+        <span class="mould gold" aria-hidden="true"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></span>
         <span class="plate"><img src="assets/prints/thumb/${p.slug}.jpg" srcset="assets/prints/thumb/${p.slug}.jpg 320w, assets/prints/${p.slug}.jpg 1000w" sizes="(max-width:900px) 45vw, 30vw" alt="${p.alt}" loading="lazy" decoding="sync"></span>
       </button>
       <figcaption>${p.title}<span class="art-hint">click to see it closer</span></figcaption>
@@ -2170,7 +2207,10 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   function applyFrame(o){
     frameColorSelect.value=o.value;
     piece.classList.toggle('has-frame',!!o.ramp);
-    piece.style.setProperty('--face', o.ramp ? 'clamp(1.1rem,2.2vw,1.9rem)' : '0px');
+    /* Antique Gold is the photographed moulding, not a gradient — see .mould.gold. */
+    piece.querySelector('.mould')?.classList.toggle('gold',o.value==='Antique Gold');
+    piece.style.setProperty('--face',
+      o.ramp ? (o.value==='Antique Gold' ? 'clamp(1.5rem,3vw,2.6rem)' : 'clamp(1.1rem,2.2vw,1.9rem)') : '0px');
     piece.style.setProperty('--ramp', o.ramp || 'transparent 0%,transparent 100%');
     updateBareState();
     // setting .value programmatically fires no change event, so the price line has to
@@ -2227,7 +2267,16 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
      The piece itself is a CLONE of the live #viewerPiece rather than a second
      renderer, so the frame and mat in the room are the same DOM the stage just drew.
      They cannot drift, because there is nothing to keep in sync. */
-  const ROOM={doorH:80,doorW:32,sofaW:84,sofaH:33,hang:57,wallH:104};
+  const ROOM={figureH:68,figureW:22,hang:57,wallH:104,gapIn:26};
+  /* One flat silhouette at 5'8". The prototype's drawn door and sofa are gone — see the
+     .viewer-room comment in the stylesheet for why. The path is a standing figure in a
+     40 x 82 box; 82 units maps to ROOM.figureH inches. */
+  const FIGURE_SVG=`<svg viewBox="0 0 40 82" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
+    <circle cx="20" cy="8.4" r="6.4"/>
+    <path d="M20 16.6c-6 0-10 3.4-10.6 8.6L7.6 45.4c-.3 2.4 3.2 3 3.6.6L13 31.6l.6 12L11.8 74
+             c-.3 2.6 4 2.9 4.4.4L19.6 51.6h.8L23.8 74.4c.4 2.5 4.7 2.2 4.4-.4L26.4 43.6l.6-12
+             1.8 14.4c.4 2.4 3.9 1.8 3.6-.6L30.6 25.2C30 20 26 16.6 20 16.6Z"/>
+  </svg>`;
   const MAT_IN=2;      // Prodigi's mount is a fixed 2" border per side
   const FACE_IN=0.8;   // Classic moulding, 20mm face
   const roomEl=document.getElementById('viewerRoom');
@@ -2247,7 +2296,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     const box=stage.getBoundingClientRect();
     if(!box.height||!box.width)return;
     const scale=Math.min((box.height*0.9)/ROOM.wallH,
-                         (box.width*0.9)/(ROOM.doorW+ROOM.sofaW+34));
+                         (box.width*0.9)/(ROOM.figureW+ROOM.gapIn+42));
     const px=i=>(i*scale).toFixed(1)+'px';
     const matIn=piece.classList.contains('has-mat')?MAT_IN:0;
     const faceIn=piece.classList.contains('has-frame')?FACE_IN:0;
@@ -2280,12 +2329,9 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     floor.className='roomfloor';
     roomEl.replaceChildren(
       floor,
-      col(`<div class="door" style="width:${px(ROOM.doorW)};height:${px(ROOM.doorH)}"></div>`,'Door · 80″'),
-      artCol,
-      col(`<div class="sofa" style="width:${px(ROOM.sofaW)};height:${px(ROOM.sofaH)}">
-             <i class="back"></i><i class="arm l"></i><i class="arm r"></i>
-             <i class="seat"></i><i class="leg l"></i><i class="leg r"></i>
-           </div>`,'Sofa · 84″')
+      col(`<div class="figure" style="width:${px(ROOM.figureW)};height:${px(ROOM.figureH)}">${FIGURE_SVG}</div>`,
+          'someone 5′8″'),
+      artCol
     );
   }
   function refreshRoom(){ if(roomOn)renderRoom(); }
@@ -2300,6 +2346,42 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   roomBtn?.addEventListener('click',()=>setRoom(!roomOn));
   // orientation comes from the decoded image, which is not known at src-set time
   art.addEventListener('load',refreshRoom);
+
+  /* The loupe. ZOOM and the pixel size are the prototype's own numbers. `clamp` keeps the
+     magnified layer inside the artwork so the circle never shows blank ground at an edge.
+     Disabled while the room view is up — there is nothing to inspect at that scale. */
+  const ZOOM=3, LENS_PX=168;
+  const lens=document.getElementById('viewerLens');
+  const plate=piece.querySelector('.plate');
+  if(lens&&plate){
+    plate.classList.add('zoomable');
+    lens.style.setProperty('--lens',LENS_PX+'px');
+    const clamp=(v,span)=>Math.max(Math.min(v,0),-(span*ZOOM-LENS_PX));
+    const hideLens=()=>lens.classList.remove('on');
+    function placeLens(ev){
+      if(roomOn||!art.src){hideLens();return}
+      const r=plate.getBoundingClientRect();
+      const x=ev.clientX-r.left, y=ev.clientY-r.top;
+      if(x<0||y<0||x>r.width||y>r.height){hideLens();return}
+      const ir=art.getBoundingClientRect();
+      lens.style.backgroundImage=`url("${art.src}")`;
+      lens.style.backgroundSize=`${ir.width*ZOOM}px ${ir.height*ZOOM}px`;
+      lens.style.backgroundPosition=
+        `${clamp(LENS_PX/2-(x-(ir.left-r.left))*ZOOM, ir.width)}px `
+        +`${clamp(LENS_PX/2-(y-(ir.top-r.top))*ZOOM, ir.height)}px`;
+      lens.style.left=x+'px'; lens.style.top=y+'px';
+      lens.classList.add('on');
+    }
+    plate.addEventListener('pointerenter',placeLens);
+    plate.addEventListener('pointermove',placeLens);
+    plate.addEventListener('pointerleave',hideLens);
+    plate.addEventListener('touchmove',e=>{
+      if(e.touches.length===1){e.preventDefault();placeLens(e.touches[0])}
+    },{passive:false});
+    plate.addEventListener('touchend',hideLens);
+    /* Switching to the room hides the loupe; it is bound to the stage piece, not the clone. */
+    roomBtn?.addEventListener('click',hideLens);
+  }
 
   addEventListener('resize',()=>{ if(dialog.open){measureStage();refreshRoom();} });
   function syncPriceLine(){
@@ -2342,10 +2424,11 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     artworkInput.value=p.title;
     // Opens dressed the way the wall is currently showing it, so clicking a framed
     // piece does not strip the frame out from under the visitor.
-    // The wall hangs Antique Gold over a white mat, so that is what the viewer opens on.
+    // Opens dressed the way the wall is showing it: Antique Gold over the mat the catalog
+    // calls for, which is black on the pieces whose own ground is dark.
     const wallFramed=document.querySelector('.moody-room')?.classList.contains('framed');
     const f=wallFramed?FRAMES[3]:FRAMES[0];
-    const m=wallFramed?MATS[1]:MATS[0];
+    const m=wallFramed?MATS.find(x=>x.value===(p.mat==='black'?'Black':'White')):MATS[0];
     setRoom(false);
     document.querySelector(`input[name=viewerFrame][value="${f.value}"]`).checked=true;
     document.querySelector(`input[name=viewerMat][value="${m.value}"]`).checked=true;
