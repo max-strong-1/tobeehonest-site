@@ -252,13 +252,13 @@ body.viewer-open .back{display:none}
      would sit under the chrome, which is exactly the bug being fixed. */
   .cover-content{padding:1.2rem 4vw .8rem;gap:.2rem;align-content:start;
     min-height:100svh}
-  .cover-panel{grid-row:2;flex:0 0 auto;width:min(92%,34rem);max-width:none;margin:5svh 0 0}
+  .cover-panel{flex:0 0 auto;width:min(92%,34rem);max-width:none;margin:4.7rem 0 0}
   .cover-panel .panel{padding:.85rem 1.1rem .95rem;background:rgba(247,239,226,.78)}
   .cover-logo{display:none}
   .cover-panel h1{font-size:clamp(1.55rem,7.4vw,1.95rem);margin-bottom:.25rem}
   .cover-panel .lede{font-size:.88rem;line-height:1.35;margin-bottom:.5rem;max-width:38ch}
   .cover-actions .tag-btn{font-size:.88rem;padding:.58rem 1rem .58rem 1.65rem}
-  .cover-honeycomb{grid-row:1;margin:4.7rem auto 0;flex:0 0 auto}
+  .cover-honeycomb{margin:0 auto;flex:0 0 auto}
   .hc-note{margin-bottom:.25rem;font-size:.86rem;max-width:27rem;color:#4f351a;text-shadow:0 1px rgba(255,250,235,.72)}
   .hc-grid{--hc-cell:clamp(86px,25vw,113px)}
   .wordmark{left:6vw;top:1.1rem}
@@ -1012,6 +1012,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 }
 .gallery-mobile-bar{display:none}
 @media (max-width:560px){
+  .cover-honeycomb{grid-row:1;margin:4.7rem auto 0}
+  .cover-panel{grid-row:2;margin:5svh 0 0}
   #t-gallery .tier-inner{padding-left:0;padding-right:0}
   .gallery-mobile-bar{display:block;width:100%;margin:0 0 .35rem}
   .moody-room{padding:.5rem .15rem 2rem}
