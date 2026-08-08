@@ -104,6 +104,44 @@ Full critique screenshots: `~/client-reviews/to-bee-honest/2026-08-08-critique-{
 
 ---
 
+## 2b. THE MANDATE — read this before Task 1
+
+Kel has reviewed **both** the live site and the current build and called them both
+"piss-poor." He considered a full teardown and chose to keep the five incremental tasks
+below **on one condition: the design has to pop.**
+
+Read that literally. Hitting the acceptance numbers in §3 while producing something that
+still looks careful and beige is a **failed** run. The measurements are guardrails against
+regression, not the goal. The goal is that Nicolas — a working artist — opens this and feels
+something.
+
+What "pop" means here, and what it does not:
+
+- **It does not mean loud.** The operator has repeatedly pinned "way toned down, softer, warm,
+  pastel" and rejected anything that reads as tactical or industrial. Bold ≠ hostile.
+- **It means the artwork stops being decoration and starts being the experience.** The single
+  biggest lever is scale: this site currently shows a torn-paper collage artist's work at 13.7%
+  of the gallery viewport and behind a scrim on the cover. Nothing else you do matters as much
+  as fixing that.
+- **It means committing to one memorable move per surface** instead of distributing polish
+  evenly. The live site has exactly one and it works: the cream-to-near-black transition
+  entering the gallery, narrated in voice — "the walls are dark on purpose, so the paper does
+  the talking." That is a *lighting change*, felt physically. Find that calibre of move for the
+  cover and the deck.
+- **It means motion with intent.** There is essentially none today. `DESIGN.md` pins one
+  orchestrated moment (collage layers drifting apart like lifting scrapbook tiers) that was
+  never built. Honour `prefers-reduced-motion`.
+
+Use **`/impeccable bolder`** on any surface that comes out safe, and run
+**`/impeccable critique`** at the end. If the score improves but the site still doesn't move
+you, say so in your report rather than declaring victory on the number.
+
+**Do not redesign the visual world.** This is refinement, not replacement: the torn-paper
+scrapbook language, the honeycomb, the palette and the type stack all stay. You are turning
+up the volume on a world that already exists, not choosing a new one.
+
+---
+
 ## 3. The work, in priority order
 
 Do these in order. Commit after each. `npm test` green before every commit. Screenshot before
@@ -240,6 +278,30 @@ node .codex/skills/impeccable/scripts/context.mjs --target index.html
 
 (adjust the path to wherever the installer put the skill). Follow its directives and do not
 rerun it.
+
+### ui-ux-pro-max — the second skill, use it for the "pop"
+
+Installed 2026-08-08 alongside impeccable: `nextlevelbuilder/ui-ux-pro-max-skill` v2.13.0, MIT.
+It is a **searchable local design database** — 84 UI styles, 192 palettes, 74 font pairings,
+161 reasoning rules, 22 stack profiles — not a process skill. On Codex:
+
+```bash
+npx ui-ux-pro-max-cli install     # or clone the repo and follow its README for your harness
+```
+
+**How to split the two tools, because they overlap and you will waste time otherwise:**
+
+| Use | For |
+|---|---|
+| **impeccable** | Process and judgement — `init`, `shape`, `layout`, `bolder`, `animate`, `critique`, `polish`. It owns the *order of work* and the quality floor. |
+| **ui-ux-pro-max** | Reference lookup — palette relationships, type pairings, style precedents, spacing systems. Query it when you need a concrete answer ("what pairs with Caprasimo at display scale"), not a process. |
+
+⚠️ **ui-ux-pro-max will happily hand you a complete generic design system.** Do not take it.
+This project has a founder-pinned world (torn paper, logo-derived palette, Caprasimo /
+Shantell Sans / Alegreya) recorded in `DESIGN.md`. **The brief wins.** Use the database to
+sharpen what exists — better type scale, a more confident dark value for the gallery wall,
+a real motion curve — never to replace it. A run that comes back with soft pink and sage
+green because the tool suggested it for "wellness" is a failed run.
 
 4.0.4 ships **23 commands**, **59 deterministic detector rules**, and four helper agents
 (`impeccable-manual-edit-applier`, `impeccable-asset-producer`, `impeccable-documenter`,
