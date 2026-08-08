@@ -278,9 +278,15 @@ export default async function handler(req, res) {
     }
 
     try {
+      const SUBJECTS = {
+        commission: `Make It Yours enquiry — ${input.subject || orderId}`,
+        hive: `New hive signup — ${input.customerEmail}`
+      };
       await sendOrderAlert({
-        subject: `New ${input.product} order intent — ${orderId}`,
-        text: alertText(input, orderId)
+        subject: SUBJECTS[input.product] || `New ${input.product} order intent — ${orderId}`,
+        text: alertText(input, orderId),
+        /* Reply goes to the person who wrote in, not back to us. */
+        replyTo: input.customerEmail
       });
     } catch (err) {
       console.error("[order-intent] alert failed", err?.message);
