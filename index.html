@@ -226,7 +226,9 @@ body.viewer-open .back{display:none}
   font-weight:600;font-size:1.05rem;line-height:1.25;color:var(--bark);opacity:1;text-wrap:balance}
 @media(min-width:1051px){
   .cover-panel{max-width:400px;justify-self:start}
-  .cover-honeycomb{position:absolute;left:50%;top:50svh;transform:translate(-50%,-50%)}
+  /* The exact center overlapped the left paper panel. Return roughly 15% of the
+     earlier centering move, plus the optical clearance needed by the torn edge. */
+  .cover-honeycomb{position:absolute;left:calc(50% + 48px);top:50svh;transform:translate(-50%,-50%)}
 }
 @media(max-width:1050px){
   .cover-content{grid-template-columns:1fr;align-content:start;padding-top:6.5vh}
@@ -743,19 +745,27 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   box-shadow:0 0 0 1px rgba(0,0,0,.32)}
 .viewer-room .door::after{content:"";position:absolute;top:52%;right:9%;width:.45rem;height:.45rem;
   border-radius:50%;background:var(--sun);opacity:.75}
-.viewer-room .sofa{position:relative}
-.viewer-room .sofa i{position:absolute;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
-.viewer-room .sofa .back{left:6%;right:6%;top:0;bottom:38%;
-  background:linear-gradient(180deg,#6a5546,#513f34);border-radius:7px 7px 2px 2px}
-.viewer-room .sofa .arm{bottom:12%;width:9%;height:52%;
-  background:linear-gradient(180deg,#75604f,#57453a);border-radius:6px 6px 3px 3px}
-.viewer-room .sofa .arm.l{left:0}
-.viewer-room .sofa .arm.r{right:0}
-.viewer-room .sofa .seat{left:7%;right:7%;bottom:12%;height:30%;
-  background:linear-gradient(180deg,#836a56,#63503f);border-radius:4px}
-.viewer-room .sofa .leg{bottom:0;width:3.5%;height:12%;background:#3a2e26;box-shadow:none}
-.viewer-room .sofa .leg.l{left:8%}
-.viewer-room .sofa .leg.r{right:8%}
+.viewer-room .loveseat{position:relative;filter:drop-shadow(0 .25rem .2rem rgba(0,0,0,.34))}
+.viewer-room .loveseat i{position:absolute;display:block}
+.viewer-room .loveseat .love-back{left:8%;right:8%;top:0;height:58%;
+  background:linear-gradient(180deg,#846d5b 0%,#6d5849 58%,#594638 100%);
+  border-radius:12px 12px 3px 3px;box-shadow:inset 0 1px rgba(255,255,255,.16),0 0 0 1px rgba(0,0,0,.5)}
+.viewer-room .loveseat .love-cushion{top:17%;width:38%;height:46%;z-index:2;
+  background:linear-gradient(180deg,#927a66,#745e4d 75%);border-radius:8px 8px 4px 4px;
+  box-shadow:inset 0 1px rgba(255,255,255,.14),0 1px 3px rgba(0,0,0,.32)}
+.viewer-room .loveseat .love-cushion.l{left:11%}
+.viewer-room .loveseat .love-cushion.r{right:11%}
+.viewer-room .loveseat .love-seat{left:9%;right:9%;top:56%;height:24%;z-index:3;
+  background:linear-gradient(180deg,#8a715d,#654f40);border-radius:5px;
+  box-shadow:inset 0 1px rgba(255,255,255,.13),0 2px 3px rgba(0,0,0,.38)}
+.viewer-room .loveseat .love-arm{top:43%;width:11%;height:40%;z-index:4;
+  background:linear-gradient(180deg,#8c7460,#624d3f);border-radius:8px 8px 3px 3px;
+  box-shadow:inset 0 1px rgba(255,255,255,.14),0 0 0 1px rgba(0,0,0,.45)}
+.viewer-room .loveseat .love-arm.l{left:0}.viewer-room .loveseat .love-arm.r{right:0}
+.viewer-room .loveseat .love-apron{left:8%;right:8%;top:77%;height:13%;
+  background:linear-gradient(180deg,#614b3d,#4b392f);box-shadow:0 0 0 1px rgba(0,0,0,.45)}
+.viewer-room .loveseat .love-leg{bottom:0;width:4%;height:12%;background:#2f241e}
+.viewer-room .loveseat .love-leg.l{left:11%}.viewer-room .loveseat .love-leg.r{right:11%}
 .viewer-room .room-piece{position:absolute;left:50%;transform:translateX(-50%);
   max-width:none;max-height:none}
 .roomtoggle{position:absolute;right:.7rem;bottom:.7rem;z-index:3;cursor:pointer;border:none;
@@ -764,6 +774,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   transition:background .2s,color .2s}
 .roomtoggle:hover{background:var(--sun);color:var(--ink)}
 .roomtoggle:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+.viewer-stage.showroom .roomtoggle{top:.7rem;bottom:auto}
 /* controls side */
 .viewer-side{display:flex;flex-direction:column;min-height:0;overflow-y:auto;position:relative;
   padding:1.1rem 1.15rem 1.4rem;background:rgba(31,23,14,.82);
@@ -863,9 +874,13 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
    has met the work at a scale where paper fibres and torn edges can actually register. */
 .moody-room .gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:clamp(2.2rem,3vw,3.2rem) clamp(1.8rem,3vw,2.8rem);max-width:1280px;margin:0 auto}
-.moody-room .gallery-grid.gallery-grid-rest{max-width:1120px;margin-top:3rem}
-@media (min-width:1100px){.moody-room .gallery-grid.gallery-grid-rest{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:560px){.moody-room .gallery-grid{grid-template-columns:1fr;max-width:calc(100vw - 1rem)}}
+.moody-room .gallery-grid.gallery-grid-rest{max-width:1280px;margin-top:3rem}
+@media (min-width:1100px){.moody-room .gallery-grid.gallery-grid-rest{grid-template-columns:repeat(2,531px);justify-content:center}}
+@media (min-width:821px){.moody-room .gallery-grid{grid-template-columns:repeat(2,531px);justify-content:center}}
+@media (max-width:560px){
+  .moody-room .gallery-grid,
+  .moody-room .gallery-grid.gallery-grid-rest{grid-template-columns:1fr;width:100%;max-width:calc(100vw - 1rem)}
+}
 .frame-item{position:relative;text-align:center;transform:translateZ(0);padding-top:3.2rem}
 /* ---- the picture light ----
    The interim page hung every piece under its own fixture and that is the room we want
@@ -904,7 +919,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .frame-item .art-plate{display:block;width:100%;padding:0;border:0;background:none;
   cursor:pointer;position:relative;z-index:1;
   transition:transform .32s cubic-bezier(.16,1,.3,1),filter .32s}
-.frame-item .art-plate img{width:100%;display:block;
+.frame-item .art-plate .plate{display:block;aspect-ratio:2/3;overflow:hidden}
+.frame-item .art-plate img{width:100%;height:100%;aspect-ratio:2/3;object-fit:cover;display:block;
   /* the paper's own edge and the shadow it throws on the wall behind it */
   box-shadow:0 0 0 1px rgba(255,244,222,.13),
              0 2px 4px rgba(0,0,0,.55),
@@ -986,6 +1002,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 @media (max-width:560px){
   #t-gallery .tier-inner{padding-left:0;padding-right:0}
   .moody-room{padding:.5rem .15rem 2rem}
+  .picture-light{width:100%}
   .moody-room .moody-head{margin-bottom:.35rem}
   .moody-room .moody-head h2{font-size:1.35rem;text-align:center;padding:0;max-width:none}
   .moody-room .gallery-grid{row-gap:10rem}
@@ -2468,7 +2485,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
      The piece itself is a CLONE of the live #viewerPiece rather than a second
      renderer, so the frame and mat in the room are the same DOM the stage just drew.
      They cannot drift, because there is nothing to keep in sync. */
-  const ROOM={doorH:80,doorW:32,sofaW:84,sofaH:33,hang:57,wallH:104};
+  const ROOM={doorH:80,doorW:32,loveW:60,loveH:34,hang:57,wallH:104};
   const MAT_IN=2;      // Prodigi's mount is a fixed 2" border per side
   const FACE_IN=0.8;   // Classic moulding, 20mm face
   const roomEl=document.getElementById('viewerRoom');
@@ -2504,7 +2521,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     const box=stage.getBoundingClientRect();
     if(!box.height||!box.width)return;
     const scale=Math.min((box.height*0.9)/ROOM.wallH,
-                         (box.width*0.9)/(ROOM.doorW+ROOM.sofaW+34));
+                         (box.width*0.9)/(ROOM.doorW+ROOM.loveW+34));
     const px=i=>(i*scale).toFixed(1)+'px';
     const matIn=piece.classList.contains('has-mat')?MAT_IN:0;
     const faceIn=piece.classList.contains('has-frame')?FACE_IN:0;
@@ -2540,10 +2557,11 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
       floor,
       col(`<div class="door" style="width:${px(ROOM.doorW)};height:${px(ROOM.doorH)}"></div>`,'Door · 80″'),
       artCol,
-      col(`<div class="sofa" style="width:${px(ROOM.sofaW)};height:${px(ROOM.sofaH)}">
-             <i class="back"></i><i class="arm l"></i><i class="arm r"></i>
-             <i class="seat"></i><i class="leg l"></i><i class="leg r"></i>
-           </div>`,'Sofa · 84″')
+      col(`<div class="loveseat" style="width:${px(ROOM.loveW)};height:${px(ROOM.loveH)}">
+             <i class="love-back"></i><i class="love-cushion l"></i><i class="love-cushion r"></i>
+             <i class="love-seat"></i><i class="love-arm l"></i><i class="love-arm r"></i>
+             <i class="love-apron"></i><i class="love-leg l"></i><i class="love-leg r"></i>
+           </div>`,'Loveseat · 60″')
     );
   }
   function refreshRoom(){ if(roomOn)renderRoom(); }
