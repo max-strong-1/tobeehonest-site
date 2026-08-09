@@ -72,3 +72,16 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 - Horizontal overflow and browser errors: zero. Automated tests: 34/34.
 
 final result: passed
+
+## Mobile rainbow + sixteen-piece gallery — 2026-08-09
+
+- Removed “Choose a cell to see what the bees are building” from phone and desktop.
+- Added the transparent torn-paper rainbow asset above the honeycomb at widths through 560px; it is hidden at 561px and above.
+- Added “The Sun Stone Theory” first in the gallery with a 320×480 thumbnail and 1000×1500 full asset.
+- Gallery presentation and ordering are framed-and-matted only. Retired controls and values are absent from the UI, hidden form controls, and API validation.
+- Public preview and thumbnail return HTTP 200; remote thumbnail SHA-256 matches the local asset exactly.
+- Independent hero evaluator: PASS at 375, 390, 560, 561, and 1440px; all seven cells hit-test correctly; no overflow or browser errors.
+- Independent gallery evaluator: PASS at 390 and 1440px; all 16 frames share identical geometry; viewer payload uses Antique Gold + White; no P0–P3 findings.
+- Automated suite: 34/34 passed. `git diff --check`: clean.
+
+final result: passed

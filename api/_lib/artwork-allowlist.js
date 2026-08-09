@@ -19,6 +19,7 @@
  */
 
 export const ARTWORK_ALLOWLIST = [
+  { slug: "sun-stone-theory", title: "The Sun Stone Theory" },
   { slug: "blue-dolphins", title: "Blue Dolphins" },
   { slug: "yellow-retro-car", title: "Yellow Retro Car" },
   { slug: "whimsical-sofa", title: "Whimsical Sofa" },

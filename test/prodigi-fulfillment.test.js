@@ -103,6 +103,8 @@ test("checkout resolve accepts a real gallery slug", () => {
 });
 
 test("artwork allowlist slug/title checks", () => {
+  assert.equal(isKnownArtworkSlug("sun-stone-theory"), true);
+  assert.equal(isKnownArtworkTitle("The Sun Stone Theory"), true);
   assert.equal(isKnownArtworkSlug("leopard-stare"), true);
   assert.equal(isKnownArtworkSlug("not-a-real-piece"), false);
   assert.equal(isKnownArtworkTitle("Leopard Stare"), true);

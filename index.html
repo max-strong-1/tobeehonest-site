@@ -232,10 +232,7 @@ body.viewer-open .back{display:none}
 .hc-5{top:calc((var(--hc-cell) / .866) * .75);left:calc(var(--hc-cell) * 2);--hc-light:#f9e5a7;--hc-base:#f0c64f;--hc-deep:#bd8c1c}
 .hc-6{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * .5);--hc-light:#f7db8d;--hc-base:#ebbc48;--hc-deep:#b48318}
 .hc-7{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#fbe9b2;--hc-base:var(--sun);--hc-deep:#c99a22}
-/* The instruction sits ABOVE the comb, where it is read before the thing it explains
-   rather than after. Full-strength ink, not the faded .85 it was at. */
-.hc-note{margin:0 auto 1rem;max-width:29rem;font-family:'Shantell Sans',cursive;
-  font-weight:600;font-size:1.05rem;line-height:1.25;color:var(--bark);opacity:1;text-wrap:balance;text-align:center}
+.mobile-hive-rainbow{display:none}
 @media(min-width:1051px){
   .cover-panel{max-width:400px;justify-self:start}
   /* The exact center overlapped the left paper panel. Return roughly 15% of the
@@ -271,7 +268,6 @@ body.viewer-open .back{display:none}
   .cover-panel .lede{font-size:.88rem;line-height:1.35;margin-bottom:.5rem;max-width:38ch}
   .cover-actions .tag-btn{font-size:.88rem;padding:.58rem 1rem .58rem 1.65rem}
   .cover-honeycomb{margin:0 auto;flex:0 0 auto}
-  .hc-note{margin-bottom:.25rem;font-size:.86rem;max-width:27rem;color:#4f351a;text-shadow:0 1px rgba(255,250,235,.72)}
   .hc-grid{--hc-cell:clamp(86px,25vw,113px)}
   .wordmark{left:6vw;top:1.1rem}
 }
@@ -1018,16 +1014,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
     rgba(0,0,0,0) 62%,rgba(0,0,0,.24) 100%)}
 .moody-room.framed .art-plate .mould::before{content:"";position:absolute;z-index:2;
   inset:calc(var(--face) - 1px);box-shadow:inset 0 2px 5px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.4)}
-/* the switch */
 .gallery-controls{text-align:center;margin:2rem auto .6rem;max-width:40rem}
 .gallery-controls .hand{color:#bfae92;font-size:.95rem}
-.hang-switch{display:inline-flex;gap:.35rem;margin-top:.7rem;padding:.25rem;
-  box-shadow:inset 0 0 0 1px rgba(214,196,160,.28)}
-.hang-switch button{border:0;cursor:pointer;background:none;color:#a2937a;
-  font-family:'Shantell Sans',cursive;font-size:.85rem;padding:.4rem 1rem;transition:background .2s,color .2s}
-.hang-switch button:hover{color:#e6dac2}
-.hang-switch button[aria-pressed="true"]{background:var(--sun);color:var(--ink)}
-.hang-switch button:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
 .frame-item .art-plate:hover,.frame-item .art-plate:focus-visible{
   transform:translateY(-5px) scale(1.012);filter:brightness(1.06)}
 .frame-item .art-plate:focus-visible{outline:2px solid var(--sun);outline-offset:8px}
@@ -1077,8 +1065,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .mobile-ribbon-copy{display:block;margin:0;font-size:clamp(.79rem,3.25vw,.92rem);
     line-height:1.32;color:var(--ink);text-wrap:balance}
   .cover-honeycomb{grid-column:1;grid-row:2;width:100%;max-width:none;margin:3rem 0 0;text-align:center}
-  .cover-honeycomb .hc-note{max-width:18rem;margin:0 auto 1.25rem;
-    font-size:clamp(.75rem,3vw,.88rem);line-height:1.2}
+  .mobile-hive-rainbow{display:block;width:min(44vw,172px);height:auto;
+    margin:0 auto .35rem;filter:drop-shadow(0 5px 7px rgba(84,53,12,.18))}
   .cover-honeycomb .hc-grid{--hc-cell:min(26.5vw,104px);
     filter:drop-shadow(7px 10px 10px rgba(84,53,12,.3))}
   .hc-cell{box-shadow:
@@ -1156,7 +1144,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
               </clipPath>
             </defs>
           </svg>
-          <p class="hc-note">Choose a cell to see what the bees are building.</p>
+          <img class="mobile-hive-rainbow" src="assets/web/mobile-rainbow-v1.png" alt="" aria-hidden="true">
           <div class="hc-grid">
             <button class="hc-cell hc-1" type="button" data-jump="t-book" aria-label="Open THE Book"><span class="hc-label">THE Book</span></button>
             <button class="hc-cell hc-2" type="button" data-jump="t-deck" aria-label="Open The Mantra Deck"><span class="hc-label">The Mantra Deck</span></button>
@@ -1373,10 +1361,6 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="gallery-controls">
           <p class="hand">the walls are dark on purpose — so the paper does the talking</p>
-          <div class="hang-switch" id="hangSwitch" role="group" aria-label="How the work is hung">
-            <button type="button" data-hang="framed" aria-pressed="true">Framed &amp; matted</button>
-            <button type="button" data-hang="bare" aria-pressed="false">Bare prints</button>
-          </div>
         </div>
         <div class="gallery-grid gallery-grid-rest" id="galleryGridRest"></div>
         <p class="moody-intro hand">close enough to see the paper grain</p>
@@ -1390,7 +1374,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <p style="max-width:44ch;margin:0 auto 1.6rem">The pieces get hung with room to breathe. We’re still arguing about what goes on which wall.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">show me when the room opens</a>
       </div>
-      <p class="tease hand">Fifteen pieces are on the wall. More are on their way.</p>
+      <p class="tease hand">Sixteen pieces are on the wall. More are on their way.</p>
     </div>
   </section>
 
@@ -1791,16 +1775,11 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       </fieldset>
 
       <details class="mount-explainer" open>
-        <summary>What the mat changes</summary>
-        <p>A mat adds a 2-inch paper border around the print. The artwork stays at the size you chose; the outer frame grows around it.</p>
-        <div class="mount-compare" aria-label="No-mat and matted size comparison">
-          <div class="mount-option" id="mountNoMatOption">
-            <h4>No mat</h4>
-            <div class="mount-demo"><img id="mountNoMatArt" alt="" aria-hidden="true"></div>
-            <small id="mountNoMatSize">print and opening are the same size</small>
-          </div>
-          <div class="mount-option" id="mountMatOption">
-            <h4>With a 2″ mat</h4>
+        <summary>Your included 2″ mat</summary>
+        <p>Every gallery piece is sold framed and matted. The mat adds a 2-inch paper border around the print; the artwork stays whole while the outer frame grows around it.</p>
+        <div class="mount-compare" aria-label="Included mat size preview">
+          <div class="mount-option is-selected" id="mountMatOption">
+            <h4>Included 2″ mat</h4>
             <div class="mount-demo with-mat"><img id="mountMatArt" alt="" aria-hidden="true"></div>
             <small id="mountOuterSize">same print, larger outer frame</small>
           </div>
@@ -1814,13 +1793,11 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
              form controls so the payload, validation and Airtable field names are
              unchanged from the tested contract. -->
         <select id="galleryFrameColor" name="Frame Color" class="sr-only" tabindex="-1" aria-hidden="true">
-          <option value="No frame">No frame</option>
+          <option value="Antique Gold">Antique Gold</option>
           <option value="Brown">Brown</option>
           <option value="Black">Black</option>
-          <option value="Antique Gold">Antique Gold</option>
         </select>
         <select id="galleryMat" name="Mat" class="sr-only" tabindex="-1" aria-hidden="true">
-          <option value="No mat">No mat</option>
           <option value="White">White</option>
           <option value="Black">Black</option>
         </select>
@@ -1874,13 +1851,15 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 const TBH_PRICES = { deck: 49, book: 59,
   gallery: { "8x12": 249, "12x18": 279, "16x24": 429 } };
 
-/* GALLERY_CATALOG — single source of truth for The Moody Gallery. Wave C-2: all 17
-   confirmed gallery prints (book-cover-hires and tower-of-knowledge excluded — not
+/* GALLERY_CATALOG — single source of truth for The Moody Gallery. All 16 current
+   gallery prints (book-cover-hires and tower-of-knowledge excluded — not
    gallery prints). Each needs assets/prints/<slug>.jpg + assets/prints/thumb/<slug>.jpg.
    The wall presentation uses one consistent white mount across every piece, matching
    the approved 16×20 physical-frame reference. Trimming or adding the gallery remains
    a one-line edit to this array. */
 const GALLERY_CATALOG = [
+  { slug:'sun-stone-theory', title:'The Sun Stone Theory', mat:'white',
+    alt:'A saturated torn-paper collage of a red bird beneath a golden sun and concentric blue rings, surrounded by orange rays, green land and curling blue waves' },
   { slug:'art-deco-deity', title:'Art Deco Deity', mat:'white',
     alt:'An art-deco winged goddess figure in blue and cream with a tall draped headdress' },
   { slug:'iron-lady', title:'Iron Lady', mat:'white',
@@ -1950,25 +1929,13 @@ const GALLERY_CATALOG = [
   });
 })();
 
-/* How the work hangs: bare prints, or framed and matted. Both renditions are real and
-   the choice sticks, because it is a matter of taste and not a thing to re-decide on
-   every visit. */
-(function hangSwitch(){
+/* The gallery promise is now framed and matted only. Clear the retired preference so
+   an older browser cannot resurrect the former bare-wall state. */
+(function lockGalleryPresentation(){
   const room=document.querySelector('.moody-room');
-  const host=document.getElementById('hangSwitch');
-  if(!room||!host)return;
-  const buttons=[...host.querySelectorAll('button')];
-  function set(mode,remember){
-    room.classList.toggle('framed',mode==='framed');
-    buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.hang===mode)));
-    if(remember){ try{localStorage.setItem('tbh-hang',mode)}catch{} }
-  }
-  buttons.forEach(b=>b.addEventListener('click',()=>set(b.dataset.hang,true)));
-  let saved=null;
-  try{saved=localStorage.getItem('tbh-hang')}catch{}
-  /* Framed is the default — it is the room the gallery is for. Bare stays one click
-     away for anyone who wants to see the paper with nothing around it. */
-  set(saved==='bare'?'bare':'framed',false);
+  if(!room)return;
+  room.classList.add('framed');
+  try{localStorage.removeItem('tbh-hang')}catch{}
 })();
 const interimPreview=new URLSearchParams(location.search).get('interim')==='1';
 document.body.classList.toggle('is-interim-preview',interimPreview);
@@ -2479,27 +2446,22 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   const piece=document.getElementById('viewerPiece');
   const art=document.getElementById('viewerArt');
   const titleEl=document.getElementById('viewerTitle');
-  const mountNoMatArt=document.getElementById('mountNoMatArt');
   const mountMatArt=document.getElementById('mountMatArt');
-  const mountNoMatSize=document.getElementById('mountNoMatSize');
   const mountOuterSize=document.getElementById('mountOuterSize');
   const mountCropProof=document.getElementById('mountCropProof');
-  const mountNoMatOption=document.getElementById('mountNoMatOption');
   const mountMatOption=document.getElementById('mountMatOption');
   if(!dialog||!form)return;
 
   /* Prodigi Classic moulding, 20mm face. Six stops so the strip has a profile. */
   const FRAMES=[
-    {value:'No frame', label:'None',        chip:'transparent', ramp:null},
+    {value:'Antique Gold', label:'Antique gold', chip:'#c5a151',
+     ramp:'#ba944d 0%,#b8914c 22%,#c5a151 42%,#c5a252 62%,#c9a657 82%,#c6a253 100%'},
     {value:'Brown',    label:'Walnut',      chip:'#5a3922',
      ramp:'#6b432c 0%,#4d341a 22%,#5a3922 42%,#623e21 62%,#69452b 82%,#5b3b26 100%'},
     {value:'Black',    label:'Black',       chip:'#1a1a1a',
-     ramp:'#242424 0%,#151515 22%,#171717 42%,#161616 62%,#1d1d1d 82%,#161616 100%'},
-    {value:'Antique Gold', label:'Antique gold', chip:'#c5a151',
-     ramp:'#ba944d 0%,#b8914c 22%,#c5a151 42%,#c5a252 62%,#c9a657 82%,#c6a253 100%'}
+     ramp:'#242424 0%,#151515 22%,#171717 42%,#161616 62%,#1d1d1d 82%,#161616 100%'}
   ];
   const MATS=[
-    {value:'No mat', label:'None',  chip:'transparent', col:null},
     {value:'White',  label:'White', chip:'#f2efe7', col:'#f2efe7'},
     {value:'Black',  label:'Black', chip:'#17161a', col:'#17161a'}
   ];
@@ -2539,8 +2501,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     syncMountExplainer();
   }
   function updateBareState(){
-    piece.classList.toggle('bare',
-      !piece.classList.contains('has-frame') && !piece.classList.contains('has-mat'));
+    piece.classList.remove('bare');
     // the room hangs a clone of this piece, so any frame/mat change has to redraw it
     refreshRoom();
   }
@@ -2597,20 +2558,15 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     return landscape?[Math.max(a,b),Math.min(a,b)]:[Math.min(a,b),Math.max(a,b)];
   }
   function syncMountExplainer(){
-    if(!mountNoMatSize||!mountOuterSize||!mountCropProof)return;
+    if(!mountOuterSize||!mountCropProof)return;
     const [pw,ph]=printInches();
     const landscape=pw>ph;
     document.querySelectorAll('.mount-demo').forEach(el=>{
       el.style.aspectRatio=landscape?'3 / 2':'2 / 3';
     });
-    mountNoMatSize.textContent=`${pw}×${ph} in print · ${pw}×${ph} in opening`;
     mountOuterSize.textContent=`${pw}×${ph} in print · ${pw+4}×${ph+4} in outer opening`;
-    const hasMat=matSelect.value!=='No mat';
-    mountNoMatOption?.classList.toggle('is-selected',!hasMat);
-    mountMatOption?.classList.toggle('is-selected',hasMat);
-    mountCropProof.textContent=hasMat
-      ? `Your ${pw}×${ph} print stays whole. The mat adds space; it does not crop the artwork.`
-      : `No mat selected: the complete ${pw}×${ph} artwork runs to the opening.`;
+    mountMatOption?.classList.add('is-selected');
+    mountCropProof.textContent=`Your ${pw}×${ph} print stays whole. The included mat adds space; it does not crop the artwork.`;
   }
 
   function renderRoom(){
@@ -2714,9 +2670,8 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   function syncPriceLine(){
     const size=sizeSelect.value;
     const price=TBH_PRICES.gallery[size];
-    const framed=frameColorSelect.value!=='No frame';
     if(priceLine)priceLine.textContent = price!=null
-      ? `$${price} · ${size.replace('x','×')} in print${framed?', framed':''} · confirmed by email before any payment`
+      ? `$${price} · ${size.replace('x','×')} in print, framed & matted · confirmed by email before any payment`
       : '';
   }
   sizeSelect.addEventListener('change',applySize);
@@ -2747,7 +2702,6 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     form.reset();
     art.src=`assets/prints/${p.slug}.jpg`;
     art.alt=p.alt;
-    mountNoMatArt.src=art.src;
     mountMatArt.src=art.src;
     titleEl.textContent=p.title;
     artworkInput.value=p.title;
@@ -2755,9 +2709,8 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     // piece does not strip the frame out from under the visitor.
     // Opens dressed the way the wall is showing it: Antique Gold over the mat the catalog
     // calls for, which is black on the pieces whose own ground is dark.
-    const wallFramed=document.querySelector('.moody-room')?.classList.contains('framed');
-    const f=wallFramed?FRAMES[3]:FRAMES[0];
-    const m=wallFramed?MATS.find(x=>x.value===(p.mat==='black'?'Black':'White')):MATS[0];
+    const f=FRAMES.find(x=>x.value==='Antique Gold');
+    const m=MATS.find(x=>x.value===(p.mat==='black'?'Black':'White')) || MATS[0];
     setRoom(false);
     document.querySelector(`input[name=viewerFrame][value="${f.value}"]`).checked=true;
     document.querySelector(`input[name=viewerMat][value="${m.value}"]`).checked=true;
