@@ -232,7 +232,31 @@ body.viewer-open .back{display:none}
 .hc-5{top:calc((var(--hc-cell) / .866) * .75);left:calc(var(--hc-cell) * 2);--hc-light:#f9e5a7;--hc-base:#f0c64f;--hc-deep:#bd8c1c}
 .hc-6{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * .5);--hc-light:#f7db8d;--hc-base:#ebbc48;--hc-deep:#b48318}
 .hc-7{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#fbe9b2;--hc-base:var(--sun);--hc-deep:#c99a22}
-.mobile-hive-rainbow{display:none}
+.mobile-hive-rainbow,.rainbow-cloud{display:none}
+/* Three small ambient bees reuse the cursor bee's ink-and-honey anatomy, but live only
+   inside the cover. Each has a different route and duration so they feel like three
+   curious little individuals instead of one duplicated animation. */
+.hero-bees{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.hero-bee{position:absolute;width:28px;height:28px;opacity:.82;
+  filter:drop-shadow(0 2px 2px rgba(38,32,21,.2));will-change:transform}
+.hero-bee-1{left:8%;top:25%;animation:hero-bee-one 13s ease-in-out infinite}
+.hero-bee-2{right:9%;top:14%;animation:hero-bee-two 16s ease-in-out -4s infinite}
+.hero-bee-3{left:47%;bottom:8%;animation:hero-bee-three 14.5s ease-in-out -8s infinite}
+@keyframes hero-bee-one{
+  0%,100%{transform:translate3d(0,0,0) rotate(-8deg)}
+  24%{transform:translate3d(12vw,-8vh,0) rotate(12deg)}
+  52%{transform:translate3d(25vw,12vh,0) rotate(20deg)}
+  76%{transform:translate3d(8vw,24vh,0) rotate(-16deg)}}
+@keyframes hero-bee-two{
+  0%,100%{transform:translate3d(0,0,0) rotate(12deg)}
+  28%{transform:translate3d(-18vw,13vh,0) rotate(-18deg)}
+  55%{transform:translate3d(-7vw,31vh,0) rotate(16deg)}
+  78%{transform:translate3d(-28vw,18vh,0) rotate(-12deg)}}
+@keyframes hero-bee-three{
+  0%,100%{transform:translate3d(0,0,0) rotate(-12deg)}
+  22%{transform:translate3d(-25vw,-9vh,0) rotate(-20deg)}
+  48%{transform:translate3d(-9vw,-28vh,0) rotate(18deg)}
+  73%{transform:translate3d(23vw,-20vh,0) rotate(14deg)}}
 @media(min-width:1051px){
   .cover-panel{max-width:400px;justify-self:start}
   /* The exact center overlapped the left paper panel. Return roughly 15% of the
@@ -1069,6 +1093,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .mobile-hive-rainbow{display:block;position:absolute;z-index:0;pointer-events:none;
     left:50%;top:-3.3rem;width:min(108vw,430px);height:360px;object-fit:fill;
     transform:translateX(-50%);filter:drop-shadow(0 5px 7px rgba(84,53,12,.18))}
+  .rainbow-cloud{display:block;position:absolute;z-index:2;pointer-events:none;
+    bottom:-3rem;width:min(33vw,130px);height:auto;
+    filter:drop-shadow(0 5px 7px rgba(84,53,12,.16))}
+  .rainbow-cloud-left{left:-1rem}
+  .rainbow-cloud-right{right:-1rem;transform:scaleX(-1)}
+  .hero-bee{width:24px;height:24px}
   .cover-honeycomb .hc-grid{position:relative;z-index:1;--hc-cell:min(23.5vw,92px);
     filter:drop-shadow(7px 10px 10px rgba(84,53,12,.3))}
   .hc-cell{box-shadow:
@@ -1093,6 +1123,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .moody-room.framed .art-plate{--face:.55rem}
   .frame-item figcaption{margin-top:.55rem}
 }
+@media(prefers-reduced-motion:reduce){
+  .hero-bee{animation:none!important;opacity:.55}
+}
 </style>
 </head>
 <body>
@@ -1108,6 +1141,23 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <source media="(max-width:560px)" srcset="assets/web/cover-hero-sky-rings-v2.png">
           <img src="assets/web/cover-hero.jpg" alt="">
         </picture>
+      </div>
+      <div class="hero-bees" aria-hidden="true">
+        <svg width="0" height="0" focusable="false" style="position:absolute">
+          <defs>
+            <symbol id="heroBee" viewBox="0 0 48 48">
+              <path d="M20 22C7 21 5 7 12 6c8-1 12 9 8 16Z" fill="#fff9de" fill-opacity=".78" stroke="#262015" stroke-width="1.5"/>
+              <path d="M28 22C41 21 43 7 36 6c-8-1-12 9-8 16Z" fill="#fff9de" fill-opacity=".78" stroke="#262015" stroke-width="1.5"/>
+              <path d="M24 13c8 0 13 7 12 16-1 8-6 13-12 13S13 37 12 29c-1-9 4-16 12-16Z" fill="#e69a17" stroke="#262015" stroke-width="1.8"/>
+              <path d="M14 22c6 2 14 2 20 0M12.5 29c8 2 15 2 23 0M15 36c6 1.5 12 1.5 18 0" fill="none" stroke="#262015" stroke-width="3.5"/>
+              <circle cx="20.5" cy="16.5" r="1.2" fill="#262015"/><circle cx="27.5" cy="16.5" r="1.2" fill="#262015"/>
+              <path d="M20 12C18 7 15 7 14 5M28 12c2-5 5-5 6-7M35 31l7 3-7 2" fill="none" stroke="#262015" stroke-width="1.5" stroke-linecap="round"/>
+            </symbol>
+          </defs>
+        </svg>
+        <svg class="hero-bee hero-bee-1" viewBox="0 0 48 48"><use href="#heroBee"/></svg>
+        <svg class="hero-bee hero-bee-2" viewBox="0 0 48 48"><use href="#heroBee"/></svg>
+        <svg class="hero-bee hero-bee-3" viewBox="0 0 48 48"><use href="#heroBee"/></svg>
       </div>
       <div class="wordmark">
         <svg class="wordmark-mark" viewBox="0 0 32 32" aria-hidden="true">
@@ -1148,6 +1198,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
             </defs>
           </svg>
           <img class="mobile-hive-rainbow" src="assets/web/mobile-rainbow-v2.png" alt="" aria-hidden="true">
+          <img class="rainbow-cloud rainbow-cloud-left" src="assets/web/rainbow-cloud-v1.png" alt="" aria-hidden="true">
+          <img class="rainbow-cloud rainbow-cloud-right" src="assets/web/rainbow-cloud-v1.png" alt="" aria-hidden="true">
           <div class="hc-grid">
             <button class="hc-cell hc-1" type="button" data-jump="t-book" aria-label="Open THE Book"><span class="hc-label">THE Book</span></button>
             <button class="hc-cell hc-2" type="button" data-jump="t-deck" aria-label="Open The Mantra Deck"><span class="hc-label">The Mantra Deck</span></button>

@@ -73,6 +73,18 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Rainbow clouds + ambient hero bees — 2026-08-09
+
+- Added one generated transparent fluffy-paper cloud asset, mirrored at the two rainbow feet on mobile.
+- Added exactly three small cursor-style SVG bees with distinct 13s, 16s, and 14.5s hero flight paths.
+- Bees fly behind the ribbon/honeycomb, use `pointer-events:none`, and leave the viewport with the cover after navigation.
+- At 375, 390, and 560px both clouds overlap the rainbow endpoints; rainbow/clouds remain hidden at 561px and desktop.
+- Reduced-motion mode disables all bee animation and lowers their opacity.
+- Independent evaluator PASS with no P0–P3; all seven cells hit-test correctly, zero overflow/errors.
+- Automated suite: 34/34 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Encapsulating six-color mobile rainbow — 2026-08-09
 
 - Preserved the previous compact-rainbow implementation on branch `codex/mobile-rainbow-v1` at `725645a`.
