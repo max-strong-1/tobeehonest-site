@@ -73,6 +73,16 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Bees-only hero — 2026-08-09
+
+- Removed the rainbow and both cloud elements and their now-unused layout rules.
+- Preserved exactly three ambient hero bees, ribbon placement, and the approved smaller honeycomb geometry.
+- Independent evaluator confirmed ribbon/grid bounds match the prior version exactly at 375, 390, 560, 561, and 1440px.
+- All seven cells remain hit-testable; reduced-motion behavior remains intact; zero overflow/errors.
+- Automated suite: 35/35 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Gallery color-rhythm reorder — 2026-08-09
 
 - Moved Leopard Stare from beside Bali Rice Terraces to exactly between Blue Dolphins and Whimsical Sofa.
