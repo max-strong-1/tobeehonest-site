@@ -775,13 +775,13 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .viewer-room .loveseat .love-leg.l{left:11%}.viewer-room .loveseat .love-leg.r{right:11%}
 .viewer-room .room-piece{position:absolute;left:50%;transform:translateX(-50%);
   max-width:none;max-height:none}
-.roomtoggle{position:absolute;right:.7rem;bottom:.7rem;z-index:3;cursor:pointer;border:none;
-  font-family:'Shantell Sans',cursive;font-size:.82rem;font-weight:600;padding:.62rem .95rem;
-  background:#fff;color:#2b2118;box-shadow:0 5px 16px rgba(0,0,0,.5);
-  transition:background .2s,color .2s}
+.roomtoggle{position:static;width:100%;min-height:44px;cursor:pointer;border:1px solid rgba(43,33,24,.22);
+  font-family:'Shantell Sans',cursive;font-size:.88rem;font-weight:600;padding:.68rem 1rem;
+  margin:0 0 1rem;background:#fff;color:#2b2118;box-shadow:0 4px 12px rgba(0,0,0,.24);
+  transition:background .2s,color .2s,transform .2s}
 .roomtoggle:hover{background:var(--sun);color:var(--ink)}
 .roomtoggle:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
-.viewer-stage.showroom .roomtoggle{top:.7rem;bottom:auto}
+.roomtoggle:active{transform:translateY(1px)}
 /* controls side */
 .viewer-side{display:flex;flex-direction:column;min-height:0;overflow-y:auto;position:relative;
   padding:1.1rem 1.15rem 1.4rem;background:rgba(31,23,14,.82);
@@ -1673,7 +1673,6 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       </span>
       <!-- scale view: built from GALLERY_CATALOG + the chosen size, see the viewer script -->
       <div class="viewer-room" id="viewerRoom" aria-hidden="true"></div>
-      <button class="roomtoggle" id="roomToggle" type="button" aria-pressed="false">See it on a wall</button>
     </div>
 
     <div class="viewer-side">
@@ -1684,6 +1683,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <button type="button" class="dialog-close" id="galleryDialogClose" aria-label="Close the viewer">✕</button>
       </div>
+      <button class="roomtoggle" id="roomToggle" type="button" aria-pressed="false">See it on a wall</button>
 
       <fieldset>
         <legend>Frame</legend>
