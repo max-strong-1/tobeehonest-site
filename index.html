@@ -1012,8 +1012,23 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 }
 .gallery-mobile-bar{display:none}
 @media (max-width:560px){
+  /* Phone deck: 10% smaller cards and a compact rhythm keep all four visible
+     beneath the title without requiring a scroll to discover the second row. */
+  #t-deck .tier-inner{justify-content:flex-start;padding-top:3.6rem}
+  #t-deck .ch-head{margin-bottom:.85rem}
+  #t-deck .ch-head h2{margin-bottom:.2rem}
+  #t-deck .deck{gap:.7rem .55rem}
+  #t-deck .card{width:84%}
+
+  /* Phone cover: zoom the collage out 30% so the ring reads as a whole image.
+     The paper card is narrowed before its 17° tilt so its visual bounds stay onscreen. */
+  #t-cover{background:var(--paper)}
+  #t-cover .cover-art{overflow:hidden;background:var(--paper)}
+  #t-cover .cover-art img{object-fit:contain;object-position:center;transform:scale(.7)}
   .cover-honeycomb{grid-row:1;margin:4.7rem auto 0}
-  .cover-panel{grid-row:2;margin:5svh 0 0}
+  .cover-panel{grid-row:2;width:min(82%,34rem);margin:5svh 0 0}
+  .cover-panel .panel{transform:rotate(-17deg);box-shadow:inset 0 0 0 1px rgba(107,75,40,.58)}
+  .hc-cell{box-shadow:inset 0 0 0 1.25px rgba(107,75,40,.56)}
   #t-gallery .tier-inner{padding-left:0;padding-right:0}
   .gallery-mobile-bar{display:block;width:100%;margin:0 0 .35rem}
   .moody-room{padding:.5rem .15rem 2rem}
