@@ -1,62 +1,65 @@
-# Design QA — Mobile sky-ring hero and marketplace directory hive
+# Design QA — Mobile hero spacing, Tower deck backs, and Moody Gallery mounts
 
-## Scope
+## Visual targets
 
-- Mobile hero only (≤560px): replace the background with the invite-link sky-ring palette, raise and enlarge the landscape ribbon, and evenly space ribbon → instruction → honeycomb.
-- Community Marketplace: restore the business-directory honeycomb, use the selected staggered Version B, and extend it to four rows configured `1–2–1–2`.
-- Desktop hero must remain unchanged.
+- Physical-frame reference: `/Users/maxstrong/Downloads/prodigi-global-cfpm-16x20-black-frame-snow-white-mount.png`.
+- Close reference crop: `/var/folders/zz/1_6dprwn2mvd6tzxzcsm30pm0000gn/T/TemporaryItems/NSIRD_screencaptureui_YONcNQ/Screenshot 2026-08-08 at 11.01.16 PM.png`.
+- Side-by-side source/implementation comparison: `/tmp/tbh-gallery-reference-comparison.png`.
+- Real deck-back artwork: `assets/prints/tower-of-knowledge.jpg`, 1000 × 1500.
+- Tested implementation states: cover, unrevealed Mantra Deck, framed Moody Gallery, and gallery viewer.
 
-## Source and implementation evidence
+## Mobile hero
 
-- Palette reference: `assets/web/social-share-tower-logo-v4.png` (the user-selected invite-link artwork).
-- Generated mobile background: `assets/web/cover-hero-sky-rings-v2.png`, 941 × 1672.
-- Original desktop background retained: `assets/web/cover-hero.jpg`.
-- Marketplace logos: `assets/web/foreman-f-mark.jpg` and `assets/IMG_5190.jpeg`.
-- Independent hero regression: 375 × 812, 390 × 844, 560 × 900, 561 × 900, and 1440 × 900.
-- Independent marketplace review: 375 × 812, 390 × 844, and 1440 × 900.
+- At 390 × 844, ribbon y-position is 111.19px: exactly 24px above commit `5abcde5`.
+- Honeycomb grid y-position is 329.48px: exactly 24px below commit `5abcde5`.
+- Honeycomb bottom is 627.83px, fully inside the viewport.
+- Horizontal overflow is zero.
+- The change is scoped to the ≤560px media query; desktop structure remains untouched.
 
-## Hero findings
+## Mantra Deck
 
-- The `<picture>` source boundary is exact: the new ring artwork loads through 560px; the existing desktop artwork loads from 561px upward.
-- The background fills the viewport with `object-fit: cover`, without cream gutters.
-- The mobile ribbon moved upward exactly 16px and grew approximately 10% in height. Its logo and copy scale with the larger ribbon.
-- Ribbon → instruction and instruction → honeycomb gaps are both exactly 20px.
-- Honeycomb center delta is 0px at 375, 390, and 560px.
-- All seven cells are fully visible and hit-testable; their routes remain unchanged.
-- Desktop 1440 × 900 hero geometry is pixel-identical to the prior committed version.
-- The remaining lower ring field is intentional artwork breathing room, not an unfilled foreground gap.
+- All four cards start face down with `aria-pressed="false"`.
+- Every reverse uses the real saturated Tower of Knowledge asset, not the faded hero collage.
+- At 390 × 844, all four cards fit in two rows between y=137.42px and y=577.89px.
+- The existing tap/keyboard reveal behavior remains wired to the same cards.
+- Horizontal overflow is zero.
 
-## Marketplace findings
+## Moody Gallery source comparison
 
-- Version B is the single final layout; prototype switching controls and comparison JavaScript were removed.
-- Four staggered rows contain exactly `1–2–1–2` cells.
-- Foreman AI uses the real gold F mark and a short business description.
-- To Bee Honest uses the real bee-and-flower mark and a short description.
-- Unassigned cells are explicitly identified as future, permission-based directory seats rather than fictional businesses.
-- The hive exposes correct list/listitem semantics to assistive technology.
-- The existing “Submit your creation” form and its submission behavior remain in place below the directory.
+The supplied product reference establishes a thin physical molding surrounding a generous white mount, with the artwork substantially smaller than the outer frame. The implementation reproduces that hierarchy using one shared geometry for every catalog item:
 
-## Interaction and regression evidence
+- Outer opening: 3:4.
+- Artwork: 2:3, centered without distortion.
+- Artwork width: 68% of the mount opening.
+- Artwork height: 76.5% of the mount opening.
+- White mount: consistent across all 15 pieces.
+- Antique-gold molding: 8.80px per side at 390px and 12.47px per side at 1440px.
 
-- Hero routes verified: `#book`, `#deck`, `#gallery`, `#story`, `#yours`, `#podcast`, and `#market`.
-- “To Bee Honest” wordmark copy is unchanged.
-- Horizontal overflow: zero at all tested breakpoints.
-- Console and page errors: zero.
+Independent measurements confirm identical geometry: at 375 × 812 each outer frame is 359 × 472.8px with 232.16 × 348.22px artwork; at 390 × 844 it is 374 × 492.8px with 242.34 × 363.52px artwork; at 1440 × 900 it is 531 × 699.69px with 344.11 × 516.17px artwork. No piece is larger or smaller than another.
+
+## Visual and interaction checks
+
+- Gold molding uses the existing four-sided miter renderer and remains responsive.
+- White mount retains the existing top-lit paper treatment and contact shadow.
+- Museum picture lights remain centered above the frames.
+- Gallery title remains centered beneath the cream mobile navigation bar.
+- Artwork remains fully visible and proportional.
+- “Click to see it closer” and the gallery viewer remain attached to the full interactive plate.
+- Browser console errors: zero in local review.
+- Independent hero/deck evaluator: PASS at 375, 390, 560, 561, and 1440px.
+- Independent gallery evaluator: PASS at 375, 390, and 1440px with no P0–P3 findings.
 - Automated suite: 34/34 passed.
 - `git diff --check`: clean.
 
 ## Implementation checklist
 
-- [x] Use invite-link sky-ring colors on the mobile hero.
-- [x] Raise ribbon by two spacing units (16px).
-- [x] Enlarge ribbon and its typography by approximately 10%.
-- [x] Equalize the two foreground gaps to 20px.
-- [x] Keep the mobile honeycomb centered.
-- [x] Preserve the desktop hero.
-- [x] Select directory Version B.
-- [x] Extend the directory to `1–2–1–2` rows.
-- [x] Include real logos and descriptions for approved listings.
-- [x] Preserve the marketplace submission form.
-- [x] Run independent agent evaluation and automated regression tests.
+- [x] Move mobile ribbon up three 8px spaces.
+- [x] Move mobile honeycomb down three 8px spaces.
+- [x] Restore real colorful Tower of Knowledge card backs.
+- [x] Reduce gallery artwork to create a generous mount reveal.
+- [x] Use one consistent white mount across the complete gallery.
+- [x] Increase the initially-too-thin gold molding after visual review.
+- [x] Preserve gallery lights, hover hint, viewer, and ordering behavior.
+- [x] Verify phone and desktop geometry and automated tests.
 
 final result: passed

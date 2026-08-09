@@ -344,8 +344,8 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 .card-front .card-scrim{position:absolute;inset:auto 0 0 0;height:62%;z-index:1;
   background:linear-gradient(0deg,rgba(20,14,6,.78),rgba(20,14,6,0))}
 .card-front.has-photo .mantra{position:relative;z-index:2}
-.card-back{transform:rotateY(180deg);background:var(--paper-deep);align-items:center;justify-content:center;text-align:center;padding:1.4rem}
-.card-back img{width:78%;aspect-ratio:5/7;object-fit:cover;object-position:center 20%;filter:drop-shadow(0 4px 8px rgba(70,53,31,.3));clip-path:polygon(0 2%,4% 0,50% 1.5%,96% 0,100% 2.5%,99% 50%,100% 97.5%,95% 100%,50% 98.5%,5% 100%,0 98%,1% 50%)}
+.card-back{transform:rotateY(180deg);background:#c99428;align-items:center;justify-content:center;text-align:center;padding:.3rem;overflow:hidden}
+.card-back img{width:100%;height:100%;object-fit:cover;object-position:center;filter:drop-shadow(0 4px 8px rgba(70,53,31,.3));clip-path:polygon(0 2%,4% 0,50% 1.5%,96% 0,100% 2.5%,99% 50%,100% 97.5%,95% 100%,50% 98.5%,5% 100%,0 98%,1% 50%)}
 /* rev 1: the universe tier now leads with the podcast alone, so it gets a single
    centred panel instead of a three-up grid with two empty seats */
 .pod{max-width:620px;margin:0 auto;padding:2.4rem 2rem 2.7rem;background:var(--paper);
@@ -971,8 +971,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .frame-item .art-plate{display:block;width:100%;padding:0;border:0;background:none;
   cursor:pointer;position:relative;z-index:1;
   transition:transform .32s cubic-bezier(.16,1,.3,1),filter .32s}
-.frame-item .art-plate .plate{display:block;aspect-ratio:2/3;overflow:hidden}
-.frame-item .art-plate img{width:100%;height:100%;aspect-ratio:2/3;object-fit:cover;display:block;
+.frame-item .art-plate .plate{display:flex;align-items:center;justify-content:center;aspect-ratio:3/4;overflow:hidden}
+.frame-item .art-plate img{width:68%;height:76.5%;aspect-ratio:2/3;object-fit:cover;display:block;
   /* the paper's own edge and the shadow it throws on the wall behind it */
   box-shadow:0 0 0 1px rgba(255,244,222,.13),
              0 2px 4px rgba(0,0,0,.55),
@@ -988,21 +988,15 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
    merged into the dark wall and left the art floating with nothing to sit on; a warm
    gallery white gives the paper a border to breathe against and stops the frame and
    the wall from being the same value. */
-.moody-room.framed .art-plate{--face:clamp(.42rem,.75vw,.72rem);
+.moody-room.framed .art-plate{--face:clamp(.55rem,1vw,.78rem);
   --ramp:#ba944d 0%,#b8914c 20%,#c5a151 40%,#c5a252 60%,#c9a657 82%,#c6a253 100%;
   padding:var(--face);box-shadow:0 2px 3px rgba(0,0,0,.5),0 22px 34px -8px rgba(0,0,0,.72)}
 /* The mat is lit from above like everything else on this wall — the top edge catches
    the fixture, the bottom sits in its own shade. Without this the board reads as a flat
    white rectangle pasted over a lit room. */
-.moody-room.framed .art-plate .plate{display:block;padding:clamp(.5rem,.8vw,.72rem);
+.moody-room.framed .art-plate .plate{display:flex;padding:0;
   background:linear-gradient(180deg,rgba(255,249,236,.85) 0%,rgba(255,249,236,0) 46%),#f1ede3;
   box-shadow:inset 0 0 30px rgba(70,53,31,.1)}
-/* White is the house mat, but the catalog can call for black on a piece whose own ground
-   is dark — a white border round a night sky reads as a mistake. It keeps the same
-   top-lit gradient, at lower strength, so it sits under the same light as its neighbours. */
-.moody-room.framed .frame-item[data-mat="black"] .art-plate .plate{
-  background:linear-gradient(180deg,rgba(255,245,225,.16) 0%,rgba(255,245,225,0) 46%),#17161a;
-  box-shadow:inset 0 0 30px rgba(0,0,0,.4)}
 .moody-room.framed .art-plate img{box-shadow:0 0 0 1px rgba(0,0,0,.28),0 1px 5px rgba(0,0,0,.3)}
 .frame-item .art-plate .mould{display:none}
 .moody-room.framed .art-plate .mould{display:block;position:absolute;inset:0;pointer-events:none}
@@ -1074,7 +1068,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
     align-items:start;align-content:start;justify-items:center;gap:1.25rem;
     padding:4.75rem 0 1rem}
   #t-cover .cover-panel{grid-column:1;grid-row:1;width:min(97vw,450px);
-    max-width:none;margin:3.7rem 0 0}
+    max-width:none;margin:2.2rem 0 0}
   .cover-panel .panel{display:grid;grid-template-columns:auto minmax(0,1fr);
     align-items:center;gap:.82rem;padding:.82rem .95rem;transform:rotate(-.7deg);
     box-shadow:inset 0 0 0 1px rgba(107,75,40,.58)}
@@ -1082,7 +1076,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .cover-panel h1,.cover-panel .lede,.cover-panel .cover-actions{display:none}
   .mobile-ribbon-copy{display:block;margin:0;font-size:clamp(.79rem,3.25vw,.92rem);
     line-height:1.32;color:var(--ink);text-wrap:balance}
-  .cover-honeycomb{grid-column:1;grid-row:2;width:100%;max-width:none;margin:0;text-align:center}
+  .cover-honeycomb{grid-column:1;grid-row:2;width:100%;max-width:none;margin:3rem 0 0;text-align:center}
   .cover-honeycomb .hc-note{max-width:18rem;margin:0 auto 1.25rem;
     font-size:clamp(.75rem,3vw,.88rem);line-height:1.2}
   .cover-honeycomb .hc-grid{--hc-cell:min(26.5vw,104px)}
@@ -1101,8 +1095,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .moody-room .gallery-grid{row-gap:10rem}
   .moody-room .gallery-grid.gallery-grid-rest{row-gap:3rem}
   .frame-item{padding-top:2.7rem}
-  .moody-room.framed .art-plate{--face:.38rem}
-  .moody-room.framed .art-plate .plate{padding:.55rem}
+  .moody-room.framed .art-plate{--face:.55rem}
   .frame-item figcaption{margin-top:.55rem}
 }
 </style>
@@ -1278,7 +1271,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       <div class="deck">
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/web/cover-hero.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-demigod.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I mean, what am I supposed to do? I am just a Demigod.”</span>
@@ -1287,7 +1280,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Standing in my power is a gift to the community. My surplus is your gain, everybody wins." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/web/cover-hero.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-standing-in-power.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Standing in my power is a gift to the community. My surplus is your gain, everybody wins.”</span>
@@ -1296,7 +1289,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I have no way to know, but I have every reason to trust." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/web/cover-hero.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-no-way-to-know.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I have no way to know, but I have every reason to trust.”</span>
@@ -1305,7 +1298,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu; I am on a diet of reaching for the stars." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/web/cover-hero.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-mediocrity.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Mediocrity is not on the menu; I am on a diet of reaching for the stars.”</span>
@@ -1880,11 +1873,9 @@ const TBH_PRICES = { deck: 49, book: 59,
 /* GALLERY_CATALOG — single source of truth for The Moody Gallery. Wave C-2: all 17
    confirmed gallery prints (book-cover-hires and tower-of-knowledge excluded — not
    gallery prints). Each needs assets/prints/<slug>.jpg + assets/prints/thumb/<slug>.jpg.
-   mat: 'white' (default) or 'black' — a per-piece field, not a hardcoded conditional.
-   daydreaming-red-bird is the white-clouds/white-ground variant, so it gets the black
-   mat for contrast; its sibling stargazing-red-bird is the black-clouds/black-ground
-   variant and keeps white for the same reason inverted. Trimming/adding the gallery
-   is a one-line edit to this array. */
+   The wall presentation uses one consistent white mount across every piece, matching
+   the approved 16×20 physical-frame reference. Trimming or adding the gallery remains
+   a one-line edit to this array. */
 const GALLERY_CATALOG = [
   { slug:'art-deco-deity', title:'Art Deco Deity', mat:'white',
     alt:'An art-deco winged goddess figure in blue and cream with a tall draped headdress' },
@@ -1906,7 +1897,7 @@ const GALLERY_CATALOG = [
     alt:'A stone archway shaped like a head in profile, framing a sunlit courtyard with a shaded pergola and a stone path' },
   { slug:'nayarit-view', title:'Nayarit View', mat:'white',
     alt:'An infinity pool deck overlooking a jungle coastline and a quiet bay' },
-  { slug:'daydreaming-red-bird', title:'Daydreaming Red Bird', mat:'black',
+  { slug:'daydreaming-red-bird', title:'Daydreaming Red Bird', mat:'white',
     alt:'A red bird arcing across an orange sun toward a bright star in a blue sky with soft white clouds' },
   { slug:'stargazing-red-bird', title:'Stargazing Red Bird', mat:'white',
     alt:'The same red bird reaching for a star over an orange sun, set against a night sky with dark clouds' },
