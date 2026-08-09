@@ -73,6 +73,18 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Encapsulating six-color mobile rainbow — 2026-08-09
+
+- Preserved the previous compact-rainbow implementation on branch `codex/mobile-rainbow-v1` at `725645a`.
+- Replaced the mobile asset with a transparent torn-paper arch in red, orange, yellow, green, blue, and violet; no gray band.
+- Enlarged and raised the arch so it spans over and down both sides of the honeycomb. Reduced the mobile grid to 264–276px wide so it fits within the opening.
+- Rainbow is decorative (`pointer-events:none`, layer 0); all seven honeycomb cells remain above it and hit-test correctly.
+- Rainbow is mobile-only through 560px and hidden at 561px/desktop. Zero horizontal overflow or browser errors.
+- Independent evaluator PASS after resolving its only P3 typography note at 560px; no remaining P0–P3 findings.
+- Automated suite: 34/34 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Mobile rainbow + sixteen-piece gallery — 2026-08-09
 
 - Removed “Choose a cell to see what the bees are building” from phone and desktop.
