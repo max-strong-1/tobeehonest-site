@@ -1020,15 +1020,31 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   #t-deck .deck{gap:.7rem .55rem}
   #t-deck .card{width:84%}
 
-  /* Phone cover: the collage is the hero background, so it fills the complete tier
-     rather than floating as a reduced image on paper. The paper card is narrowed
-     before its 17° tilt so its visual bounds stay onscreen. */
+  /* Phone cover: the collage remains full bleed, while the desktop's card-left /
+     honeycomb-right composition is scaled down instead of stacked. The first track is
+     deliberately narrow: it reads as a vertical torn-paper identity ribbon and gives
+     the navigation the larger share of the screen. */
   #t-cover{background:var(--paper)}
   #t-cover .cover-art{overflow:hidden;background:var(--paper)}
   #t-cover .cover-art img{object-fit:cover;object-position:center 30%;transform:none}
-  .cover-honeycomb{grid-row:1;margin:4.7rem auto 0}
-  .cover-panel{grid-row:2;width:min(82%,34rem);margin:5svh 0 0}
-  .cover-panel .panel{transform:rotate(-17deg);box-shadow:inset 0 0 0 1px rgba(107,75,40,.58)}
+  #t-cover .cover-content{grid-template-columns:minmax(0,31%) minmax(0,69%);
+    grid-template-rows:auto;align-items:start;align-content:start;gap:.25rem;
+    padding:4.8rem 3vw 1rem}
+  .cover-panel{grid-column:1;grid-row:1;width:100%;max-width:none;margin:0}
+  .cover-panel .panel{padding:.72rem .52rem .8rem;transform:rotate(-1.5deg);
+    box-shadow:inset 0 0 0 1px rgba(107,75,40,.58)}
+  .cover-logo{display:block;width:min(23vw,88px);height:min(23vw,88px);
+    margin:0 auto .65rem}
+  .cover-panel h1{font-size:clamp(1rem,4.6vw,1.22rem);line-height:1.04;
+    overflow-wrap:normal;word-break:normal;hyphens:none;margin-bottom:.55rem}
+  .cover-panel .lede{font-size:clamp(.69rem,2.7vw,.78rem);line-height:1.3;
+    margin-bottom:.7rem}
+  .cover-actions{justify-content:center}
+  .cover-actions .tag-btn{font-size:.72rem;line-height:1.1;padding:.55rem .45rem .55rem 1.25rem}
+  .cover-honeycomb{grid-column:2;grid-row:1;width:100%;max-width:none;margin:0}
+  .cover-honeycomb .hc-note{max-width:15rem;margin:0 auto .45rem;
+    font-size:clamp(.7rem,2.7vw,.8rem);line-height:1.2}
+  .cover-honeycomb .hc-grid{--hc-cell:min(21vw,82px)}
   .hc-cell{box-shadow:inset 0 0 0 1.25px rgba(107,75,40,.56)}
   #t-gallery .tier-inner{padding-left:0;padding-right:0}
   .gallery-mobile-bar{display:block;width:100%;margin:0 0 .35rem}
