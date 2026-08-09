@@ -73,6 +73,16 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Gallery color-rhythm reorder — 2026-08-09
+
+- Moved Leopard Stare from beside Bali Rice Terraces to exactly between Blue Dolphins and Whimsical Sofa.
+- Rendered order is Blue Dolphins → Leopard Stare → Whimsical Sofa at mobile and desktop widths.
+- All 16 captions remain unique; no omissions or duplicates. Viewer image/title/order-field mappings remain correct for all three adjacent pieces.
+- Independent evaluator PASS with no P0–P3; frame geometry unchanged, zero overflow/errors.
+- Automated suite: 34/34 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Rainbow clouds + ambient hero bees — 2026-08-09
 
 - Added one generated transparent fluffy-paper cloud asset, mirrored at the two rainbow feet on mobile.
