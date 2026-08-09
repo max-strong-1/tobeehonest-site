@@ -167,6 +167,7 @@ body.viewer-open .back{display:none}
 /* cover */
 #t-cover .tier-inner{position:relative;max-width:none;padding:0;display:block}
 .cover-art{position:absolute;inset:0}
+.cover-art picture{display:block;width:100%;height:100%}
 .cover-art img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
 .cover-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,18,8,.08),transparent 24%,transparent 76%,rgba(28,18,8,.12));pointer-events:none}
 .cover-content{position:relative;z-index:2;display:grid;grid-template-columns:minmax(340px,.78fr) minmax(520px,1.22fr);align-items:center;justify-items:center;gap:clamp(1.5rem,3vw,4rem);min-height:100%;padding:7vh 4vw 4vh}
@@ -408,6 +409,39 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 .market-rings span:nth-child(3){inset:22%;border-color:rgba(107,75,40,.7)}
 .market-rings span:nth-child(4){inset:33%;border-color:rgba(217,154,43,.92)}
 .market-rings span:nth-child(5){inset:44%;border:0;background:radial-gradient(circle at 36% 30%,#fff8e2 0%,var(--sun) 38%,var(--honey) 100%);box-shadow:0 5px 16px rgba(70,53,31,.3)}
+/* Marketplace directory: the selected staggered layout grows 1 / 2 / 1 / 2 like a
+   natural hive. The cells are listings, not decoration, so each real business carries
+   its actual mark, name and a plain-language description. */
+.market-directory{max-width:860px;margin:2.2rem auto 1.4rem;text-align:center}
+#directoryTitle{color:#5b3919}
+.directory-hive{--dir-cell:clamp(150px,20vw,184px);display:flex;flex-direction:column;
+  align-items:center;filter:drop-shadow(0 10px 16px rgba(70,53,31,.18))}
+.directory-row{display:flex;justify-content:center;gap:.75rem}
+.directory-row+.directory-row{margin-top:calc(var(--dir-cell) * -.18)}
+.directory-cell{width:var(--dir-cell);height:calc(var(--dir-cell) * 1.1547);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.35rem;padding:1.25rem 1.1rem;background:linear-gradient(145deg,#fff5d5,#edc049 66%,#bd8c1c);
+  color:var(--ink);text-align:center}
+.directory-cell.foreman-listing{background:linear-gradient(145deg,#1b2635,#0d1420 70%);color:#fff7df}
+.directory-cell img{display:block;width:clamp(46px,7vw,62px);height:clamp(46px,7vw,62px);
+  object-fit:cover;border-radius:50%;box-shadow:0 0 0 2px rgba(255,248,225,.86)}
+.directory-cell.foreman-listing img{border-radius:18%;box-shadow:0 0 0 2px rgba(239,193,73,.72)}
+.directory-cell h4{font-family:'Caprasimo',serif;font-size:clamp(.82rem,1.5vw,1rem);line-height:1.05;margin:0}
+.directory-cell p{font-size:clamp(.66rem,1.1vw,.76rem);line-height:1.15;margin:0;max-width:16ch}
+.directory-cell.open-seat{background:linear-gradient(145deg,rgba(255,249,229,.9),rgba(232,199,112,.82));
+  color:var(--bark);box-shadow:inset 0 0 0 1px rgba(107,75,40,.24)}
+.directory-cell.open-seat h4{font-family:'Shantell Sans',cursive}
+.directory-layout-note{max-width:38ch;margin:.9rem auto 0;color:#5b3919;font-size:.9rem}
+@media(max-width:560px){
+  .market-directory{margin-top:1.6rem}
+  .directory-hive{--dir-cell:min(42vw,158px)}
+  .directory-row{gap:.35rem}
+  .directory-cell{padding:1.05rem .75rem;gap:.28rem}
+  .directory-cell img{width:44px;height:44px}
+  .directory-cell h4{font-size:.78rem}
+  .directory-cell p{font-size:.64rem;line-height:1.08}
+}
 .core h2{font-size:clamp(2rem,3.6vw,2.9rem);margin-bottom:.6rem}
 .core form{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:1.6rem}
 .core input{font-family:'Alegreya',serif;font-size:1.05rem;color:var(--ink);padding:.85rem 1.2rem;border:2px solid var(--bark);background:#fff;min-width:260px;clip-path:polygon(0 8%,100% 0,99% 94%,1% 100%)}
@@ -1037,18 +1071,19 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   #t-cover .cover-art{overflow:hidden;background:var(--paper)}
   #t-cover .cover-art img{object-fit:cover;object-position:center 30%;transform:none}
   #t-cover .cover-content{grid-template-columns:1fr;grid-template-rows:auto auto;
-    align-items:start;align-content:start;justify-items:center;gap:.7rem;
-    padding:4.75rem 3vw 1rem}
-  .cover-panel{grid-column:1;grid-row:1;width:min(94vw,410px);max-width:none;margin:0}
+    align-items:start;align-content:start;justify-items:center;gap:1.25rem;
+    padding:4.75rem 0 1rem}
+  #t-cover .cover-panel{grid-column:1;grid-row:1;width:min(97vw,450px);
+    max-width:none;margin:3.7rem 0 0}
   .cover-panel .panel{display:grid;grid-template-columns:auto minmax(0,1fr);
-    align-items:center;gap:.75rem;padding:.7rem .85rem;transform:rotate(-.7deg);
+    align-items:center;gap:.82rem;padding:.82rem .95rem;transform:rotate(-.7deg);
     box-shadow:inset 0 0 0 1px rgba(107,75,40,.58)}
-  .cover-logo{display:block;width:min(21vw,82px);height:min(21vw,82px);margin:0}
+  .cover-logo{display:block;width:min(23vw,90px);height:min(23vw,90px);margin:0}
   .cover-panel h1,.cover-panel .lede,.cover-panel .cover-actions{display:none}
-  .mobile-ribbon-copy{display:block;margin:0;font-size:clamp(.72rem,3vw,.84rem);
+  .mobile-ribbon-copy{display:block;margin:0;font-size:clamp(.79rem,3.25vw,.92rem);
     line-height:1.32;color:var(--ink);text-wrap:balance}
   .cover-honeycomb{grid-column:1;grid-row:2;width:100%;max-width:none;margin:0;text-align:center}
-  .cover-honeycomb .hc-note{max-width:18rem;margin:0 auto .45rem;
+  .cover-honeycomb .hc-note{max-width:18rem;margin:0 auto 1.25rem;
     font-size:clamp(.75rem,3vw,.88rem);line-height:1.2}
   .cover-honeycomb .hc-grid{--hc-cell:min(26.5vw,104px)}
   .hc-cell{box-shadow:inset 0 0 0 1.25px rgba(107,75,40,.56)}
@@ -1080,7 +1115,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   <!-- COVER -->
   <section class="tier" id="t-cover" data-title="Cover" aria-label="Cover">
     <div class="tier-inner">
-      <div class="cover-art" aria-hidden="true"><img src="assets/web/cover-hero.jpg" alt=""></div>
+      <div class="cover-art" aria-hidden="true">
+        <picture>
+          <source media="(max-width:560px)" srcset="assets/web/cover-hero-sky-rings-v2.png">
+          <img src="assets/web/cover-hero.jpg" alt="">
+        </picture>
+      </div>
       <div class="wordmark">
         <svg class="wordmark-mark" viewBox="0 0 32 32" aria-hidden="true">
           <circle cx="16" cy="16" r="14"/>
@@ -1500,8 +1540,38 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <p style="max-width:46ch;margin:0 auto 1.6rem">A small corner, chosen by hand, one person at a time, where nobody bought their way in. Nothing is set up yet, and nobody has been volunteered for anything — I’d rather ask properly first.</p>
       </div>
 
-      <div class="market-rings" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-      <p class="comb-caption">The hive grows ring by ring — a place for the people who helped build it and the people whose work belongs here. No names go up until they’ve said yes.</p>
+      <section class="market-directory" aria-labelledby="directoryTitle">
+        <h3 id="directoryTitle">The business directory hive</h3>
+        <p class="hand">a growing hive, built one business at a time</p>
+        <div class="directory-version offset">
+          <div class="directory-hive" role="list" aria-label="Community business directory">
+            <div class="directory-row">
+              <div class="directory-cell foreman-listing" role="listitem">
+                <img src="assets/web/foreman-f-mark.jpg" alt="Foreman AI gold F logo" loading="lazy">
+                <h4>Foreman AI</h4>
+                <p>Agent systems and automation for blue-collar businesses.</p>
+              </div>
+            </div>
+            <div class="directory-row">
+              <div class="directory-cell" role="listitem">
+                <img src="assets/IMG_5190.jpeg" alt="To Bee Honest bee and flower logo" loading="lazy">
+                <h4>To Bee Honest</h4>
+                <p>Art, books, mantras, and honest creative work by Nicolas Bettinger.</p>
+              </div>
+              <div class="directory-cell open-seat" role="listitem"><h4>Future crew member</h4><p>Invite-only listing, added with the business owner’s permission.</p></div>
+            </div>
+            <div class="directory-row">
+              <div class="directory-cell open-seat" role="listitem"><h4>Future crew member</h4><p>A logo and short business story will live inside this cell.</p></div>
+            </div>
+            <div class="directory-row">
+              <div class="directory-cell open-seat" role="listitem"><h4>Future crew member</h4><p>A community business can grow into this row with permission.</p></div>
+              <div class="directory-cell open-seat" role="listitem"><h4>Future crew member</h4><p>Logo, name, and a short description will live here.</p></div>
+            </div>
+          </div>
+          <p class="directory-layout-note">The directory alternates one- and two-cell rows so it can keep growing like a real hive.</p>
+        </div>
+      </section>
+      <p class="comb-caption">A directory for the people who helped build the hive and the community businesses whose work belongs here. No names go up until they’ve said yes.</p>
 
       <div style="max-width:640px;margin:1rem auto 0;text-align:center">
         <h3 style="font-size:1.5rem;margin-bottom:.8rem">The captain &amp; the crew</h3>
