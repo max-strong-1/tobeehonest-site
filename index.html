@@ -1067,7 +1067,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   #t-cover .cover-content{grid-template-columns:1fr;grid-template-rows:auto auto;
     align-items:start;align-content:start;justify-items:center;gap:1.25rem;
     padding:4.75rem 0 1rem}
-  #t-cover .cover-panel{grid-column:1;grid-row:1;width:min(97vw,450px);
+  #t-cover .cover-panel{grid-column:1;grid-row:1;width:min(80vw,390px);
     max-width:none;margin:2.2rem 0 0}
   .cover-panel .panel{display:grid;grid-template-columns:auto minmax(0,1fr);
     align-items:center;gap:.82rem;padding:.82rem .95rem;transform:rotate(-.7deg);
@@ -1079,11 +1079,15 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .cover-honeycomb{grid-column:1;grid-row:2;width:100%;max-width:none;margin:3rem 0 0;text-align:center}
   .cover-honeycomb .hc-note{max-width:18rem;margin:0 auto 1.25rem;
     font-size:clamp(.75rem,3vw,.88rem);line-height:1.2}
-  .cover-honeycomb .hc-grid{--hc-cell:min(26.5vw,104px)}
-  .hc-cell{box-shadow:inset 0 0 0 1.25px rgba(107,75,40,.56)}
+  .cover-honeycomb .hc-grid{--hc-cell:min(26.5vw,104px);
+    filter:drop-shadow(7px 10px 10px rgba(84,53,12,.3))}
+  .hc-cell{box-shadow:
+    inset 0 0 0 1.5px rgba(107,75,40,.68),
+    inset 9px 10px 16px rgba(255,255,238,.27),
+    inset -9px -11px 15px rgba(112,70,10,.2)}
   .hc-cell::after{background:
-    linear-gradient(142deg,rgba(255,255,246,.7) 0%,rgba(255,251,232,.3) 20%,rgba(255,247,220,.06) 40%,rgba(255,245,215,0) 60%),
-    radial-gradient(ellipse 74% 50% at 28% 5%,rgba(255,255,250,.48),rgba(255,255,248,0) 68%)}
+    linear-gradient(142deg,rgba(255,255,246,.88) 0%,rgba(255,251,232,.43) 20%,rgba(255,247,220,.1) 40%,rgba(255,245,215,0) 60%),
+    radial-gradient(ellipse 74% 50% at 28% 5%,rgba(255,255,250,.7),rgba(255,255,248,0) 66%)}
   .hc-5 .hc-label,.hc-6 .hc-label,.hc-7 .hc-label{
     font-size:clamp(.58rem,2.55vw,.7rem);line-height:1.08;max-width:90%;hyphens:none}
   #t-gallery .tier-inner{padding-left:0;padding-right:0}

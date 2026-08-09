@@ -62,4 +62,13 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 - [x] Preserve gallery lights, hover hint, viewer, and ordering behavior.
 - [x] Verify phone and desktop geometry and automated tests.
 
+## Mobile annotation follow-up — 2026-08-09
+
+- The selected ribbon is centered at exactly 80vw at 375px and 390px, producing 10vw margins on both sides. At 560px it respects the 390px cap and remains centered.
+- Logo and copy remain fully contained at all three phone widths.
+- Honeycomb cells now carry a stronger top-left highlight, darker lower-right inset shading, and a shared lower-right drop shadow for clearer dimensional separation.
+- All seven labels remain readable and every cell center still hit-tests to its own navigation target.
+- Independent evaluator: PASS at 375, 390, 560, 561, and 1440px. Desktop geometry and styles remain unchanged above 560px.
+- Horizontal overflow and browser errors: zero. Automated tests: 34/34.
+
 final result: passed
