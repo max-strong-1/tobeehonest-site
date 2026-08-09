@@ -17,6 +17,16 @@ FORM: Hybrid of pinned concepts 1+2 (page-turn mechanics on a tier stack), per o
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>To Bee Honest — open the scrapbook</title>
 <meta name="description" content="A book, a mantra deck, and a growing universe of playful ways to invest in your mental health. Lift a layer. See what's underneath.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="To Bee Honest">
+<meta property="og:description" content="A book, a deck of mantras, an art gallery, and a growing universe of playful ways to feel better about being you.">
+<meta property="og:image" content="https://tobeehonest-site-474xa591u-kels-projects-9ec3fa5c.vercel.app/assets/web/social-share-tower-logo-v4.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="To Bee Honest">
+<meta name="twitter:description" content="A book, a deck of mantras, an art gallery, and a growing universe of playful ways to feel better about being you.">
+<meta name="twitter:image" content="https://tobeehonest-site-474xa591u-kels-projects-9ec3fa5c.vercel.app/assets/web/social-share-tower-logo-v4.png">
 <link rel="icon" href="assets/IMG_5190.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -165,6 +175,7 @@ body.viewer-open .back{display:none}
 .cover-panel h1{font-size:clamp(2.4rem,4.25vw,3.5rem);margin-bottom:1rem}
 .cover-panel h1 em{font-style:normal;color:#8a611a}/* darkened from --honey (#d99a2b, 2.14:1) for WCAG AA 4.5:1 on --paper */
 .cover-panel .lede{font-size:1.18rem;max-width:34ch;margin-bottom:1.8rem}
+.mobile-ribbon-copy{display:none}
 /* No outer circle (client call 2026-08-07). The logo artwork already ends in its own
    hand-drawn brown ring; the white 5px border and the drop shadow were drawing a SECOND
    and THIRD ring around it, which is what read as heavy. The round crop stays — it only
@@ -1020,32 +1031,32 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   #t-deck .deck{gap:.7rem .55rem}
   #t-deck .card{width:84%}
 
-  /* Phone cover: the collage remains full bleed, while the desktop's card-left /
-     honeycomb-right composition is scaled down instead of stacked. The first track is
-     deliberately narrow: it reads as a vertical torn-paper identity ribbon and gives
-     the navigation the larger share of the screen. */
+  /* Phone cover: a landscape identity ribbon introduces the centered navigation.
+     Desktop keeps its side-by-side panel/comb composition above this breakpoint. */
   #t-cover{background:var(--paper)}
   #t-cover .cover-art{overflow:hidden;background:var(--paper)}
   #t-cover .cover-art img{object-fit:cover;object-position:center 30%;transform:none}
-  #t-cover .cover-content{grid-template-columns:minmax(0,31%) minmax(0,69%);
-    grid-template-rows:auto;align-items:start;align-content:start;gap:.25rem;
-    padding:4.8rem 3vw 1rem}
-  .cover-panel{grid-column:1;grid-row:1;width:100%;max-width:none;margin:0}
-  .cover-panel .panel{padding:.72rem .52rem .8rem;transform:rotate(-1.5deg);
+  #t-cover .cover-content{grid-template-columns:1fr;grid-template-rows:auto auto;
+    align-items:start;align-content:start;justify-items:center;gap:.7rem;
+    padding:4.75rem 3vw 1rem}
+  .cover-panel{grid-column:1;grid-row:1;width:min(94vw,410px);max-width:none;margin:0}
+  .cover-panel .panel{display:grid;grid-template-columns:auto minmax(0,1fr);
+    align-items:center;gap:.75rem;padding:.7rem .85rem;transform:rotate(-.7deg);
     box-shadow:inset 0 0 0 1px rgba(107,75,40,.58)}
-  .cover-logo{display:block;width:min(23vw,88px);height:min(23vw,88px);
-    margin:0 auto .65rem}
-  .cover-panel h1{font-size:clamp(1rem,4.6vw,1.22rem);line-height:1.04;
-    overflow-wrap:normal;word-break:normal;hyphens:none;margin-bottom:.55rem}
-  .cover-panel .lede{font-size:clamp(.69rem,2.7vw,.78rem);line-height:1.3;
-    margin-bottom:.7rem}
-  .cover-actions{justify-content:center}
-  .cover-actions .tag-btn{font-size:.72rem;line-height:1.1;padding:.55rem .45rem .55rem 1.25rem}
-  .cover-honeycomb{grid-column:2;grid-row:1;width:100%;max-width:none;margin:0}
-  .cover-honeycomb .hc-note{max-width:15rem;margin:0 auto .45rem;
-    font-size:clamp(.7rem,2.7vw,.8rem);line-height:1.2}
-  .cover-honeycomb .hc-grid{--hc-cell:min(21vw,82px)}
+  .cover-logo{display:block;width:min(21vw,82px);height:min(21vw,82px);margin:0}
+  .cover-panel h1,.cover-panel .lede,.cover-panel .cover-actions{display:none}
+  .mobile-ribbon-copy{display:block;margin:0;font-size:clamp(.72rem,3vw,.84rem);
+    line-height:1.32;color:var(--ink);text-wrap:balance}
+  .cover-honeycomb{grid-column:1;grid-row:2;width:100%;max-width:none;margin:0;text-align:center}
+  .cover-honeycomb .hc-note{max-width:18rem;margin:0 auto .45rem;
+    font-size:clamp(.75rem,3vw,.88rem);line-height:1.2}
+  .cover-honeycomb .hc-grid{--hc-cell:min(26.5vw,104px)}
   .hc-cell{box-shadow:inset 0 0 0 1.25px rgba(107,75,40,.56)}
+  .hc-cell::after{background:
+    linear-gradient(142deg,rgba(255,255,246,.7) 0%,rgba(255,251,232,.3) 20%,rgba(255,247,220,.06) 40%,rgba(255,245,215,0) 60%),
+    radial-gradient(ellipse 74% 50% at 28% 5%,rgba(255,255,250,.48),rgba(255,255,248,0) 68%)}
+  .hc-5 .hc-label,.hc-6 .hc-label,.hc-7 .hc-label{
+    font-size:clamp(.58rem,2.55vw,.7rem);line-height:1.08;max-width:90%;hyphens:none}
   #t-gallery .tier-inner{padding-left:0;padding-right:0}
   .gallery-mobile-bar{display:block;width:100%;margin:0 0 .35rem}
   .moody-room{padding:.5rem .15rem 2rem}
@@ -1089,6 +1100,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
                  width="220" height="220" decoding="sync">
             <h1>Scrapbook for your <em>inner world</em>.</h1>
             <p class="lede">A book, a deck of mantras, and a growing universe of playful ways to feel better about being you.</p>
+            <p class="mobile-ribbon-copy">A book, a deck of mantras, an art gallery, and a growing universe of playful ways to feel better about being you.</p>
             <div class="cover-actions">
               <a class="tag-btn" href="#t-join" data-jump="t-join">Join the Hive</a>
             </div>
@@ -1109,13 +1121,13 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           </svg>
           <p class="hc-note">Choose a cell to see what the bees are building.</p>
           <div class="hc-grid">
-            <button class="hc-cell hc-1" type="button" data-jump="t-book" aria-label="Open The Book"><span class="hc-label">The Book</span></button>
+            <button class="hc-cell hc-1" type="button" data-jump="t-book" aria-label="Open THE Book"><span class="hc-label">THE Book</span></button>
             <button class="hc-cell hc-2" type="button" data-jump="t-deck" aria-label="Open The Mantra Deck"><span class="hc-label">The Mantra Deck</span></button>
             <button class="hc-cell hc-3" type="button" data-jump="t-gallery" aria-label="Open The Moody Gallery"><span class="hc-label">The Moody Gallery</span></button>
             <button class="hc-cell hc-4" type="button" data-jump="t-story" aria-label="Open The Story"><span class="hc-label">The Story</span></button>
-            <button class="hc-cell hc-5" type="button" data-jump="t-yours" aria-label="Open Make It Yours"><span class="hc-label">Make It Yours</span></button>
-            <button class="hc-cell hc-6" type="button" data-jump="t-podcast" aria-label="Open The Podcast"><span class="hc-label">The Podcast</span></button>
-            <button class="hc-cell hc-7" type="button" data-jump="t-market" aria-label="Open The Marketplace"><span class="hc-label">The Market&shy;place</span></button>
+            <button class="hc-cell hc-5" type="button" data-jump="t-yours" aria-label="Open Make It Yours Custom Products"><span class="hc-label">Make It Yours<br>Custom Products</span></button>
+            <button class="hc-cell hc-6" type="button" data-jump="t-podcast" aria-label="Open The Podcast Nikko and The Kool Kids"><span class="hc-label">The Podcast<br>“Nikko &amp; The Kool Kids”</span></button>
+            <button class="hc-cell hc-7" type="button" data-jump="t-market" aria-label="Open The Community Marketplace"><span class="hc-label">The Community<br>Marketplace</span></button>
           </div>
         </nav>
       </div>

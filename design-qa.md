@@ -1,62 +1,67 @@
-# Design QA — Mobile hero translated from desktop composition
+# Design QA — Centered mobile hero and shared-link artwork
 
 ## Evidence
 
-- Source visual truth: `/tmp/codex-remote-attachments/019fe264-926f-7083-9cd8-c080f09240ad/7DD1E822-78BB-4DA1-AE80-1E545AD1F3F3/1-Photo-1.jpg`
-- Source pixels: 1280 × 1280 photograph of the desktop application; browser chrome and surrounding monitor are reference context, not app-owned UI.
-- Implementation screenshot: `/Users/maxstrong/.agent-browser/tmp/screenshots/screenshot-1786240233009.png`
-- Implementation viewport/pixels: 390 × 844 CSS px at deviceScaleFactor 1; screenshot is 390 × 844 pixels.
-- Combined comparison: `/Users/maxstrong/.agent-browser/tmp/screenshots/screenshot-1786240287162.png` (1600 × 1100).
-- Additional independent captures: `/tmp/tbh-mobile-390x844.png`, `/tmp/tbh-mobile-375x812.png`, and `/tmp/tbh-desktop-1440x900.png`.
-- State: cover/hero, before navigation.
-- Normalization: exact pixel matching is intentionally not applicable because the source is an oblique photograph of a desktop viewport and the implementation is the requested phone translation. Comparison uses composition, hierarchy, assets, copy, and responsive containment.
+- Source visual truth: `/tmp/codex-remote-attachments/019fe264-926f-7083-9cd8-c080f09240ad/7DD1E822-78BB-4DA1-AE80-1E545AD1F3F3/1-Photo-1.jpg` (1280 × 1280 photograph of the desktop composition).
+- Implementation capture: `/tmp/tbh-center-390.png` at 390 × 844 CSS px, deviceScaleFactor 1.
+- Additional captures: `/tmp/tbh-center-375.png` and `/tmp/tbh-center-1440.png`.
+- Combined source/implementation comparison: `/Users/maxstrong/.agent-browser/tmp/screenshots/screenshot-1786243121980.png` at 1600 × 1100.
+- Social asset: `assets/web/social-share-tower-logo-v4.png`, 1200 × 630; restored from the user's preferred first rendition.
+- State: cover hero before navigation.
+- Normalization: the source is an oblique desktop photograph while the implementation is the requested phone redesign. Comparison therefore evaluates preserved brand identity, asset fidelity, hierarchy, copy, and responsive geometry rather than literal pixel correspondence.
 
 ## Full-view comparison
 
-The phone implementation preserves the source hierarchy rather than stacking it: the real circular bee/flower logo leads a vertical torn-paper identity card on the left; the complete seven-cell honeycomb sits immediately to the right with its instruction above; and the collage remains full bleed behind both. The 31/69 column split is the responsive adaptation required to fit all seven cells at usable sizes.
+The requested phone hierarchy is now vertical and centered: the unchanged “To Bee Honest” wordmark remains at the top; a landscape torn-paper ribbon follows with the real circular logo on the left and exact requested copy on the right; the enlarged seven-cell honeycomb sits centered beneath it. The collage remains full bleed.
 
-At 390 × 844 the card is x=11.69–125.33 and the honeycomb is x=129.33–378.31, leaving a 4px layout gap and 11.69px right clearance. At 375 × 812 the corresponding values are x=11.25–120.52 and x=124.52–363.75. There is no page overflow.
+At 390 × 844 the ribbon is x=15.59–374.39 and y=151.19–255.45. The honeycomb grid is x=39.97–350.02 and y=288.22–586.56, with a center delta of 0.01px from the viewport. At 375 × 812 the center delta is 0px. No ribbon, instruction, cell, or viewport collision occurs.
 
 ## Focused-region comparison
 
-- Identity card: the source's circular Nicolas logo is restored as the supplied 1170 × 1245 raster asset, not recreated. It renders at 90.27px on 390px phones and 88.48px at 375px, remains sharp, and sits inside the torn-paper card.
-- Honeycomb: all seven labels and cells are complete. The smallest tested cell is 78.75 × 90.92px; all center-point hit tests pass.
-- Foreground/background: the full-bleed art uses `object-fit:cover`, `object-position:50% 30%`, and no transform. The translucent paper card and shaded cells maintain foreground separation.
-- Focused comparison was required because the logo, headline wrapping, and honeycomb labels are too small to judge reliably in the full-view composite alone.
+- Ribbon: rendered as a landscape paper strip with an 82.86px logo and balanced copy column at 390px. Exact copy: “A book, a deck of mantras, an art gallery, and a growing universe of playful ways to feel better about being you.”
+- Honeycomb: phone cells are 103.34 × 119.33px at 390px and 99.38 × 114.75px at 375px, 21–26% wider than the preceding 82px-capped design.
+- Glare: layered linear/radial highlights originate at the upper-left and do not intercept pointer events.
+- Long labels: all label boxes remain within their cells at both phone widths. The requested strings are exact and unclipped.
+- Shared-link asset: the Tower of Knowledge remains visible as a faded full-bleed background. The centered logo is intentionally larger than the later 67% revision because the user explicitly selected the first rendition.
 
 ## Required fidelity surfaces
 
-- Fonts and typography: existing Caprasimo/Shantell Sans system retained. The headline remains the card's dominant text and “Scrapbook” no longer breaks mid-word. Honeycomb labels remain legible at 13.33px.
-- Spacing and layout rhythm: card-left/comb-right desktop hierarchy retained. Four-pixel track gap at both phone checks; no visual collision, clipping, or overflow.
-- Colors and visual tokens: existing paper, honey, bark, and ink tokens retained; no new palette introduced.
-- Image quality and asset fidelity: original `assets/IMG_5190.jpeg` logo and `assets/web/cover-hero.jpg` background retained. No placeholder, synthetic reconstruction, or CSS substitute was introduced.
-- Copy and content: wordmark, headline, lede, Join the Hive action, instruction, and all seven section labels remain unchanged.
+- Fonts and typography: existing Caprasimo and Shantell Sans remain. Wordmark is unchanged. Ribbon and cell text retain brand typography and readable hierarchy.
+- Spacing and layout rhythm: ribbon and comb share a common center. The ribbon clears the instruction by 9px and the grid by about 30.6px at 390px.
+- Colors and visual tokens: existing paper, honey, bloom, bark, and ink palette remains. The glare adds light, not a new color family.
+- Image quality and asset fidelity: original logo and background sources remain in the live hero. The generated social composite uses the supplied Tower and logo sources and contains no added text or watermark.
+- Copy and content: `THE Book`, `Make It Yours Custom Products`, `The Podcast “Nikko & The Kool Kids”`, and `The Community Marketplace` appear exactly as requested.
 
 ## Findings
 
-No actionable P0, P1, P2, or P3 findings remain.
+- No P0, P1, or P2 findings remain.
 
 ## Comparison history
 
-1. Initial two-column implementation centered the composition vertically and left excess empty space above the identity card. Fixed by aligning the mobile grid to the upper hero region.
-2. Initial narrow-card typography broke “Scrapbook” in the middle of the word. Fixed by reducing the phone-only display size and disabling forced word breaking/hyphenation.
-3. Post-fix comparison and two independent evaluator passes found no remaining actionable issues.
+1. Previous iteration used a vertical identity strip to the left of the comb.
+2. User redirected the design to a landscape ribbon above a centered, enlarged comb.
+3. A second social rendition reduced the logo, but the user explicitly preferred the first rendition. The original first output was restored exactly as v4.
+4. Regression found the initial production-domain Open Graph URL returned 404. Fixed by hosting the selected asset on an immutable public preview and updating OG/Twitter metadata.
 
 ## Interaction and regression evidence
 
-- All seven cells navigate to the correct hashes and visible tiers: `#book`, `#deck`, `#gallery`, `#story`, `#yours`, `#podcast`, and `#market`.
-- Console errors: zero.
-- Page errors: zero.
+- All seven cells pass multi-point hit testing and navigate to `#book`, `#deck`, `#gallery`, `#story`, `#yours`, `#podcast`, and `#market`.
+- Mobile center delta: 0px at 375, 390, and 560px.
+- Desktop 1440 × 900 geometry matches the previous public build; only requested labels and metadata changed.
+- Console/page errors: zero.
 - Automated suite: 34/34 passed.
-- Desktop 1440 × 900 remains unchanged with a 400px panel, 220px logo, original -0.45° rotation, and 45.41px panel-to-comb clearance.
+- Public social asset: HTTP 200, `image/png`, 1,203,761 bytes, exactly 1200 × 630.
 
 ## Implementation checklist
 
-- [x] Restore real logo inside mobile identity card.
-- [x] Translate desktop card-left/honeycomb-right structure to ≤560px.
-- [x] Keep full collage background.
-- [x] Keep all seven navigation cells visible and functional.
-- [x] Preserve desktop layout.
-- [x] Verify 375px, 390px, 560px, and 1440px widths.
+- [x] Landscape ribbon above honeycomb.
+- [x] Logo left, exact copy right.
+- [x] Unchanged To Bee Honest wordmark.
+- [x] Center and enlarge honeycomb.
+- [x] Add subtle top-left glare.
+- [x] Apply four corrected labels.
+- [x] Generate and host social link image.
+- [x] Update Open Graph and Twitter metadata.
+- [x] Verify mobile, desktop, navigation, image availability, and automated tests.
 
 final result: passed
