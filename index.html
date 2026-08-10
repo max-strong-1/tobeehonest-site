@@ -877,7 +877,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .mount-option{text-align:center;min-width:0}
 .mount-option h4{font-family:'Shantell Sans',cursive;font-size:.78rem;font-weight:500;color:#e9dec8;margin-bottom:.35rem}
 .mount-option.is-selected h4{color:var(--sun)}
-.mount-option.is-selected .mount-demo{outline:2px solid var(--sun);outline-offset:2px}
+.mount-option.is-selected .mount-demo{outline:0}
 .mount-demo{--mount-frame:#ba944d 0%,#b8914c 22%,#c5a151 42%,#c5a252 62%,#c9a657 82%,#c6a253 100%;
   --mount-mat:#f2efe7;--mount-glaze-w:88.4%;--mount-glaze-h:91%;--mount-print-w:66.67%;
   --mount-print-h:75%;width:min(100%,7.4rem);aspect-ratio:13.575 / 17.575;margin:0 auto .35rem;
@@ -1110,10 +1110,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .cover-honeycomb .hc-grid{position:relative;z-index:1;margin:0 0 0 50%;transform:translateX(-50%);
     --hc-cell:min(33.8vw,135.2px);
     filter:drop-shadow(7px 10px 10px rgba(84,53,12,.3))}
-  .hc-cell{box-shadow:
+  .cover-honeycomb .hc-cell{clip-path:url(#hexTorn);box-shadow:
     inset 0 0 0 1.5px rgba(107,75,40,.68),
     inset 9px 10px 16px rgba(255,255,238,.27),
     inset -9px -11px 15px rgba(112,70,10,.2)}
+  .cover-honeycomb .hc-cell::before{opacity:.54;mix-blend-mode:soft-light;background-size:128px 128px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.075 .24' numOctaves='4' seed='23' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 .12 0 1 0 0 .08 0 0 1 0 .02 0 0 0 .78 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.86'/%3E%3C/svg%3E")}
   .hc-cell::after{background:
     linear-gradient(142deg,rgba(255,255,246,.88) 0%,rgba(255,251,232,.43) 20%,rgba(255,247,220,.1) 40%,rgba(255,245,215,0) 60%),
     radial-gradient(ellipse 74% 50% at 28% 5%,rgba(255,255,250,.7),rgba(255,255,248,0) 66%)}
@@ -1121,6 +1123,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .hc-5 .hc-label,.hc-6 .hc-label,.hc-7 .hc-label{
     font-size:clamp(1rem,4.8vw,1.28rem);line-height:1.04;max-width:92%;
     overflow-wrap:normal;word-break:normal;hyphens:none}
+  .hc-7 .hc-label{transform:translateX(-5px)}
   #t-gallery .tier-inner{padding-left:0;padding-right:0}
   .gallery-mobile-bar{display:block;width:100%;margin:0 0 .35rem}
   .moody-room{padding:.5rem .15rem 2rem}
@@ -1204,6 +1207,14 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
                 <path d="M.42206.03897 Q.5 0 .57794.03897 L.92206.21105 Q1 .25003 1 .32797
                          L1 .67203 Q1 .74997 .92206 .78895 L.57794.96103 Q.5 1 .42206.96103
                          L.07794.78895 Q0 .74997 0 .67203 L0 .32797 Q0 .25003 .07794 .21105 Z"/>
+              </clipPath>
+              <clipPath id="hexTorn" clipPathUnits="objectBoundingBox">
+                <path d="M.418.039 Q.5-.003.582.041 L.657.077 .731.111 .802.151 .874.183 .929.216
+                         Q1.004.251.997.333 L.995.412 1 .493 .996.575 1 .669
+                         Q1.003.748.923.79 L.849.826 .779.863 .701.9 .581.963
+                         Q.5 1.003.417.96 L.341.923 .269.886 .191.849 .072.789
+                         Q-.003.749.004.668 L.001.581 .006.499 .001.419 .004.326
+                         Q-.002.248.075.208 L.146.173 .219.138 .298.098 Z"/>
               </clipPath>
             </defs>
           </svg>

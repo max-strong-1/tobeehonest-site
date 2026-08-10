@@ -73,6 +73,17 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Torn-paper mobile cells + single viewer reference frame — 2026-08-09
+
+- Shifted only the mobile Community Marketplace label 5px left; the final “e” remains visible with roughly 18–20px cell clearance at tested narrow widths.
+- Added a mobile-only irregular paper silhouette and coarser directional fibers to the hero cells while preserving their top-left glare.
+- Verified at 320, 375, 390, 430, 560, and 561px: labels contained, all cells hit-testable, no overflow, desktop boundary unchanged.
+- Removed the lower 2D-viewer reference's redundant selection outline, leaving exactly one calibrated gold product frame.
+- Independent hero and viewer evaluators PASS with no P0–P3 findings.
+- Automated suite: 45/45 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Mobile honeycomb label enlargement — 2026-08-09
 
 - Increased phone-only honeycomb typography approximately 1.8–2×: standard labels scale from 20 to 25.6px; the three longest labels scale from 16 to 20.48px.
