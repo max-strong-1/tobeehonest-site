@@ -73,6 +73,14 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Desktop hero promise parity — 2026-08-10
+
+- Added “an art gallery” to the desktop hero sentence so it exactly matches the mobile ribbon, Open Graph description, and Twitter description.
+- Agent Browser verified 571×541, 1024×768, and 1440×900: the copy remains contained, wraps to three lines, does not overlap the Join button, and produces no horizontal overflow.
+- No layout, mobile-copy, metadata, or interaction changes.
+
+final result: passed
+
 ## Mobile Story cell wrap correction — 2026-08-09
 
 - Disabled automatic hyphenation and mid-word breaking for every mobile hero-honeycomb label.
