@@ -73,6 +73,17 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Mobile Story cell wrap correction — 2026-08-09
+
+- Disabled automatic hyphenation and mid-word breaking for every mobile hero-honeycomb label.
+- “The Story” now wraps only at its space as two intact words at 320, 375, 390, 430, and 560px.
+- All seven labels remain contained; Marketplace final “e” remains visible with approximately 16px clearance at 390px.
+- Cell geometry, texture, glare, hit targets, and 561px+ layout are unchanged.
+- Independent Agent Browser evaluator PASS with no P0–P3 findings.
+- Automated suite: 45/45 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Contextual FAQs for every medium — 2026-08-09
 
 - Added six contextual FAQ sections: Book, Mantra Deck, Gallery Prints, Custom Commissions, Podcast, and Community Marketplace.
