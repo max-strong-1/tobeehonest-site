@@ -73,6 +73,16 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Hero scale + gallery physical calibration — 2026-08-09
+
+- Enlarged only the mobile hero honeycomb by exactly 30%; ribbon geometry and all other hero treatments remain unchanged.
+- Reduced every complete Moody Gallery framed piece by approximately 10% and increased the antique-gold molding face by exactly 25%.
+- Recalibrated the 2D viewer on mobile and desktop from physical dimensions: 8×12 print, 2-inch mat per side, 12×16 glazed opening, and a 20mm Classic frame face outside the opening.
+- Gallery/viewer evaluator PASS at 390 and 1440px: all 16 frames match, viewer proportions remain identical across breakpoints, and room view/controls have no overflow or overlap.
+- Automated suite: 45/45 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Textured illuminated honeycombs + mobile scale — 2026-08-09
 
 - Added a monochrome fibrous turbulence layer beneath the existing top-left glare on hero and Marketplace honeycomb cells.
