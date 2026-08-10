@@ -73,6 +73,17 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Mobile hero label reduction — 2026-08-09
+
+- Reduced every mobile hero-honeycomb label by exactly 10%, including the clamp minimum, viewport-fluid term, and maximum.
+- Standard labels now scale 18–23.04px; the three longest labels scale 14.4–18.432px.
+- Agent Browser and independent evaluator verified 320, 375, 390, 430, 560, 561, and 1440px.
+- Community Marketplace's final “e” retains 8.8–16.1px of visible clearance across tested phone widths.
+- Cell geometry, torn texture, shine, ribbon, tap behavior, and 561px+ typography are unchanged.
+- Independent evaluator PASS with no P0–P3 findings; 45/45 tests; `git diff --check` clean.
+
+final result: passed
+
 ## Torn-paper mobile cells + single viewer reference frame — 2026-08-09
 
 - Shifted only the mobile Community Marketplace label 5px left; the final “e” remains visible with roughly 18–20px cell clearance at tested narrow widths.
