@@ -73,17 +73,6 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
-## Sky-ring-matched mobile cell edges — 2026-08-09
-
-- Rebuilt mobile honeycomb perimeters with broad asymmetric cubic tears rather than smooth digital hex edges or repetitive teeth.
-- Added a subtle pale fiber fringe and uneven lower edge shade while preserving the existing internal fibers and top-left glare.
-- Evaluated iterative edge treatments; rejected the first subtle pass and a second scalloped/postage-stamp pass before accepting the natural deckled contour.
-- Agent Browser verified 320, 375, 390, 430, and 560px: all seven targets hit-test, labels remain crisp, and no overflow/errors occur.
-- At 561px and desktop the existing soft hex treatment remains unchanged.
-- Independent visual evaluator PASS with no P0–P3 findings; 45/45 tests; `git diff --check` clean.
-
-final result: passed
-
 ## Mobile Story cell wrap correction — 2026-08-09
 
 - Disabled automatic hyphenation and mid-word breaking for every mobile hero-honeycomb label.
