@@ -73,6 +73,18 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Textured illuminated honeycombs + mobile scale — 2026-08-09
+
+- Added a monochrome fibrous turbulence layer beneath the existing top-left glare on hero and Marketplace honeycomb cells.
+- Strengthened the cut edge to 1.5px and added subtle lower inset shade without dulling the yellow ramps.
+- Mobile ribbon enlarged 10.3–12.5%; mobile honeycomb enlarged 10.6–13% and moved down to a consistent 77.6px panel-to-grid gap.
+- First-viewport bottoms remain 593.4px at 375, 606.9px at 390, and 614.4px at 560. All labels remain contained and all seven cells hit-test correctly.
+- Marketplace evaluator PASS: all six cells retain exact approved 1–2–1–2 geometry, crisp text/logo, zero overflow, Axe 0 violations/19 passes.
+- Hero evaluator PASS: exactly three bees unchanged, desktop treatment restrained, zero overflow/errors.
+- No P0–P3 findings. Automated suite: 45/45 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Bees-only hero — 2026-08-09
 
 - Removed the rainbow and both cloud elements and their now-unused layout rules.
