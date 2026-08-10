@@ -73,6 +73,18 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Contextual FAQs for every medium — 2026-08-09
+
+- Added six contextual FAQ sections: Book, Mantra Deck, Gallery Prints, Custom Commissions, Podcast, and Community Marketplace.
+- Nineteen native details/summary disclosures cover production status, payment timing, exact 2.75×4.75 deck size, variants, framed-print dimensions and regional tolerances, commission workflow, podcast availability, and Marketplace eligibility.
+- Gallery FAQ appears after the first two artworks; Marketplace FAQ appears before the submission CTA/form.
+- All FAQ IDs/aria-labelledby targets are unique and valid. Every phone summary has a minimum 44px tap target.
+- Independent content and visual/accessibility evaluators PASS with no P0–P3 findings at 320, 390, and 1440px.
+- All disclosures pass pointer, Enter, Space, and focus-ring checks; no overflow or clipping.
+- Automated suite: 45/45 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Mobile hero label reduction — 2026-08-09
 
 - Reduced every mobile hero-honeycomb label by exactly 10%, including the clamp minimum, viewport-fluid term, and maximum.

@@ -685,6 +685,24 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
   font-family:'Shantell Sans',cursive;text-align:center}
 .order-confirm[hidden]{display:none}
 
+/* Contextual FAQs belong to the medium they explain. Native details/summary keeps the
+   interaction keyboard-friendly and useful even if JavaScript never loads. */
+.medium-faq{width:min(100%,720px);margin:2.4rem auto 0;padding:clamp(1rem,2.5vw,1.5rem);
+  color:var(--ink);background:rgba(255,249,232,.84);box-shadow:var(--shadow);
+  clip-path:polygon(0 2%,3% 0,49% 1%,97% 0,100% 3%,99% 96%,96% 100%,51% 99%,3% 100%,0 97%)}
+.medium-faq h3{font-size:clamp(1.35rem,3vw,1.8rem);margin:0 0 .25rem;text-align:center}
+.medium-faq-intro{font-family:'Shantell Sans',cursive;text-align:center;color:var(--bark);margin:0 0 .8rem}
+.medium-faq details{border-top:1px solid rgba(103,72,38,.28);padding:.75rem .15rem}
+.medium-faq details:last-child{padding-bottom:.2rem}
+.medium-faq summary{cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;
+  gap:1rem;font-family:'Caprasimo',serif;font-size:.98rem;line-height:1.25;color:var(--bark)}
+.medium-faq summary::-webkit-details-marker{display:none}
+.medium-faq summary::after{content:'+';flex:0 0 auto;font-family:'Shantell Sans',cursive;font-size:1.4rem;line-height:.8;color:var(--honey)}
+.medium-faq details[open] summary::after{content:'–'}
+.medium-faq summary:focus-visible{outline:2px solid var(--honey);outline-offset:4px}
+.medium-faq details p{margin:.55rem 1.8rem .15rem 0;font-size:.9rem;line-height:1.5;color:#574731}
+@media(max-width:560px){.medium-faq{margin-top:1.7rem}.medium-faq summary{font-size:.92rem;min-height:44px;align-items:center}.medium-faq details p{font-size:.86rem}}
+
 /* ---------- The viewer ----------
    ONE viewer, no per-piece anything. It is handed a slug/title/alt from
    GALLERY_CATALOG and renders that. Add a row to the catalog and the new piece works
@@ -1320,6 +1338,13 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
             </form>
             <p class="order-confirm" id="bookOrderConfirm" role="status" hidden>🐝 You’re on the list — we’ll email you the moment the book has a real date. Nothing is charged today.</p>
           </div>
+          <section class="medium-faq" aria-labelledby="bookFaqTitle">
+            <h3 id="bookFaqTitle">Book questions</h3>
+            <p class="medium-faq-intro">the useful bits before you turn the page</p>
+            <details><summary>Is the book printed yet?</summary><p>Not yet. The printer and publisher are secured, and the book is currently in production. Pre-ordering puts you first in line for confirmed timing.</p></details>
+            <details><summary>Am I charged when I pre-order?</summary><p>No. We’ll email you to confirm the final price, production timing, and payment before anything is charged.</p></details>
+            <details><summary>Can I request a signed copy?</summary><p>Yes. Choose “Signed by Nicolas” in the edition menu when you join the pre-order list.</p></details>
+          </section>
         </div>
       </div>
     </div>
@@ -1416,6 +1441,14 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </form>
         <p class="order-confirm" id="deckOrderConfirm" role="status" hidden>🐝 Deck order noted — you'll get an email from us to confirm price and payment. Nothing is charged today.</p>
       </div>
+      <section class="medium-faq" aria-labelledby="deckFaqTitle">
+        <h3 id="deckFaqTitle">Deck questions</h3>
+        <p class="medium-faq-intro">before you pull a card</p>
+        <details><summary>How many cards are in the deck?</summary><p>The deck contains 54 mantra cards designed for a daily pull, a reset between tasks, or any moment that needs a different perspective.</p></details>
+        <details><summary>What size are the cards?</summary><p>Each card uses the standard tarot format: 2.75 × 4.75 inches.</p></details>
+        <details><summary>What is the difference between the two versions?</summary><p>The Standard Deck includes the cards. The expanded version adds the velvet pouch and companion booklet shown in its name; we’ll confirm your selection by email before payment.</p></details>
+        <details><summary>When do I pay?</summary><p>Nothing is charged when you save your order. We’ll email you to confirm the selected version, price, payment, and shipping before the deck goes out.</p></details>
+      </section>
     </div>
   </section>
 
@@ -1435,6 +1468,13 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <div class="gallery-controls">
           <p class="hand">the walls are dark on purpose — so the paper does the talking</p>
         </div>
+        <section class="medium-faq" aria-labelledby="galleryFaqTitle">
+          <h3 id="galleryFaqTitle">Print questions</h3>
+          <p class="medium-faq-intro">what arrives, and how it is measured</p>
+          <details><summary>What does the listed size describe?</summary><p>The selected size describes the artwork print. The included 2-inch mat and 20mm Classic frame face make the finished piece larger; the 2D viewer lists print, glazed opening, and overall dimensions separately.</p></details>
+          <details><summary>Will the finished size match the preview exactly?</summary><p>Room and frame previews are visual guides. Prodigi may produce framed prints in inches or the nearest metric equivalent depending on production location, so finished dimensions can differ by a few millimeters. Use the dimensions confirmed with your order when planning wall space.</p></details>
+          <details><summary>Are the pieces sold unframed?</summary><p>No. Gallery pieces are offered framed and matted so the artwork arrives ready to hang in the presentation shown here.</p></details>
+        </section>
         <div class="gallery-grid gallery-grid-rest" id="galleryGridRest"></div>
         <p class="moody-intro hand">close enough to see the paper grain</p>
       </div>
@@ -1563,9 +1603,16 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <p style="margin-top:.9rem">1. You send a photo, and tell me what you love about it.</p>
           <p style="margin-top:.7rem">2. I tear it up on purpose, and rebuild it the long way, by hand.</p>
           <p style="margin-top:.7rem">3. You get the afternoon back, as a scrapbook world you can hang.</p>
-          <p class="hand" style="margin-top:1.2rem;opacity:.8">— email works today; no forms yet</p>
+          <p class="hand" style="margin-top:1.2rem;opacity:.8">— one conversation at a time</p>
         </div>
       </div>
+      <section class="medium-faq" aria-labelledby="customFaqTitle">
+        <h3 id="customFaqTitle">Commission questions</h3>
+        <p class="medium-faq-intro">how your photograph becomes a paper world</p>
+        <details><summary>Is every commissioned piece original?</summary><p>Yes. Nicolas rebuilds your photograph by hand as a one-of-one torn-paper artwork rather than applying a preset filter or reproducing an existing piece.</p></details>
+        <details><summary>What happens after I submit the form?</summary><p>Nicolas reviews the story, size, timing, and budget you shared, then replies personally. You’ll send the source photograph after that conversation. Nothing is charged or agreed until you both say yes.</p></details>
+        <details><summary>How long does a commission take?</summary><p>Timing depends on the image, scale, and current commission queue. Add your date to the inquiry—especially for a gift—and Nicolas will confirm what is realistically possible before work begins.</p></details>
+      </section>
     </div>
   </section>
 
@@ -1579,6 +1626,13 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <p class="eyebrow hand" style="margin-bottom:.6rem">Stories · art · honest conversations</p>
         <p>Nikko and the people who make things with him pull one mantra apart at a time—through art, stories, and conversations that stay honest.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">tell me when it drops</a>
+        <section class="medium-faq" aria-labelledby="podcastFaqTitle">
+          <h3 id="podcastFaqTitle">Podcast questions</h3>
+          <p class="medium-faq-intro">what is coming through the headphones</p>
+          <details><summary>Is the podcast available now?</summary><p>Not yet. It is in development. Join the Hive and we’ll tell you when the first episode and listening links are ready.</p></details>
+          <details><summary>What is each episode about?</summary><p>Nikko and a guest will take one mantra apart through personal stories, art, and honest conversation—without turning it into a lecture.</p></details>
+          <details><summary>Where will I be able to listen?</summary><p>Listening platforms will be announced at launch. The Hive email list is the most reliable way to receive the official links.</p></details>
+        </section>
       </div>
     </div>
   </section>
@@ -1633,6 +1687,14 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <p class="hand" style="margin-top:.8rem;color:var(--bark)">Playfulness. Childlike excitement. Love. Empowerment. Community.</p>
         <p style="margin-top:1.6rem"><a class="tag-btn" href="#t-join" data-jump="t-join">show me the corner when it’s ready</a></p>
       </div>
+
+      <section class="medium-faq" aria-labelledby="marketFaqTitle">
+        <h3 id="marketFaqTitle">Marketplace questions</h3>
+        <p class="medium-faq-intro">how the community corner grows</p>
+        <details><summary>Can anyone buy a listing?</summary><p>No. The Marketplace and business directory are selected by hand. Nobody pays for placement, and no person or business is listed without permission.</p></details>
+        <details><summary>Who can submit a creation?</summary><p>Independent creators and registered businesses may submit original work they made or hold the rights to sell. Clear product photos and proof of the work are required for review.</p></details>
+        <details><summary>Does submitting guarantee acceptance?</summary><p>No. Every submission is reviewed by a person, and Nicolas will email you either way. Pricing, availability, shipping responsibility, and any next steps are agreed only after a piece is accepted.</p></details>
+      </section>
 
       <div class="deck-cta" style="margin-top:2.4rem">
         <button class="tag-btn" id="marketOrderOpen" aria-expanded="false" aria-controls="marketOrderForm">Submit your creation</button>
