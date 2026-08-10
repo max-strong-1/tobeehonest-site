@@ -39,13 +39,41 @@ test("Prodigi sends API key, idempotency, and server-owned asset URL", async () 
   };
   await createProdigiOrder({
     session: { id: "cs_test", customer_details: { email: "buyer@example.test" }, shipping_details: { name: "Buyer", address: { line1: "1 Main St", city: "Austin", state: "TX", postal_code: "78701", country: "US" } } },
-    item: { vendorSku: "sku_test", quantity: 1, metadata: { artworkId: "leopard" } },
+    item: { vendorSku: "sku_test", quantity: 1, metadata: { artworkId: "leopard", frameColor: "gold" } },
     fetchImpl
   });
   assert.equal(captured.url, "https://api.sandbox.prodigi.com/v4.0/Orders");
   assert.equal(captured.options.headers["X-API-Key"], "secret-test-key");
   assert.equal(captured.body.idempotencyKey, "stripe-cs_test");
   assert.equal(captured.body.items[0].assets[0].url, "https://assets.example.test/leopard.jpg");
+  /* Regression guard. Prodigi sells all eight Classic Frame finishes under one sku
+     and rejects the order outright (400 MissingRequiredAttributes) when `color` is
+     absent — a real sandbox order failed exactly this way on 2026-08-09. */
+  assert.deepEqual(captured.body.items[0].attributes, { color: "gold" });
+});
+
+test("Prodigi refuses to send an order with a missing or bogus frame colour", async () => {
+  process.env.PRODIGI_API_KEY = "secret-test-key";
+  process.env.PRODIGI_ASSET_BASE_URL = "https://assets.example.test";
+  const session = { id: "cs_x", customer_details: { email: "b@example.test" }, shipping_details: { name: "B", address: { line1: "1 Main St", city: "Austin", state: "TX", postal_code: "78701", country: "US" } } };
+  /* fetchImpl throws so the assertions below prove the order is stopped BEFORE any
+     request goes out — failing late means failing after the customer has paid. */
+  const boom = async () => { throw new Error("fetch must never be reached"); };
+  for (const frameColor of [undefined, "", "chartreuse"]) {
+    await assert.rejects(
+      createProdigiOrder({ session, item: { vendorSku: "sku_test", quantity: 1, metadata: { artworkId: "leopard", frameColor } }, fetchImpl: boom }),
+      /not one of Prodigi's frame finishes/
+    );
+  }
+  /* Casing and stray padding are normalised rather than rejected — "  Gold " comes
+     from config, and that is not a typo worth failing a paid order over. */
+  let captured;
+  await createProdigiOrder({
+    session,
+    item: { vendorSku: "sku_test", quantity: 1, metadata: { artworkId: "leopard", frameColor: "  Gold " } },
+    fetchImpl: async (url, options) => { captured = JSON.parse(options.body); return { ok: true, json: async () => ({ order: { id: "ord_test" } }) }; }
+  });
+  assert.deepEqual(captured.items[0].attributes, { color: "gold" });
 });
 
 test("QPMN fails closed until its official contract is verified", async () => {

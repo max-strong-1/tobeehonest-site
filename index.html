@@ -958,11 +958,11 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .moody-room .gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:clamp(2.2rem,3vw,3.2rem) clamp(1.8rem,3vw,2.8rem);max-width:1280px;margin:0 auto}
 .moody-room .gallery-grid.gallery-grid-rest{max-width:1280px;margin-top:3rem}
-@media (min-width:1100px){.moody-room .gallery-grid.gallery-grid-rest{grid-template-columns:repeat(2,531px);justify-content:center}}
-@media (min-width:821px){.moody-room .gallery-grid{grid-template-columns:repeat(2,531px);justify-content:center}}
+@media (min-width:1100px){.moody-room .gallery-grid.gallery-grid-rest{grid-template-columns:repeat(2,478px);justify-content:center}}
+@media (min-width:821px){.moody-room .gallery-grid{grid-template-columns:repeat(2,478px);justify-content:center}}
 @media (max-width:560px){
   .moody-room .gallery-grid,
-  .moody-room .gallery-grid.gallery-grid-rest{grid-template-columns:1fr;width:100%;max-width:calc(100vw - 1rem)}
+  .moody-room .gallery-grid.gallery-grid-rest{grid-template-columns:1fr;width:calc(90vw - .9rem);max-width:calc(100vw - 1rem)}
 }
 .frame-item{position:relative;text-align:center;transform:translateZ(0);padding-top:3.2rem}
 /* ---- the picture light ----
@@ -1019,7 +1019,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
    merged into the dark wall and left the art floating with nothing to sit on; a warm
    gallery white gives the paper a border to breathe against and stops the frame and
    the wall from being the same value. */
-.moody-room.framed .art-plate{--face:clamp(.55rem,1vw,.78rem);
+.moody-room.framed .art-plate{--face:clamp(.6875rem,1.25vw,.975rem);
   --ramp:#ba944d 0%,#b8914c 20%,#c5a151 40%,#c5a252 60%,#c9a657 82%,#c6a253 100%;
   padding:var(--face);box-shadow:0 2px 3px rgba(0,0,0,.5),0 22px 34px -8px rgba(0,0,0,.72)}
 /* The mat is lit from above like everything else on this wall — the top edge catches
@@ -1102,7 +1102,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .cover-honeycomb{grid-column:1;grid-row:2;width:100%;max-width:none;margin:3.6rem 0 0;text-align:center}
   .cover-honeycomb{position:relative}
   .hero-bee{width:24px;height:24px}
-  .cover-honeycomb .hc-grid{position:relative;z-index:1;--hc-cell:min(26vw,104px);
+  .cover-honeycomb .hc-grid{position:relative;z-index:1;left:50%;transform:translateX(-50%);
+    --hc-cell:min(33.8vw,135.2px);
     filter:drop-shadow(7px 10px 10px rgba(84,53,12,.3))}
   .hc-cell{box-shadow:
     inset 0 0 0 1.5px rgba(107,75,40,.68),
@@ -1123,7 +1124,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .moody-room .gallery-grid{row-gap:10rem}
   .moody-room .gallery-grid.gallery-grid-rest{row-gap:3rem}
   .frame-item{padding-top:2.7rem}
-  .moody-room.framed .art-plate{--face:.55rem}
+  .moody-room.framed .art-plate{--face:.6875rem}
   .frame-item figcaption{margin-top:.55rem}
 }
 @media(prefers-reduced-motion:reduce){
@@ -1831,7 +1832,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 
       <details class="mount-explainer" open>
         <summary>Your included 2″ mat</summary>
-        <p>Every gallery piece is sold framed and matted. The mat adds a 2-inch paper border around the print; the artwork stays whole while the outer frame grows around it.</p>
+        <p>Every gallery piece is sold framed and matted. The mat adds a 2-inch paper border around the print, and the Classic frame adds its 20mm face outside the glazed opening.</p>
         <div class="mount-compare" aria-label="Included mat size preview">
           <div class="mount-option is-selected" id="mountMatOption">
             <h4>Included 2″ mat</h4>
@@ -2539,9 +2540,8 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     piece.classList.toggle('has-frame',!!o.ramp);
     /* Antique Gold is the photographed moulding, not a gradient — see .mould.gold. */
     piece.querySelector('.mould')?.classList.toggle('gold',o.value==='Antique Gold');
-    piece.style.setProperty('--face',
-      o.ramp ? (o.value==='Antique Gold' ? 'clamp(1.5rem,3vw,2.6rem)' : 'clamp(1.1rem,2.2vw,1.9rem)') : '0px');
     piece.style.setProperty('--ramp', o.ramp || 'transparent 0%,transparent 100%');
+    applySize();
     updateBareState();
     // setting .value programmatically fires no change event, so the price line has to
     // be told directly — the listener alone left "framed" off the label.
@@ -2550,8 +2550,8 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   function applyMat(o){
     matSelect.value=o.value;
     piece.classList.toggle('has-mat',!!o.col);
-    piece.style.setProperty('--matpad', o.col ? 'clamp(1rem,2.4vw,2.1rem)' : '0px');
     piece.style.setProperty('--matcol', o.col || 'transparent');
+    applySize();
     updateBareState();
     syncMountExplainer();
   }
@@ -2564,12 +2564,6 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   buildSwatches(document.getElementById('viewerFrames'),FRAMES,'viewerFrame',applyFrame);
   buildSwatches(document.getElementById('viewerMats'),MATS,'viewerMat',applyMat);
 
-  /* Picking a size changed the price and nothing else, so the control felt dead. The
-     prints are all 2:3, so a bigger size is not a different shape — it is a bigger
-     object on the wall, and that is what the stage now shows. The moulding face stays
-     a fixed 20mm, which is why a small print correctly reads as having a chunkier
-     frame relative to itself. */
-  const SIZE_SCALE={'8x12':.62,'12x18':.8,'16x24':1};
   const stage=document.querySelector('.viewer-stage');
   /* The stage's real box, measured, is what the art is sized against — so the whole
      piece is on screen the moment the viewer opens, at any window size, with no scroll. */
@@ -2582,7 +2576,27 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     piece.style.setProperty('--stage-w',(stage.clientWidth-padX)+'px');
   }
   function applySize(){
-    piece.style.setProperty('--scale', String(SIZE_SCALE[sizeSelect.value] ?? 1));
+    if(!stage||!stage.clientWidth||!stage.clientHeight)return;
+    const cs=getComputedStyle(stage);
+    const stageW=stage.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+    const stageH=stage.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+    const landscape=art.naturalWidth>art.naturalHeight;
+    /* One pixels-per-inch ruler for every choice, anchored to the largest 16×24
+       offering. The 8×12 default therefore occupies its honest smaller share of the
+       stage instead of being independently enlarged to fill it. */
+    const maxPrint=landscape?[24,16]:[16,24];
+    const maxOuter=[maxPrint[0]+2*(MAT_IN+FACE_IN),maxPrint[1]+2*(MAT_IN+FACE_IN)];
+    const ppi=Math.min(stageW/maxOuter[0],stageH/maxOuter[1]);
+    const [pw,ph]=printInches();
+    const framed=piece.classList.contains('has-frame');
+    const matted=piece.classList.contains('has-mat');
+    piece.style.setProperty('--scale','1');
+    piece.style.setProperty('--face',framed?`${FACE_IN*ppi}px`:'0px');
+    piece.style.setProperty('--matpad',matted?`${MAT_IN*ppi}px`:'0px');
+    art.style.width=`${pw*ppi}px`;
+    art.style.height=`${ph*ppi}px`;
+    art.style.maxWidth='none';
+    art.style.maxHeight='none';
     measureStage();
     syncPriceLine();
     syncMountExplainer();
@@ -2600,7 +2614,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
      They cannot drift, because there is nothing to keep in sync. */
   const ROOM={doorH:80,doorW:32,loveW:60,loveH:34,hang:57,wallH:104};
   const MAT_IN=2;      // Prodigi's mount is a fixed 2" border per side
-  const FACE_IN=0.8;   // Classic moulding, 20mm face
+  const FACE_IN=20/25.4; // Prodigi Classic moulding: official 20mm face
   const roomEl=document.getElementById('viewerRoom');
   const roomBtn=document.getElementById('roomToggle');
   let roomOn=false;
@@ -2619,7 +2633,9 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     document.querySelectorAll('.mount-demo').forEach(el=>{
       el.style.aspectRatio=landscape?'3 / 2':'2 / 3';
     });
-    mountOuterSize.textContent=`${pw}×${ph} in print · ${pw+4}×${ph+4} in outer opening`;
+    const overallW=(pw+4+2*FACE_IN).toFixed(1);
+    const overallH=(ph+4+2*FACE_IN).toFixed(1);
+    mountOuterSize.textContent=`${pw}×${ph} in print · ${pw+4}×${ph+4} in glaze · ${overallW}×${overallH} in overall`;
     mountMatOption?.classList.add('is-selected');
     mountCropProof.textContent=`Your ${pw}×${ph} print stays whole. The included mat adds space; it does not crop the artwork.`;
   }
@@ -2721,7 +2737,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     roomBtn?.addEventListener('click',hideLens);
   }
 
-  addEventListener('resize',()=>{ if(dialog.open){measureStage();refreshRoom();} });
+  addEventListener('resize',()=>{ if(dialog.open){measureStage();applySize();refreshRoom();} });
   function syncPriceLine(){
     const size=sizeSelect.value;
     const price=TBH_PRICES.gallery[size];

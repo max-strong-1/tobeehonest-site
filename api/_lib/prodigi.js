@@ -5,6 +5,33 @@ export function prodigiBaseUrl(mode = vendorMode()) {
   return mode === "live" ? "https://api.prodigi.com" : "https://api.sandbox.prodigi.com";
 }
 
+/* Prodigi sells all eight Classic Frame finishes under ONE sku — the finish is an
+   order ATTRIBUTE, not a separate product. Omitting it is not a cosmetic default:
+   the order is rejected outright with 400 ValidationFailed /
+   MissingRequiredAttributes. Verified against the sandbox on 2026-08-09, which
+   returned exactly this list as `validValues`. */
+const PRODIGI_FRAME_COLORS = new Set([
+  "white", "silver", "natural", "light grey", "gold", "dark grey", "brown", "black"
+]);
+
+/* The catalog speaks in business terms ("gold" / "second"); Prodigi speaks in
+   finishes. "second" is the still-unapproved second frame colour, held in an env
+   var so it can be chosen without a deploy. Both paths are checked against
+   Prodigi's own list here rather than at the API boundary, because an invalid
+   colour fails at order-creation time — which is AFTER the customer has paid. */
+function frameColorAttribute(metadata) {
+  const raw = metadata?.frameColor === "second"
+    ? requireEnv("PRODIGI_SECOND_FRAME_COLOR")
+    : metadata?.frameColor;
+  const color = String(raw ?? "").trim().toLowerCase();
+  if (!PRODIGI_FRAME_COLORS.has(color)) {
+    throw new Problem(500, "Invalid Frame Color",
+      `"${color}" is not one of Prodigi's frame finishes.`,
+      "https://tobeehonest.com/problems/invalid-frame-color");
+  }
+  return color;
+}
+
 export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
   const apiKey = requireEnv("PRODIGI_API_KEY");
   const assetBase = requireEnv("PRODIGI_ASSET_BASE_URL").replace(/\/$/, "");
@@ -31,6 +58,7 @@ export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
       sku: item.vendorSku,
       copies: item.quantity,
       sizing: "fillPrintArea",
+      attributes: { color: frameColorAttribute(item.metadata) },
       assets: [{ printArea: "default", url: `${assetBase}/${encodeURIComponent(item.metadata.artworkId)}.jpg` }]
     }]
   };
@@ -40,7 +68,14 @@ export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
     body: JSON.stringify(payload)
   });
   const result = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Problem(502, "Fulfillment Provider Error", "Prodigi did not accept the order.");
+  /* Log Prodigi's own failure body before discarding it. The customer-facing detail
+     stays generic on purpose — vendor internals are not theirs to read — but without
+     this line a rejected order is undebuggable: a 2026-08-09 sandbox run failed with
+     a precise "MissingRequiredAttributes: color" and all the operator saw was 502. */
+  if (!response.ok) {
+    console.error("prodigi order rejected:", response.status, JSON.stringify(result).slice(0, 600));
+    throw new Problem(502, "Fulfillment Provider Error", "Prodigi did not accept the order.");
+  }
   return result;
 }
 
@@ -64,6 +99,9 @@ export async function getProdigiOrder(orderId, { fetchImpl = fetch } = {}) {
     headers: { "X-API-Key": apiKey }
   });
   const result = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Problem(502, "Fulfillment Provider Error", "Prodigi did not return order status.");
+  if (!response.ok) {
+    console.error("prodigi status read failed:", orderId, response.status, JSON.stringify(result).slice(0, 400));
+    throw new Problem(502, "Fulfillment Provider Error", "Prodigi did not return order status.");
+  }
   return result;
 }

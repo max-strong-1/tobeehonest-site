@@ -87,6 +87,30 @@ export async function listRecords(tableId, { filterByFormula, maxRecords = 100 }
   return data.records || [];
 }
 
+/**
+ * Upsert a record, matching on `fieldsToMergeOn`, and report whether THIS call
+ * created it.
+ *
+ * The `created` flag is the whole point. A read-then-write claim ("does a row
+ * exist? no? then insert one") has a race: two Stripe webhook retries arriving
+ * seconds apart can both read empty and both insert. Airtable resolves the merge
+ * server-side in one request and names the ids it created, so exactly one caller
+ * is told `created: true`. That makes it usable as a lock.
+ */
+export async function upsertRecord(tableId, fields, { fieldsToMergeOn, typecast = false }) {
+  const { token, baseId } = airtableConfig();
+  const data = await airtableFetch(`${API_BASE}/${baseId}/${encodeURIComponent(tableId)}`, token, {
+    method: "PATCH",
+    body: JSON.stringify({
+      performUpsert: { fieldsToMergeOn },
+      records: [{ fields }],
+      typecast
+    })
+  });
+  const record = data.records?.[0];
+  return { record, created: Boolean(record && (data.createdRecords || []).includes(record.id)) };
+}
+
 export async function updateRecord(tableId, recordId, fields, { typecast = false } = {}) {
   const { token, baseId } = airtableConfig();
   const data = await airtableFetch(`${API_BASE}/${baseId}/${encodeURIComponent(tableId)}`, token, {
