@@ -73,6 +73,17 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Viewer lower-reference geometry — 2026-08-09
+
+- Rebuilt the lower mount reference from nested physical ratios rather than decorative padding.
+- Default 8×12 reference matches the configured piece: 2-inch mat, 12×16 glaze, 20mm frame face, and 13.6×17.6 overall.
+- Alternate 12×18 size preserves the same 2-inch mat and 20mm face on mobile and desktop.
+- Mat-color behavior was intentionally left unchanged; this correction is geometry only.
+- Independent evaluator PASS at 390 and 1440px with no P0–P3 findings; zero overflow or rendering errors.
+- Automated suite: 45/45 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Hero scale + gallery physical calibration — 2026-08-09
 
 - Enlarged only the mobile hero honeycomb by exactly 30%; ribbon geometry and all other hero treatments remain unchanged.
