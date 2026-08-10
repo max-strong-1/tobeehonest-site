@@ -73,6 +73,17 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Mobile honeycomb label enlargement — 2026-08-09
+
+- Increased phone-only honeycomb typography approximately 1.8–2×: standard labels scale from 20 to 25.6px; the three longest labels scale from 16 to 20.48px.
+- Verified all seven labels at 320, 375, 390, 430, and 560px: no text clipping, cell overlap, or lost tap targets.
+- 561px and 1440px retain their prior 12.8px and 16px desktop/tablet typography exactly.
+- Existing short-viewport/outer-grid edge behavior was not changed because this pass is typography-only.
+- Independent typography evaluator approved the enlarged type as visually sustainable.
+- Automated suite: 45/45 passed. `git diff --check`: clean.
+
+final result: passed
+
 ## Viewer lower-reference geometry — 2026-08-09
 
 - Rebuilt the lower mount reference from nested physical ratios rather than decorative padding.
