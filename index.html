@@ -1128,10 +1128,11 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .cover-honeycomb .hc-grid{position:relative;z-index:1;margin:0 0 0 50%;transform:translateX(-50%);
     --hc-cell:min(33.8vw,135.2px);
     filter:drop-shadow(7px 10px 10px rgba(84,53,12,.3))}
-  .cover-honeycomb .hc-cell{clip-path:url(#hexTorn);box-shadow:
+  .cover-honeycomb .hc-cell{clip-path:url(#hexTorn);filter:url(#paperRoughEdge);box-shadow:
     inset 0 0 0 1.5px rgba(107,75,40,.68),
     inset 9px 10px 16px rgba(255,255,238,.27),
     inset -9px -11px 15px rgba(112,70,10,.2)}
+  .cover-honeycomb .hc-cell:hover,.cover-honeycomb .hc-cell:focus-visible{filter:url(#paperRoughEdge) brightness(1.05)}
   .cover-honeycomb .hc-cell::before{opacity:.54;mix-blend-mode:soft-light;background-size:128px 128px;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.075 .24' numOctaves='4' seed='23' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 .12 0 1 0 0 .08 0 0 1 0 .02 0 0 0 .78 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.86'/%3E%3C/svg%3E")}
   .hc-cell::after{background:
@@ -1228,13 +1229,25 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
                          L.07794.78895 Q0 .74997 0 .67203 L0 .32797 Q0 .25003 .07794 .21105 Z"/>
               </clipPath>
               <clipPath id="hexTorn" clipPathUnits="objectBoundingBox">
-                <path d="M.418.039 Q.5-.003.582.041 L.657.077 .731.111 .802.151 .874.183 .929.216
-                         Q1.004.251.997.333 L.995.412 1 .493 .996.575 1 .669
-                         Q1.003.748.923.79 L.849.826 .779.863 .701.9 .581.963
-                         Q.5 1.003.417.96 L.341.923 .269.886 .191.849 .072.789
-                         Q-.003.749.004.668 L.001.581 .006.499 .001.419 .004.326
-                         Q-.002.248.075.208 L.146.173 .219.138 .298.098 Z"/>
+                <path d="M.413.041 Q.5-.008.587.044
+                         C.63.076.658.073.69.105 S.748.119.78.151 S.852.174.932.216
+                         Q1.012.252.993.338 C1.005.39.987.43 1.002.48 S.988.58 1 .667
+                         Q1.008.752.92.795 C.884.809.86.839.818.836 S.758.879.718.898 S.64.947.58.964
+                         Q.5 1.009.413.957 C.374.943.343.913.304.918 S.242.875.202.852 S.12.813.069.79
+                         Q-.008.746.007.665 C-.004.615.011.575-.002.529 S.009.43.004.324
+                         Q-.009.246.079.204 C.119.19.153.16.191.165 S.248.122.284.112 S.355.064.413.041 Z"/>
               </clipPath>
+              <filter id="paperRoughEdge" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+                <feTurbulence type="fractalNoise" baseFrequency=".022 .095" numOctaves="4" seed="29" result="edgeNoise"/>
+                <feDisplacementMap in="SourceAlpha" in2="edgeNoise" scale="8" xChannelSelector="R" yChannelSelector="G" result="roughAlpha"/>
+                <feMorphology in="roughAlpha" operator="dilate" radius="1.15" result="outerAlpha"/>
+                <feComposite in="outerAlpha" in2="roughAlpha" operator="out" result="fringeAlpha"/>
+                <feFlood flood-color="#fff1be" flood-opacity=".72" result="fringeColor"/>
+                <feComposite in="fringeColor" in2="fringeAlpha" operator="in" result="fiberFringe"/>
+                <feComposite in="SourceGraphic" in2="roughAlpha" operator="in" result="roughPaper"/>
+                <feDropShadow in="roughPaper" dx=".8" dy="1.25" stdDeviation=".7" flood-color="#76501f" flood-opacity=".42" result="edgeShade"/>
+                <feMerge><feMergeNode in="edgeShade"/><feMergeNode in="fiberFringe"/><feMergeNode in="roughPaper"/></feMerge>
+              </filter>
             </defs>
           </svg>
           <div class="hc-grid">
