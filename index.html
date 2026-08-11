@@ -1145,7 +1145,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .hc-5 .hc-label,.hc-6 .hc-label,.hc-7 .hc-label{
     font-size:clamp(.9rem,4.32vw,1.152rem);line-height:1.04;max-width:92%;
     overflow-wrap:normal;word-break:normal;hyphens:none}
-  .hc-7 .hc-label{transform:translateX(-5px)}
+  /* Shantell Sans is wider at the final lowercase “e” than the former display face.
+     Give this longest label its own optical inset so iOS cannot trim the last glyph. */
+  .hc-7 .hc-label{font-size:clamp(.828rem,3.9744vw,1.05984rem);max-width:86%;transform:translateX(-5px)}
   #t-gallery .tier-inner{padding-left:0;padding-right:0}
   .gallery-mobile-bar{display:block;width:100%;margin:0 0 .35rem}
   .moody-room{padding:.5rem .15rem 2rem}

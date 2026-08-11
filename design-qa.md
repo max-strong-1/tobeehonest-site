@@ -73,6 +73,19 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Mobile Community Marketplace final-glyph safe zone — 2026-08-10
+
+- Reduced only the phone Marketplace label curve by 8% and narrowed its text measure from 92% to 86%.
+- Retained the existing 5px optical left shift, cell size, honeycomb centering, and all other labels.
+- Verify the final “e” clears the visible clipped cell edge across narrow iPhone widths.
+
+Independent evaluator PASS at 320/375/390/393/414/430/560/561/1440. The final “e”
+has 8.219–28.906px of clearance from the actual SVG-clipped edge; minimum left glyph
+clearance is 5.125px. Other labels and honeycomb geometry are unchanged, all navigation
+passes, and there is no overflow or browser error. Automated suite: 45/45.
+
+final result: passed
+
 ## Make It Yours torn-edge clearance — 2026-08-10
 
 - Scoped the commission copy panel's top padding to 4.5rem (72px); no shared torn-paper component or Book panel changed.
