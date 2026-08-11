@@ -1027,8 +1027,18 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
     rgba(255,229,175,.19) 42%,
     rgba(255,226,168,.055) 60%,
     rgba(255,224,160,0) 74%);
-  -webkit-mask-image:radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%);
-  mask-image:radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%);z-index:0}
+  /* Every later grid item paints above the preceding one. A beam that is already
+     bright at y=0 therefore reveals the next item's rectangular top boundary as a
+     horizontal band. Intersecting the radial footprint with a vertical feather makes
+     the beam transparent at both box edges, so rows can overlap without a visible seam. */
+  -webkit-mask-image:
+    linear-gradient(to bottom,transparent 0%,#000 9%,#000 58%,transparent 78%),
+    radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%);
+  -webkit-mask-composite:source-in;
+  mask-image:
+    linear-gradient(to bottom,transparent 0%,#000 9%,#000 58%,transparent 78%),
+    radial-gradient(ellipse 48% 64% at 50% 5%,#000 0%,rgba(0,0,0,.4) 55%,transparent 74%);
+  mask-composite:intersect;z-index:0}
 .picture-light .bar{position:absolute;left:50%;top:1.15rem;width:min(44%,130px);height:.36rem;
   transform:translateX(-50%);border-radius:999px;
   background:linear-gradient(180deg,#fdf0bb 0%,#cfa03c 30%,#6f4a17 66%,#d7a83c 100%);

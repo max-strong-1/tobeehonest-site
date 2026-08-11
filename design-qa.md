@@ -324,3 +324,8 @@ final result: passed
 - Changed only the Daydreaming Red Bird catalog mat from white to black.
 - Added a catalog-driven gallery rule so black-mat artwork renders with a dark archival board while preserving the room's top lighting.
 - The same catalog value opens the 2-D viewer with Black selected and keeps its order payload aligned with the displayed piece.
+## Moody Gallery continuous soft lighting — 2026-08-10
+
+- Removed the hard horizontal light/dark break between gallery rows by feathering every picture-light beam from transparent at its top boundary and back to transparent before its bottom boundary.
+- Preserved the brass fixtures, individual pools of museum light, ambient dark-wall wash, frames, mats, artwork geometry, and ordering behavior.
+- Uses intersected radial and vertical masks so overlapping grid items cannot expose rectangular beam edges on mobile or desktop.
