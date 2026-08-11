@@ -352,3 +352,8 @@ final result: passed
 - Added `assets/prints/tower-of-knowledge-black-center-2026-08-11.webp` at 1000×1500 for all four Mantra Deck reverse cards.
 - Replaced the reverse artwork’s large white torn-paper halo with textured matte-black paper; retained the portrait composition and surrounding coloured torn-paper rings.
 - Preserved the prior white-center print-proof asset as a recoverable version; the new titled Book cover remains separate and unchanged.
+## Definitive Deck-back correction from phone reference — 2026-08-11
+
+- Nicolas’s supplied phone screenshot establishes the intended reverse artwork: large white torn-paper halo with the small black flame beside the tower.
+- Restored all four mobile and desktop Deck backs to `assets/prints/tower-of-knowledge-print-proof.png`.
+- Removed the rejected black-center derivative from active source; the supplied titled Book cover remains separate and unchanged.
