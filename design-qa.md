@@ -336,3 +336,8 @@ final result: passed
 - The complete Madyson cell links to `https://www.madysons.art/`; the complete Foreman AI cell links to `https://4manai.com/`.
 - Both outbound cells remain semantic keyboard-accessible links with visible focus states and descriptive accessible labels.
 - Focus uses nested high-contrast inset rings because the honeycomb clip path would hide a conventional outside outline.
+## Mantra Deck “own pace” copy correction — 2026-08-11
+
+- Restored the missing word `pace` in the approved phrase “at your own pace, on your own terms.”
+- The word correction itself changes no deck pricing, configuration, interaction, typography, or layout rule.
+- Added “and tap to reveal” beneath each face-down card, outside the printed artwork; each prompt fades after its own card is revealed.

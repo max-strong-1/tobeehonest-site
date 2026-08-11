@@ -358,11 +358,15 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
    runs once, smoothly, wherever the pointer sits. */
 /* 270 -> 284px, 5% up (client call 2026-08-07) */
 .card{aspect-ratio:5/8;position:relative;cursor:pointer;max-width:284px;width:100%;
-  margin:0 auto;perspective:1400px}
+  margin:0 auto 1.45rem;perspective:1400px}
 .card-inner{position:absolute;inset:0;transform-style:preserve-3d;
   transition:transform .75s cubic-bezier(.22,1,.28,1);will-change:transform}
 .card.flipped .card-inner{transform:rotateY(180deg)}
 .card:focus-visible{outline:3px solid var(--bark);outline-offset:4px}
+.card-reveal-prompt{position:absolute;top:calc(100% + .28rem);left:0;right:0;text-align:center;
+  font-family:'Shantell Sans',cursive;font-size:clamp(.72rem,1.25vw,.84rem);line-height:1.15;
+  color:var(--bark);pointer-events:none;transition:opacity .2s}
+.card.flipped .card-reveal-prompt{opacity:0}
 .card-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:1.2rem;box-shadow:var(--shadow-lift);clip-path:polygon(0 1.5%,3% 0,50% .8%,97% 0,100% 1.8%,99.4% 50%,100% 98.4%,96% 100%,50% 99.2%,4% 100%,0 98%,.5% 50%)}
 .card-front .mantra{font-family:'Shantell Sans',cursive;font-size:1rem;line-height:1.4;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45);position:relative;z-index:1}
 .card-front:not(.has-photo)::before{content:"";position:absolute;inset:0 0 auto 0;height:46%;opacity:.9;background:var(--sun);clip-path:polygon(0 0,100% 0,100% 34%,88% 46%,72% 38%,55% 50%,38% 40%,20% 52%,8% 42%,0 50%)}
@@ -671,7 +675,6 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 }
 .card-face.card-front{transform:rotateY(180deg)}
 .card-face.card-back{transform:rotateY(0deg)}
-.card-back .flip-hint{position:absolute;bottom:.6rem;left:0;right:0;text-align:center;font-size:.78rem;opacity:.8}
 .deck-cta{text-align:center;margin-top:2.2rem}
 .deck-mockup{width:260px;max-width:80vw;margin:0 auto 1.6rem;transform:rotate(-1.5deg)}
 .deck-mockup img{width:100%;aspect-ratio:4/3;object-fit:cover}
@@ -1412,43 +1415,47 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       <div class="deck">
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-demigod.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I mean, what am I supposed to do? I am just a Demigod.”</span>
           </div>
           </div>
+          <span class="card-reveal-prompt" aria-hidden="true">and tap to reveal</span>
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Standing in my power is a gift to the community. My surplus is your gain, everybody wins." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-standing-in-power.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Standing in my power is a gift to the community. My surplus is your gain, everybody wins.”</span>
           </div>
           </div>
+          <span class="card-reveal-prompt" aria-hidden="true">and tap to reveal</span>
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I have no way to know, but I have every reason to trust." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-no-way-to-know.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I have no way to know, but I have every reason to trust.”</span>
           </div>
           </div>
+          <span class="card-reveal-prompt" aria-hidden="true">and tap to reveal</span>
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu; I am on a diet of reaching for the stars." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-mediocrity.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Mediocrity is not on the menu; I am on a diet of reaching for the stars.”</span>
           </div>
           </div>
+          <span class="card-reveal-prompt" aria-hidden="true">and tap to reveal</span>
         </div>
       </div>
       <p style="text-align:center;margin-top:1.8rem;max-width:56ch;margin-left:auto;margin-right:auto">A mantra card a day? A card a break? 54 ways to add whimsy and self-reflection to your day.</p>
-      <p style="text-align:center;margin-top:1rem;max-width:60ch;margin-left:auto;margin-right:auto">The Sun Stone Theory is a compact affirmation and consciousness card deck that invites you to tap dormant personal power through short, declarative passages and metaphors, at your own, on your own terms. Let's go on this playful adventure, shall we?</p>
+      <p style="text-align:center;margin-top:1rem;max-width:60ch;margin-left:auto;margin-right:auto">The Sun Stone Theory is a compact affirmation and consciousness card deck that invites you to tap dormant personal power through short, declarative passages and metaphors, at your own pace, on your own terms. Let's go on this playful adventure, shall we?</p>
 
       <div class="deck-cta">
         <button class="tag-btn" id="deckOrderOpen" aria-expanded="false" aria-controls="deckOrderForm">Order the Deck</button>
