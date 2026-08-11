@@ -73,6 +73,19 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Make It Yours torn-edge clearance — 2026-08-10
+
+- Scoped the commission copy panel's top padding to 4.5rem (72px); no shared torn-paper component or Book panel changed.
+- The added clearance accounts for the percentage-based tear growing with the full enquiry form's height.
+- Verify the first “Send me a photo…” line clears the visible torn edge at phone, annotation, and desktop widths.
+
+Independent evaluator PASS at 320×568, 390×844, 430×932, the annotated 571×541,
+820×900, 821×900, and 1440×900. Visible paragraph-to-tear clearance ranges from
+12.81px to 34.68px; the gap is intentional, quote spacing remains consistent, the Book
+panel is unchanged, and there is no overflow or browser error. Automated suite: 45/45.
+
+final result: passed
+
 ## Cross-iPhone mobile honeycomb fit — 2026-08-10
 
 - Reduced both terms of the phone cell-size formula exactly 10%: `33.8vw → 30.42vw` and `135.2px → 121.68px`.

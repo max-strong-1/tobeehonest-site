@@ -555,6 +555,10 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
   background:rgba(247,239,226,.86);padding:1.8rem 1.9rem 2rem;
   filter:drop-shadow(0 10px 16px rgba(70,53,31,.22));
   clip-path:polygon(0 3.2%,2.5% 1%,6% 2.8%,10% .6%,14% 2.4%,19% .9%,24% 2.9%,29% 1.2%,34% 3%,39% 1%,44% 2.6%,50% .7%,56% 2.8%,62% 1.1%,68% 2.7%,74% .8%,80% 2.5%,86% 1%,91% 2.7%,95.5% 1.2%,98.5% 2.9%,100% 1.4%,100% 97%,97.5% 99%,94% 97.4%,89% 99.2%,84% 97.6%,78% 99.1%,72% 97.3%,66% 99%,60% 97.5%,54% 99.3%,48% 97.4%,42% 99%,36% 97.6%,30% 99.2%,24% 97.3%,18% 99%,12% 97.5%,7% 99.2%,3% 97.6%,0 99%)}
+/* This panel contains the complete commission form, so its percentage-based torn edge
+   becomes much deeper than the shorter Book panel's edge. Give its opening sentence a
+   fixed safe zone below even the deepest tear instead of letting the mask eat line one. */
+#t-yours .two-col>div:first-child{padding-top:4.5rem}
 
 /* ---- The Book, one screen, no scroll ----
    Everything below is a height budget. At 1440x900 the tier has to hold the book at
