@@ -346,3 +346,9 @@ final result: passed
 - Replaced only the interactive Sun Stone Theory book cover with Nicolas’s supplied 2063×3094 production image.
 - Created `assets/web/book-cover-tower-of-knowledge-2026-08-11.webp` at 1067×1600 and 276 KB for sharp web typography without shipping the 1.2 MB source JPEG.
 - Mantra Deck backs remain on their separately approved print-proof asset; hardcover depth, endpaper, interior pages, opening animation, hint, and pricing copy are unchanged.
+## Responsive Book cover + black-center Deck backs — 2026-08-11
+
+- Confirmed the supplied titled Sun Stone Theory Book cover is the single shared Book asset on mobile and desktop.
+- Added `assets/prints/tower-of-knowledge-black-center-2026-08-11.webp` at 1000×1500 for all four Mantra Deck reverse cards.
+- Replaced the reverse artwork’s large white torn-paper halo with textured matte-black paper; retained the portrait composition and surrounding coloured torn-paper rings.
+- Preserved the prior white-center print-proof asset as a recoverable version; the new titled Book cover remains separate and unchanged.
