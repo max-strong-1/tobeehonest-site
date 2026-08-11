@@ -329,3 +329,10 @@ final result: passed
 - Removed the hard horizontal light/dark break between gallery rows by feathering every picture-light beam from transparent at its top boundary and back to transparent before its bottom boundary.
 - Preserved the brass fixtures, individual pools of museum light, ambient dark-wall wash, frames, mats, artwork geometry, and ordering behavior.
 - Uses intersected radial and vertical masks so overlapping grid items cannot expose rectangular beam edges on mobile or desktop.
+## Art by Madyson directory listing + outbound links — 2026-08-10
+
+- Added a 640×640, 75 KB WebP crop of the supplied Madyson painting as a full-art honeycomb directory listing.
+- Source-verified the concise description against madysons.art: original acrylic art, prints, and commissions.
+- The complete Madyson cell links to `https://www.madysons.art/`; the complete Foreman AI cell links to `https://4manai.com/`.
+- Both outbound cells remain semantic keyboard-accessible links with visible focus states and descriptive accessible labels.
+- Focus uses nested high-contrast inset rings because the honeycomb clip path would hide a conventional outside outline.
