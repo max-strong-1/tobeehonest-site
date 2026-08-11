@@ -341,3 +341,8 @@ final result: passed
 - Restored the missing word `pace` in the approved phrase “at your own pace, on your own terms.”
 - The word correction itself changes no deck pricing, configuration, interaction, typography, or layout rule.
 - Added “and tap to reveal” beneath each face-down card, outside the printed artwork; each prompt fades after its own card is revealed.
+## Supplied Tower of Knowledge book cover — 2026-08-11
+
+- Replaced only the interactive Sun Stone Theory book cover with Nicolas’s supplied 2063×3094 production image.
+- Created `assets/web/book-cover-tower-of-knowledge-2026-08-11.webp` at 1067×1600 and 276 KB for sharp web typography without shipping the 1.2 MB source JPEG.
+- Mantra Deck backs remain on their separately approved print-proof asset; hardcover depth, endpaper, interior pages, opening animation, hint, and pricing copy are unchanged.
