@@ -319,3 +319,8 @@ final result: passed
 - Automated suite: 34/34 passed. `git diff --check`: clean.
 
 final result: passed
+## Daydreaming Red Bird black mat — 2026-08-10
+
+- Changed only the Daydreaming Red Bird catalog mat from white to black.
+- Added a catalog-driven gallery rule so black-mat artwork renders with a dark archival board while preserving the room's top lighting.
+- The same catalog value opens the 2-D viewer with Black selected and keeps its order payload aligned with the displayed piece.

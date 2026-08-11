@@ -1066,6 +1066,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .moody-room.framed .art-plate .plate{display:flex;padding:0;
   background:linear-gradient(180deg,rgba(255,249,236,.85) 0%,rgba(255,249,236,0) 46%),#f1ede3;
   box-shadow:inset 0 0 30px rgba(70,53,31,.1)}
+.moody-room.framed .frame-item[data-mat="black"] .art-plate .plate{
+  background:linear-gradient(180deg,rgba(255,255,255,.09) 0%,rgba(255,255,255,0) 46%),#17161a;
+  box-shadow:inset 0 0 30px rgba(0,0,0,.42)}
 .moody-room.framed .art-plate img{box-shadow:0 0 0 1px rgba(0,0,0,.28),0 1px 5px rgba(0,0,0,.3)}
 .frame-item .art-plate .mould{display:none}
 .moody-room.framed .art-plate .mould{display:block;position:absolute;inset:0;pointer-events:none}
@@ -2035,7 +2038,7 @@ const GALLERY_CATALOG = [
     alt:'A stone archway shaped like a head in profile, framing a sunlit courtyard with a shaded pergola and a stone path' },
   { slug:'nayarit-view', title:'Nayarit View', mat:'white',
     alt:'An infinity pool deck overlooking a jungle coastline and a quiet bay' },
-  { slug:'daydreaming-red-bird', title:'Daydreaming Red Bird', mat:'white',
+  { slug:'daydreaming-red-bird', title:'Daydreaming Red Bird', mat:'black',
     alt:'A red bird arcing across an orange sun toward a bright star in a blue sky with soft white clouds' },
   { slug:'stargazing-red-bird', title:'Stargazing Red Bird', mat:'white',
     alt:'The same red bird reaching for a star over an orange sun, set against a night sky with dark clouds' },
