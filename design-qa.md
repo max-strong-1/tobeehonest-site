@@ -5,7 +5,7 @@
 - Physical-frame reference: `/Users/maxstrong/Downloads/prodigi-global-cfpm-16x20-black-frame-snow-white-mount.png`.
 - Close reference crop: `/var/folders/zz/1_6dprwn2mvd6tzxzcsm30pm0000gn/T/TemporaryItems/NSIRD_screencaptureui_YONcNQ/Screenshot 2026-08-08 at 11.01.16 PM.png`.
 - Side-by-side source/implementation comparison: `/tmp/tbh-gallery-reference-comparison.png`.
-- Real deck-back artwork: `assets/prints/tower-of-knowledge.jpg`, 1000 × 1500.
+- Print-proof deck back: `assets/prints/tower-of-knowledge-print-proof.png`, 1000 × 1500; original retained separately.
 - Tested implementation states: cover, unrevealed Mantra Deck, framed Moody Gallery, and gallery viewer.
 
 ## Mobile hero
@@ -70,6 +70,34 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 - All seven labels remain readable and every cell center still hit-tests to its own navigation target.
 - Independent evaluator: PASS at 375, 390, 560, 561, and 1440px. Desktop geometry and styles remain unchanged above 560px.
 - Horizontal overflow and browser errors: zero. Automated tests: 34/34.
+
+final result: passed
+
+## Book-hint clearance + Tower pigment repair — 2026-08-10
+
+- Mobile Book hint margin increased by one 8px spacing unit; hint and launch-price line move down together while the cover stays fixed.
+- Added versioned 1000×1500 print-proof Tower reverse: top-left orange pigment restored and the small flame/teardrop beside the tower restored as black paper, matching the supplied QPMN production proof. The larger off-white center remains intentional.
+- Added a 1067×1600 print-proof Book cover with the same black-paper/orange-corner correction; title, byline, and subtitle remain present.
+- Original Tower and Book-cover assets remain untouched. The prior incorrect off-white repair was moved to Trash and is recoverable.
+
+Independent evaluator PASS against the supplied QPMN print proof. Both active images retain
+the large off-white center, restore the small black flame, and fill the top-left chip orange.
+Exact dimensions and all four references pass; Book-cover title/byline/subtitle remain intact.
+Mobile hint clearance is 7.18–10.64px through 820px; desktop, book reveal, and deck flip are
+unchanged. No browser errors. Automated suite: 45/45.
+
+final result: passed
+
+## Borderless Mantra Deck reverses — 2026-08-10
+
+- Removed the gold backing, 0.3rem inset padding, inner image clip, and image-edge shadow from all four Tower of Knowledge reverse faces.
+- Reverse artwork now fills the existing shared torn-card silhouette directly.
+- Verify closed cards have no gold perimeter while flip motion and revealed fronts remain unchanged.
+
+Independent evaluator PASS at 320/390/430/560/561/1440. All four Tower backs fill the
+shared torn face edge-to-edge with no artificial perimeter or edge artifact. Card geometry,
+gaps, .75s pointer/keyboard flip, ARIA states, and revealed fronts remain unchanged. No
+overflow or browser errors. Automated suite: 45/45.
 
 final result: passed
 

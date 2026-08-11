@@ -375,8 +375,10 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 .card-front .card-scrim{position:absolute;inset:auto 0 0 0;height:62%;z-index:1;
   background:linear-gradient(0deg,rgba(20,14,6,.78),rgba(20,14,6,0))}
 .card-front.has-photo .mantra{position:relative;z-index:2}
-.card-back{transform:rotateY(180deg);background:#c99428;align-items:center;justify-content:center;text-align:center;padding:.3rem;overflow:hidden}
-.card-back img{width:100%;height:100%;object-fit:cover;object-position:center;filter:drop-shadow(0 4px 8px rgba(70,53,31,.3));clip-path:polygon(0 2%,4% 0,50% 1.5%,96% 0,100% 2.5%,99% 50%,100% 97.5%,95% 100%,50% 98.5%,5% 100%,0 98%,1% 50%)}
+.card-back{transform:rotateY(180deg);background:transparent;align-items:center;justify-content:center;text-align:center;padding:0;overflow:hidden}
+/* The reverse artwork now runs directly to the card's shared torn silhouette. The prior
+   inner clip, gold backing and image shadow exposed a false gold lining around every back. */
+.card-back img{width:100%;height:100%;object-fit:cover;object-position:center;filter:none;clip-path:none}
 /* rev 1: the universe tier now leads with the podcast alone, so it gets a single
    centred panel instead of a three-up grid with two empty seats */
 .pod{max-width:620px;margin:0 auto;padding:2.4rem 2rem 2.7rem;background:var(--paper);
@@ -608,6 +610,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
   /* One mobile spacing unit separates the complete book/caption group from the fixed
      Back tab; moving the wrapper keeps the hint and launch line attached to the cover. */
   #t-book .book3d{max-width:min(76vw,330px);padding-top:.5rem;margin:.5rem auto 0}
+  #t-book .book-hint{margin-top:1.1rem}
   #t-book .book-cover{transform:translateY(-4px) scale(1.04)}
   #t-book .book-wrap:hover .book-cover{transform:translateY(-4px) scale(1.04) rotateY(-32deg)}
   #t-book .book-wrap.open .book-cover,#t-book .book-wrap.open:hover .book-cover{transform:translateY(-4px) scale(1.04) rotateY(-122deg)}
@@ -1298,7 +1301,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
                  own torn-paper lettering. The overlaid caption printed both a second time,
                  in a different typeface, across the bottom third of his artwork. -->
             <span class="book-cover" style="display:flex" aria-hidden="false">
-              <img class="book-cover-art" src="assets/web/book-cover-hires.jpg"
+              <img class="book-cover-art" src="assets/web/book-cover-hires-print-proof.png"
                    alt="The Sun Stone Theory by Nicolas Bettinger — a torn-paper tower of books rising into a sunburst of coloured rings"
                    loading="lazy" decoding="async">
             </span>
@@ -1382,7 +1385,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       <div class="deck">
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-demigod.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I mean, what am I supposed to do? I am just a Demigod.”</span>
@@ -1391,7 +1394,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Standing in my power is a gift to the community. My surplus is your gain, everybody wins." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-standing-in-power.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Standing in my power is a gift to the community. My surplus is your gain, everybody wins.”</span>
@@ -1400,7 +1403,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I have no way to know, but I have every reason to trust." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-no-way-to-know.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I have no way to know, but I have every reason to trust.”</span>
@@ -1409,7 +1412,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu; I am on a diet of reaching for the stars." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge.jpg" alt=""><p class="hand flip-hint">tap to reveal</p></div>
+            <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""><p class="hand flip-hint">tap to reveal</p></div>
           <div class="card-face card-front has-photo">
             <img class="card-photo" src="assets/web/deck-cards/front-mediocrity.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Mediocrity is not on the menu; I am on a diet of reaching for the stars.”</span>
