@@ -73,6 +73,30 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Mobile Book-to-Back-tab spacing — 2026-08-10
+
+- Lowered the complete phone/tablet Book visual group by one 8px spacing unit.
+- Cover, “psst — open the cover,” and launch-price line move together; desktop remains unchanged.
+- Verify the visible cover clears the Back to the Honeycomb tab at phone widths and the 571×541 annotated viewport.
+- Added a layered 5-sheet page edge, deeper contact shadow, 3px rigid cover board, reinforced 18px spine, and finished hardback endpaper.
+- Tap-to-open cover motion now uses a weighted 1.45s reveal; closing/hover motion remains responsive at 1.15s, with near-instant reduced-motion fallback.
+
+Independent evaluator PASS at 320/390/430/571/820/821/1440. The actual rotated cover
+clears the Back tab; the complete wrapper moves only through 820px. Hardcover thickness,
+rigid endpaper, three-state page cycle, 1.45s reveal, and reduced-motion fallback all pass.
+No overflow or browser errors. Automated suite: 45/45.
+
+final result: passed
+
+## Single QPMN deck configuration — 2026-08-10
+
+- Removed the customer-facing variant selector and obsolete Standard-versus-Expanded, velvet-pouch, and booklet FAQ language.
+- FAQ now states one regular 54-card deck configuration; payment copy no longer refers to a selected version.
+- Preserved hidden `Standard Deck` compatibility data so the existing order payload remains valid without presenting a false choice.
+- Independent content/form eval PASS at 320/390/1440; disclosures, payload, labels, IDs, and 44px phone targets pass. Automated suite: 45/45.
+
+final result: passed
+
 ## Mobile Community Marketplace final-glyph safe zone — 2026-08-10
 
 - Reduced only the phone Marketplace label curve by 8% and narrowed its text measure from 92% to 86%.
@@ -136,7 +160,7 @@ final result: passed
 ## Contextual FAQs for every medium — 2026-08-09
 
 - Added six contextual FAQ sections: Book, Mantra Deck, Gallery Prints, Custom Commissions, Podcast, and Community Marketplace.
-- Nineteen native details/summary disclosures cover production status, payment timing, exact 2.75×4.75 deck size, variants, framed-print dimensions and regional tolerances, commission workflow, podcast availability, and Marketplace eligibility.
+- Nineteen native details/summary disclosures cover production status, payment timing, exact 2.75×4.75 deck size, the single regular-deck configuration, framed-print dimensions and regional tolerances, commission workflow, podcast availability, and Marketplace eligibility.
 - Gallery FAQ appears after the first two artworks; Marketplace FAQ appears before the submission CTA/form.
 - All FAQ IDs/aria-labelledby targets are unique and valid. Every phone summary has a minimum 44px tap target.
 - Independent content and visual/accessibility evaluators PASS with no P0–P3 findings at 320, 390, and 1440px.
