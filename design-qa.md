@@ -73,6 +73,21 @@ Independent measurements confirm identical geometry: at 375 × 812 each outer fr
 
 final result: passed
 
+## Cross-iPhone mobile honeycomb fit — 2026-08-10
+
+- Reduced both terms of the phone cell-size formula exactly 10%: `33.8vw → 30.42vw` and `135.2px → 121.68px`.
+- The three-cell grid now occupies at most 91.26% of a narrow viewport, preventing the slight side crop seen on iPhone 14-class widths while preserving centering.
+- Compact phone viewports up to 600px tall reclaim 20px from the ribbon-to-comb gap so the final row clears both the first screen and its decorative torn-paper footer without changing cell scale.
+- Ribbon geometry, navigation labels, texture/shine, and all 561px+ desktop/tablet sizing remain unchanged.
+- Follow-up brand pass changes label typography to the existing Shantell Sans wordmark face and uses seven yellow-to-amber ramps sampled from the logo flower; layout geometry remains unchanged.
+
+Independent evaluator PASS across 320×568, iPhone 14 (390×844), iPhone 15 Pro Max
+(430×932), 560px, 561px, and 1440px. Side margins are symmetric; the compact screen's
+bottom tips clear the torn footer by 2.61–4.34px. All seven labels are contained and all
+cell centers hit-test. No overflow, console errors, or overlays. Automated suite: 45/45.
+
+final result: passed
+
 ## Desktop hero promise parity — 2026-08-10
 
 - Added “an art gallery” to the desktop hero sentence so it exactly matches the mobile ribbon, Open Graph description, and Twitter description.
