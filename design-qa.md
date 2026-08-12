@@ -125,6 +125,12 @@ final result: passed
 
 final result: passed
 
+## QPMN velvet pouch FAQ — 2026-08-11
+
+- Updated the shared responsive Deck FAQ to state that the single configuration includes 54 mantra cards and a plain black velvet pouch.
+- QPMN's official packaging specifications confirm that its plain black velvet pouch is available for the site's 2.75 × 4.75-inch tarot-card format.
+- No deck geometry, reveal behavior, order form, or fulfillment integration was changed.
+
 ## Mobile Community Marketplace final-glyph safe zone — 2026-08-10
 
 - Reduced only the phone Marketplace label curve by 8% and narrowed its text measure from 92% to 86%.
