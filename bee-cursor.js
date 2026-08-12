@@ -91,8 +91,10 @@
     previousX = current.x;
     angle += (velocityX * 2.4 - angle) * .12;
     angle = Math.max(-22, Math.min(22, angle));
+    // The actual click point stays at current.x/current.y; the bee begins eight pixels
+    // to its right so its dark ink never sits directly on top of the text being targeted.
     bee.style.transform =
-      `translate3d(${current.x - 19}px, ${current.y - 24}px, 0) rotate(${angle}deg)`;
+      `translate3d(${current.x + 8}px, ${current.y - 24}px, 0) rotate(${angle}deg)`;
     frameId = window.requestAnimationFrame(animate);
   };
 

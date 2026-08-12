@@ -131,6 +131,13 @@ final result: passed
 - QPMN's official packaging specifications confirm that its plain black velvet pouch is available for the site's 2.75 × 4.75-inch tarot-card format.
 - No deck geometry, reveal behavior, order form, or fulfillment integration was changed.
 
+## Bee cursor text clearance — 2026-08-11
+
+- Shifted the illustrated bee 8px to the right of the true pointer/click coordinate so
+  its black ink no longer covers the letter directly beneath the pointer.
+- Kept the native hit coordinate, cursor animation, hover state, pollen click effect,
+  touch behavior, and reduced-motion fallback unchanged.
+
 ## Mobile Community Marketplace final-glyph safe zone — 2026-08-10
 
 - Reduced only the phone Marketplace label curve by 8% and narrowed its text measure from 92% to 86%.

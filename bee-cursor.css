@@ -31,7 +31,10 @@
   height: 48px;
   pointer-events: none;
   opacity: 0;
-  transform-origin: 19px 24px;
+  /* Keep the illustrated bee beside the true pointer hotspot. Anchoring through the
+     body made its black stripes/stinger cover small letters (most noticeably the B in
+     the wordmark) whenever the user pointed directly at them. */
+  transform-origin: -8px 24px;
   will-change: transform, opacity;
   filter: drop-shadow(0 4px 3px rgba(38, 32, 21, .22));
   transition: opacity .16s ease;
