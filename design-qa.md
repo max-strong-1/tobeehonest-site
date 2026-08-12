@@ -138,6 +138,12 @@ final result: passed
 - Kept the native hit coordinate, cursor animation, hover state, pollen click effect,
   touch behavior, and reduced-motion fallback unchanged.
 
+## Mantra Deck lead-copy correction — 2026-08-11
+
+- Corrected the shared responsive lead to read: “A mantra card a day? A mantra card a
+  break?” while preserving the following 54-card description.
+- No Deck layout, card interaction, FAQ, order form, or fulfillment behavior changed.
+
 ## Mobile Community Marketplace final-glyph safe zone — 2026-08-10
 
 - Reduced only the phone Marketplace label curve by 8% and narrowed its text measure from 92% to 86%.
