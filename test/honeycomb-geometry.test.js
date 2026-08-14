@@ -43,13 +43,13 @@ test('the ten hero combs stay in the approved order', () => {
     'The Moody Gallery',
     'The Jigsaw Puzzles',
     'The Coloring Book',
-    'The Podcast Nico &amp; The Cool Kids',
-    'Make It Yours Community Products',
+    'The Podcast Nikko &amp; The Kool Kids',
+    'Make It Yours! Customs Products',
     'The Community Market',
     'The Story',
-    'Under Construction',
+    'Under Construction…',
   ]);
-  assert.match(hero, /hc-5 hc-placeholder/);
+  assert.match(hero, /hc-5"[^>]*data-jump="t-coloring"/);
   assert.match(hero, /hc-10 hc-placeholder/);
   assert.match(hero, /hc-7"[^>]*data-jump="t-yours"/);
   assert.match(hero, /hc-9"[^>]*data-jump="t-story"/);

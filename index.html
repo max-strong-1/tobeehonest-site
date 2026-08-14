@@ -1239,6 +1239,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 }
 </style>
 <link rel="stylesheet" href="assets/web/book-checkin.css">
+<link rel="stylesheet" href="assets/web/nicolas-checklist.css">
 </head>
 <body>
 <a class="skip" href="#t-join" id="skiplink">skip to Join the Hive</a>
@@ -1268,8 +1269,6 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           </defs>
         </svg>
         <svg class="hero-bee hero-bee-1" viewBox="0 0 48 48"><use href="#heroBee"/></svg>
-        <svg class="hero-bee hero-bee-2" viewBox="0 0 48 48"><use href="#heroBee"/></svg>
-        <svg class="hero-bee hero-bee-3" viewBox="0 0 48 48"><use href="#heroBee"/></svg>
       </div>
       <div class="wordmark">
         <svg class="wordmark-mark" viewBox="0 0 32 32" aria-hidden="true">
@@ -1322,12 +1321,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
             <button class="hc-cell hc-2" type="button" data-jump="t-deck" aria-label="Open The Mantra Deck"><span class="hc-label">The Mantra Deck</span></button>
             <button class="hc-cell hc-3" type="button" data-jump="t-gallery" aria-label="Open The Moody Gallery"><span class="hc-label">The Moody<br>Gallery</span></button>
             <button class="hc-cell hc-4" type="button" data-jump="t-puzzles" aria-label="Open The Jigsaw Puzzles"><span class="hc-label">The Jigsaw<br>Puzzles</span></button>
-            <span class="hc-cell hc-5 hc-placeholder" role="status" aria-label="The Coloring Book, coming soon"><span class="hc-label">The Coloring<br>Book</span></span>
-            <button class="hc-cell hc-6" type="button" data-jump="t-podcast" aria-label="Open The Podcast, Nico and The Cool Kids"><span class="hc-label">The Podcast<br>Nico &amp; The Cool Kids</span></button>
-            <button class="hc-cell hc-7" type="button" data-jump="t-yours" aria-label="Open Make It Yours Community Products"><span class="hc-label">Make It Yours<br>Community Products</span></button>
+            <button class="hc-cell hc-5" type="button" data-jump="t-coloring" aria-label="Open The Coloring Book"><span class="hc-label">The Coloring<br>Book</span></button>
+            <button class="hc-cell hc-6" type="button" data-jump="t-podcast" aria-label="Open The Podcast, Nikko and The Kool Kids"><span class="hc-label">The Podcast<br>Nikko &amp; The Kool Kids</span></button>
+            <button class="hc-cell hc-7" type="button" data-jump="t-yours" aria-label="Open Make It Yours! Customs Products"><span class="hc-label">Make It Yours!<br>Customs Products</span></button>
             <button class="hc-cell hc-8" type="button" data-jump="t-market" aria-label="Open The Community Market"><span class="hc-label">The Community<br>Market</span></button>
             <button class="hc-cell hc-9" type="button" data-jump="t-story" aria-label="Open The Story"><span class="hc-label">The Story</span></button>
-            <span class="hc-cell hc-10 hc-placeholder" role="status" aria-label="Under Construction"><span class="hc-label">Under<br>Construction</span></span>
+            <span class="hc-cell hc-10 hc-placeholder" role="status" aria-label="Under Construction"><span class="hc-label">Under<br>Construction…</span></span>
           </div>
         </nav>
       </div>
@@ -1396,20 +1395,47 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
             <div class="puzzle-tin-lid"><img src="assets/prints/sun-stone-theory.jpg" alt=""></div>
             <div class="puzzle-tin-side"><span>The Sun Bird</span><span>1,000 pieces</span></div>
           </div>
+          <figure class="puzzle-cut-preview">
+            <img src="assets/web/sun-bird-puzzle-outline.webp" alt="The complete Sun Bird artwork overlaid with the actual 1,000-piece jigsaw cut pattern" loading="lazy" width="800" height="1200">
+            <figcaption class="hand">The full 1,000-piece cut preview—so you can see exactly what arrives.</figcaption>
+          </figure>
           <div class="puzzle-product-copy">
             <p class="hand">the real challenge</p>
             <h3>The Sun Bird · 1,000 pieces</h3>
-            <p>Nicolas’s intricate torn-paper world, transformed into a full-size, high-gloss jigsaw and tucked inside a premium metal presentation tin.</p>
+            <p>Nicolas’s vivid torn-paper world, transformed into a full-size, high-gloss jigsaw and tucked inside a portrait metal presentation tin.</p>
             <ul class="puzzle-facts">
               <li>1,000 pressed-paperboard pieces</li>
               <li>765 × 525 mm when complete</li>
-              <li>Sun Bird artwork printed on the tin lid</li>
+              <li>Portrait Sun Bird artwork printed on the tin lid</li>
             </ul>
             <a class="tag-btn puzzle-checkout" id="sunBirdCheckout" aria-disabled="true">Stripe checkout link coming shortly</a>
-            <p class="puzzle-checkout-note">The puzzle is ready for its checkout link. No payment is collected here yet.</p>
+            <p class="puzzle-checkout-note"><strong>Made to order and final sale.</strong> Please review the artwork, dimensions, tin, and piece-cut preview before purchasing. No payment is collected here yet.</p>
           </div>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- COLORING BOOK -->
+  <section class="tier below coloring-tier" id="t-coloring" data-title="The Coloring Book" aria-label="The Coloring Book" hidden>
+    <div class="tier-inner coloring-tier-inner">
+      <div class="coloring-copy">
+        <p class="hand coloring-kicker">quiet color, loud imagination</p>
+        <h2>The Sun Bird Coloring Book</h2>
+        <p class="coloring-lede">Nicolas’s layered paper universe is opening up into lines you can finish your own way. The first book is being shaped around intricate Sun Bird pages—calm enough to settle into, curious enough to keep discovering.</p>
+        <ul class="coloring-facts">
+          <li>Detailed line art drawn from the To Bee Honest universe</li>
+          <li>Thick, single-sided pages planned for pencils and markers</li>
+          <li>Final page count, format, and price are still being confirmed</li>
+        </ul>
+        <a class="tag-btn" href="#t-join" data-jump="t-join">tell me when it is ready</a>
+        <p class="coloring-truth hand">A real preview—not a checkout. We will announce the finished edition before taking payment.</p>
+      </div>
+      <figure class="coloring-product">
+        <span class="coloring-sun" aria-hidden="true"></span>
+        <img src="assets/web/coloring-book-mockup.webp" alt="Realistic preview of The Sun Bird Coloring Book with a pale illustrated cover, visible line-art pages, and colored pencils" loading="lazy" width="1000" height="1250">
+        <figcaption class="hand">Product rendering based on Nicolas’s supplied line art.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -1705,20 +1731,14 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   <section class="tier below" id="t-story" data-title="The Story" aria-label="The Story" hidden>
     <div class="tier-inner">
       <div class="ch-head"><h2>Not a lecture. A conversation.</h2><p class="hand">— the whole idea, honestly</p></div>
-      <div class="two-col">
-        <div>
+      <article class="story-letter">
           <p>I have experienced first hand, as I am sure most of us, how hard life can be - the overwhelming uphill battle to find peace and purpose within the current measures of success. But I decided to try something different.</p>
           <p>Life is an overlooked precious gift, it should ignite excitement however we seem to all feel overwhelmed most of the time. Now, since we all are creators and artists, we can create a world that allows everyone to be themselves in conditions where all thrive, because that is possible.</p>
           <p>These were the grounds that let the “To Bee Honest” universe flourish. I thought we would be starting with beekeeping, since bees are essential to life and the world, understand the benefits of working together, producing honey and embodying their sense of community; I kept the community part and went into art instead (for now?), things change, I did too.</p>
           <p>The imagined universe revolves around appreciation for life, nature, love, peace, passion, playfulness, magic, and most importantly: people. We are unique and different, that must be celebrated and cherished, something we might have forgotten along the way.</p>
           <blockquote class="quote-card"><p class="big-hand hand">“When we find our way back to ourselves, we remember life is beautiful, community is key, magic is everywhere, people are powerful. Let me remind you of that.”</p></blockquote>
-        </div>
-        <div class="polaroid pol-front story-polaroid">
-          <span class="tape" aria-hidden="true"></span>
-          <img src="assets/web/cover-hero.jpg" alt="The softened sky-only Sun Stone artwork">
-          <span class="hand" style="display:block;text-align:center;margin-top:.8rem">the real thing — cut, torn &amp; glued</span>
-        </div>
-      </div>
+          <p class="story-signature hand">Nicolas – Nikko</p>
+      </article>
     </div>
   </section>
 
@@ -1829,12 +1849,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   </section>
 
   <!-- PODCAST -->
-  <section class="tier below" id="t-podcast" data-title="The Podcast — Nikko &amp; The Cool Kids" aria-label="The Podcast — Nikko &amp; The Cool Kids" hidden>
+  <section class="tier below" id="t-podcast" data-title="The Podcast — Nikko &amp; The Kool Kids" aria-label="The Podcast — Nikko &amp; The Kool Kids" hidden>
     <div class="podcast-art" aria-hidden="true"><img src="assets/web/nico-signing-only-v2.jpg" alt="" loading="lazy"></div>
     <div class="tier-inner">
       <div class="podcast-teaser">
         <span class="kicker">The Podcast — coming</span>
-        <h2>Nikko &amp; The Cool Kids</h2>
+        <h2>Nikko &amp; The Kool Kids</h2>
         <p class="eyebrow hand" style="margin-bottom:.6rem">Stories · art · honest conversations</p>
         <p>Nikko and the people who make things with him pull one mantra apart at a time—through art, stories, and conversations that stay honest.</p>
         <a class="tag-btn" href="#t-join" data-jump="t-join">tell me when it drops</a>
@@ -1873,11 +1893,6 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
               </a>
             </div>
             <div class="directory-row">
-              <div class="directory-cell" role="listitem">
-                <img src="assets/IMG_5190.jpeg" alt="To Bee Honest bee and flower logo" loading="lazy">
-                <h4>To Bee Honest</h4>
-                <p>Art, books, mantras, and honest creative work by Nicolas Bettinger.</p>
-              </div>
               <a class="directory-cell madyson-listing" role="listitem" href="https://www.madysons.art/" target="_blank" rel="noopener noreferrer" aria-label="Visit Art by Madyson website">
                 <img src="assets/web/madyson-directory.webp" alt="Madyson's painted portrait of a woman with green hair, red glasses, and pink bubblegum" loading="lazy">
                 <span class="directory-listing-copy"><h4>Art by Madyson</h4><p>Original acrylic art, prints &amp; commissions.</p></span>
