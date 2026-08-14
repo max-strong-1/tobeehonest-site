@@ -1338,8 +1338,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
     <div class="tier-inner puzzle-tier-inner">
       <header class="puzzle-heading">
         <p class="hand puzzle-kicker">a little puzzle before the big one</p>
-        <h2>Help the Sun Bird take flight.</h2>
-        <p>Our smallest bee picked the biggest piece. Give him a hand and guide it home.</p>
+        <h2>Put the Sun Bird back together.</h2>
+        <p>Ten loose pieces. Ten little homes. Find where every color and curve belongs.</p>
       </header>
 
       <div class="puzzle-layout">
@@ -1347,47 +1347,40 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <div class="puzzle-game-head">
             <div>
               <h3 id="sunBirdGameTitle">The ten-piece warm-up</h3>
-              <p>Drag the last piece into the opening—or focus it and press Enter.</p>
+              <p>Drag each piece to its matching opening—or focus it and press Enter.</p>
             </div>
             <button class="puzzle-reset" id="sunBirdReset" type="button">Start over</button>
           </div>
 
           <div class="puzzle-playground">
-            <div class="sun-bird-board" aria-label="A nearly complete ten-piece puzzle of Nicolas’s Sun Bird artwork">
-              <span class="sun-bird-tile" style="--x:0%;--y:0%"></span>
-              <span class="sun-bird-tile" style="--x:100%;--y:0%"></span>
-              <span class="sun-bird-tile" style="--x:0%;--y:25%"></span>
-              <span class="sun-bird-tile" style="--x:100%;--y:25%"></span>
-              <span class="sun-bird-tile" style="--x:0%;--y:50%"></span>
-              <span class="sun-bird-tile" style="--x:100%;--y:50%"></span>
-              <span class="sun-bird-tile" style="--x:0%;--y:75%"></span>
-              <span class="sun-bird-tile" style="--x:100%;--y:75%"></span>
-              <span class="sun-bird-tile" style="--x:0%;--y:100%"></span>
-              <span class="sun-bird-target" id="sunBirdTarget" aria-hidden="true"></span>
+            <div class="sun-bird-board" aria-label="An empty ten-piece guide board for Nicolas’s Sun Bird artwork">
+              <span class="sun-bird-target puzzle-shape-a" data-slot="0" data-label="1" style="--x:0%;--y:0%"></span>
+              <span class="sun-bird-target puzzle-shape-b" data-slot="1" data-label="2" style="--x:100%;--y:0%"></span>
+              <span class="sun-bird-target puzzle-shape-c" data-slot="2" data-label="3" style="--x:0%;--y:25%"></span>
+              <span class="sun-bird-target puzzle-shape-a" data-slot="3" data-label="4" style="--x:100%;--y:25%"></span>
+              <span class="sun-bird-target puzzle-shape-b" data-slot="4" data-label="5" style="--x:0%;--y:50%"></span>
+              <span class="sun-bird-target puzzle-shape-c" data-slot="5" data-label="6" style="--x:100%;--y:50%"></span>
+              <span class="sun-bird-target puzzle-shape-a" data-slot="6" data-label="7" style="--x:0%;--y:75%"></span>
+              <span class="sun-bird-target puzzle-shape-b" data-slot="7" data-label="8" style="--x:100%;--y:75%"></span>
+              <span class="sun-bird-target puzzle-shape-c" data-slot="8" data-label="9" style="--x:0%;--y:100%"></span>
+              <span class="sun-bird-target puzzle-shape-a" data-slot="9" data-label="10" style="--x:100%;--y:100%"></span>
             </div>
 
-            <div class="bee-haul" id="sunBirdBee" aria-hidden="true">
-              <span class="bee-sweat sweat-one"></span><span class="bee-sweat sweat-two"></span>
-              <span class="pollen pollen-one"></span><span class="pollen pollen-two"></span><span class="pollen pollen-three"></span>
-              <svg viewBox="0 0 116 74" role="img">
-                <g class="haul-wings" fill="rgba(255,255,255,.82)" stroke="#4e341e" stroke-width="2">
-                  <ellipse cx="48" cy="20" rx="20" ry="11" transform="rotate(-28 48 20)"/>
-                  <ellipse cx="68" cy="19" rx="20" ry="11" transform="rotate(27 68 19)"/>
-                </g>
-                <ellipse cx="59" cy="42" rx="30" ry="21" fill="#f5b91f" stroke="#4e341e" stroke-width="3"/>
-                <path d="M43 24v36M57 21v42M71 25v34" fill="none" stroke="#4e341e" stroke-width="7"/>
-                <circle cx="31" cy="40" r="15" fill="#4e341e"/><circle cx="27" cy="36" r="2.8" fill="#fff"/>
-                <path d="M23 28Q14 18 9 22M31 25Q30 13 37 12" fill="none" stroke="#4e341e" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M87 42l18-8-7 13 9 9-21-4" fill="#f5b91f" stroke="#4e341e" stroke-width="3" stroke-linejoin="round"/>
-                <path d="M24 47q7 7 14 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              <span class="hand bee-effort">nnngh!</span>
+            <div class="puzzle-piece-tray" aria-label="Ten loose Sun Bird puzzle pieces">
+              <span class="hand puzzle-tray-label">loose pieces</span>
+              <button class="sun-bird-piece puzzle-shape-a" data-piece-id="0" type="button" style="--x:0%;--y:0%;--piece-left:7%;--piece-top:5%;--piece-tilt:-7deg" aria-label="Loose Sun Bird puzzle piece 1. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-b" data-piece-id="1" type="button" style="--x:100%;--y:0%;--piece-left:52%;--piece-top:2%;--piece-tilt:5deg" aria-label="Loose Sun Bird puzzle piece 2. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-c" data-piece-id="2" type="button" style="--x:0%;--y:25%;--piece-left:27%;--piece-top:18%;--piece-tilt:8deg" aria-label="Loose Sun Bird puzzle piece 3. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-a" data-piece-id="3" type="button" style="--x:100%;--y:25%;--piece-left:2%;--piece-top:34%;--piece-tilt:4deg" aria-label="Loose Sun Bird puzzle piece 4. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-b" data-piece-id="4" type="button" style="--x:0%;--y:50%;--piece-left:57%;--piece-top:32%;--piece-tilt:-9deg" aria-label="Loose Sun Bird puzzle piece 5. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-c" data-piece-id="5" type="button" style="--x:100%;--y:50%;--piece-left:24%;--piece-top:48%;--piece-tilt:-3deg" aria-label="Loose Sun Bird puzzle piece 6. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-a" data-piece-id="6" type="button" style="--x:0%;--y:75%;--piece-left:51%;--piece-top:56%;--piece-tilt:7deg" aria-label="Loose Sun Bird puzzle piece 7. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-b" data-piece-id="7" type="button" style="--x:100%;--y:75%;--piece-left:4%;--piece-top:68%;--piece-tilt:-5deg" aria-label="Loose Sun Bird puzzle piece 8. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-c" data-piece-id="8" type="button" style="--x:0%;--y:100%;--piece-left:36%;--piece-top:75%;--piece-tilt:9deg" aria-label="Loose Sun Bird puzzle piece 9. Drag it to its matching opening or press Enter to place it."></button>
+              <button class="sun-bird-piece puzzle-shape-a" data-piece-id="9" type="button" style="--x:100%;--y:100%;--piece-left:54%;--piece-top:84%;--piece-tilt:-4deg" aria-label="Loose Sun Bird puzzle piece 10. Drag it to its matching opening or press Enter to place it."></button>
             </div>
-
-            <button class="sun-bird-piece" id="sunBirdPiece" type="button"
-                    aria-label="The final Sun Bird puzzle piece. Drag it into the empty space or press Enter to place it."></button>
           </div>
-          <p class="puzzle-status hand" id="sunBirdStatus" role="status" aria-live="polite">One brave little piece to go.</p>
+          <p class="puzzle-status hand" id="sunBirdStatus" role="status" aria-live="polite">Ten loose pieces. Ten little homes.</p>
         </section>
 
         <article class="puzzle-product" id="sunBirdProduct" data-revealed="false">
@@ -2333,6 +2326,7 @@ function paint(){
   backBtn.hidden = cur===0;
   const t=tiers[cur]; t.scrollTop=0;
   document.body.classList.toggle('gallery-active',t.id==='t-gallery');
+  document.body.classList.toggle('puzzle-active',t.id==='t-puzzles');
   t.querySelector('h1,h2')?.setAttribute('tabindex','-1');
 }
 let busy=false,pendingNav=null;

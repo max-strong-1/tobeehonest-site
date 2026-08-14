@@ -14,12 +14,25 @@
     cursor: none !important;
   }
 
+  html.bee-cursor-enabled body.puzzle-active,
+  html.bee-cursor-enabled body.puzzle-active a,
+  html.bee-cursor-enabled body.puzzle-active button,
+  html.bee-cursor-enabled body.puzzle-active [role="button"],
+  html.bee-cursor-enabled body.puzzle-active [tabindex]:not([tabindex="-1"]) {
+    cursor: auto !important;
+  }
+
   html.bee-cursor-enabled input,
   html.bee-cursor-enabled textarea,
   html.bee-cursor-enabled [contenteditable="true"],
   html.bee-cursor-enabled [contenteditable="plaintext-only"] {
     cursor: text !important;
   }
+}
+
+body.puzzle-active .tbh-bee-cursor,
+body.puzzle-active .tbh-pollen {
+  display: none !important;
 }
 
 .tbh-bee-cursor {

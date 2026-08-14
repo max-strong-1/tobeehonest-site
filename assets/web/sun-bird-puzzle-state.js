@@ -1,13 +1,38 @@
-export function createPuzzleState(start = { x: 0, y: 0 }) {
-  const point = { x: Number(start.x) || 0, y: Number(start.y) || 0 };
-  return { start: point, piece: { ...point }, complete: false };
+export function createJigsawState(pieceIds = Array.from({ length: 10 }, (_, index) => String(index))) {
+  return {
+    pieces: pieceIds.map((id) => ({ id: String(id), x: 0, y: 0, placed: false })),
+    placedCount: 0,
+    complete: false,
+  };
 }
 
-export function movePiece(state, point) {
+export function moveJigsawPiece(state, pieceId, point) {
   return {
     ...state,
-    piece: { x: Number(point.x) || 0, y: Number(point.y) || 0 },
+    pieces: state.pieces.map((piece) => piece.id === String(pieceId)
+      ? (piece.placed ? piece : { ...piece, x: Number(point.x) || 0, y: Number(point.y) || 0 })
+      : piece),
   };
+}
+
+export function placeJigsawPiece(state, pieceId) {
+  const id = String(pieceId);
+  if (state.pieces.find((piece) => piece.id === id)?.placed) return state;
+
+  const pieces = state.pieces.map((piece) => piece.id === id
+    ? { ...piece, x: 0, y: 0, placed: true }
+    : piece);
+  const placedCount = pieces.filter((piece) => piece.placed).length;
+  return {
+    ...state,
+    pieces,
+    placedCount,
+    complete: placedCount === pieces.length,
+  };
+}
+
+export function resetJigsaw(state) {
+  return createJigsawState(state.pieces.map((piece) => piece.id));
 }
 
 export function shouldSnap(pieceRect, targetRect) {
@@ -15,12 +40,4 @@ export function shouldSnap(pieceRect, targetRect) {
   const height = Math.max(0, Math.min(pieceRect.bottom, targetRect.bottom) - Math.max(pieceRect.top, targetRect.top));
   const pieceArea = Math.max(1, (pieceRect.right - pieceRect.left) * (pieceRect.bottom - pieceRect.top));
   return (width * height) / pieceArea >= 0.35;
-}
-
-export function completePuzzle(state) {
-  return { ...state, complete: true };
-}
-
-export function resetPuzzle(state) {
-  return createPuzzleState(state.start);
 }
