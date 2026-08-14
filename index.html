@@ -1238,6 +1238,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   .book-cover,.book-page .leaf{transition-duration:.01ms!important}
 }
 </style>
+<link rel="stylesheet" href="assets/web/book-checkin.css">
 </head>
 <body>
 <a class="skip" href="#t-join" id="skiplink">skip to Join the Hive</a>
@@ -1319,8 +1320,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <div class="hc-grid">
             <button class="hc-cell hc-1" type="button" data-jump="t-book" aria-label="Open THE Book"><span class="hc-label">THE Book</span></button>
             <button class="hc-cell hc-2" type="button" data-jump="t-deck" aria-label="Open The Mantra Deck"><span class="hc-label">The Mantra Deck</span></button>
-            <button class="hc-cell hc-3" type="button" data-jump="t-gallery" aria-label="Open The Gallery"><span class="hc-label">The Gallery</span></button>
-            <button class="hc-cell hc-4" type="button" data-jump="t-puzzles" aria-label="Open The Puzzles"><span class="hc-label">The Puzzles</span></button>
+            <button class="hc-cell hc-3" type="button" data-jump="t-gallery" aria-label="Open The Moody Gallery"><span class="hc-label">The Moody<br>Gallery</span></button>
+            <button class="hc-cell hc-4" type="button" data-jump="t-puzzles" aria-label="Open The Jigsaw Puzzles"><span class="hc-label">The Jigsaw<br>Puzzles</span></button>
             <span class="hc-cell hc-5 hc-placeholder" role="status" aria-label="The Coloring Book, coming soon"><span class="hc-label">The Coloring<br>Book</span></span>
             <button class="hc-cell hc-6" type="button" data-jump="t-podcast" aria-label="Open The Podcast, Nico and The Cool Kids"><span class="hc-label">The Podcast<br>Nico &amp; The Cool Kids</span></button>
             <button class="hc-cell hc-7" type="button" data-jump="t-yours" aria-label="Open Make It Yours Community Products"><span class="hc-label">Make It Yours<br>Community Products</span></button>
@@ -1414,8 +1415,31 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 
   <!-- BOOK -->
   <section class="tier below" id="t-book" data-title="The Book" aria-label="The Book" hidden>
-    <div class="tier-bg-photo" aria-hidden="true"><img src="assets/web/butterfly-tower.jpg" alt=""></div>
-    <div class="tier-inner">
+    <section class="book-checkin" aria-labelledby="bookCheckinTitle">
+      <img class="book-checkin__art" src="assets/IMG_5791.jpeg" alt="" aria-hidden="true">
+      <div class="book-checkin__veil" aria-hidden="true"></div>
+      <div class="book-checkin__content">
+        <p class="book-checkin__eyebrow hand">a tiny personal attack, with love</p>
+        <h2 id="bookCheckinTitle">How are you—really?</h2>
+        <p class="book-checkin__lead">No performance. No “I’m good” because it ends the conversation. Pick the answer you almost didn’t pick.</p>
+        <div class="book-moods" role="group" aria-label="Choose how you feel today">
+          <button class="book-mood" type="button" data-book-mood="overwhelmed" aria-pressed="false">Overwhelmed</button>
+          <button class="book-mood" type="button" data-book-mood="lost" aria-pressed="false">A little lost</button>
+          <button class="book-mood" type="button" data-book-mood="anxious" aria-pressed="false">Anxious</button>
+          <button class="book-mood" type="button" data-book-mood="stressed" aria-pressed="false">Stressed</button>
+          <button class="book-mood book-mood--fine" type="button" data-book-mood="fine" aria-pressed="false">I’m fine. Obviously.</button>
+        </div>
+        <p class="book-checkin__response" id="bookMoodResponse" aria-live="polite">Nothing is saved. Nobody gets to grade your answer.</p>
+        <button class="book-scroll-cue hand" id="bookScrollCue" type="button" aria-controls="bookDetails">
+          <span>There is more to this than one question</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m-6-6 6 6 6-6"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <div class="book-product" id="bookDetails">
+      <div class="tier-bg-photo" aria-hidden="true"><img src="assets/web/butterfly-tower.jpg" alt=""></div>
+      <div class="tier-inner">
       <!-- The chapter head used to sit centred above the grid, which pushed the book
            down far enough that you had to scroll to see the bottom of it. Title, kicker
            and the pitch now all live in the right-hand column, so the book gets the full
@@ -1429,10 +1453,10 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
                  closes it. Same two images, doing the job they were shot for. -->
             <span class="book-page">
               <span class="leaf leaf-on" data-leaf="1">
-                <img src="assets/web/book-sneak-1.jpg" alt="A page from The Sun Stone Theory: a torn-paper steel sculpture with the mantra ‘I lead and support, I don’t compare. We are all on the same team.’" loading="lazy" decoding="async">
+                <img src="assets/web/book-sneak-2.jpg" alt="A page from The Sun Stone Theory: a torn-paper art-deco figure with the mantra ‘I nurture and protect my authenticity. It guides my journey. It shapes my experience.’" loading="lazy" decoding="async">
               </span>
               <span class="leaf" data-leaf="2">
-                <img src="assets/web/book-sneak-2.jpg" alt="A page from The Sun Stone Theory: a torn-paper art-deco figure with the mantra ‘I nurture and protect my authenticity. It guides my journey. It shapes my experience.’" loading="lazy" decoding="async">
+                <img src="assets/web/deck-cards/card-54.jpg" alt="An illustrated mantra page asking, ‘Am I uncomfortable, or am I shedding an old skin?’" loading="lazy" decoding="async">
               </span>
             </span>
             <!-- The real cover art already carries its own title and byline in Nicolas's
@@ -1450,8 +1474,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <div>
           <h2 class="book-title">The Sun Stone Theory</h2>
           <p class="hand book-kicker">the book — coming very soon</p>
-          <h3>What if you could level up from the inside?</h3>
-          <p>A compact manual of affirmations and reframings built around one image: the sun stone — the thing that triggers evolution. Short declarative passages you can hold onto, come back to, and read in under a minute.</p>
+          <h3>This is not a book about pretending to feel better.</h3>
+          <p>It is a pocket-sized interruption for the moments when “I’m fine” is doing too much work. Nicolas pairs blunt questions, playful reframes, and torn-paper worlds to help you notice the thought running the room—and decide whether it still gets to.</p>
+          <p class="book-positioning">Part mirror, part permission slip: open anywhere, stay for one minute, and leave with a truer sentence than the one you walked in with.</p>
           <details class="book-preface">
             <summary>Read Nicolas’s preface<span class="book-preface-tease">What if we looked inwards and explored what lies dormant?</span></summary>
             <div class="book-preface-copy">
@@ -1516,6 +1541,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
             <details><summary>Can I request a signed copy?</summary><p>Yes. Choose “Signed by Nicolas” in the edition menu when you join the pre-order list.</p></details>
           </section>
         </div>
+      </div>
       </div>
     </div>
   </section>
@@ -3175,6 +3201,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
 paint();
 </script>
 <script type="module" src="assets/web/sun-bird-puzzle.js"></script>
+<script src="assets/web/book-checkin.js"></script>
 <script src="bee-cursor.js"></script>
 </body>
 </html>

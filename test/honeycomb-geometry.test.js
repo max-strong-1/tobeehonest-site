@@ -40,8 +40,8 @@ test('the ten hero combs stay in the approved order', () => {
   assert.deepEqual(labels, [
     'THE Book',
     'The Mantra Deck',
-    'The Gallery',
-    'The Puzzles',
+    'The Moody Gallery',
+    'The Jigsaw Puzzles',
     'The Coloring Book',
     'The Podcast Nico &amp; The Cool Kids',
     'Make It Yours Community Products',
