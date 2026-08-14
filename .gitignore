@@ -24,3 +24,4 @@
 *.key
 secrets/
 node_modules/
+.worktrees/
