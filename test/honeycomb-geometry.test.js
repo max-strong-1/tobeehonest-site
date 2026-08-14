@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const css = readFileSync(new URL('../assets/web/sun-bird-puzzle.css', import.meta.url), 'utf8')
   .replace(/\s+/g, '');
+const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 
 const has = (rule) => assert.ok(css.includes(rule), `Missing honeycomb geometry: ${rule}`);
 
@@ -22,6 +23,26 @@ test('mobile honeycomb is five interlocking rows of two', () => {
   has('.cover-honeycomb.hc-1,.cover-honeycomb.hc-2{top:0}');
   has('.cover-honeycomb.hc-3,.cover-honeycomb.hc-4{top:calc((var(--hc-cell)/.866)*.75)}');
   has('.cover-honeycomb.hc-5,.cover-honeycomb.hc-6{top:calc((var(--hc-cell)/.866)*1.5)}');
-  has('.cover-honeycomb.hc-7,.cover-honeycomb.hc-8{top:calc((var(--hc-cell)/.866)*2.25)}');
-  has('.cover-honeycomb.hc-9,.cover-honeycomb.hc-10{top:calc((var(--hc-cell)/.866)*3)}');
+  has('.cover-honeycomb.hc-7,.cover-honeycomb.hc-9{top:calc((var(--hc-cell)/.866)*2.25)}');
+  has('.cover-honeycomb.hc-8,.cover-honeycomb.hc-10{top:calc((var(--hc-cell)/.866)*3)}');
+});
+
+test('the eight hero destinations stay in canonical order', () => {
+  const hero = html.match(/<div class="hc-grid">([\s\S]*?)<\/div>\s*<\/nav>/)?.[1] ?? '';
+  const labels = [...hero.matchAll(/<button class="hc-cell hc-\d+"[\s\S]*?<span class="hc-label">([\s\S]*?)<\/span><\/button>/g)]
+    .map((match) => match[1].replace(/<br>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
+
+  assert.deepEqual(labels, [
+    'THE Book',
+    'The Mantra Deck',
+    'The Moody Gallery',
+    'Jigsaw Puzzles',
+    'Coloring Books',
+    'The Podcast “Nikko &amp; The Kool Kids”',
+    'The Community Marketplace',
+    'Join the Hive',
+  ]);
+  assert.match(hero, /hc-8 hc-filler/);
+  assert.match(hero, /hc-10 hc-filler/);
+  assert.doesNotMatch(hero, /The Story|Make It Yours/);
 });
