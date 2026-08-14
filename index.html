@@ -384,6 +384,21 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 /* The reverse artwork now runs directly to the card's shared torn silhouette. The prior
    inner clip, gold backing and image shadow exposed a false gold lining around every back. */
 .card-back img{width:100%;height:100%;object-fit:cover;object-position:center;filter:none;clip-path:none}
+.draw-head{text-align:center;margin:3.6rem auto .2rem}
+.draw-head h3{font-size:clamp(1.5rem,4vw,2rem);line-height:1.1;margin:0 0 .15rem}
+.draw-game{max-width:780px;margin:2rem auto 0}
+.draw-table{display:flex;flex-wrap:wrap;justify-content:center;align-items:start;gap:1.7rem 1.6rem}
+.draw-table .card{margin:0;flex:0 0 215px;max-width:215px}
+.draw-counter{text-align:center;font-family:'Shantell Sans',cursive;color:var(--bark);font-size:1rem;letter-spacing:.01em;margin:2.6rem auto .2rem}
+.draw-controls{display:flex;flex-direction:column;align-items:center;gap:1.1rem;margin-top:1.2rem}
+.draw-reset{background:none;border:none;cursor:pointer;font-family:'Shantell Sans',cursive;font-size:.92rem;color:var(--bark);text-decoration:underline;text-underline-offset:3px;opacity:.72;transition:opacity .2s}
+.draw-reset:hover,.draw-reset:focus-visible{opacity:1}
+.draw-reset:focus-visible{outline:3px solid var(--bark);outline-offset:3px;border-radius:2px}
+.draw-end{text-align:center;margin-top:2rem;display:flex;flex-direction:column;align-items:center;gap:1.3rem}
+.draw-end[hidden]{display:none}
+.draw-end-line{font-family:'Shantell Sans',cursive;font-size:clamp(1.15rem,2.8vw,1.5rem);line-height:1.4;color:var(--ink);margin:0;max-width:26ch}
+@media(min-width:961px){.draw-table{gap:1.9rem 1.6rem}}
+@media(max-width:560px){.draw-table{gap:1rem}.draw-table .card{flex:0 0 150px;max-width:150px}}
 /* rev 1: the universe tier now leads with the podcast alone, so it gets a single
    centred panel instead of a three-up grid with two empty seats */
 .pod{max-width:620px;margin:0 auto;padding:2.4rem 2rem 2.7rem;background:var(--paper);
@@ -603,6 +618,16 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 #t-book .book3d{max-width:300px;margin:0 auto}
 #t-book .book-hint{margin-top:.6rem;font-size:.86rem}
 #t-book .price-line{margin:.35rem 0 0;font-size:.85rem}
+.book-preface{margin:.9rem 0 1rem;border-top:1px solid rgba(78,52,30,.28);border-bottom:1px solid rgba(78,52,30,.28)}
+.book-preface summary{cursor:pointer;list-style:none;padding:.78rem 2rem .78rem 0;font-family:'Shantell Sans',cursive;font-size:1rem;color:var(--bark);position:relative}
+.book-preface summary::-webkit-details-marker{display:none}
+.book-preface summary::after{content:"+";position:absolute;right:.2rem;top:50%;transform:translateY(-50%);font-family:Georgia,serif;font-size:1.45rem;line-height:1}
+.book-preface[open] summary::after{content:"−"}
+.book-preface summary:focus-visible{outline:3px solid var(--bark);outline-offset:4px}
+.book-preface-tease{display:block;margin-top:.15rem;font-family:Georgia,serif;font-size:.88rem;font-style:italic;opacity:.75}
+.book-preface-copy{padding:.15rem .25rem 1rem;max-width:68ch}
+#t-book .book-preface-copy p{font-size:.98rem;line-height:1.65;margin:.72rem 0}
+#t-book .book-preface-copy p:last-child{font-family:'Shantell Sans',cursive;font-size:1.02rem;margin-bottom:0}
 /* short viewports: let it scroll rather than crush the book */
 @media (max-height:760px) and (min-width:821px){
   #t-book .book3d{max-width:250px}
@@ -1414,7 +1439,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
                  own torn-paper lettering. The overlaid caption printed both a second time,
                  in a different typeface, across the bottom third of his artwork. -->
             <span class="book-cover" style="display:flex" aria-hidden="false">
-              <img class="book-cover-art" src="assets/web/book-cover-tower-of-knowledge-2026-08-11.webp"
+              <img class="book-cover-art" src="assets/web/book-cover-sunstone-theory-2026-08-13.webp"
                    alt="The Sun Stone Theory by Nicolas Bettinger — a torn-paper tower rising through coloured rings beneath the words Journey through the depths of your inner power"
                    loading="lazy" decoding="async">
             </span>
@@ -1427,6 +1452,14 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <p class="hand book-kicker">the book — coming very soon</p>
           <h3>What if you could level up from the inside?</h3>
           <p>A compact manual of affirmations and reframings built around one image: the sun stone — the thing that triggers evolution. Short declarative passages you can hold onto, come back to, and read in under a minute.</p>
+          <details class="book-preface">
+            <summary>Read Nicolas’s preface<span class="book-preface-tease">What if we looked inwards and explored what lies dormant?</span></summary>
+            <div class="book-preface-copy">
+              <p>A few words about where this comes from and what this could mean. We are unfortunately too often reminded of limitations of thoughts and actions, but have we looked into the fact that these could be subconscious safeguards? If so, do we really need them? What if we looked inwards, and explored what lies dormant, what lies hidden, what lies treasured that is waiting to come out and shine?</p>
+              <p>From a Pokemon world’s perspective, a sun stone will make a certain type of pokemon evolve into something strong and radiating. What if looking inwards reveals the perspectives to level up, and improve gracefully, for a more fulfilled and aligned life?</p>
+              <p>Let’s go on this adventure, together, shall we?</p>
+            </div>
+          </details>
           <p class="hand book-mantra-label">featured mantras</p>
           <blockquote class="pull">“Who I am is what I choose to stand for; plain and simple”</blockquote>
           <blockquote class="pull" style="transform:rotate(.8deg)">“Happiness and sadness are two flavors of the same milkshake; perspective is everything”</blockquote>
@@ -1496,12 +1529,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
            2026-08-07). Captions below are transcribed directly off each
            card face so the accessible text matches what's printed. -->
       <div class="deck">
-        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod." aria-label="Mantra card, face down. Activate to reveal it.">
+        <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod, as we all are." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
             <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div>
           <div class="card-face card-front has-photo">
-            <img class="card-photo" src="assets/web/deck-cards/front-demigod.jpg" alt="" aria-hidden="true">
-            <span class="sr-only">“I mean, what am I supposed to do? I am just a Demigod.”</span>
+            <img class="card-photo" src="assets/web/deck-cards/card-11.jpg" alt="" aria-hidden="true">
+            <span class="sr-only">“I mean, what am I supposed to do? I am just a Demigod, as we all are.”</span>
           </div>
           </div>
           <span class="card-reveal-prompt" aria-hidden="true">and tap to reveal</span>
@@ -1510,7 +1543,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <div class="card-inner">
             <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div>
           <div class="card-face card-front has-photo">
-            <img class="card-photo" src="assets/web/deck-cards/front-standing-in-power.jpg" alt="" aria-hidden="true">
+            <img class="card-photo" src="assets/web/deck-cards/card-04.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Standing in my power is a gift to the community. My surplus is your gain, everybody wins.”</span>
           </div>
           </div>
@@ -1520,7 +1553,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <div class="card-inner">
             <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div>
           <div class="card-face card-front has-photo">
-            <img class="card-photo" src="assets/web/deck-cards/front-no-way-to-know.jpg" alt="" aria-hidden="true">
+            <img class="card-photo" src="assets/web/deck-cards/card-26.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“I have no way to know, but I have every reason to trust.”</span>
           </div>
           </div>
@@ -1530,7 +1563,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <div class="card-inner">
             <div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div>
           <div class="card-face card-front has-photo">
-            <img class="card-photo" src="assets/web/deck-cards/front-mediocrity.jpg" alt="" aria-hidden="true">
+            <img class="card-photo" src="assets/web/deck-cards/card-15.jpg" alt="" aria-hidden="true">
             <span class="sr-only">“Mediocrity is not on the menu; I am on a diet of reaching for the stars.”</span>
           </div>
           </div>
@@ -1539,6 +1572,20 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       </div>
       <p style="text-align:center;margin-top:1.8rem;max-width:56ch;margin-left:auto;margin-right:auto">A mantra card a day? A mantra card a break? 54 ways to add whimsy and self-reflection to your day.</p>
       <p style="text-align:center;margin-top:1rem;max-width:60ch;margin-left:auto;margin-right:auto">The Sun Stone Theory is a compact affirmation and consciousness card deck that invites you to tap dormant personal power through short, declarative passages and metaphors, at your own pace, on your own terms. Let's go on this playful adventure, shall we?</p>
+
+      <div class="draw-head"><h3>Pull a card from the deck</h3><p class="hand">draw a few — see which ones find you</p></div>
+      <div class="draw-game" id="drawGame">
+        <div class="draw-table" id="drawTable" aria-label="The cards you have drawn"></div>
+        <p class="draw-counter" id="drawCounter" role="status" aria-live="polite">0 of 50 revealed</p>
+        <div class="draw-controls">
+          <button class="tag-btn" type="button" id="drawMoreBtn" hidden>Draw a few more</button>
+          <button class="draw-reset" type="button" id="drawReset" hidden>Shuffle &amp; draw again</button>
+        </div>
+        <div class="draw-end" id="drawEnd" hidden>
+          <p class="draw-end-line" id="drawEndLine"></p>
+          <button class="tag-btn" type="button" id="deckBuyCta">Bring the deck home — $49</button>
+        </div>
+      </div>
 
       <div class="deck-cta">
         <button class="tag-btn" id="deckOrderOpen" aria-expanded="false" aria-controls="deckOrderForm">Order the Deck</button>
@@ -1634,9 +1681,11 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       <div class="ch-head"><h2>Not a lecture. A conversation.</h2><p class="hand">— the whole idea, honestly</p></div>
       <div class="two-col">
         <div>
-          <p>To Bee Honest isn’t here to sell you a fix. It’s a quiet invitation: a one-on-one conversation with yourself, disguised as beautiful paper things.</p>
-          <p>Every image here started as a photograph Nicolas took — then tore, layered, and rebuilt by hand into scrapbook worlds. The tower of books? A real pile he photographed in Paris one December. Nothing stock. Nothing borrowed.</p>
-          <blockquote class="quote-card"><p class="big-hand hand">“We’re not selling products. We’re letting you know there’s a way to invest in your mental health — and feel better for a small fee.”</p></blockquote>
+          <p>I have experienced first hand, as I am sure most of us, how hard life can be - the overwhelming uphill battle to find peace and purpose within the current measures of success. But I decided to try something different.</p>
+          <p>Life is an overlooked precious gift, it should ignite excitement however we seem to all feel overwhelmed most of the time. Now, since we all are creators and artists, we can create a world that allows everyone to be themselves in conditions where all thrive, because that is possible.</p>
+          <p>These were the grounds that let the “To Bee Honest” universe flourish. I thought we would be starting with beekeeping, since bees are essential to life and the world, understand the benefits of working together, producing honey and embodying their sense of community; I kept the community part and went into art instead (for now?), things change, I did too.</p>
+          <p>The imagined universe revolves around appreciation for life, nature, love, peace, passion, playfulness, magic, and most importantly: people. We are unique and different, that must be celebrated and cherished, something we might have forgotten along the way.</p>
+          <blockquote class="quote-card"><p class="big-hand hand">“When we find our way back to ourselves, we remember life is beautiful, community is key, magic is everywhere, people are powerful. Let me remind you of that.”</p></blockquote>
         </div>
         <div class="polaroid pol-front story-polaroid">
           <span class="tape" aria-hidden="true"></span>
@@ -2304,6 +2353,60 @@ document.querySelectorAll('.card').forEach(c=>{
   });
   setState(false);
 });
+/* A capped two-card oracle pull: enough play to create curiosity without exposing the deck. */
+const DECK_DATA=[
+  {n:1,m:"Self acceptance IS self love."},{n:2,m:"I am the greatest warrior I know, because I either overcome or I learn."},
+  {n:3,m:"I am in control when I let go of control."},{n:4,m:"Standing in my power is a gift to the community. My surplus is your gain, everybody wins."},
+  {n:5,m:"I am born from love, passion, and playful excitement. What if I kept going? Where would I go?"},
+  {n:6,m:"Who I am is what I choose to stand for; plain and simple."},{n:7,m:"Pause. Listen. Feel. Trust. Now, where to?"},
+  {n:8,m:"I may not know the way, but my intuition does. I trust it. I let it take the wheel so I can enjoy the ride."},
+  {n:9,m:"To become, I first have to embody who I want to be."},{n:10,m:"I am going to make someone happy. If it is not going to be someone else, it is going to be me."},
+  {n:11,m:"I mean, what am I supposed to do? I am just a Demigod, as we all are."},{n:12,m:"Time and attention are the only two finite resources I have. I protect these two at all costs and I win."},
+  {n:13,m:"Unconditional love isn’t always realistic. A true act of love is unconditional acceptance."},{n:14,m:"Is people-pleasing worth betraying myself?"},
+  {n:15,m:"Mediocrity is not on the menu; I am on a diet of reaching for the stars."},{n:16,m:"Being kind is the right thing to do. I can always feel it."},
+  {n:17,m:"Happiness and sadness are two flavors of the same milkshake; perspective is everything."},{n:18,m:"Ego attacks out of fear. Confidence protects from strength."},
+  {n:19,m:"I like to prepare for the unexpected."},{n:20,m:"I am the mastermind. I am in control. I give life to the things of my choosing. How will I use my power?"},
+  {n:21,m:"Like a chameleon, I adapt, I evolve, I am inquisitive. That awareness and curiosity sparks new possibilities."},
+  {n:22,m:"My life is a jungle: mysterious, vibrant, adventurous. I roam around with curiosity like a jaguar with a heart of gold."},
+  {n:23,m:"If I have the power to imagine the worst, I have the power to imagine the best. The Universe listens and guides."},
+  {n:24,m:"When I know better; I owe it to myself to do better. It is my Integral duty."},{n:25,m:"I don’t believe in fairy tales. However, I believe in the fairy tales I imagine and I can make them happen."},
+  {n:26,m:"I have no way to know, but I have every reason to trust."},{n:27,m:"Friendly reminder; shame is a social construct, love is a universal concept."},
+  {n:28,m:"I love to love. I care to care. I play to play. I dream to dream. It is my nature."},{n:29,m:"If they don’t believe in magic, I should find someone who does; so that they can remind me of mine."},
+  {n:30,m:"If I honor my self discipline, I feel aligned and at peace. Social pressure does not impact me."},{n:31,m:"If I walk into a room and I cannot find magic, it is my job to create it."},
+  {n:32,m:"Stress is the poison. Reconciling reality and expectations is the antidote."},{n:33,m:"I do not move on; I learn from, I love from, I teach from. All of my adventures must be honored because they make me who I am today."},
+  {n:34,m:"I must act with integrity and intention, free from expectations. Expectations ruins the fun."},{n:35,m:"I nurture and protect my authenticity. It guides my journey. It shapes my experience."},
+  {n:36,m:"I can always trust myself. I always have my back. When I remember, anything is possible."},{n:37,m:"I will not leave the light on, but if you knock; I will open the door."},
+  {n:38,m:"I am not the voices in my head. I am the scribe writing on a papyrus. What do my notes say?"},{n:39,m:"Manifesting, praying, spell casting; all roads lead to Rome."},
+  {n:40,m:"There is nothing I must do; apart from anything I have decided I must do."},{n:41,m:"When I show grace to myself and to the people around me; the world is a better place."},
+  {n:42,m:"If I have the ability to fear, I have the ability to hope."},{n:43,m:"I lead and support, I don’t compare. We are all on the same team."},
+  {n:44,m:"I am unstoppable; my job is not to convince you, it is to remind myself."},{n:45,m:"My version of happiness is mine and mine only. what works for me, works for me."},
+  {n:46,m:"I know my needs and feel my wants. I deserve nothing and I choose to appreciate everything."},{n:47,m:"Make me feel. Make me happy. Make me strong. Make me kind. Make me powerful. Make me graceful. From me to myself."},
+  {n:48,m:"I am responsible for my needs and wants and can adjust them whenever I want. My will is my power."},{n:49,m:"When I consume less and I create more; my abilities reveal themselves. How titillating!"},
+  {n:50,m:"The beauty you see in me, is a reflection of your inner world. Same goes for the ugly."},{n:51,m:"I have nowhere to be, but where I am."},
+  {n:52,m:"I was looking for them, that’s where I got lost. That is also where I found myself."},{n:53,m:"I roar when required. I rest when needed."},
+  {n:54,m:"Am I uncomfortable, or am I shedding an old skin? Adapting is freeing."}
+];
+(()=>{
+  const table=document.getElementById('drawTable'),counter=document.getElementById('drawCounter');
+  const moreBtn=document.getElementById('drawMoreBtn'),resetBtn=document.getElementById('drawReset');
+  const endBox=document.getElementById('drawEnd'),endLine=document.getElementById('drawEndLine'),buyCta=document.getElementById('deckBuyCta');
+  if(!table)return;
+  const FEATURED=[11,4,26,15],pool=DECK_DATA.filter(c=>!FEATURED.includes(c.n)),CAP=2;
+  let order=[],revealed=0;
+  const shuffle=a=>{const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
+  const update=()=>counter.textContent=`${revealed} of ${pool.length} revealed`;
+  const build=card=>{
+    const num=String(card.n).padStart(2,'0'),el=document.createElement('div');
+    el.className='card';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-pressed','false');el.setAttribute('aria-label','Mantra card, face down. Activate to reveal it.');
+    el.innerHTML='<div class="card-inner"><div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div><div class="card-face card-front has-photo" aria-hidden="true"><img class="card-photo" alt="" aria-hidden="true"><span class="sr-only">“'+card.m+'”</span></div></div>';
+    let flipped=false;const flip=()=>{if(flipped)return;flipped=true;el.querySelector('.card-photo').src='assets/web/deck-cards/card-'+num+'.jpg';el.classList.add('flipped');el.setAttribute('aria-pressed','true');el.querySelector('.card-front').setAttribute('aria-hidden','false');el.querySelector('.card-back').setAttribute('aria-hidden','true');el.setAttribute('aria-label','Mantra card, revealed: “'+card.m+'”.');revealed++;update();if(revealed>=CAP){endLine.textContent='Two found their way to you today. Fifty-four live in the full deck.';endBox.hidden=false}};
+    el.addEventListener('click',flip);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});return el;
+  };
+  const start=()=>{order=shuffle(pool);revealed=0;table.innerHTML='';endBox.hidden=true;moreBtn.hidden=true;resetBtn.hidden=false;update();order.slice(0,CAP).forEach(c=>table.appendChild(build(c)))};
+  resetBtn.addEventListener('click',start);
+  buyCta?.addEventListener('click',()=>{const open=document.getElementById('deckOrderOpen'),form=document.getElementById('deckOrderForm');open?.scrollIntoView({behavior:'smooth',block:'center'});if(open&&form?.hidden)open.click()});
+  start();
+})();
 /* ---------- per-tier interactions ---------- */
 const noMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // cover: panel tilts with the cursor, like holding the scrapbook
