@@ -2326,7 +2326,6 @@ function paint(){
   backBtn.hidden = cur===0;
   const t=tiers[cur]; t.scrollTop=0;
   document.body.classList.toggle('gallery-active',t.id==='t-gallery');
-  document.body.classList.toggle('puzzle-active',t.id==='t-puzzles');
   t.querySelector('h1,h2')?.setAttribute('tabindex','-1');
 }
 let busy=false,pendingNav=null;
