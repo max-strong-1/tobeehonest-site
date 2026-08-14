@@ -1,0 +1,118 @@
+/* Sun Bird puzzle experience — isolated from the commerce and gallery systems. */
+
+/* Ten-cell desktop honeycomb: three cells, four staggered cells, three cells. */
+.cover-honeycomb .hc-grid{
+  width:calc(var(--hc-cell) * 2.5);
+  height:calc((var(--hc-cell) / .866) * 3.25);
+}
+.cover-honeycomb .hc-1{top:0;left:0}
+.cover-honeycomb .hc-2{top:calc((var(--hc-cell) / .866) * .75);left:0}
+.cover-honeycomb .hc-3{top:calc((var(--hc-cell) / .866) * 1.5);left:0}
+.cover-honeycomb .hc-4{top:calc((var(--hc-cell) / .866) * .375);left:calc(var(--hc-cell) * .75)}
+.cover-honeycomb .hc-5{top:calc((var(--hc-cell) / .866) * 1.125);left:calc(var(--hc-cell) * .75)}
+.cover-honeycomb .hc-6{top:calc((var(--hc-cell) / .866) * 1.875);left:calc(var(--hc-cell) * .75)}
+.cover-honeycomb .hc-7{top:calc((var(--hc-cell) / .866) * 2.625);left:calc(var(--hc-cell) * .75)}
+.cover-honeycomb .hc-8{top:0;left:calc(var(--hc-cell) * 1.5);--hc-light:#ffe58a;--hc-base:#f7b51a;--hc-deep:#bd6b09}
+.cover-honeycomb .hc-9{top:calc((var(--hc-cell) / .866) * .75);left:calc(var(--hc-cell) * 1.5);--hc-light:#ffd876;--hc-base:#eaa018;--hc-deep:#a95508}
+.cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#fff0a0;--hc-base:#f2bd2f;--hc-deep:#b86a0d}
+.cover-honeycomb .hc-8 .hc-label,.cover-honeycomb .hc-9 .hc-label,.cover-honeycomb .hc-10 .hc-label{font-size:clamp(.76rem,1.45vw,1rem)}
+
+.puzzle-tier{--puzzle-ink:#4e341e;--puzzle-honey:#f2bd2f;--puzzle-paper:#f7efe2;--puzzle-blue:#168eaa;--puzzle-red:#d84923;background:#e7c98f}
+.puzzle-tier::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 12% 18%,rgba(255,255,255,.7) 0 2px,transparent 3px),
+  radial-gradient(circle at 82% 72%,rgba(78,52,30,.12) 0 1px,transparent 2px),
+  linear-gradient(135deg,rgba(255,255,255,.22),transparent 40%);background-size:41px 37px,33px 29px,100% 100%;pointer-events:none}
+.puzzle-tier-inner{position:relative;z-index:1;max-width:1320px;padding-top:4.6rem;padding-bottom:2.5rem;display:block}
+.puzzle-heading{text-align:center;max-width:720px;margin:0 auto 1.15rem}
+.puzzle-heading h2{font-size:clamp(2rem,4.3vw,4rem);line-height:1;margin:.12rem 0 .55rem;color:var(--puzzle-ink)}
+.puzzle-heading>p:last-child{font-size:clamp(1rem,1.5vw,1.18rem)}
+.puzzle-kicker{color:#8b5109;font-size:1rem;margin:0}
+.puzzle-layout{display:grid;grid-template-columns:minmax(430px,1.08fr) minmax(320px,.92fr);gap:clamp(1.2rem,3vw,3rem);align-items:center}
+
+.sun-bird-game,.puzzle-product{background:rgba(247,239,226,.94);color:var(--puzzle-ink);filter:drop-shadow(0 14px 20px rgba(70,53,31,.2));clip-path:polygon(0 2%,3% .5%,7% 2%,12% .4%,18% 1.8%,24% .2%,31% 1.7%,38% .4%,45% 2%,53% .3%,60% 1.8%,68% .2%,76% 1.8%,84% .4%,91% 2%,97% .5%,100% 1.7%,100% 98%,96% 99.4%,90% 98%,84% 99.5%,77% 98.2%,69% 99.6%,61% 98%,53% 99.5%,45% 98.1%,37% 99.6%,29% 98%,21% 99.4%,13% 98%,6% 99.5%,0 98%)}
+.sun-bird-game{padding:1.5rem 1.6rem 1.35rem}
+.puzzle-game-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.9rem}
+.puzzle-game-head h3{font-size:clamp(1.28rem,2vw,1.7rem);margin:0 0 .18rem}
+.puzzle-game-head p{font-size:.95rem;line-height:1.4;margin:0;max-width:46ch}
+.puzzle-reset{min-height:44px;border:2px solid var(--puzzle-ink);background:#fff8e8;color:var(--puzzle-ink);font:600 .9rem 'Shantell Sans',cursive;padding:.55rem .85rem;cursor:pointer;transform:rotate(1deg);white-space:nowrap}
+.puzzle-reset:hover{background:#ffe69a}.puzzle-reset:focus-visible,.sun-bird-piece:focus-visible{outline:4px solid #168eaa;outline-offset:4px}
+
+.puzzle-playground{position:relative;min-height:390px;display:flex;align-items:center;padding:4px 42% 4px 0;isolation:isolate}
+.sun-bird-board{width:min(100%,260px);aspect-ratio:2/3;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,1fr);background:#d7bd91;padding:4px;gap:2px;box-shadow:0 10px 20px rgba(66,41,17,.25);transform:rotate(-1deg);border:3px solid #5b3b20}
+.sun-bird-tile,.sun-bird-target,.sun-bird-piece{background-image:url('sun-bird-puzzle.webp');background-size:200% 500%;background-position:var(--x) var(--y);background-repeat:no-repeat}
+.sun-bird-tile{display:block;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);border-radius:5px}
+.sun-bird-tile:nth-child(odd){transform:rotate(.3deg)}
+.sun-bird-tile:nth-child(even){transform:rotate(-.3deg)}
+.sun-bird-target{--x:100%;--y:100%;position:relative;background-image:linear-gradient(135deg,rgba(78,52,30,.12),rgba(255,255,255,.4));border:2px dashed rgba(78,52,30,.45);border-radius:7px;box-shadow:inset 0 3px 10px rgba(78,52,30,.18)}
+.sun-bird-target::after{content:"last piece";position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:500 .7rem 'Shantell Sans',cursive;color:rgba(78,52,30,.72)}
+.sun-bird-target.filled{background-image:url('sun-bird-puzzle.webp');background-size:200% 500%;background-position:100% 100%;border-color:transparent}
+.sun-bird-target.filled::after{display:none}
+
+.sun-bird-piece{--x:100%;--y:100%;position:absolute;z-index:4;right:7%;top:65%;width:clamp(72px,14vw,116px);aspect-ratio:1.67;border:3px solid var(--puzzle-ink);border-radius:9px;cursor:grab;touch-action:none;box-shadow:0 10px 18px rgba(55,33,12,.35);clip-path:polygon(0 0,40% 0,40% 10%,48% 18%,56% 15%,61% 8%,61% 0,100% 0,100% 100%,62% 100%,62% 91%,57% 85%,49% 83%,42% 88%,42% 100%,0 100%);transition:transform .32s cubic-bezier(.22,.7,.18,1),opacity .2s}
+.sun-bird-piece:active{cursor:grabbing}.sun-bird-piece.dragging{transition:none;filter:brightness(1.04);box-shadow:0 16px 24px rgba(55,33,12,.42)}
+.sun-bird-piece.placed{opacity:0;pointer-events:none}
+
+.bee-haul{position:absolute;z-index:3;right:2%;top:34%;width:clamp(105px,18vw,150px);transition:transform .5s ease,opacity .3s}
+.bee-haul svg{display:block;width:100%;filter:drop-shadow(0 5px 4px rgba(78,52,30,.22));animation:bee-haul-bob .9s ease-in-out infinite alternate}
+.haul-wings{transform-origin:58px 30px;animation:haul-wings .13s ease-in-out infinite alternate}
+.bee-effort{position:absolute;left:12%;top:-13px;font-size:.82rem;transform:rotate(-8deg)}
+.bee-sweat{position:absolute;width:8px;height:12px;border-radius:50% 50% 55% 45%;background:#42b7d6;transform:rotate(25deg);animation:sweat-drop 1.1s ease-in infinite}
+.sweat-one{left:7%;top:22%;}.sweat-two{left:0;top:36%;animation-delay:.55s;scale:.72}
+.pollen{position:absolute;width:6px;height:6px;border-radius:50%;background:#e49b12;right:3%;top:62%;animation:pollen-puff 1s ease-out infinite}
+.pollen-two{animation-delay:.32s}.pollen-three{animation-delay:.64s}
+.sun-bird-game.complete .bee-haul{transform:translate(42px,-24px) rotate(12deg);opacity:.78}
+.sun-bird-game.complete .bee-haul svg,.sun-bird-game.complete .haul-wings,.sun-bird-game.complete .bee-sweat,.sun-bird-game.complete .pollen{animation:none}
+.puzzle-status{text-align:center;margin:.75rem 0 0;color:#7d4807;font-size:1rem;min-height:1.5em}
+
+.puzzle-product{padding:1.9rem;transition:transform .5s ease,filter .5s ease}
+.puzzle-product[data-revealed="true"]{transform:rotate(.3deg) scale(1.015);filter:drop-shadow(0 18px 24px rgba(70,53,31,.28))}
+.puzzle-tin{position:relative;width:min(88%,360px);aspect-ratio:1.46;margin:0 auto 1.2rem;perspective:900px;transform:rotate(-2deg)}
+.puzzle-tin-lid{position:absolute;inset:0 0 15% 0;border:4px solid #9b8867;border-radius:18px;background:#b9aa8c;padding:9px;box-shadow:0 20px 27px rgba(55,36,17,.28),inset 0 0 0 3px rgba(255,255,255,.35);overflow:hidden;transform:rotateX(4deg)}
+.puzzle-tin-lid img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;border-radius:9px;display:block}
+.puzzle-tin-side{position:absolute;left:4%;right:4%;bottom:0;height:25%;border:3px solid #75664f;border-radius:0 0 14px 14px;background:linear-gradient(#cbbd9e,#9f8e70);display:flex;align-items:end;justify-content:space-between;padding:.35rem .75rem;color:#3f3020;font:600 .72rem 'Shantell Sans',cursive;box-shadow:0 10px 16px rgba(55,36,17,.3);z-index:-1}
+.puzzle-product-copy>p.hand{color:#8b5109;margin:0}.puzzle-product-copy h3{font-size:clamp(1.45rem,2.2vw,2rem);margin:.08rem 0 .55rem}.puzzle-product-copy>p:not(.hand):not(.puzzle-checkout-note){line-height:1.55}
+.puzzle-facts{list-style:none;padding:0;margin:1rem 0;display:grid;gap:.4rem}.puzzle-facts li{position:relative;padding-left:1.35rem}.puzzle-facts li::before{content:"";position:absolute;left:0;top:.48em;width:.66rem;height:.66rem;background:var(--puzzle-honey);clip-path:polygon(25% 7%,75% 7%,100% 50%,75% 93%,25% 93%,0 50%)}
+.puzzle-checkout[aria-disabled="true"]{display:inline-flex;opacity:.62;cursor:not-allowed;filter:grayscale(.25)}
+.puzzle-checkout-note{font-size:.8rem;line-height:1.35;opacity:.7;margin:.55rem 0 0}
+
+@keyframes bee-haul-bob{to{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes haul-wings{to{transform:scaleY(.3) rotate(7deg)}}
+@keyframes sweat-drop{0%{opacity:0;transform:translate(0,0) rotate(25deg)}35%{opacity:1}100%{opacity:0;transform:translate(-12px,22px) rotate(25deg)}}
+@keyframes pollen-puff{0%{opacity:0;transform:translate(0,0) scale(.4)}35%{opacity:1}100%{opacity:0;transform:translate(23px,12px) scale(1.5)}}
+
+@media(max-width:820px){
+  /* Five stacked pairs: mobile follows the requested 2, 2, 2 rhythm for all ten cells. */
+  .cover-honeycomb .hc-grid{--hc-cell:clamp(86px,25vw,113px);width:calc(var(--hc-cell) * 1.82);height:calc((var(--hc-cell) / .866) * 4.1)}
+  .cover-honeycomb .hc-cell:nth-child(odd){left:0}
+  .cover-honeycomb .hc-cell:nth-child(even){left:calc(var(--hc-cell) * .82)}
+  .cover-honeycomb .hc-1,.cover-honeycomb .hc-2{top:0}
+  .cover-honeycomb .hc-3,.cover-honeycomb .hc-4{top:calc((var(--hc-cell) / .866) * .72)}
+  .cover-honeycomb .hc-5,.cover-honeycomb .hc-6{top:calc((var(--hc-cell) / .866) * 1.44)}
+  .cover-honeycomb .hc-7,.cover-honeycomb .hc-8{top:calc((var(--hc-cell) / .866) * 2.16)}
+  .cover-honeycomb .hc-9,.cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 2.88)}
+  .cover-honeycomb .hc-8 .hc-label,.cover-honeycomb .hc-9 .hc-label,.cover-honeycomb .hc-10 .hc-label{font-size:clamp(.72rem,3.5vw,.9rem)}
+  .puzzle-tier-inner{padding-top:4rem;padding-bottom:2rem}
+  .puzzle-heading{margin-bottom:1rem}.puzzle-heading h2{font-size:clamp(2rem,10vw,3.15rem)}
+  .puzzle-layout{grid-template-columns:1fr;gap:1rem}
+  .puzzle-playground{min-height:370px;padding-right:38%}
+  .sun-bird-board{width:min(100%,245px)}
+  .puzzle-product{display:grid;grid-template-columns:minmax(135px,.8fr) 1.2fr;gap:1rem;align-items:center}
+  .puzzle-tin{width:100%;margin:0}
+}
+
+@media(max-width:560px){
+  .puzzle-tier-inner{padding-left:1rem;padding-right:1rem}
+  .puzzle-heading>p:last-child{font-size:1rem}
+  .sun-bird-game{padding:1.25rem 1rem 1.1rem}
+  .puzzle-game-head{display:block}.puzzle-reset{margin-top:.7rem}
+  .puzzle-playground{min-height:345px;padding-right:34%}
+  .sun-bird-board{width:min(100%,210px)}
+  .bee-haul{right:-2%;top:31%;width:105px}
+  .sun-bird-piece{right:2%;width:80px}
+  .puzzle-product{display:block;padding:1.5rem 1.2rem}.puzzle-tin{width:min(85%,300px);margin:0 auto 1rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .bee-haul svg,.haul-wings,.bee-sweat,.pollen{animation:none!important}
+  .sun-bird-piece,.bee-haul,.puzzle-product{transition:none!important}
+}
