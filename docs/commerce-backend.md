@@ -11,14 +11,14 @@ This server-side scaffold separates payment from fulfillment and defaults to dis
 5. Only a verified, paid Checkout Session can reach fulfillment, and only when `COMMERCE_FULFILLMENT_ENABLED=true`.
 6. Prodigi defaults to its v4 sandbox. The Stripe Checkout Session ID becomes the Prodigi idempotency key.
 7. QPMN intentionally fails closed until its official order schema, authentication, webhook behavior, and test endpoint are supplied.
-8. The Sun Bird puzzle intentionally resolves to the unsupported `puzzle-custom` vendor until its custom fulfillment API contract is implemented. This lets Checkout be tested without pretending fulfillment is ready.
+8. The Sun Bird puzzle resolves to Prodigi SKU `JIGSAW-PUZZLE-1000`. Its order payload uses the required `size: 1000 pieces` attribute plus separate `jigsaw` and `lid` print areas. Both asset URLs remain server-owned.
 
 ## Approval gates
 
 All of these require explicit approval before configuration or enablement:
 
 - final deck SKU and Stripe Price ID;
-- Sun Bird puzzle fulfillment SKU, Stripe Price ID, US Shipping Rate ID, price, shipping charge, and custom fulfillment API contract;
+- Sun Bird puzzle Stripe Price ID, US Shipping Rate ID, retail price, shipping charge, and final public URLs for the approved jigsaw and lid masters;
 - both framed-art sizes, both frame colors, all four Prodigi SKUs, and prices;
 - public production artwork URL contract;
 - QPMN official integration contract and credentials;
@@ -43,7 +43,9 @@ Copy `.env.example` to `.env.local` for local configuration. Never commit `.env.
 ## Open contract work
 
 - Confirm QPMN's current official order API documentation with vendor access.
-- Implement the Sun Bird puzzle `puzzle-custom` adapter only after its custom API endpoint, authentication, idempotency, request schema, response schema, and error/retry behavior are supplied.
+- Upload the approved Sun Bird jigsaw and lid masters to durable public asset URLs and configure `PRODIGI_ASSET_BASE_URL`.
+- Add the separate Prodigi Sandbox key to Preview/Development and run a complete unpaid-to-paid test-mode fulfillment rehearsal before any Live order.
+- Before manually testing against Live, confirm the Prodigi dashboard order pause is set to indefinite; API-created Live orders otherwise proceed toward fulfillment immediately.
 - Confirm Prodigi's precise framed-product SKUs and the second frame color.
 - Confirm the Stripe account, currency, prices, tax behavior, shipping charges, refund policy, and customer support copy.
 - Select an order/status datastore before persisting fulfillment events.

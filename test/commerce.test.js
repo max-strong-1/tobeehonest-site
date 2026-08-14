@@ -16,17 +16,17 @@ test("deck rejects unexpected client-controlled fields", () => {
 test("Sun Bird puzzle resolves only server-approved Stripe and fulfillment identifiers", () => {
   process.env.STRIPE_PRICE_PUZZLE_SUN_BIRD = "price_puzzle_test";
   process.env.STRIPE_SHIPPING_RATE_PUZZLE_US = "shr_puzzle_test";
-  process.env.PUZZLE_FULFILLMENT_SKU = "sun-bird-1000";
+  process.env.PRODIGI_SKU_PUZZLE_SUN_BIRD = "JIGSAW-PUZZLE-1000";
 
   const input = parseCheckoutInput({ product: "puzzle", quantity: 1 });
   const item = resolveCheckoutItem(input);
 
   assert.deepEqual(item, {
-    vendor: "puzzle-custom",
+    vendor: "prodigi",
     product: "puzzle",
     stripePriceId: "price_puzzle_test",
     stripeShippingRateId: "shr_puzzle_test",
-    vendorSku: "sun-bird-1000",
+    vendorSku: "JIGSAW-PUZZLE-1000",
     quantity: 1,
     metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
   });
@@ -42,11 +42,11 @@ test("checkout route exposes a testable server-side Session parameter builder", 
 
 test("puzzle Checkout Session uses trusted price, shipping, return route, and metadata", () => {
   const item = {
-    vendor: "puzzle-custom",
+    vendor: "prodigi",
     product: "puzzle",
     stripePriceId: "price_puzzle_test",
     stripeShippingRateId: "shr_puzzle_test",
-    vendorSku: "sun-bird-1000",
+    vendorSku: "JIGSAW-PUZZLE-1000",
     quantity: 1,
     metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
   };
@@ -66,8 +66,8 @@ test("puzzle Checkout Session uses trusted price, shipping, return route, and me
         product: "puzzle",
         artworkId: "sun-bird",
         pieceCount: "1000",
-        vendor: "puzzle-custom",
-        vendorSku: "sun-bird-1000",
+        vendor: "prodigi",
+        vendorSku: "JIGSAW-PUZZLE-1000",
         quantity: "1"
       }
     }
@@ -127,6 +127,58 @@ test("Prodigi sends API key, idempotency, and server-owned asset URL", async () 
      and rejects the order outright (400 MissingRequiredAttributes) when `color` is
      absent — a real sandbox order failed exactly this way on 2026-08-09. */
   assert.deepEqual(captured.body.items[0].attributes, { color: "gold" });
+});
+
+test("Prodigi maps a paid Sun Bird puzzle to separate jigsaw and lid print areas", async () => {
+  process.env.PRODIGI_API_KEY = "secret-test-key";
+  process.env.PRODIGI_ASSET_BASE_URL = "https://assets.example.test";
+  let captured;
+  const fetchImpl = async (url, options) => {
+    captured = { url, body: JSON.parse(options.body) };
+    return { ok: true, json: async () => ({ outcome: "Created", order: { id: "ord_123" } }) };
+  };
+
+  await createProdigiOrder({
+    session: {
+      id: "cs_puzzle_test",
+      customer_details: { email: "buyer@example.test" },
+      shipping_details: {
+        name: "Buyer",
+        address: {
+          line1: "1 Main St",
+          city: "Austin",
+          state: "TX",
+          postal_code: "78701",
+          country: "US"
+        }
+      }
+    },
+    item: {
+      vendorSku: "JIGSAW-PUZZLE-1000",
+      quantity: 1,
+      metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
+    },
+    fetchImpl
+  });
+
+  assert.equal(captured.url, "https://api.sandbox.prodigi.com/v4.0/Orders");
+  assert.equal(captured.body.idempotencyKey, "stripe-cs_puzzle_test");
+  assert.deepEqual(captured.body.items, [{
+    sku: "JIGSAW-PUZZLE-1000",
+    copies: 1,
+    sizing: "fillPrintArea",
+    attributes: { size: "1000 pieces" },
+    assets: [
+      {
+        printArea: "jigsaw",
+        url: "https://assets.example.test/sun-bird-jigsaw-prodigi-1000-v1.png"
+      },
+      {
+        printArea: "lid",
+        url: "https://assets.example.test/sun-bird-lid-prodigi-1000-v1.png"
+      }
+    ]
+  }]);
 });
 
 test("Prodigi refuses to send an order with a missing or bogus frame colour", async () => {

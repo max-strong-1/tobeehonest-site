@@ -38,6 +38,30 @@ export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
   const shipping = session.shipping_details || session.collected_information?.shipping_details;
   if (!shipping?.address || !shipping?.name) throw new Problem(422, "Shipping Address Missing", "Stripe did not return a complete shipping address.");
   const address = shipping.address;
+  const orderItem = item.metadata?.product === "puzzle"
+    ? {
+        sku: item.vendorSku,
+        copies: item.quantity,
+        sizing: "fillPrintArea",
+        attributes: { size: "1000 pieces" },
+        assets: [
+          {
+            printArea: "jigsaw",
+            url: `${assetBase}/sun-bird-jigsaw-prodigi-1000-v1.png`
+          },
+          {
+            printArea: "lid",
+            url: `${assetBase}/sun-bird-lid-prodigi-1000-v1.png`
+          }
+        ]
+      }
+    : {
+        sku: item.vendorSku,
+        copies: item.quantity,
+        sizing: "fillPrintArea",
+        attributes: { color: frameColorAttribute(item.metadata) },
+        assets: [{ printArea: "default", url: `${assetBase}/${encodeURIComponent(item.metadata.artworkId)}.jpg` }]
+      };
   const payload = {
     idempotencyKey: `stripe-${session.id}`,
     merchantReference: session.id,
@@ -54,13 +78,7 @@ export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
         ...(address.state ? { stateOrCounty: address.state } : {})
       }
     },
-    items: [{
-      sku: item.vendorSku,
-      copies: item.quantity,
-      sizing: "fillPrintArea",
-      attributes: { color: frameColorAttribute(item.metadata) },
-      assets: [{ printArea: "default", url: `${assetBase}/${encodeURIComponent(item.metadata.artworkId)}.jpg` }]
-    }]
+    items: [orderItem]
   };
   const response = await fetchImpl(`${prodigiBaseUrl()}/v4.0/Orders`, {
     method: "POST",

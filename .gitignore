@@ -23,5 +23,6 @@
 *.pem
 *.key
 secrets/
+private-assets/
 node_modules/
 .worktrees/

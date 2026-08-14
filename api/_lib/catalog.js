@@ -32,11 +32,11 @@ function configured(name) {
 export function resolveCheckoutItem(input) {
   if (input.product === "puzzle") {
     return {
-      vendor: "puzzle-custom",
+      vendor: "prodigi",
       product: "puzzle",
       stripePriceId: configured("STRIPE_PRICE_PUZZLE_SUN_BIRD"),
       stripeShippingRateId: configured("STRIPE_SHIPPING_RATE_PUZZLE_US"),
-      vendorSku: configured("PUZZLE_FULFILLMENT_SKU"),
+      vendorSku: configured("PRODIGI_SKU_PUZZLE_SUN_BIRD"),
       quantity: input.quantity,
       metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
     };
