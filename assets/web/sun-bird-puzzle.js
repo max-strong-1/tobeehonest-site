@@ -5,6 +5,7 @@ import {
   resetPuzzle,
   shouldSnap,
 } from "./sun-bird-puzzle-state.js";
+import { bindStripeCheckoutButton } from "./stripe-checkout.js";
 
 const game = document.getElementById("sunBirdGame");
 const piece = document.getElementById("sunBirdPiece");
@@ -14,8 +15,9 @@ const status = document.getElementById("sunBirdStatus");
 const reset = document.getElementById("sunBirdReset");
 const product = document.getElementById("sunBirdProduct");
 const checkout = document.getElementById("sunBirdCheckout");
+const checkoutError = document.getElementById("sunBirdCheckoutError");
 
-if (game && piece && target && bee && status && reset && product && checkout) {
+if (game && piece && target && bee && status && reset && product && checkout && checkoutError) {
   let state = createPuzzleState();
   let drag = null;
 
@@ -126,8 +128,10 @@ if (game && piece && target && bee && status && reset && product && checkout) {
     piece.focus();
   });
 
-  checkout.addEventListener("click", (event) => {
-    if (checkout.getAttribute("aria-disabled") === "true") event.preventDefault();
+  bindStripeCheckoutButton({
+    button: checkout,
+    errorBox: checkoutError,
+    product: "puzzle"
   });
 
   render();

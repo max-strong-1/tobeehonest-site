@@ -31,10 +31,11 @@ test('the Coloring Book is a working destination with an honest product preview'
   assert.doesNotMatch(html, /hc-5 hc-placeholder/);
 });
 
-test('puzzle presentation is portrait, explicit, and not pretending checkout is live', () => {
+test('puzzle presentation is portrait, explicit, and connected to secure checkout', () => {
   assert.match(checklistCss, /\.puzzle-tin\s*\{[\s\S]*?aspect-ratio:2\/3/);
   assert.match(html, /Made to order and final sale\./);
-  assert.match(html, /aria-disabled="true">Stripe checkout link coming shortly/);
+  assert.match(html, /id="sunBirdCheckout"[^>]*>Buy the Sun Bird puzzle/);
+  assert.match(html, /id="sunBirdCheckoutError" role="alert" hidden/);
 });
 
 test('the Story is signed, has no bottom photograph, and the Marketplace placeholder is gone', () => {

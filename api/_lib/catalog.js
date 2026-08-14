@@ -3,7 +3,7 @@ import { Problem } from "./http.js";
 import { isKnownArtworkSlug } from "./artwork-allowlist.js";
 
 export const checkoutSchema = z.object({
-  product: z.enum(["deck", "framed-art"]),
+  product: z.enum(["deck", "framed-art", "puzzle"]),
   artworkId: z.string().regex(/^[a-z0-9][a-z0-9-]{0,79}$/).optional(),
   size: z.enum(["12x16", "20x28"]).optional(),
   frameColor: z.enum(["gold", "second"]).optional(),
@@ -30,6 +30,18 @@ function configured(name) {
 }
 
 export function resolveCheckoutItem(input) {
+  if (input.product === "puzzle") {
+    return {
+      vendor: "puzzle-custom",
+      product: "puzzle",
+      stripePriceId: configured("STRIPE_PRICE_PUZZLE_SUN_BIRD"),
+      stripeShippingRateId: configured("STRIPE_SHIPPING_RATE_PUZZLE_US"),
+      vendorSku: configured("PUZZLE_FULFILLMENT_SKU"),
+      quantity: input.quantity,
+      metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
+    };
+  }
+
   if (input.product === "deck") {
     return {
       vendor: "qpmn",

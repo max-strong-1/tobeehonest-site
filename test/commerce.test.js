@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { parseCheckoutInput, resolveCheckoutItem } from "../api/_lib/catalog.js";
 import { prodigiBaseUrl, createProdigiOrder } from "../api/_lib/prodigi.js";
 import { createQpmnOrder } from "../api/_lib/qpmn.js";
+import * as checkoutRoute from "../api/checkout.js";
 
 test("framed art requires artwork, size, and frame color", () => {
   assert.throws(() => parseCheckoutInput({ product: "framed-art", quantity: 1 }), /invalid/i);
@@ -10,6 +11,82 @@ test("framed art requires artwork, size, and frame color", () => {
 
 test("deck rejects unexpected client-controlled fields", () => {
   assert.throws(() => parseCheckoutInput({ product: "deck", price: 1 }), /invalid/i);
+});
+
+test("Sun Bird puzzle resolves only server-approved Stripe and fulfillment identifiers", () => {
+  process.env.STRIPE_PRICE_PUZZLE_SUN_BIRD = "price_puzzle_test";
+  process.env.STRIPE_SHIPPING_RATE_PUZZLE_US = "shr_puzzle_test";
+  process.env.PUZZLE_FULFILLMENT_SKU = "sun-bird-1000";
+
+  const input = parseCheckoutInput({ product: "puzzle", quantity: 1 });
+  const item = resolveCheckoutItem(input);
+
+  assert.deepEqual(item, {
+    vendor: "puzzle-custom",
+    product: "puzzle",
+    stripePriceId: "price_puzzle_test",
+    stripeShippingRateId: "shr_puzzle_test",
+    vendorSku: "sun-bird-1000",
+    quantity: 1,
+    metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
+  });
+  assert.throws(
+    () => parseCheckoutInput({ product: "puzzle", quantity: 1, price: 1 }),
+    /invalid/i
+  );
+});
+
+test("checkout route exposes a testable server-side Session parameter builder", () => {
+  assert.equal(typeof checkoutRoute.buildCheckoutSessionParams, "function");
+});
+
+test("puzzle Checkout Session uses trusted price, shipping, return route, and metadata", () => {
+  const item = {
+    vendor: "puzzle-custom",
+    product: "puzzle",
+    stripePriceId: "price_puzzle_test",
+    stripeShippingRateId: "shr_puzzle_test",
+    vendorSku: "sun-bird-1000",
+    quantity: 1,
+    metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
+  };
+
+  assert.deepEqual(
+    checkoutRoute.buildCheckoutSessionParams(item, new URL("https://review.example/")),
+    {
+      mode: "payment",
+      line_items: [{ price: "price_puzzle_test", quantity: 1 }],
+      success_url: "https://review.example/?checkout=success&session_id={CHECKOUT_SESSION_ID}#puzzles",
+      cancel_url: "https://review.example/?checkout=cancelled#puzzles",
+      shipping_address_collection: { allowed_countries: ["US"] },
+      shipping_options: [{ shipping_rate: "shr_puzzle_test" }],
+      phone_number_collection: { enabled: true },
+      customer_creation: "always",
+      metadata: {
+        product: "puzzle",
+        artworkId: "sun-bird",
+        pieceCount: "1000",
+        vendor: "puzzle-custom",
+        vendorSku: "sun-bird-1000",
+        quantity: "1"
+      }
+    }
+  );
+});
+
+test("puzzle-only collection fields do not alter existing deck checkout", () => {
+  const params = checkoutRoute.buildCheckoutSessionParams({
+    vendor: "qpmn",
+    product: "deck",
+    stripePriceId: "price_deck_test",
+    vendorSku: "deck-test",
+    quantity: 1,
+    metadata: { product: "deck" }
+  }, new URL("https://review.example/"));
+
+  assert.equal("shipping_options" in params, false);
+  assert.equal("phone_number_collection" in params, false);
+  assert.equal(params.success_url, "https://review.example/?checkout=success&session_id={CHECKOUT_SESSION_ID}");
 });
 
 test("catalog resolves approved server-side identifiers", () => {

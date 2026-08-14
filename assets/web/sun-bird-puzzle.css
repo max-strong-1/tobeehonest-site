@@ -75,8 +75,10 @@
 .puzzle-tin-side{position:absolute;left:4%;right:4%;bottom:0;height:25%;border:3px solid #75664f;border-radius:0 0 14px 14px;background:linear-gradient(#cbbd9e,#9f8e70);display:flex;align-items:end;justify-content:space-between;padding:.35rem .75rem;color:#3f3020;font:600 .72rem 'Shantell Sans',cursive;box-shadow:0 10px 16px rgba(55,36,17,.3);z-index:-1}
 .puzzle-product-copy>p.hand{color:#8b5109;margin:0}.puzzle-product-copy h3{font-size:clamp(1.45rem,2.2vw,2rem);margin:.08rem 0 .55rem}.puzzle-product-copy>p:not(.hand):not(.puzzle-checkout-note){line-height:1.55}
 .puzzle-facts{list-style:none;padding:0;margin:1rem 0;display:grid;gap:.4rem}.puzzle-facts li{position:relative;padding-left:1.35rem}.puzzle-facts li::before{content:"";position:absolute;left:0;top:.48em;width:.66rem;height:.66rem;background:var(--puzzle-honey);clip-path:polygon(25% 7%,75% 7%,100% 50%,75% 93%,25% 93%,0 50%)}
-.puzzle-checkout[aria-disabled="true"]{display:inline-flex;opacity:.62;cursor:not-allowed;filter:grayscale(.25)}
+.puzzle-checkout{display:inline-flex;border:0;font:inherit}
+.puzzle-checkout:disabled{opacity:.7;cursor:wait;filter:saturate(.7)}
 .puzzle-checkout-note{font-size:.8rem;line-height:1.35;opacity:.7;margin:.55rem 0 0}
+.puzzle-checkout-error{max-width:34rem;margin:.75rem 0 0;padding:.7rem .85rem;border:1px solid rgba(139,53,31,.34);border-radius:12px;background:rgba(255,245,231,.84);color:#743220;font-size:.82rem;line-height:1.4}
 
 @keyframes bee-haul-bob{to{transform:translateY(-7px) rotate(-2deg)}}
 @keyframes haul-wings{to{transform:scaleY(.3) rotate(7deg)}}

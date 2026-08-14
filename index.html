@@ -1408,8 +1408,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
               <li>765 × 525 mm when complete</li>
               <li>Portrait Sun Bird artwork printed on the tin lid</li>
             </ul>
-            <a class="tag-btn puzzle-checkout" id="sunBirdCheckout" aria-disabled="true">Stripe checkout link coming shortly</a>
-            <p class="puzzle-checkout-note"><strong>Made to order and final sale.</strong> Please review the artwork, dimensions, tin, and piece-cut preview before purchasing. No payment is collected here yet.</p>
+            <button class="tag-btn puzzle-checkout" id="sunBirdCheckout" type="button">Buy the Sun Bird puzzle</button>
+            <p class="puzzle-checkout-note"><strong>Made to order and final sale.</strong> Please review the artwork, dimensions, tin, and piece-cut preview before purchasing. Secure checkout opens on Stripe.</p>
+            <p class="puzzle-checkout-error" id="sunBirdCheckoutError" role="alert" hidden></p>
           </div>
         </article>
       </div>
