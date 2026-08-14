@@ -626,6 +626,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
 .book-preface summary:focus-visible{outline:3px solid var(--bark);outline-offset:4px}
 .book-preface-tease{display:block;margin-top:.15rem;font-family:Georgia,serif;font-size:.88rem;font-style:italic;opacity:.75}
 .book-preface-copy{padding:.15rem .25rem 1rem;max-width:68ch}
+.book-preface-page{display:block;width:min(100%,480px);height:auto;margin:.4rem auto 0;border:1px solid rgba(78,52,30,.16);box-shadow:0 10px 24px rgba(52,34,17,.14)}
 #t-book .book-preface-copy p{font-size:.98rem;line-height:1.65;margin:.72rem 0}
 #t-book .book-preface-copy p:last-child{font-family:'Shantell Sans',cursive;font-size:1.02rem;margin-bottom:0}
 /* short viewports: let it scroll rather than crush the book */
@@ -1384,12 +1385,11 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </section>
 
         <article class="puzzle-product" id="sunBirdProduct" data-revealed="false">
-          <div class="puzzle-tin" aria-hidden="true">
-            <div class="puzzle-tin-lid"><img src="assets/prints/sun-stone-theory.jpg" alt=""></div>
-            <div class="puzzle-tin-side"><span>The Sun Bird</span><span>1,000 pieces</span></div>
+          <div class="puzzle-tin" role="img" aria-label="Nicolas’s approved Sun Bird 1,000-piece puzzle lid shown inset on a white metal presentation tin">
+            <div class="puzzle-tin-lid"><img src="assets/web/sun-bird-puzzle-lid-approved.webp" alt=""></div>
           </div>
           <figure class="puzzle-cut-preview">
-            <img src="assets/web/sun-bird-puzzle-outline.webp" alt="The complete Sun Bird artwork overlaid with the actual 1,000-piece jigsaw cut pattern" loading="lazy" width="800" height="1200">
+            <img src="assets/web/sun-bird-puzzle-cutmap.svg" alt="The complete Sun Bird artwork divided by a continuous 25-column by 40-row, 1,000-piece jigsaw cut map" loading="lazy" width="800" height="1200">
             <figcaption class="hand">The full 1,000-piece cut preview—so you can see exactly what arrives.</figcaption>
           </figure>
           <div class="puzzle-product-copy">
@@ -1427,8 +1427,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       </div>
       <figure class="coloring-product">
         <span class="coloring-sun" aria-hidden="true"></span>
-        <img src="assets/web/coloring-book-mockup.webp" alt="Realistic preview of The Sun Bird Coloring Book with a pale illustrated cover, visible line-art pages, and colored pencils" loading="lazy" width="1000" height="1250">
-        <figcaption class="hand">Product rendering based on Nicolas’s supplied line art.</figcaption>
+        <img src="assets/web/coloring-book-cover-approved.jpeg" alt="Nicolas’s approved cover for The Sun Stone Theory Coloring Book, with the Sun Bird shifting from color into line art" loading="lazy" width="1060" height="1598">
+        <figcaption class="hand">The approved Sun Stone Theory Coloring Book cover.</figcaption>
       </figure>
     </div>
   </section>
@@ -1468,14 +1468,14 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <div class="book3d">
           <button class="book-wrap" id="bookWrap" aria-expanded="false" aria-label="The Sun Stone Theory book. Activate to open the cover and read the first page.">
             <!-- Opening the cover reveals one illustrated interior page, then Nicolas's
-                 approved preface page. Book leaves stay book-specific; deck art belongs
-                 to the separate Mantra Deck experience. -->
+                 approved leadership mantra. The preface remains a separate editorial page
+                 below the Book, and Deck assets stay inside the Mantra Deck experience. -->
             <span class="book-page">
               <span class="leaf leaf-on" data-leaf="1">
                 <img src="assets/web/book-sneak-2.jpg" alt="A page from The Sun Stone Theory: a torn-paper art-deco figure with the mantra ‘I nurture and protect my authenticity. It guides my journey. It shapes my experience.’" loading="lazy" decoding="async">
               </span>
               <span class="leaf" data-leaf="2">
-                <img src="assets/web/book-preface-page.png" alt="The preface to The Sun Stone Theory, inviting readers to look inward, uncover what lies dormant, and begin the adventure together" loading="lazy" decoding="async">
+                <img src="assets/web/book-mantra-lead-support.png" alt="A page from The Sun Stone Theory with a torn-paper figure and the mantra ‘I lead and support, I don’t compare. We are all on the same team.’" loading="lazy" decoding="async">
               </span>
             </span>
             <!-- The real cover art already carries its own title and byline in Nicolas's
@@ -1499,9 +1499,12 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
           <details class="book-preface">
             <summary>Read Nicolas’s preface<span class="book-preface-tease">What if we looked inwards and explored what lies dormant?</span></summary>
             <div class="book-preface-copy">
-              <p>A few words about where this comes from and what this could mean. We are unfortunately too often reminded of limitations of thoughts and actions, but have we looked into the fact that these could be subconscious safeguards? If so, do we really need them? What if we looked inwards, and explored what lies dormant, what lies hidden, what lies treasured that is waiting to come out and shine?</p>
-              <p>From a Pokemon world’s perspective, a sun stone will make a certain type of pokemon evolve into something strong and radiating. What if looking inwards reveals the perspectives to level up, and improve gracefully, for a more fulfilled and aligned life?</p>
-              <p>Let’s go on this adventure, together, shall we?</p>
+              <img class="book-preface-page" src="assets/web/book-preface-updated.png" alt="Nicolas’s revised preface page for The Sun Stone Theory" loading="lazy" decoding="async" width="1500" height="2250">
+              <div class="sr-only">
+                <p>A few words about where this comes from and what this could mean. We are unfortunately too often reminded of limitations of thoughts and actions, but have we looked into the fact that these could be subconscious safeguards? If so, do we really need them? What if we looked inwards, and explored what lies dormant, what lies hidden, what lies treasured that is waiting to come out and shine?</p>
+                <p>In many stories, a sun stone is what ignites a transformation. It represents that internal shift where we stop merely existing and start expanding, finally leveling up into the best version of our own story. It is a catalyst for growth. It is going to help us shed old limitations to embody a stronger, more radiant version of who we are. What if looking inwards reveals the perspectives to level up, and improve gracefully, for a more fulfilled and aligned life?</p>
+                <p>Let’s go on this adventure, together, shall we?</p>
+              </div>
             </div>
           </details>
           <p class="hand book-mantra-label">featured mantras</p>

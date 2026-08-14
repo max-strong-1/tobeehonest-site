@@ -26,9 +26,16 @@ test('the rejected toilet artwork is not used by the Book experience', () => {
   assert.match(book, /assets\/IMG_5791\.jpeg/);
 });
 
-test('the Book second page is the approved preface page, never a Mantra Deck card', () => {
+test('the Book second page is Nicolas’s approved Book mantra, not the preface or a Deck asset', () => {
   const bookPages = html.match(/<span class="book-page">([\s\S]*?)<\/span>\s*<!-- The real cover art/)?.[1] ?? '';
   assert.equal((bookPages.match(/data-leaf=/g) ?? []).length, 2);
-  assert.match(bookPages, /assets\/web\/book-preface-page\.png/);
+  assert.match(bookPages, /assets\/web\/book-mantra-lead-support\.png/);
+  assert.doesNotMatch(bookPages, /book-preface/);
   assert.doesNotMatch(bookPages, /assets\/web\/deck-cards\//);
+});
+
+test('the updated no-Pokémon preface stays below the Book as its own approved page', () => {
+  const book = html.match(/<!-- BOOK -->([\s\S]*?)<!-- DECK -->/)?.[1] ?? '';
+  assert.match(book, /assets\/web\/book-preface-updated\.png/);
+  assert.doesNotMatch(book, /Pokemon|pokemon/);
 });
