@@ -17,8 +17,8 @@
 .cover-honeycomb .hc-9{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#ffd876;--hc-base:#eaa018;--hc-deep:#a95508}
 .cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 2.5);--hc-light:#fff0a0;--hc-base:#f2bd2f;--hc-deep:#b86a0d}
 .cover-honeycomb .hc-8 .hc-label,.cover-honeycomb .hc-9 .hc-label,.cover-honeycomb .hc-10 .hc-label{font-size:clamp(.76rem,1.45vw,1rem)}
-.cover-honeycomb .hc-filler{pointer-events:none;filter:saturate(.82);opacity:.82}
-.cover-honeycomb .hc-filler::after{opacity:.38}
+.cover-honeycomb .hc-placeholder{pointer-events:none;filter:saturate(.82);opacity:.82}
+.cover-honeycomb .hc-placeholder::after{opacity:.38}
 
 .puzzle-tier{--puzzle-ink:#4e341e;--puzzle-honey:#f2bd2f;--puzzle-paper:#f7efe2;--puzzle-blue:#168eaa;--puzzle-red:#d84923;background:#e7c98f}
 .puzzle-tier::before{content:"";position:absolute;inset:0;background:
@@ -86,15 +86,15 @@
 @media(max-width:820px){
   /* Five interlocking pairs: alternate half-cell offsets preserve shared edges. */
   .cover-honeycomb .hc-grid{--hc-cell:clamp(78px,24vw,105px);width:calc(var(--hc-cell) * 2.5);height:calc((var(--hc-cell) / .866) * 4)}
-  .cover-honeycomb .hc-1,.cover-honeycomb .hc-5,.cover-honeycomb .hc-8{left:0}
+  .cover-honeycomb .hc-1,.cover-honeycomb .hc-5,.cover-honeycomb .hc-9{left:0}
   .cover-honeycomb .hc-2,.cover-honeycomb .hc-6,.cover-honeycomb .hc-10{left:var(--hc-cell)}
   .cover-honeycomb .hc-3,.cover-honeycomb .hc-7{left:calc(var(--hc-cell) * .5)}
-  .cover-honeycomb .hc-4,.cover-honeycomb .hc-9{left:calc(var(--hc-cell) * 1.5)}
+  .cover-honeycomb .hc-4,.cover-honeycomb .hc-8{left:calc(var(--hc-cell) * 1.5)}
   .cover-honeycomb .hc-1,.cover-honeycomb .hc-2{top:0}
   .cover-honeycomb .hc-3,.cover-honeycomb .hc-4{top:calc((var(--hc-cell) / .866) * .75)}
   .cover-honeycomb .hc-5,.cover-honeycomb .hc-6{top:calc((var(--hc-cell) / .866) * 1.5)}
-  .cover-honeycomb .hc-7,.cover-honeycomb .hc-9{top:calc((var(--hc-cell) / .866) * 2.25)}
-  .cover-honeycomb .hc-8,.cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 3)}
+  .cover-honeycomb .hc-7,.cover-honeycomb .hc-8{top:calc((var(--hc-cell) / .866) * 2.25)}
+  .cover-honeycomb .hc-9,.cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 3)}
   .cover-honeycomb .hc-8 .hc-label,.cover-honeycomb .hc-9 .hc-label,.cover-honeycomb .hc-10 .hc-label{font-size:clamp(.72rem,3.5vw,.9rem)}
   .puzzle-tier-inner{padding-top:4rem;padding-bottom:2rem}
   .puzzle-heading{margin-bottom:1rem}.puzzle-heading h2{font-size:clamp(2rem,10vw,3.15rem)}
