@@ -42,6 +42,7 @@ test('the Story is signed, has no bottom photograph, and the Marketplace placeho
   const story = html.match(/<!-- STORY -->([\s\S]*?)<!-- MAKE IT YOURS -->/)?.[1] ?? '';
   const market = html.match(/<!-- MARKETPLACE -->([\s\S]*?)<!-- JOIN/)?.[1] ?? '';
   assert.doesNotMatch(story, /<img\b/);
+  assert.match(story, /as I am sure most of us have, how hard life can be/);
   assert.match(story, /Nicolas – Nikko/);
   assert.doesNotMatch(market, /<h4>To Bee Honest<\/h4>/);
 });

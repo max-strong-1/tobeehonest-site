@@ -25,3 +25,10 @@ test('the rejected toilet artwork is not used by the Book experience', () => {
   assert.doesNotMatch(book, /book-sneak-1\.jpg/);
   assert.match(book, /assets\/IMG_5791\.jpeg/);
 });
+
+test('the Book second page is the approved preface page, never a Mantra Deck card', () => {
+  const bookPages = html.match(/<span class="book-page">([\s\S]*?)<\/span>\s*<!-- The real cover art/)?.[1] ?? '';
+  assert.equal((bookPages.match(/data-leaf=/g) ?? []).length, 2);
+  assert.match(bookPages, /assets\/web\/book-preface-page\.png/);
+  assert.doesNotMatch(bookPages, /assets\/web\/deck-cards\//);
+});
