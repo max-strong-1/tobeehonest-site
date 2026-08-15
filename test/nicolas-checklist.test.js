@@ -28,6 +28,11 @@ test('mantra fronts preserve the complete card so no mantra words are cropped', 
   assert.doesNotMatch(checklistCss, /inset:-4%|width:108%|height:108%/);
 });
 
+test('phone mantra fronts fill the tarot frame without restoring the unsafe all-direction zoom', () => {
+  assert.match(checklistCss, /@media\s*\(max-width:560px\)[\s\S]*?\.card-front\.has-photo \.card-photo\s*\{[\s\S]*?object-fit:cover/);
+  assert.doesNotMatch(checklistCss, /\.card-front\.has-photo \.card-photo\s*\{[^}]*transform:\s*scale/);
+});
+
 test('the Coloring Book keeps the realistic mockup with Nicolas’s approved cover', () => {
   assert.match(html, /id="t-coloring"/);
   assert.match(html, /assets\/web\/coloring-book-mockup-approved\.png/);

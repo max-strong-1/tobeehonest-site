@@ -24,6 +24,12 @@
   object-fit:contain;
 }
 
+/* A phone makes the narrow proof gutter conspicuous. Fill the tarot frame by trimming
+   only the image's safe side edges; do not restore the old 108% top-and-bottom crop. */
+@media (max-width:560px){
+  .card-front.has-photo .card-photo{object-fit:cover}
+}
+
 /* The production tin is white and portrait. Nicolas's approved Drive artwork remains
    inset on the lid, preserving its own 1,000-piece label and intended image scale. */
 .puzzle-product{

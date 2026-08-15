@@ -29,6 +29,8 @@ test('the open-cover prompt leaves a clear gap beneath the physical Book', () =>
 
 test('the check-in stays private and explains rather than diagnoses', () => {
   assert.doesNotMatch(script, /fetch\(|localStorage|sessionStorage|XMLHttpRequest/);
+  assert.match(html, /<span class="book-checkin__response-line">No one is listening\.<\/span>\s*<span class="book-checkin__response-line">Nobody gets to grade your answer\.<\/span>/);
+  assert.doesNotMatch(html, /Nothing is saved/);
   assert.match(script, /where this book begins/);
   assert.match(script, /prefers-reduced-motion: reduce/);
 });
