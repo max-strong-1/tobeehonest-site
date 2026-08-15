@@ -1,28 +1,19 @@
 import { Problem } from "./http.js";
-import { envFlag, requireEnabled } from "./config.js";
+import { requireEnabled } from "./config.js";
 import { createProdigiOrder } from "./prodigi.js";
 import { createQpmnOrder } from "./qpmn.js";
-import { createTgcOrder } from "./tgc.js";
 import { sendOrderAlert } from "./notify.js";
 import { claimFulfillment, recordStage, STAGE_DONE } from "./fulfillment-ledger.js";
 
 /* Vendors differ in whether they protect us from duplicate submission.
 
    Prodigi takes an `idempotencyKey` on every order, so a replayed Stripe webhook is
-   absorbed by Prodigi itself and re-running is harmless. The Game Crafter has no
-   equivalent — six sequential cart mutations, no replay protection — so it must be
-   gated on our side by the fulfillment ledger. QPMN order creation is likewise not
-   idempotent, so an explicitly enabled QPMN deck uses the same local lock. */
+   absorbed by Prodigi itself and re-running is harmless. QPMN order creation is not
+   idempotent, so every enabled QPMN deck order uses the Airtable fulfillment lock. */
 const ADAPTERS = {
   prodigi: { create: createProdigiOrder, selfIdempotent: true },
-  tgc: { create: createTgcOrder, selfIdempotent: false },
   qpmn: { create: createQpmnOrder, selfIdempotent: false }
 };
-
-function deckVendor(item) {
-  if (item.vendor !== "qpmn") return item.vendor;
-  return envFlag("QPMN_ENABLED") ? "qpmn" : "tgc";
-}
 
 function qpmnRecipient(session) {
   const shipping = session.shipping_details || session.collected_information?.shipping_details;
@@ -70,16 +61,15 @@ export async function fulfillPaidCheckout({ session, item }) {
     throw new Problem(409, "Payment Not Complete", "Fulfillment requires a paid Stripe Checkout Session.");
   }
 
-  const vendor = deckVendor(item);
+  const vendor = item.vendor;
   const adapter = ADAPTERS[vendor];
   if (!adapter) throw new Problem(422, "Unsupported Vendor", "No fulfillment adapter exists for this item.");
 
   if (adapter.selfIdempotent) return adapter.create({ session, item });
 
-  const vendorItem = vendor === "tgc" && item.vendor === "qpmn"
-    ? { ...item, vendor: "tgc", vendorSku: process.env.TGC_DECK_SKU?.trim() || item.vendorSku }
-    : { ...item, vendor };
-  const vendorSku = vendor === "qpmn" ? process.env.QPMN_PRODUCT_ID_DECK?.trim() : vendorItem.vendorSku;
+  requireEnabled("QPMN_ENABLED", "QPMN fulfillment requires explicit approval.");
+
+  const vendorSku = process.env.QPMN_PRODUCT_ID_DECK?.trim();
 
   const claim = await claimFulfillment({
     sessionId: session.id,
@@ -109,30 +99,13 @@ export async function fulfillPaidCheckout({ session, item }) {
   }
 
   try {
-    const result = vendor === "qpmn"
-      ? await adapter.create({
-        checkoutSessionId: session.id,
-        recipient: qpmnRecipient(session),
-        quantity: item.quantity,
-        resalePrice: qpmnResalePrice(session, item.quantity)
-      })
-      : await adapter.create({
-        session,
-        item: vendorItem,
-        /* Each durable step is written down as it happens, so a failure halfway leaves a
-           trail showing exactly how far it got rather than an opaque "claimed". */
-        checkpoint: async ({ stage, cartId, receiptId, method, cost }) =>
-          recordStage(claim.recordId, {
-            "Stage": stage,
-            ...(cartId ? { "Cart ID": cartId } : {}),
-            ...(receiptId ? { "Receipt ID": receiptId } : {}),
-            ...(method ? { "Shipping Method": method } : {}),
-            ...(cost !== undefined ? { "Shipping Cost": cost } : {})
-          })
-      });
-    if (vendor === "qpmn") {
-      await recordStage(claim.recordId, { "Stage": STAGE_DONE, "Receipt ID": String(result.id) });
-    }
+    const result = await adapter.create({
+      checkoutSessionId: session.id,
+      recipient: qpmnRecipient(session),
+      quantity: item.quantity,
+      resalePrice: qpmnResalePrice(session, item.quantity)
+    });
+    await recordStage(claim.recordId, { "Stage": STAGE_DONE, "Receipt ID": String(result.id) });
     return result;
   } catch (error) {
     await recordStage(claim.recordId, { "Stage": "failed", "Error": String(error?.detail || error?.message || error).slice(0, 500) });

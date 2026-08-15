@@ -7,9 +7,8 @@ import { upsertRecord, updateRecord } from "./airtable.js";
    Why this exists: Stripe retries `checkout.session.completed` by design — if our
    handler fulfils successfully but then times out before returning 200, the same
    event arrives again. Prodigi absorbs that harmlessly because every order carries
-   `idempotencyKey: stripe-<session.id>`. The Game Crafter has no idempotency
-   mechanism anywhere in its API, so an unguarded retry would build a second cart and
-   draw shop credit twice for one $49 sale. This row is the missing key. */
+   `idempotencyKey: stripe-<session.id>`. QPMN has no equivalent idempotency contract,
+   so the Airtable claim prevents a replay from creating a second Deck order. */
 
 const TABLE = () => process.env.AIRTABLE_FULFILLMENT_TABLE_ID?.trim();
 
