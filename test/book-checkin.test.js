@@ -14,6 +14,19 @@ test('the Book opens with an accessible five-choice emotional check-in', () => {
   assert.match(html, /id="bookScrollCue"[^>]*aria-controls="bookDetails"/);
 });
 
+test('the check-in uses Nicolas’s softer scrapbook language and hero-family styling', () => {
+  const css = readFileSync(new URL('../assets/web/book-checkin.css', import.meta.url), 'utf8');
+  assert.match(html, /<p class="book-checkin__eyebrow hand">genuine check in<\/p>/);
+  assert.match(css, /\.book-mood\{[\s\S]*?font:[^;]*'Shantell Sans'/);
+  assert.match(css, /\.book-mood:nth-child\(2\)/);
+  assert.match(css, /clip-path:polygon/);
+});
+
+test('the open-cover prompt leaves a clear gap beneath the physical Book', () => {
+  assert.match(html, /<p class="book-hint hand" id="bookHint">psst — open the cover<\/p>/);
+  assert.match(html, /#t-book \.book-hint\{margin-top:1\.8rem/);
+});
+
 test('the check-in stays private and explains rather than diagnoses', () => {
   assert.doesNotMatch(script, /fetch\(|localStorage|sessionStorage|XMLHttpRequest/);
   assert.match(script, /where this book begins/);

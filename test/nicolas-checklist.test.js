@@ -5,19 +5,13 @@ import test from 'node:test';
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const checklistCss = readFileSync(new URL('../assets/web/nicolas-checklist.css', import.meta.url), 'utf8');
 
-test('the approved Sun Bird lid and complete 1,000-piece cut map are installed', () => {
-  const cutMap = readFileSync(new URL('../assets/web/sun-bird-puzzle-cutmap.svg', import.meta.url), 'utf8');
+test('the approved Sun Bird lid and Prodigi-style 1,000-piece product preview are installed', () => {
   assert.equal(existsSync(new URL('../assets/web/sun-bird-puzzle-lid-approved.webp', import.meta.url)), true);
-  assert.match(html, /assets\/web\/sun-bird-puzzle-lid-approved\.webp/);
-  assert.match(html, /assets\/web\/sun-bird-puzzle-cutmap\.svg/);
+  assert.equal(existsSync(new URL('../assets/web/sun-bird-puzzle-prodigi-preview.png', import.meta.url)), true);
+  assert.match(html, /assets\/web\/sun-bird-puzzle-prodigi-preview\.png/);
+  assert.doesNotMatch(html, /assets\/web\/sun-bird-puzzle-cutmap\.svg/);
   assert.doesNotMatch(html, /assets\/web\/sun-bird-puzzle-outline\.webp/);
-  assert.match(cutMap, /data-columns="25"/);
-  assert.match(cutMap, /data-rows="40"/);
-  assert.match(cutMap, /data-piece-count="1000"/);
-  assert.match(cutMap, /href="data:image\/webp;base64,/);
-  assert.equal((cutMap.match(/class="cut-line cut-line--vertical"/g) ?? []).length, 24);
-  assert.equal((cutMap.match(/class="cut-line cut-line--horizontal"/g) ?? []).length, 39);
-  assert.match(html, /The full 1,000-piece cut preview/);
+  assert.match(html, /Prodigi-style 1,000-piece product preview/);
 });
 
 test('the Book begins with a problem, a solution handoff, and Nicolas preface', () => {
@@ -26,24 +20,27 @@ test('the Book begins with a problem, a solution handoff, and Nicolas preface', 
   assert.match(html, /Read Nicolas’s preface/);
 });
 
-test('mantra fronts crop the baked-in white border without changing master files', () => {
+test('mantra fronts preserve the complete card so no mantra words are cropped', () => {
   assert.match(checklistCss, /\.card-front\.has-photo \.card-photo\s*\{/);
-  assert.match(checklistCss, /inset:-4%/);
-  assert.match(checklistCss, /width:108%/);
+  assert.match(checklistCss, /inset:0/);
+  assert.match(checklistCss, /width:100%/);
+  assert.match(checklistCss, /object-fit:contain/);
+  assert.doesNotMatch(checklistCss, /inset:-4%|width:108%|height:108%/);
 });
 
-test('the Coloring Book uses Nicolas’s approved cover and stays an honest preview', () => {
+test('the Coloring Book keeps the realistic mockup with Nicolas’s approved cover', () => {
   assert.match(html, /id="t-coloring"/);
-  assert.match(html, /assets\/web\/coloring-book-cover-approved\.jpeg/);
-  assert.doesNotMatch(html, /assets\/web\/coloring-book-mockup\.webp/);
+  assert.match(html, /assets\/web\/coloring-book-mockup-approved\.png/);
+  assert.doesNotMatch(html, /src="assets\/web\/coloring-book-cover-approved\.jpeg"/);
   assert.match(html, /A real preview—not a checkout/);
   assert.doesNotMatch(html, /hc-5 hc-placeholder/);
 });
 
-test('puzzle presentation uses the approved lid art inside a white tin and secure checkout', () => {
-  assert.match(checklistCss, /\.puzzle-tin\s*\{[\s\S]*?aspect-ratio:2\/3/);
-  assert.match(checklistCss, /\.puzzle-tin-lid\s*\{[\s\S]*?background:[^;]*(?:fff|white)/);
-  assert.doesNotMatch(html, /class="puzzle-tin-side"/);
+test('puzzle presentation uses the approved lid on Prodigi’s real large-tin photography', () => {
+  assert.equal(existsSync(new URL('../assets/web/sun-bird-puzzle-tin-approved.png', import.meta.url)), true);
+  assert.match(html, /assets\/web\/sun-bird-puzzle-tin-approved\.png/);
+  assert.doesNotMatch(html, /class="puzzle-tin-lid"|class="puzzle-tin-side"/);
+  assert.match(checklistCss, /\.puzzle-tin\s*\{[\s\S]*?aspect-ratio:1/);
   assert.match(html, /Made to order and final sale\./);
   assert.match(html, /id="sunBirdCheckout"[^>]*>Buy the Sun Bird puzzle/);
   assert.match(html, /id="sunBirdCheckoutError" role="alert" hidden/);
