@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 
@@ -38,6 +39,26 @@ test('the Deck presents all 54 cards and keeps the two-card draw centered side b
   assert.match(html, /counter\.textContent=`\$\{revealed\} of \$\{DECK_DATA\.length\} revealed`/);
   assert.match(html, /\.draw-table\{display:flex;flex-wrap:nowrap;justify-content:center/);
   assert.match(html, /\.draw-table \.card\{flex:0 0 min\(42vw,150px\);max-width:min\(42vw,150px\)\}/);
+});
+
+test('the Deck uses Nicolas’s approved August 15 QPMN artwork export', () => {
+  assert.match(html, /Draft-WUVGQXWWMG \(draft 642581364, saved 2026-08-15\)/);
+
+  for (let card = 1; card <= 54; card += 1) {
+    const number = String(card).padStart(2, '0');
+    assert.equal(
+      existsSync(new URL(`../assets/web/deck-cards/card-${number}.jpg`, import.meta.url)),
+      true,
+      `card-${number}.jpg should exist`,
+    );
+  }
+
+  const revisedCard = readFileSync(new URL('../assets/web/deck-cards/card-16.jpg', import.meta.url));
+  assert.equal(
+    createHash('sha256').update(revisedCard).digest('hex'),
+    '70a5e2375e27aedc90b9aa2b68b941b74b44436d1c5cec6a9a02aa694f0b88fe',
+  );
+  assert.match(html, /Being kind is the right thing to do\. I can always feel it\./);
 });
 
 test('the Coloring Book keeps the realistic mockup with Nicolas’s approved cover', () => {
