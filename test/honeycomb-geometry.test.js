@@ -27,9 +27,9 @@ test('mobile honeycomb is five interlocking rows of two', () => {
   has('.cover-honeycomb.hc-9,.cover-honeycomb.hc-10{top:calc((var(--hc-cell)/.866)*3)}');
 });
 
-test('all ten comb labels share one responsive type treatment', () => {
-  has(".cover-honeycomb.hc-cell{font-family:'ShantellSans',cursive;font-style:normal}");
-  has(".cover-honeycomb.hc-cell.hc-label{font-family:inherit;font-weight:500;font-size:clamp(.72rem,1.15vw,.94rem);line-height:1.05");
+test('all ten comb labels use the true cursive face at every breakpoint', () => {
+  has(".cover-honeycomb.hc-cell{font-family:'ShantellSans',cursive;font-style:italic}");
+  has(".cover-honeycomb.hc-cell.hc-label{font-family:inherit;font-weight:400;font-size:clamp(.72rem,1.15vw,.94rem);line-height:1.05");
   has("font-family:inherit;font-size:clamp(.78rem,3.7vw,.94rem);line-height:1.03;max-width:90%;transform:none");
 });
 
