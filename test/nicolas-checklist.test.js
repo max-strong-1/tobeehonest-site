@@ -64,3 +64,30 @@ test('only one ambient hero bee remains', () => {
   const heroBees = html.match(/<div class="hero-bees"[\s\S]*?<\/div>/)?.[0] ?? '';
   assert.equal((heroBees.match(/class="hero-bee /g) ?? []).length, 1);
 });
+
+test('every product comb explains the applicable supplier return conditions before payment', () => {
+  const section = (start, end) => html.match(new RegExp(`<!-- ${start} -->([\\s\\S]*?)<!-- ${end} -->`))?.[1] ?? '';
+  const puzzles = section('JIGSAW PUZZLES', 'COLORING BOOK');
+  const coloring = section('COLORING BOOK', 'BOOK');
+  const book = section('BOOK', 'DECK');
+  const deck = section('DECK', 'GALLERY');
+  const gallery = section('GALLERY', 'STORY');
+  const market = html.match(/<!-- MARKETPLACE -->([\s\S]*?)<!-- THE VIEWER/)?.[1] ?? '';
+
+  assert.match(deck, /Returns &amp; order problems/);
+  assert.match(deck, /QPMN/);
+  assert.match(deck, /within 7 calendar days/);
+  assert.match(deck, /qpmarketnetwork\.com\/refund-policy/);
+
+  for (const prodigiSection of [puzzles, gallery]) {
+    assert.match(prodigiSection, /Returns &amp; order problems/);
+    assert.match(prodigiSection, /Prodigi/);
+    assert.match(prodigiSection, /to order/i);
+    assert.match(prodigiSection, /prodigi\.com\/faq\/returns-and-cancellations/);
+  }
+
+  assert.match(book, /return terms before I pay/);
+  assert.match(coloring, /return conditions before checkout/);
+  assert.match(market, /supplier’s rules and conditions/);
+  assert.match(market, /before payment/);
+});

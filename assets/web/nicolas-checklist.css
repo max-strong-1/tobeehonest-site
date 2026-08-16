@@ -89,6 +89,7 @@
   align-items:center;
   max-width:1220px;
 }
+.coloring-tier-inner>.medium-faq{grid-column:1/-1}
 .coloring-copy{max-width:590px}
 .coloring-kicker{color:#8b5109;margin:0 0 .25rem}
 .coloring-copy h2{font-size:clamp(2.7rem,5.3vw,5.4rem);line-height:.92;margin:0 0 1.2rem;text-wrap:balance}
