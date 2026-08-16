@@ -43,7 +43,7 @@ test('the ten hero combs stay in the approved order', () => {
     'The Moody Gallery',
     'The Jigsaw Puzzles',
     'The Coloring Book',
-    'The Podcast Nikko &amp; The Kool Kids',
+    'The Podcast “Nikko &amp; The Kool Kids”',
     'Make It Yours! Customs Products',
     'The Community Market',
     'The Story',

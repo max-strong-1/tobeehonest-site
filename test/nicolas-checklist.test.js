@@ -33,6 +33,13 @@ test('phone mantra fronts fill the tarot frame without restoring the unsafe all-
   assert.doesNotMatch(checklistCss, /\.card-front\.has-photo \.card-photo\s*\{[^}]*transform:\s*scale/);
 });
 
+test('the Deck presents all 54 cards and keeps the two-card draw centered side by side', () => {
+  assert.match(html, /id="drawCounter"[^>]*>0 of 54 revealed/);
+  assert.match(html, /counter\.textContent=`\$\{revealed\} of \$\{DECK_DATA\.length\} revealed`/);
+  assert.match(html, /\.draw-table\{display:flex;flex-wrap:nowrap;justify-content:center/);
+  assert.match(html, /\.draw-table \.card\{flex:0 0 min\(42vw,150px\);max-width:min\(42vw,150px\)\}/);
+});
+
 test('the Coloring Book keeps the realistic mockup with Nicolas’s approved cover', () => {
   assert.match(html, /id="t-coloring"/);
   assert.match(html, /assets\/web\/coloring-book-mockup-approved\.png/);
@@ -60,9 +67,21 @@ test('the Story is signed, has no bottom photograph, and the Marketplace placeho
   assert.doesNotMatch(market, /<h4>To Bee Honest<\/h4>/);
 });
 
-test('only one ambient hero bee remains', () => {
+test('the Community Market directory is an edge-sharing 2-1-2-1-2 hive', () => {
+  const directory = html.match(/<div class="directory-hive"[\s\S]*?<\/div>\s*<p class="directory-layout-note">/)?.[0] ?? '';
+  const rowCounts = [...directory.matchAll(/<div class="directory-row">([\s\S]*?)(?=<div class="directory-row">|<\/div>\s*<p class="directory-layout-note">)/g)]
+    .map((match) => (match[1].match(/class="directory-cell /g) ?? []).length);
+  assert.deepEqual(rowCounts, [2, 1, 2, 1, 2]);
+  assert.match(html, /\.directory-row\{display:flex;justify-content:center;gap:0\}/);
+  assert.match(html, /\.directory-row\+\.directory-row\{margin-top:calc\(var\(--dir-cell\) \* -\.2887\)\}/);
+});
+
+test('the hero has the existing bee plus two new bottom-origin ambient bees', () => {
   const heroBees = html.match(/<div class="hero-bees"[\s\S]*?<\/div>/)?.[0] ?? '';
-  assert.equal((heroBees.match(/class="hero-bee /g) ?? []).length, 1);
+  assert.equal((heroBees.match(/class="hero-bee /g) ?? []).length, 3);
+  assert.match(html, /\.hero-bee-2\{right:9%;bottom:5%/);
+  assert.match(html, /\.hero-bee-3\{left:47%;bottom:8%/);
+  assert.match(html, /@media\(prefers-reduced-motion:reduce\)[\s\S]*?\.hero-bee\{animation:none!important/);
 });
 
 test('every product comb explains the applicable supplier return conditions before payment', () => {
