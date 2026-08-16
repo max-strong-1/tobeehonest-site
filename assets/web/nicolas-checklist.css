@@ -14,18 +14,17 @@
   .cover-honeycomb .hc-7 .hc-label{font-size:clamp(.79rem,3.82vw,1rem);max-width:88%;transform:none}
 }
 
-/* Keep every printed word visible. The prior 108% overscan hid the tops of cards such
-   as Demigod; the production border is preferable to cropping Nicolas's mantra. */
+/* QPMN prints these at the true 2.75 x 4.75 tarot ratio. Cover reproduces the
+   editor's narrow safe side trim without reintroducing the old 108% top/bottom zoom. */
 .card-front.has-photo .card-photo{
   inset:0;
   width:100%;
   height:100%;
   max-width:100%;
-  object-fit:contain;
+  object-fit:cover;
 }
 
-/* A phone makes the narrow proof gutter conspicuous. Fill the tarot frame by trimming
-   only the image's safe side edges; do not restore the old 108% top-and-bottom crop. */
+/* Keep the same print-accurate crop on phones. */
 @media (max-width:560px){
   .card-front.has-photo .card-photo{object-fit:cover}
 }

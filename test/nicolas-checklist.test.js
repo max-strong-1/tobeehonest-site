@@ -21,12 +21,14 @@ test('the Book begins with a problem, a solution handoff, and Nicolas preface', 
   assert.match(html, /Read Nicolas’s preface/);
 });
 
-test('mantra fronts preserve the complete card so no mantra words are cropped', () => {
-  assert.match(checklistCss, /\.card-front\.has-photo \.card-photo\s*\{/);
-  assert.match(checklistCss, /inset:0/);
-  assert.match(checklistCss, /width:100%/);
-  assert.match(checklistCss, /object-fit:contain/);
-  assert.doesNotMatch(checklistCss, /inset:-4%|width:108%|height:108%/);
+test('mantra fronts match QPMN’s edge-to-edge 2.75 by 4.75 tarot crop', () => {
+  const cardPhotoRule = checklistCss.match(/\.card-front\.has-photo \.card-photo\s*\{[^}]*\}/)?.[0] ?? '';
+  assert.match(html, /\.card\{aspect-ratio:11\/19/);
+  assert.match(cardPhotoRule, /inset:0/);
+  assert.match(cardPhotoRule, /width:100%/);
+  assert.match(cardPhotoRule, /object-fit:cover/);
+  assert.doesNotMatch(cardPhotoRule, /object-fit:contain/);
+  assert.doesNotMatch(cardPhotoRule, /inset:-4%|width:108%|height:108%/);
 });
 
 test('phone mantra fronts fill the tarot frame without restoring the unsafe all-direction zoom', () => {

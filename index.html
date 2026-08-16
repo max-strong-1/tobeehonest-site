@@ -358,7 +358,7 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
    .card-inner does all the turning inside it. The hit area is constant, so the roll
    runs once, smoothly, wherever the pointer sits. */
 /* 270 -> 284px, 5% up (client call 2026-08-07) */
-.card{aspect-ratio:5/8;position:relative;cursor:pointer;max-width:284px;width:100%;
+.card{aspect-ratio:11/19;position:relative;cursor:pointer;max-width:284px;width:100%;
   margin:0 auto 1.45rem;perspective:1400px}
 .card-inner{position:absolute;inset:0;transform-style:preserve-3d;
   transition:transform .75s cubic-bezier(.22,1,.28,1);will-change:transform}
@@ -2447,7 +2447,8 @@ const DECK_DATA=[
   {n:52,m:"I was looking for them, that’s where I got lost. That is also where I found myself."},{n:53,m:"I roar when required. I rest when needed."},
   {n:54,m:"Am I uncomfortable, or am I shedding an old skin? Adapting is freeing."}
 ];
-(()=>{
+;(async()=>{
+  const {bindMantraCard}=await import('./assets/web/mantra-card-controller.js');
   const table=document.getElementById('drawTable'),counter=document.getElementById('drawCounter');
   const moreBtn=document.getElementById('drawMoreBtn'),resetBtn=document.getElementById('drawReset');
   const endBox=document.getElementById('drawEnd'),endLine=document.getElementById('drawEndLine'),buyCta=document.getElementById('deckBuyCta');
@@ -2462,8 +2463,8 @@ const DECK_DATA=[
     const num=String(card.n).padStart(2,'0'),el=document.createElement('div');
     el.className='card';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-pressed','false');el.setAttribute('aria-label','Mantra card, face down. Activate to reveal it.');
     el.innerHTML='<div class="card-inner"><div class="card-face card-back"><img src="assets/prints/tower-of-knowledge-print-proof.png" alt=""></div><div class="card-face card-front has-photo" aria-hidden="true"><img class="card-photo" alt="" aria-hidden="true"><span class="sr-only">“'+card.m+'”</span></div></div>';
-    let flipped=false;const flip=()=>{if(flipped)return;flipped=true;el.querySelector('.card-photo').src='assets/web/deck-cards/card-'+num+'.jpg';el.classList.add('flipped');el.setAttribute('aria-pressed','true');el.querySelector('.card-front').setAttribute('aria-hidden','false');el.querySelector('.card-back').setAttribute('aria-hidden','true');el.setAttribute('aria-label','Mantra card, revealed: “'+card.m+'”.');revealed++;update();if(revealed>=CAP){endLine.textContent='Two found their way to you today. Fifty-four live in the full deck.';endBox.hidden=false}};
-    el.addEventListener('click',flip);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});return el;
+    bindMantraCard(el,{mantra:card.m,imageSrc:'assets/web/deck-cards/card-'+num+'.jpg',onFirstReveal:()=>{revealed++;update();if(revealed>=CAP){endLine.textContent='Two found their way to you today. Fifty-four live in the full deck.';endBox.hidden=false}}});
+    return el;
   };
   const start=()=>{order=shuffle(pool);revealed=0;table.innerHTML='';endBox.hidden=true;moreBtn.hidden=true;resetBtn.hidden=false;update();order.slice(0,CAP).forEach(c=>table.appendChild(build(c)))};
   resetBtn.addEventListener('click',start);

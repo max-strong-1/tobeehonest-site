@@ -28,8 +28,9 @@ test('mobile honeycomb is five interlocking rows of two', () => {
 });
 
 test('all ten comb labels share one responsive type treatment', () => {
-  has(".cover-honeycomb.hc-cell.hc-label{font-family:'ShantellSans',cursive;font-weight:500;font-size:clamp(.72rem,1.15vw,.94rem);line-height:1.05");
-  has("font-size:clamp(.78rem,3.7vw,.94rem);line-height:1.03;max-width:90%;transform:none");
+  has(".cover-honeycomb.hc-cell{font-family:'ShantellSans',cursive;font-style:normal}");
+  has(".cover-honeycomb.hc-cell.hc-label{font-family:inherit;font-weight:500;font-size:clamp(.72rem,1.15vw,.94rem);line-height:1.05");
+  has("font-family:inherit;font-size:clamp(.78rem,3.7vw,.94rem);line-height:1.03;max-width:90%;transform:none");
 });
 
 test('the ten hero combs stay in the approved order', () => {
