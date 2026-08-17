@@ -17,11 +17,13 @@ export const checkoutSchema = z.object({
   }
 });
 
+/* Shipping rates are per frame SIZE — color is a Prodigi attribute and does not
+ * change the shipment, so both colors of a size share one Stripe rate. */
 const variants = {
-  "12x16:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_GOLD" },
-  "12x16:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_SECOND" },
-  "20x28:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_GOLD" },
-  "20x28:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_SECOND" }
+  "12x16:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_12X16_US" },
+  "12x16:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_12X16_US" },
+  "20x28:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28_US" },
+  "20x28:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28_US" }
 };
 
 function configured(name) {
@@ -48,6 +50,7 @@ export function resolveCheckoutItem(input) {
       vendor: "qpmn",
       product: "deck",
       stripePriceId: configured("STRIPE_PRICE_DECK"),
+      stripeShippingRateId: configured("STRIPE_SHIPPING_RATE_DECK_US"),
       vendorSku: configured("QPMN_DECK_SKU"),
       quantity: input.quantity,
       metadata: { product: "deck" }
@@ -65,6 +68,7 @@ export function resolveCheckoutItem(input) {
     vendor: "prodigi",
     product: "framed-art",
     stripePriceId: configured(variant.stripePriceEnv),
+    stripeShippingRateId: configured(variant.shippingRateEnv),
     vendorSku: configured(variant.prodigiSkuEnv),
     quantity: input.quantity,
     metadata: {
