@@ -20,7 +20,7 @@ test('desktop honeycomb is a true edge-sharing 3-4-3 lattice', () => {
 });
 
 test('mobile honeycomb is five interlocking rows of two', () => {
-  has('--hc-cell:clamp(97.5px,30vw,131.25px)');
+  has('--hc-cell:clamp(78px,24vw,105px)');
   has('width:calc(var(--hc-cell)*2.5);height:calc((var(--hc-cell)/.866)*4)');
   has('.cover-honeycomb.hc-1,.cover-honeycomb.hc-2{top:0}');
   has('.cover-honeycomb.hc-3,.cover-honeycomb.hc-4{top:calc((var(--hc-cell)/.866)*.75)}');
@@ -29,8 +29,8 @@ test('mobile honeycomb is five interlocking rows of two', () => {
   has('.cover-honeycomb.hc-9,.cover-honeycomb.hc-10{top:calc((var(--hc-cell)/.866)*3)}');
 });
 
-test('the phone art-direction override preserves the same 25 percent enlargement', () => {
-  assert.match(html.replace(/\s+/g, ''), /--hc-cell:min\(38\.025vw,152\.1px\)/);
+test('the phone art-direction override keeps the pre-enlargement mobile scale', () => {
+  assert.match(html.replace(/\s+/g, ''), /--hc-cell:min\(30\.42vw,121\.68px\)/);
 });
 
 test('all ten comb labels use the approved upright handwritten face at a readable scale', () => {
