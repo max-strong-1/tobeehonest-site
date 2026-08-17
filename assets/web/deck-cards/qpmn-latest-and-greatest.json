@@ -1,8 +1,9 @@
 {
-  "draftId": 646575409,
-  "draftName": "Latest And Greatest-Copy",
-  "productInstanceId": 646575342,
-  "exportedAt": "2026-08-17T02:37:25.746Z",
+  "draftId": 642581364,
+  "draftName": "Latest And Greatest",
+  "productInstanceId": 646548898,
+  "exportedAt": "2026-08-17T05:50:13.709Z",
+  "provenanceNote": "Final card fronts captured 2026-08-17 from the live QPMN Preview grid of draft 642581364 / instance 646548898 (Latest And Greatest) — the finished composites incl. text elements, guide + edge-label layers excluded, cropped at the solid card boundary. Operator (Kel) visually approved all 54 on the review contact sheet before these hashes were written. See scripts/verify-deck-assets.mjs.",
   "canvas": {
     "width": 216,
     "height": 360,
@@ -44,7 +45,7 @@
         "975040c188644b8ec8d22ec4653561d2.png"
       ],
       "websiteFile": "card-01.jpg",
-      "websiteSha256": "97510a8516ae71704d274f5d8d639b6154b7b92b224d0dbd7ceaf30fdecb070a",
+      "websiteSha256": "3ffc52318100c5a0b934c2073431f7cc6720ec9482668e2e86a1673b0aff7319",
       "visibleLayerZ": 0
     },
     {
@@ -81,7 +82,7 @@
         "3c54fd3966ed09d911816baafc4bf04c.png"
       ],
       "websiteFile": "card-02.jpg",
-      "websiteSha256": "505bbfa5bd28972be54fcd22817e2ed921d369a9e5332713b43f1611ed95bcae",
+      "websiteSha256": "afde84aae65bf635b11c48b2612092595bfbc2098636289ae658219e022191f1",
       "visibleLayerZ": 0
     },
     {
@@ -118,7 +119,7 @@
         "ce3cabe600e69f2079a809cc2f3b1891.png"
       ],
       "websiteFile": "card-03.jpg",
-      "websiteSha256": "06e7aa5da6aba59d7454940ef76e9cdf514267a10f05c9985c738198f6c6a2a8",
+      "websiteSha256": "ff3e774b2f2fa0140d1f3e73af60e0a27f7f20c37535e3afdd129cb920edba0f",
       "visibleLayerZ": 0
     },
     {
@@ -155,7 +156,7 @@
         "a3a08ca9baf70fa4d3cb66336d2ac7aa.png"
       ],
       "websiteFile": "card-04.jpg",
-      "websiteSha256": "0f77a24023c3933c0b2014da7bd07c21e0fd48400a2d395a04c02ee9ebe957ff",
+      "websiteSha256": "d824d9cb3c27838f1ed9db21a701fcd021447343ba942af9fa9b59c87d9d61bc",
       "visibleLayerZ": 0
     },
     {
@@ -192,7 +193,7 @@
         "c756fc5a51787c5f9558e611df02cf9a.png"
       ],
       "websiteFile": "card-05.jpg",
-      "websiteSha256": "84f3594c98d4ec028d09c61e03bbaea2ee86c8bad85afcba497cb044a04e30be",
+      "websiteSha256": "1aadd516b52a06cf4ec628b940e7b75df84241cae0e4f02369aac46201cc37fb",
       "visibleLayerZ": 0
     },
     {
@@ -229,7 +230,7 @@
         "dc747605870c87926021e418d2225100.png"
       ],
       "websiteFile": "card-06.jpg",
-      "websiteSha256": "6ae4f567dc7dca1a22efb67fee3d2822e4a99cf98187320209a680137cea43c6",
+      "websiteSha256": "ba3ecdafd5875818f9ebd3b0b6295e5689687c966ae214f8f82720436ec758e3",
       "visibleLayerZ": 0
     },
     {
@@ -265,7 +266,7 @@
         "3d2d01ed89f0864c75d809dfc73dad11.png"
       ],
       "websiteFile": "card-07.jpg",
-      "websiteSha256": "8985eb07422f605ec8a02036f2e0608bf961c69d80f37456901b854dc6b087c5",
+      "websiteSha256": "592405bcbeb5aa869d2045e2d5c74f56bd54ebfe9568eaec932b9891ce35e85c",
       "visibleLayerZ": 0
     },
     {
@@ -302,7 +303,7 @@
         "8cbf5eb65f37407e9bbc853a71aec916.png"
       ],
       "websiteFile": "card-08.jpg",
-      "websiteSha256": "561bb58116925707797df1391e1a56a3477dae4d5153fe4a1419c87e14c74714",
+      "websiteSha256": "728d048c7865ce753ea390f750020479a399b183f7b35ab42fd173d8580528b4",
       "visibleLayerZ": 0
     },
     {
@@ -338,7 +339,7 @@
         "36e77231674e6d4089a90b6c5ca970b2.png"
       ],
       "websiteFile": "card-09.jpg",
-      "websiteSha256": "bcc4551828bcf780cb6061656db8c7fffe5b6b054596b174ed9d99d078a9f5cc",
+      "websiteSha256": "c54d6b9cb118dde057f01b83a5c7cd1fcc9524c0e5229e0501b34c646537b8ff",
       "visibleLayerZ": 0
     },
     {
@@ -375,7 +376,7 @@
         "af98f101ed05c60e68a457f5d21e3698.png"
       ],
       "websiteFile": "card-10.jpg",
-      "websiteSha256": "cf486c31b3162641c6f638aa2a6e03c173ac5c2ebb28a539f60e6996d397251e",
+      "websiteSha256": "0fb7dcf876d26bfef0f145ebe793af2a792357a08af6ed1004a7f019f361117d",
       "visibleLayerZ": 0
     },
     {
@@ -412,7 +413,7 @@
         "b7d7706929cb051f25cdd074e24c057d.png"
       ],
       "websiteFile": "card-11.jpg",
-      "websiteSha256": "e97d02138c8a2aa3a11bb4b88ea2ba1f814bc96581bc2feb3123aa168786ac69",
+      "websiteSha256": "a6469d28d6156542d95b1d8d0272d25b037791816ef9ee2c52cf79e07a7915d1",
       "visibleLayerZ": 0
     },
     {
@@ -449,7 +450,7 @@
         "b46205fc1ef255db9f816dbca115e505.png"
       ],
       "websiteFile": "card-12.jpg",
-      "websiteSha256": "34457289c052bd566b7b6e23fe82888628dde3a0277a719efbcbcad08e06bb6d",
+      "websiteSha256": "fef726a1fd2c96b332bf642fe8588eefbbc488ccb7e8329c8d56ddaecccc7904",
       "visibleLayerZ": 0
     },
     {
@@ -486,7 +487,7 @@
         "679a83dcb50394405674df39b7cdd697.png"
       ],
       "websiteFile": "card-13.jpg",
-      "websiteSha256": "900596462f40072a2cac51fd78de070f0fe3b3a2152dfc7e98e27d674ee865b8",
+      "websiteSha256": "1efbc9f5aca83a960e0af1ca5211e6c63cbdf620f3e029e718c1baf4fa7f55db",
       "visibleLayerZ": 0
     },
     {
@@ -523,7 +524,7 @@
         "d42f9b74bf069afc3bb04954bf11c419.png"
       ],
       "websiteFile": "card-14.jpg",
-      "websiteSha256": "e10ee3d59429e1a4d48e9f6ee7a04f941c08697cc6c471240b25fa9af386bab2",
+      "websiteSha256": "f4de5617c9f2ba62bd0fc7a02401bdefe293e268c63adf74b852dd81f32ec25b",
       "visibleLayerZ": 0
     },
     {
@@ -560,7 +561,7 @@
         "de2783db506b841fe21fea63ec2485ff.png"
       ],
       "websiteFile": "card-15.jpg",
-      "websiteSha256": "5cdcdb4c7b84cdc7257540708c13c5adc7fb58fa773f8d23425984f291a202af",
+      "websiteSha256": "322dca59118fa8aa104b7e6be3548396df87ef99803dd0c9b0bcd37b43252c2f",
       "visibleLayerZ": 0
     },
     {
@@ -597,7 +598,7 @@
         "86fec360736f1e53a13b6e2f983a65fd.png"
       ],
       "websiteFile": "card-16.jpg",
-      "websiteSha256": "70a5e2375e27aedc90b9aa2b68b941b74b44436d1c5cec6a9a02aa694f0b88fe",
+      "websiteSha256": "3033eecbd754e77487d32e7481ec21b49900ecd9fe4607a3740d0565a3f9a3aa",
       "visibleLayerZ": 0
     },
     {
@@ -634,7 +635,7 @@
         "7e192e74f35ef7447bc26f968ce72449.png"
       ],
       "websiteFile": "card-17.jpg",
-      "websiteSha256": "4369a0c43bb7ee97d13183f3fd7d6c209c9af5d36f30b59f611946aa8c2dc4a7",
+      "websiteSha256": "090c30b1f67edf1ed74e3b46dbf7cf76529df7c1306a750f80f57faa61dc77e8",
       "visibleLayerZ": 0
     },
     {
@@ -671,7 +672,7 @@
         "3a755269dc3275718ab9fe3cb0805d0c.png"
       ],
       "websiteFile": "card-18.jpg",
-      "websiteSha256": "d28271ae2170d8706aebdebb4fa45a6d7d5bbd8983c3b467c3d7dafa28646527",
+      "websiteSha256": "724410808802fdb25d54d358f39228644de24c6170695d9764a7dee91ed09105",
       "visibleLayerZ": 0
     },
     {
@@ -708,7 +709,7 @@
         "72c1809561a0610537399e19a9100546.png"
       ],
       "websiteFile": "card-19.jpg",
-      "websiteSha256": "36ee118893f65183d9c2099dc4c1db44bd2066301917fd32331efed45fce92fe",
+      "websiteSha256": "6e9d1bf5a7b9c17c3a8a7dfa4e4496898c9a97ba891c26306963bdc078556554",
       "visibleLayerZ": 0
     },
     {
@@ -745,7 +746,7 @@
         "0b28a084d8c989f91a7f9782ea4834b6.png"
       ],
       "websiteFile": "card-20.jpg",
-      "websiteSha256": "011912f3d43cc20787890cd993b8e4354134f5328b496685b8e04b18fc933969",
+      "websiteSha256": "686d7a23d57f8ab8293ee85877f5b8fd539e5537df77b35249c280e60203c707",
       "visibleLayerZ": 0
     },
     {
@@ -782,7 +783,7 @@
         "91b4ad79db4010b827d31c5392e5c9f7.png"
       ],
       "websiteFile": "card-21.jpg",
-      "websiteSha256": "ce02663a0f460abbffe1f80c754b6c0c66d351aca9bcf2d161148203e2ddbe2b",
+      "websiteSha256": "ce1554fb4fc8763b97a6d7e41f9137e453a7e31b01ac03fe0723bc05a3794644",
       "visibleLayerZ": 0
     },
     {
@@ -819,7 +820,7 @@
         "12a932e1973e93f02fe7f35a0fdf67dd.png"
       ],
       "websiteFile": "card-22.jpg",
-      "websiteSha256": "f81ecb484a53f6452b6ac971ce1f87b1fc588a37da3c393c966fa5efce78948e",
+      "websiteSha256": "a9e6a962293147c7b4f8c7c239ac66cc440c716652a35ab8cb4dcb570d4f3a1f",
       "visibleLayerZ": 0
     },
     {
@@ -856,7 +857,7 @@
         "a0ab73cb841c75afa1da18b75e1883d7.png"
       ],
       "websiteFile": "card-23.jpg",
-      "websiteSha256": "958cf13fb3014cd3fb5dd7c504e3da58cc6386186bb4634cad79523568dac2b7",
+      "websiteSha256": "bb7684f33c09a416e2840866f8834569053f7c176257c7cbb6bbbf688ae62e65",
       "visibleLayerZ": 0
     },
     {
@@ -893,7 +894,7 @@
         "ca495b16d1b2380f0f5eb831329db70b.png"
       ],
       "websiteFile": "card-24.jpg",
-      "websiteSha256": "75caef87d6e7be0a66e28a911d1e92c488e075ba3900dc8d3b9f7dc9ee7437d7",
+      "websiteSha256": "803d839500b4a84429999005e1d23bc8e70f2ee5da695810ed871d833f056963",
       "visibleLayerZ": 0
     },
     {
@@ -929,7 +930,7 @@
         "8ed74e2bc01be50d5afb104a6a5a17e4.png"
       ],
       "websiteFile": "card-25.jpg",
-      "websiteSha256": "ff86f494ca178344bb4c24fab8ba7e670a5a84475389ce344d710281cd825f0a",
+      "websiteSha256": "60a1fa0eed3428a469956c3b0f6ad3fcc908fccece41b863bbdcd7cec7ae22a1",
       "visibleLayerZ": 0
     },
     {
@@ -966,7 +967,7 @@
         "9e227aa9f5a6f945a1fc7302882cb672.png"
       ],
       "websiteFile": "card-26.jpg",
-      "websiteSha256": "5a182b3f59857a67432742dd21ef3720ba862dc4ae8730ae5693e51bfb1bc38e",
+      "websiteSha256": "3afcbc5fcbc60236781b3ee0bd49f4b938a3418621b1397d1e0ff17d3af0927a",
       "visibleLayerZ": 0
     },
     {
@@ -1002,7 +1003,7 @@
         "b1d1a53aad2ee9037cc038058f881772.png"
       ],
       "websiteFile": "card-27.jpg",
-      "websiteSha256": "f7426b6829fecfce5b597f6269161bc0e2f9b23adb1a6f844b2185f5f93b6b8b",
+      "websiteSha256": "ad6142c7a9949887552ee9ee9cd9b702fd04a0d26b2e158027cd378b4651e59c",
       "visibleLayerZ": 0
     },
     {
@@ -1039,7 +1040,7 @@
         "cd75e96ef9e3e0d4e931ebdb4004cd8d.png"
       ],
       "websiteFile": "card-28.jpg",
-      "websiteSha256": "7e401478578b3f52f0f6ab5485c40f2112b84191ef00c92ba88dd6520e3386be",
+      "websiteSha256": "e99f2076494c4177f9e0af3cfb970031bff487b2633e9d9e0273e7ddd1b89d1e",
       "visibleLayerZ": 0
     },
     {
@@ -1076,7 +1077,7 @@
         "8a61bf4c0595f2f12206f6c6525d8f1a.png"
       ],
       "websiteFile": "card-29.jpg",
-      "websiteSha256": "7c3aec3e2d6ae1bf8194e72696b6edfbac103c8868a83da10197170b60e5bb5c",
+      "websiteSha256": "1519efec91b124c2b1b69d674f12c05a6ac04fb7fc4cd178b31d7d15e86a775c",
       "visibleLayerZ": 0
     },
     {
@@ -1112,7 +1113,7 @@
         "139755587b06a9ce3e201023e5406bbf.png"
       ],
       "websiteFile": "card-30.jpg",
-      "websiteSha256": "5b0f6aa33db6d40dfa655c709a9720ad2d543a07472302d2912bd350b33cdc8c",
+      "websiteSha256": "788a26296ed48f2f517d83ff9be9cc3626918853334071e77ceca19b5ac36253",
       "visibleLayerZ": 0
     },
     {
@@ -1149,7 +1150,7 @@
         "15bbd9da5db557f166b180c0eb4f8bba.png"
       ],
       "websiteFile": "card-31.jpg",
-      "websiteSha256": "819c89e866b1c3fbf645268b041ee99353906fc02868ada2969d33a215a23132",
+      "websiteSha256": "fd8542bb3dfa0e920a8f20856265a15f0a5b0e774b704bb3f75b490219346089",
       "visibleLayerZ": 0
     },
     {
@@ -1185,7 +1186,7 @@
         "8fa53215c57c2e232cd6c99f468cbc48.png"
       ],
       "websiteFile": "card-32.jpg",
-      "websiteSha256": "6222113e163fdc9789019ae8fb435ba23cd834070511067621bfdbf941a9c07c",
+      "websiteSha256": "70ba267fc3cde5d5ff3ccde24c2f1fa4d72598e8f47473bffe395f23908627f5",
       "visibleLayerZ": 0
     },
     {
@@ -1222,7 +1223,7 @@
         "7f4c2fb933442fcee94765659d35cbc9.png"
       ],
       "websiteFile": "card-33.jpg",
-      "websiteSha256": "573da708f30e01f0b7f43da3c57e816665f2eafc27b1990f104cfc3308d7ed2a",
+      "websiteSha256": "9930788d03f93022d0b8db098d14b243f629fc999564cea8b675f60c8029d96f",
       "visibleLayerZ": 0
     },
     {
@@ -1259,7 +1260,7 @@
         "0e6b422c43e0b56c265eee2dc5855574.png"
       ],
       "websiteFile": "card-34.jpg",
-      "websiteSha256": "ae03fa879f456ccfa06b16589d6acfa80fc065f6fdc3e4db05e43a6a128bce4d",
+      "websiteSha256": "b486732ba5d47f41b2fb74998297c10776694b78c21e1cffe7515ef0dc72fdf1",
       "visibleLayerZ": 0
     },
     {
@@ -1296,7 +1297,7 @@
         "14fcd416eb9ff5052ab131035e93a062.png"
       ],
       "websiteFile": "card-35.jpg",
-      "websiteSha256": "26186a2e3b60b29510115b52a6d54c6e3cf5c249e20fe38f38f8ee6fc386f3ca",
+      "websiteSha256": "e997a85dde68629a04ad117deafdf3c6ff7177853a2d6d7d8c35458e8601134c",
       "visibleLayerZ": 0
     },
     {
@@ -1333,7 +1334,7 @@
         "fc3608911cd2aeeebe7e774f2b17d192.png"
       ],
       "websiteFile": "card-36.jpg",
-      "websiteSha256": "176fd51e4c98e78a1c31d476dc0013482a0f5765438bc515adb37cd350cec6d7",
+      "websiteSha256": "1fbe9ba015e137075b975c8fc8bbe09c087dd273d2e6c65de393180c1f32d8d5",
       "visibleLayerZ": 0
     },
     {
@@ -1370,7 +1371,7 @@
         "d466cfa7cefce05521c5243c415bbede.png"
       ],
       "websiteFile": "card-37.jpg",
-      "websiteSha256": "7cf75660750f4e30cfe7ea828100276d106eeab1f9323144c39a05df5b06e451",
+      "websiteSha256": "0ca059713e004956af8f8ce401e28b3c5d44b079be0cdacb639bcc4c9d507963",
       "visibleLayerZ": 0
     },
     {
@@ -1407,7 +1408,7 @@
         "f0a56b8144b425c5953055d5ae2a5464.png"
       ],
       "websiteFile": "card-38.jpg",
-      "websiteSha256": "682f9befb7d40010bdbf4cb646641d96d45e166373a7497f0a34978520ba0aeb",
+      "websiteSha256": "7347d485d19a68f4f50044a515b200704a1fc33aa2d5fbf34c0c733535c0a7e4",
       "visibleLayerZ": 0
     },
     {
@@ -1444,7 +1445,7 @@
         "5801cb451e9306c6f885e9a4ebd090ef.png"
       ],
       "websiteFile": "card-39.jpg",
-      "websiteSha256": "65a0b4265c9e6b298770fc3103b8eb4f66c6fa875df8809d1b06c0a14b5575b2",
+      "websiteSha256": "f7a1cfa616874e1eaf9b38fb8f076234f57fa8ebbe91ed915a6ab17afe9e48b7",
       "visibleLayerZ": 0
     },
     {
@@ -1481,7 +1482,7 @@
         "7cab7b2ed78aca6022f6d93c24fa4314.png"
       ],
       "websiteFile": "card-40.jpg",
-      "websiteSha256": "0984919c49915664647448cfe80b60c92dde9e6c7a40ab4dbcabdebce4c04e1a",
+      "websiteSha256": "76ada92af0be1860322be4142e7be78c06d8d449ea3c49ba358207dc0b2b6b8d",
       "visibleLayerZ": 0
     },
     {
@@ -1518,7 +1519,7 @@
         "02e8f403b9f44b5b116b5bb5eabc697f.png"
       ],
       "websiteFile": "card-41.jpg",
-      "websiteSha256": "b2f3bee3eb6bf885b9beb21a38d3ca99e62314c6d3fe2fad64ffe73cb514aa8f",
+      "websiteSha256": "3c49202b1ecfd738ac998e7c25845f127ca674831659fc0230b7455cda42a18e",
       "visibleLayerZ": 0
     },
     {
@@ -1555,7 +1556,7 @@
         "91a3ab46ebef8a071f71eb485ba779ae.png"
       ],
       "websiteFile": "card-42.jpg",
-      "websiteSha256": "88cb69275d0626d4d0849a4342f5fd527f01dab2d29abc51660940d60d45b1d4",
+      "websiteSha256": "579e82633a542c3a0b16f22e8dd1df870635bdde02fda383d993c5b3d8143f61",
       "visibleLayerZ": 0
     },
     {
@@ -1592,7 +1593,7 @@
         "bed3dd47be7487ee361dcad615eb6256.png"
       ],
       "websiteFile": "card-43.jpg",
-      "websiteSha256": "14d7c71b1c047f885bebfd140b33f105f47fac1c099083173b94e941a1578ed6",
+      "websiteSha256": "88f00487fb7f3e40c28d2254cdf6be139d1d7a7b29cbff36b20807127540c3cc",
       "visibleLayerZ": 0
     },
     {
@@ -1629,7 +1630,7 @@
         "f4c85bd04c43b2601dd6549320ff1fc1.png"
       ],
       "websiteFile": "card-44.jpg",
-      "websiteSha256": "e6ca59ff3892a7d707da2e0e7328b0ded2bc02854707931521b0db743bbcc50a",
+      "websiteSha256": "a4bee9817d680a769fcc34c9b043cafeca133f2b38831da122a41e46a60bd1a5",
       "visibleLayerZ": 0
     },
     {
@@ -1666,7 +1667,7 @@
         "023e4450ea7e60ca2e5cd7edf9e9f78f.png"
       ],
       "websiteFile": "card-45.jpg",
-      "websiteSha256": "76beabfefb502c2b460d788cad45953a7f843c73605b8ed41eb9457929a9937e",
+      "websiteSha256": "0aa86670b421382725f68c6e7ea8df5dffb6bab19144f42b3352e4b67e9a89db",
       "visibleLayerZ": 0
     },
     {
@@ -1703,7 +1704,7 @@
         "7a0bcad33789f22a2f57b9111bfa06fd.png"
       ],
       "websiteFile": "card-46.jpg",
-      "websiteSha256": "dad4c347c698c5f6d0a78a0acaa6bc77bdab9cc7d1ce56df6e36ddd7c73ddcff",
+      "websiteSha256": "8dd8d1480171fa6cfb42877e04fc0ba5f9c1cceb14526413d59bc328c4b3275c",
       "visibleLayerZ": 0
     },
     {
@@ -1739,7 +1740,7 @@
         "282712bc38ff2ef2b373d602f101a08d.png"
       ],
       "websiteFile": "card-47.jpg",
-      "websiteSha256": "3a40273bfbe660bee93ac9d923b5a5314ba11480e95aa35294e0798fb62bc7ab",
+      "websiteSha256": "c2c8320d031ebbc4ccaac4e41d6ba863fae043c00f026505f93e0dfe10e813bd",
       "visibleLayerZ": 0
     },
     {
@@ -1776,7 +1777,7 @@
         "dd9d68921bf4221f5dd7e163aca7938a.png"
       ],
       "websiteFile": "card-48.jpg",
-      "websiteSha256": "bafe865135bace8d013028f03c25dbb1810fb6f5bcebf6aa1287fd0efa768383",
+      "websiteSha256": "7cc438a527fc8447a6aa725b6aff55ce410216dee7f0cead01c4175e44426d45",
       "visibleLayerZ": 0
     },
     {
@@ -1813,7 +1814,7 @@
         "e3469ac6c2a2c4e791ee9b150e8afc14.png"
       ],
       "websiteFile": "card-49.jpg",
-      "websiteSha256": "b8e11212e33b86a2914364d45733186f46524b83e616cfb9140666e77bb26377",
+      "websiteSha256": "2860a93882248ec1abde06fc83c5949af6744bd9a0e95ca06450d77bf9f210c9",
       "visibleLayerZ": 0
     },
     {
@@ -1850,7 +1851,7 @@
         "d9f38ddad04f416586c3ac2ae6a6f3cb.png"
       ],
       "websiteFile": "card-50.jpg",
-      "websiteSha256": "f0f7fd99707f2f41fe75aedbec276cad44119cfd183925aee60b89b31ce949f9",
+      "websiteSha256": "4afedeb9fdfd2c0a92c9d0f377ce4e70996eb04e7330e609b0bf0f8e780fcaa2",
       "visibleLayerZ": 0
     },
     {
@@ -1887,7 +1888,7 @@
         "fb22fef9031979ae6ad9d8ec98a21311.png"
       ],
       "websiteFile": "card-51.jpg",
-      "websiteSha256": "54cccfd43f568abe5893b535b94aab868e3eb654c72e33dd32b3eebefec8da0d",
+      "websiteSha256": "0c9aa8be0819c0d51421a976ca7f7d6e378277e916037d4cd95f52fee3f41cfe",
       "visibleLayerZ": 0
     },
     {
@@ -1924,7 +1925,7 @@
         "379294416a27ee336c0f2fe6d45dd1c9.png"
       ],
       "websiteFile": "card-52.jpg",
-      "websiteSha256": "d77dfc739e4e6dfefce3bb06faa7a71048756db392788f675e15039b2f223b07",
+      "websiteSha256": "16bb239134e5482e4c18dba4d68721309fa483156132c7f0b944ab7e76a43082",
       "visibleLayerZ": 0
     },
     {
@@ -1961,7 +1962,7 @@
         "0ce7b57b076f8f133df641029bd4e943.png"
       ],
       "websiteFile": "card-53.jpg",
-      "websiteSha256": "d3b4a44fe98b38e78913db511de3abfa549c78d448bc74ad06e15d3a97b798a7",
+      "websiteSha256": "2b8952802cc19d498613ec166d1a35651072cb8d4c04bdc67951395118a92280",
       "visibleLayerZ": 0
     },
     {
@@ -1998,7 +1999,7 @@
         "601e8968df32ef1570d41885d7001968.png"
       ],
       "websiteFile": "card-54.jpg",
-      "websiteSha256": "e0efb8047d1cbded0bf60199ae4f1359df914b29248d85dee8963510d991f8b1",
+      "websiteSha256": "3d23583f3f8ea7b46d93bff40d84940f35aff62a32c05c1b4a891ea0d41e1335",
       "visibleLayerZ": 0
     }
   ],
