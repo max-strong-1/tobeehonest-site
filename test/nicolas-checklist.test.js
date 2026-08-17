@@ -44,7 +44,7 @@ test('the Deck presents all 54 cards and keeps the two-card draw centered side b
 });
 
 test('the Deck uses Nicolas’s current Latest And Greatest QPMN artwork export', () => {
-  assert.match(html, /Latest And Greatest \(draft 642581364, product instance 646548898, saved 2026-08-16\)/);
+  assert.match(html, /Latest And Greatest-Copy \(draft 646575409, product instance 646575342, saved 2026-08-16\)/);
 
   for (let card = 1; card <= 54; card += 1) {
     const number = String(card).padStart(2, '0');
@@ -72,11 +72,19 @@ test('the Deck is pinned to the current Latest And Greatest QPMN canvas assignme
     new URL('../assets/web/deck-cards/qpmn-latest-and-greatest.json', import.meta.url),
     'utf8',
   ));
-  assert.equal(manifest.draftId, 642581364);
-  assert.equal(manifest.productInstanceId, 646548898);
+  assert.equal(manifest.draftId, 646575409);
+  assert.equal(manifest.draftName, 'Latest And Greatest-Copy');
+  assert.equal(manifest.productInstanceId, 646575342);
   assert.equal(manifest.cards.length, 54);
   assert.equal(new Set(manifest.cards.map((card) => card.sourceHash)).size, 54);
   for (const card of manifest.cards) {
+    assert.equal(card.visibleLayerZ, 0, `${card.websiteFile} should use QPMN's visible completed-card layer`);
+    assert.equal(
+      card.sourceHash,
+      card.renderLayerHashes[0],
+      `${card.websiteFile} should not cover its mantra with a higher-numbered working layer`,
+    );
+    assert.match(card.sourceName, /^\d{2}\.png$/);
     const bytes = readFileSync(new URL(`../assets/web/deck-cards/${card.websiteFile}`, import.meta.url));
     assert.equal(
       createHash('sha256').update(bytes).digest('hex'),
