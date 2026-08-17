@@ -16,8 +16,8 @@
 .cover-honeycomb .hc-8{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * .5);--hc-light:#ffe58a;--hc-base:#f7b51a;--hc-deep:#bd6b09}
 .cover-honeycomb .hc-9{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 1.5);--hc-light:#ffd876;--hc-base:#eaa018;--hc-deep:#a95508}
 .cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 1.5);left:calc(var(--hc-cell) * 2.5);--hc-light:#fff0a0;--hc-base:#f2bd2f;--hc-deep:#b86a0d}
-.cover-honeycomb .hc-cell{font-family:'Shantell Sans',cursive;font-style:italic}
-.cover-honeycomb .hc-cell .hc-label{font-family:inherit;font-weight:400;font-size:clamp(.72rem,1.15vw,.94rem);line-height:1.05;max-width:90%;overflow-wrap:normal;word-break:normal;hyphens:none;transform:none}
+.cover-honeycomb .hc-cell{font-family:'Shantell Sans',cursive;font-style:normal}
+.cover-honeycomb .hc-cell .hc-label{font-family:inherit;font-weight:500;font-size:clamp(.8rem,1.6vw,1rem);line-height:1.08;max-width:90%;overflow-wrap:normal;word-break:normal;hyphens:none;transform:none}
 .cover-honeycomb .hc-placeholder{pointer-events:none;filter:saturate(.82);opacity:.82}
 .cover-honeycomb .hc-placeholder::after{opacity:.38}
 
@@ -89,7 +89,7 @@
   .cover-honeycomb .hc-5,.cover-honeycomb .hc-6{top:calc((var(--hc-cell) / .866) * 1.5)}
   .cover-honeycomb .hc-7,.cover-honeycomb .hc-8{top:calc((var(--hc-cell) / .866) * 2.25)}
   .cover-honeycomb .hc-9,.cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 3)}
-  .cover-honeycomb .hc-cell .hc-label{font-family:inherit;font-size:clamp(.78rem,3.7vw,.94rem);line-height:1.03;max-width:90%;transform:none}
+  .cover-honeycomb .hc-cell .hc-label{font-family:inherit;font-size:clamp(.94rem,4.5vw,1.125rem);line-height:1.04;max-width:90%;transform:none}
   .puzzle-tier-inner{padding-top:4rem;padding-bottom:2rem}
   .puzzle-heading{margin-bottom:1rem}.puzzle-heading h2{font-size:clamp(2rem,10vw,3.15rem)}
   .puzzle-layout{grid-template-columns:1fr;gap:1rem}

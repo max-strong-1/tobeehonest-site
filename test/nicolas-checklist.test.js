@@ -63,6 +63,17 @@ test('the Deck uses Nicolas’s approved August 15 QPMN artwork export', () => {
   assert.match(html, /Being kind is the right thing to do\. I can always feel it\./);
 });
 
+test('every mantra card uses the current QPMN back artwork', () => {
+  const deck = html.match(/<!-- DECK -->([\s\S]*?)<!-- GALLERY -->/)?.[1] ?? '';
+  assert.equal(
+    existsSync(new URL('../assets/web/deck-cards/card-back.jpg', import.meta.url)),
+    true,
+    'card-back.jpg should exist',
+  );
+  assert.match(deck, /assets\/web\/deck-cards\/card-back\.jpg/);
+  assert.doesNotMatch(deck, /assets\/prints\/tower-of-knowledge-print-proof\.png/);
+});
+
 test('the Coloring Book keeps the realistic mockup with Nicolas’s approved cover', () => {
   assert.match(html, /id="t-coloring"/);
   assert.match(html, /assets\/web\/coloring-book-mockup-approved\.png/);
