@@ -92,13 +92,21 @@ test("QPMN sends the verbatim Basic store token and the store-channel order shap
       storeProductId: "64250001",
       properties: {
         "back design mode": "same",
-        "front design mode": "different",
+        "front design mode": "same",
         "Size of Deck mode": "Up to 54 cards"
       },
       customizeProject: {
         customizeType: "IMAGE",
         comparisonThumbnail: "https://tobeehonest.com/assets/web/deck-cards/card-back.jpg",
-        designs: []
+        designs: ["CardFront", "CardBack"].map(side => ({
+          side,
+          materialPath: "",
+          pageContentDesigns: [{
+            pageContentIndex: 0,
+            effect: "CMYK",
+            image: "https://tobeehonest.com/assets/web/deck-cards/card-back.jpg"
+          }]
+        }))
       }
     }],
     shippingMethod: "Standard",

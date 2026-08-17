@@ -19,6 +19,13 @@ const address = {
   email: "kel@4manai.com", company: ""
 };
 
+const ART = "https://tobeehonest.com/assets/web/deck-cards/card-back.jpg";
+const design = (side, materialPath) => ({
+  side,
+  ...(materialPath === undefined ? {} : { materialPath }),
+  pageContentDesigns: [{ pageContentIndex: 0, effect: "CMYK", image: ART }]
+});
+
 function payload(variant, id) {
   const base = {
     thirdOrderId: id,
@@ -47,13 +54,32 @@ function payload(variant, id) {
       { name: "ORDER_TOTAL", value: "49.00" }
     ]
   };
-  if (variant === "no-properties") delete base.items[0].properties;
-  if (variant === "same-fronts") base.items[0].properties["front design mode"] = "same";
-  if (variant === "string-item-id") base.items[0].thirdOrderItemId = `${id}-1`;
+  const item = base.items[0];
+  if (variant === "designs-no-materialPath") {
+    item.properties["front design mode"] = "same";
+    item.customizeProject = {
+      customizeType: "IMAGE", comparisonThumbnail: ART,
+      designs: [design("CardFront"), design("CardBack")]
+    };
+  }
+  if (variant === "designs-empty-materialPath") {
+    item.properties["front design mode"] = "same";
+    item.customizeProject = {
+      customizeType: "IMAGE", comparisonThumbnail: ART,
+      designs: [design("CardFront", ""), design("CardBack", "")]
+    };
+  }
+  if (variant === "front-only") {
+    item.properties["front design mode"] = "same";
+    item.customizeProject = {
+      customizeType: "IMAGE", comparisonThumbnail: ART,
+      designs: [design("CardFront")]
+    };
+  }
   return base;
 }
 
-const variants = ["sample-faithful", "no-properties", "same-fronts", "string-item-id"];
+const variants = ["designs-no-materialPath", "designs-empty-materialPath", "front-only"];
 for (const variant of variants) {
   const id = `tbhtest${String(Date.now()).slice(-9)}`;
   const response = await fetch("https://partner.qpmarketnetwork.com/cgp-rest/api/store/orders", {
