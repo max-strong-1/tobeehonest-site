@@ -206,5 +206,5 @@ test("Prodigi refuses to send an order with a missing or bogus frame colour", as
 });
 
 test("QPMN fails closed until its official contract is verified", async () => {
-  await assert.rejects(createQpmnOrder(), /disabled until its official order API contract/i);
+  await assert.rejects(createQpmnOrder(), /disabled until the store credentials are configured/i);
 });

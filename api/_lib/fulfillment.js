@@ -69,7 +69,7 @@ export async function fulfillPaidCheckout({ session, item }) {
 
   requireEnabled("QPMN_ENABLED", "QPMN fulfillment requires explicit approval.");
 
-  const vendorSku = process.env.QPMN_PRODUCT_ID_DECK?.trim();
+  const vendorSku = process.env.QPMN_STORE_PRODUCT_ID_DECK?.trim();
 
   const claim = await claimFulfillment({
     sessionId: session.id,

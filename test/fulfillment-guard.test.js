@@ -38,9 +38,8 @@ test("a self-idempotent vendor is never gated by the ledger", async () => {
 test("a non-idempotent vendor refuses to run at all without a ledger", async () => {
   process.env.COMMERCE_FULFILLMENT_ENABLED = "true";
   process.env.QPMN_ENABLED = "true";
-  process.env.QPMN_REFRESH_TOKEN = "refresh-test";
-  process.env.QPMN_PRODUCT_ID_DECK = "321";
-  process.env.QPMN_DESIGN_ID_DECK = "654";
+  process.env.QPMN_STORE_TOKEN = "store-token-test";
+  process.env.QPMN_STORE_PRODUCT_ID_DECK = "642564817";
   delete process.env.AIRTABLE_FULFILLMENT_TABLE_ID;
   const { fulfillPaidCheckout } = await import("../api/_lib/fulfillment.js");
   const originalFetch = globalThis.fetch;
@@ -57,7 +56,7 @@ test("a non-idempotent vendor refuses to run at all without a ledger", async () 
     );
   } finally {
     globalThis.fetch = originalFetch;
-    for (const name of ["COMMERCE_FULFILLMENT_ENABLED", "QPMN_ENABLED", "QPMN_REFRESH_TOKEN", "QPMN_PRODUCT_ID_DECK", "QPMN_DESIGN_ID_DECK"]) delete process.env[name];
+    for (const name of ["COMMERCE_FULFILLMENT_ENABLED", "QPMN_ENABLED", "QPMN_STORE_TOKEN", "QPMN_STORE_PRODUCT_ID_DECK"]) delete process.env[name];
   }
 });
 
@@ -78,9 +77,8 @@ test("a deck order fails closed instead of changing vendors when QPMN is disable
 test("an enabled QPMN deck order uses the same non-idempotent ledger guard", async () => {
   process.env.COMMERCE_FULFILLMENT_ENABLED = "true";
   process.env.QPMN_ENABLED = "true";
-  process.env.QPMN_REFRESH_TOKEN = "refresh-test";
-  process.env.QPMN_PRODUCT_ID_DECK = "321";
-  process.env.QPMN_DESIGN_ID_DECK = "654";
+  process.env.QPMN_STORE_TOKEN = "store-token-test";
+  process.env.QPMN_STORE_PRODUCT_ID_DECK = "642564817";
   delete process.env.AIRTABLE_FULFILLMENT_TABLE_ID;
   const { fulfillPaidCheckout } = await import("../api/_lib/fulfillment.js");
   const originalFetch = globalThis.fetch;
@@ -95,7 +93,7 @@ test("an enabled QPMN deck order uses the same non-idempotent ledger guard", asy
     );
   } finally {
     globalThis.fetch = originalFetch;
-    for (const name of ["COMMERCE_FULFILLMENT_ENABLED", "QPMN_ENABLED", "QPMN_REFRESH_TOKEN", "QPMN_PRODUCT_ID_DECK", "QPMN_DESIGN_ID_DECK"]) {
+    for (const name of ["COMMERCE_FULFILLMENT_ENABLED", "QPMN_ENABLED", "QPMN_STORE_TOKEN", "QPMN_STORE_PRODUCT_ID_DECK"]) {
       delete process.env[name];
     }
   }
@@ -107,9 +105,8 @@ test("an enabled deck order calls QPMN and records QPMN failures in the shared f
   process.env.AIRTABLE_BASE_ID = "app-test";
   process.env.AIRTABLE_FULFILLMENT_TABLE_ID = "ledger-test";
   process.env.QPMN_ENABLED = "true";
-  process.env.QPMN_REFRESH_TOKEN = "refresh-test";
-  process.env.QPMN_PRODUCT_ID_DECK = "321";
-  process.env.QPMN_DESIGN_ID_DECK = "654";
+  process.env.QPMN_STORE_TOKEN = "store-token-test";
+  process.env.QPMN_STORE_PRODUCT_ID_DECK = "642564817";
   const { fulfillPaidCheckout } = await import("../api/_lib/fulfillment.js");
   const vendorUrls = [];
   const ledgerPatches = [];
@@ -147,7 +144,7 @@ test("an enabled deck order calls QPMN and records QPMN failures in the shared f
     for (const name of [
       "COMMERCE_FULFILLMENT_ENABLED", "AIRTABLE_TOKEN", "AIRTABLE_BASE_ID", "AIRTABLE_FULFILLMENT_TABLE_ID",
       "QPMN_ENABLED",
-      "QPMN_REFRESH_TOKEN", "QPMN_PRODUCT_ID_DECK", "QPMN_DESIGN_ID_DECK"
+      "QPMN_STORE_TOKEN", "QPMN_STORE_PRODUCT_ID_DECK"
     ]) delete process.env[name];
   }
 });

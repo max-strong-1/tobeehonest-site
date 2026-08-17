@@ -6,10 +6,8 @@ import pollOrdersHandler from "../api/cron/poll-prodigi-orders.js";
 
 const QPMN_ENV = [
   "QPMN_ENABLED",
-  "QPMN_CLIENT_ID",
-  "QPMN_REFRESH_TOKEN",
-  "QPMN_PRODUCT_ID_DECK",
-  "QPMN_DESIGN_ID_DECK"
+  "QPMN_STORE_TOKEN",
+  "QPMN_STORE_PRODUCT_ID_DECK"
 ];
 
 function clearQpmnEnv() {
@@ -18,9 +16,8 @@ function clearQpmnEnv() {
 
 function configureQpmn() {
   process.env.QPMN_ENABLED = "true";
-  process.env.QPMN_REFRESH_TOKEN = "refresh-test";
-  process.env.QPMN_PRODUCT_ID_DECK = "321";
-  process.env.QPMN_DESIGN_ID_DECK = "654";
+  process.env.QPMN_STORE_TOKEN = "store-token-test";
+  process.env.QPMN_STORE_PRODUCT_ID_DECK = "64250001";
 }
 
 const recipient = {
@@ -47,8 +44,7 @@ test("QPMN stays fail-closed unless the flag and every required credential are p
   );
 
   process.env.QPMN_ENABLED = "true";
-  process.env.QPMN_REFRESH_TOKEN = "refresh-test";
-  process.env.QPMN_PRODUCT_ID_DECK = "321";
+  process.env.QPMN_STORE_TOKEN = "store-token-test";
   await assert.rejects(
     getQpmnOrder("7001", { fetchImpl: neverFetch }),
     error => error?.status === 503 && /QPMN integration pending verification/i.test(error?.title)
@@ -56,15 +52,12 @@ test("QPMN stays fail-closed unless the flag and every required credential are p
   clearQpmnEnv();
 });
 
-test("QPMN refreshes OAuth once, sends exact plugin keys, and normalizes create/get responses", async () => {
+test("QPMN sends the verbatim Basic store token and the store-channel order shape", async () => {
   clearQpmnEnv();
   configureQpmn();
   const calls = [];
   const fetchImpl = async (url, options = {}) => {
     calls.push({ url, options });
-    if (url.endsWith("/oauth/token")) {
-      return { ok: true, status: 200, json: async () => ({ access_token: "access-test", expires_in: 3600 }) };
-    }
     if (options.method === "POST") {
       return { ok: true, status: 200, json: async () => ({ code: 200, data: { order: { id: 7001, number: "Q-7001", status: "processing", ignored: true } } }) };
     }
@@ -72,73 +65,62 @@ test("QPMN refreshes OAuth once, sends exact plugin keys, and normalizes create/
   };
 
   const created = await createQpmnOrder({
-    checkoutSessionId: "cs_qpmn_1", recipient, quantity: 2, resalePrice: "49.00", fetchImpl
+    checkoutSessionId: "cs_qpmn_1", recipient, quantity: 2, resalePrice: "98.00", fetchImpl
   });
   const fetched = await getQpmnOrder("7001", { fetchImpl });
 
-  assert.deepEqual(created, { id: 7001, number: "Q-7001", status: "processing" });
-  assert.deepEqual(fetched, { id: 7001, number: "Q-7001", status: "completed" });
-  assert.equal(calls.filter(call => call.url.endsWith("/oauth/token")).length, 1);
+  assert.deepEqual(created, { id: "7001", number: "Q-7001", status: "processing" });
+  assert.deepEqual(fetched, { id: "7001", number: "Q-7001", status: "completed" });
 
-  const tokenBody = new URLSearchParams(calls[0].options.body);
-  assert.deepEqual(Object.fromEntries(tokenBody), {
-    grant_type: "refresh_token",
-    refresh_token: "refresh-test",
-    client_id: "a0PBL4JUSJQgDEoGw6JQDARvLhJ1HxxKBfyQVvgj"
-  });
-
-  const orderCall = calls.find(call => call.options.method === "POST" && call.url.includes("/partner/order"));
-  assert.equal(orderCall.url, "https://www.qpmarketnetwork.com/wp-json/qpmn-api/v1/partner/order");
-  assert.equal(orderCall.options.headers.Authorization, "Bearer access-test");
+  const orderCall = calls.find(call => call.options.method === "POST");
+  assert.equal(orderCall.url, "https://partner.qpmarketnetwork.com/cgp-rest/api/store/orders");
+  // The dashboard token is the finished credential — it must be used verbatim,
+  // never base64-encoded a second time.
+  assert.equal(orderCall.options.headers.Authorization, "Basic store-token-test");
+  const wooAddress = {
+    first_name: "Ada", last_name: "Lovelace", address_1: "1 Main St", address_2: "Suite 2",
+    city: "Austin", state: "TX", postcode: "78701", country: "US",
+    email: "ada@example.test", phone: "+15125550100"
+  };
   assert.deepEqual(JSON.parse(orderCall.options.body), {
-    set_paid: false,
-    line_items: [{
-      product_id: "321",
+    thirdOrderId: "cs_qpmn_1",
+    thirdOrderNumber: "cs_qpmn_1",
+    items: [{
+      thirdOrderItemId: "cs_qpmn_1-deck",
       qty: 2,
-      meta_data: [
-        { key: "qpmn_partner_resale_price", value: "49.00" },
-        { key: "qpmn_partner_order_item_id", value: "cs_qpmn_1-deck" },
-        { key: "qpmn_partner_order_item_qty", value: 2 },
-        { key: "qpmn_partner_design_id", value: "654" }
-      ]
+      unitPrice: "49.00",
+      storeProductId: "64250001",
+      properties: { "Size of Deck mode": "Up to 54 cards" }
     }],
-    billing: {
-      first_name: "Ada", last_name: "Lovelace", address_1: "1 Main St", address_2: "Suite 2",
-      city: "Austin", state: "TX", postcode: "78701", country: "US",
-      email: "ada@example.test", phone: "+15125550100"
-    },
-    shipping: {
-      first_name: "Ada", last_name: "Lovelace", address_1: "1 Main St", address_2: "Suite 2",
-      city: "Austin", state: "TX", postcode: "78701", country: "US",
-      email: "ada@example.test", phone: "+15125550100"
-    },
-    meta_data: [
-      { key: "qpmn_partner_store_url", value: "https://tobeehonest.com" },
-      { key: "qpmn_partner_order_id", value: "cs_qpmn_1" },
-      { key: "qpmn_partner_order_currency", value: "USD" }
+    shippingMethod: "Standard",
+    currency: "USD",
+    status: "processing",
+    deliveryAddress: wooAddress,
+    billingAddress: wooAddress,
+    orderTotals: [
+      { name: "TAX", value: "0.00" },
+      { name: "SHIPPING", value: "0.00" },
+      { name: "SUBTOTAL", value: "98.00" },
+      { name: "ORDER_TOTAL", value: "98.00" }
     ]
   });
 
   const getCall = calls.at(-1);
-  assert.equal(getCall.url, "https://www.qpmarketnetwork.com/wp-json/qpmn-api/v1/partner/order/7001");
+  assert.equal(getCall.url, "https://partner.qpmarketnetwork.com/cgp-rest/api/store/orders/7001");
   assert.equal(getCall.options.method, "GET");
   clearQpmnEnv();
 });
 
-test("QPMN surfaces the partner API message when its body code is not 200", async () => {
+test("QPMN surfaces the store API message when its body code is not 200", async () => {
   clearQpmnEnv();
   configureQpmn();
-  process.env.QPMN_CLIENT_ID = "client-error-test";
-  let call = 0;
-  const fetchImpl = async () => {
-    call += 1;
-    if (call === 1) return { ok: true, status: 200, json: async () => ({ access_token: "short-lived", expires_in: 30 }) };
-    return { ok: true, status: 200, json: async () => ({ code: 422, message: "Design does not belong to product" }) };
-  };
+  const fetchImpl = async () => (
+    { ok: true, status: 200, json: async () => ({ code: 422, message: "Store product not found" }) }
+  );
 
   await assert.rejects(
     createQpmnOrder({ checkoutSessionId: "cs_bad", recipient, quantity: 1, resalePrice: "49.00", fetchImpl }),
-    /Design does not belong to product/
+    /Store product not found/
   );
   clearQpmnEnv();
 });
@@ -158,7 +140,6 @@ test("QPMN statuses map to Airtable vocabulary and unknown values stay Placed", 
 test("QPMN reconciliation polls authenticated status and updates matching Airtable records", async () => {
   clearQpmnEnv();
   configureQpmn();
-  process.env.QPMN_CLIENT_ID = "client-reconcile-test";
   process.env.AIRTABLE_TOKEN = "airtable-test";
   process.env.AIRTABLE_BASE_ID = "app-test";
   process.env.AIRTABLE_ORDERS_TABLE_ID = "orders-test";
@@ -166,9 +147,6 @@ test("QPMN reconciliation polls authenticated status and updates matching Airtab
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (url, options = {}) => {
     calls.push({ url, options });
-    if (url.endsWith("/oauth/token")) {
-      return { ok: true, status: 200, json: async () => ({ access_token: "reconcile-access", expires_in: 3600 }) };
-    }
     if (url.includes("qpmarketnetwork.com")) {
       return { ok: true, status: 200, json: async () => ({ code: 200, data: { order: { id: 8123, number: "Q-8123", status: "completed" } } }) };
     }
@@ -186,6 +164,9 @@ test("QPMN reconciliation polls authenticated status and updates matching Airtab
       records: [{ id: "rec-1", fields: { Status: "Shipped" } }], typecast: false
     });
 
+    const qpmnCall = calls.find(call => call.url.includes("qpmarketnetwork.com"));
+    assert.equal(qpmnCall.options.headers.Authorization, "Basic store-token-test");
+
     calls.length = 0;
     await listNonTerminalQpmnOrderRecords();
     const listUrl = new URL(calls[0].url);
@@ -200,16 +181,12 @@ test("QPMN reconciliation polls authenticated status and updates matching Airtab
 test("the existing daily poll handler also sweeps enabled non-terminal QPMN orders", async () => {
   clearQpmnEnv();
   configureQpmn();
-  process.env.QPMN_CLIENT_ID = "client-cron-test";
   process.env.COMMERCE_FULFILLMENT_ENABLED = "true";
   process.env.AIRTABLE_TOKEN = "airtable-test";
   process.env.AIRTABLE_BASE_ID = "app-test";
   process.env.AIRTABLE_ORDERS_TABLE_ID = "orders-test";
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (url, options = {}) => {
-    if (url.endsWith("/oauth/token")) {
-      return { ok: true, status: 200, json: async () => ({ access_token: "cron-access", expires_in: 3600 }) };
-    }
     if (url.includes("qpmarketnetwork.com")) {
       return { ok: true, status: 200, json: async () => ({ code: 200, data: { order: { id: 9001, number: "Q-9001", status: "processing" } } }) };
     }
