@@ -90,9 +90,19 @@ test("QPMN sends the verbatim Basic store token and the store-channel order shap
       qty: 2,
       unitPrice: "49.00",
       storeProductId: "64250001",
-      properties: { "Size of Deck mode": "Up to 54 cards" }
+      properties: {
+        "back design mode": "same",
+        "front design mode": "different",
+        "Size of Deck mode": "Up to 54 cards"
+      },
+      customizeProject: {
+        customizeType: "IMAGE",
+        comparisonThumbnail: "https://tobeehonest.com/assets/web/deck-cards/card-back.jpg",
+        designs: []
+      }
     }],
     shippingMethod: "Standard",
+    paymentMethod: "PayPal",
     currency: "USD",
     status: "processing",
     deliveryAddress: wooAddress,

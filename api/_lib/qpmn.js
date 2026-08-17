@@ -116,9 +116,23 @@ export async function createQpmnOrder({
       qty: quantity,
       unitPrice,
       storeProductId: config.storeProductId,
-      properties: { "Size of Deck mode": "Up to 54 cards" }
+      properties: {
+        "back design mode": "same",
+        "front design mode": "different",
+        "Size of Deck mode": "Up to 54 cards"
+      },
+      /* The order endpoint 500s (opaque, no message) when customizeProject is
+       * absent — proven 2026-08-17 by differential probing. The deck's artwork
+       * is bound to the store product, so an empty designs[] stub satisfies the
+       * parser without overriding the product design. */
+      customizeProject: {
+        customizeType: "IMAGE",
+        comparisonThumbnail: "https://tobeehonest.com/assets/web/deck-cards/card-back.jpg",
+        designs: []
+      }
     }],
     shippingMethod: "Standard",
+    paymentMethod: "PayPal",
     currency: "USD",
     status: "processing",
     deliveryAddress: { ...address },
