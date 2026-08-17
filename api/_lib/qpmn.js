@@ -118,26 +118,17 @@ export async function createQpmnOrder({
       storeProductId: config.storeProductId,
       properties: {
         "back design mode": "same",
-        "front design mode": "same",
+        "front design mode": "different",
         "Size of Deck mode": "Up to 54 cards"
       },
-      /* The order endpoint 500s ("element cannot be mapped to a null key")
-       * unless every design entry carries a materialPath — proven 2026-08-17
-       * by differential probing (order 646787010 = the accepted shape).
-       * materialPath: "" passes; omitting the field or sending designs: []
-       * both 500. Public image URLs are accepted. */
+      /* The order endpoint 500s (opaque, no message) when customizeProject is
+       * absent — proven 2026-08-17 by differential probing. The deck's artwork
+       * is bound to the store product, so an empty designs[] stub satisfies the
+       * parser without overriding the product design. */
       customizeProject: {
         customizeType: "IMAGE",
         comparisonThumbnail: "https://tobeehonest.com/assets/web/deck-cards/card-back.jpg",
-        designs: ["CardFront", "CardBack"].map(side => ({
-          side,
-          materialPath: "",
-          pageContentDesigns: [{
-            pageContentIndex: 0,
-            effect: "CMYK",
-            image: "https://tobeehonest.com/assets/web/deck-cards/card-back.jpg"
-          }]
-        }))
+        designs: []
       }
     }],
     shippingMethod: "Standard",
