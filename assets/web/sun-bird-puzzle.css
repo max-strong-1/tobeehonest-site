@@ -90,6 +90,9 @@
   .cover-honeycomb .hc-7,.cover-honeycomb .hc-8{top:calc((var(--hc-cell) / .866) * 2.25)}
   .cover-honeycomb .hc-9,.cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 3)}
   .cover-honeycomb .hc-cell .hc-label{font-family:inherit;font-size:clamp(.94rem,4.5vw,1.125rem);line-height:1.04;max-width:90%;transform:none}
+  /* "Construction…" is the longest label word; at the mobile cell size it
+     overruns the hexagon's inscribed width and the clip-path cuts it off. */
+  .cover-honeycomb .hc-10 .hc-label{font-size:clamp(.8rem,3.8vw,.95rem)}
   .puzzle-tier-inner{padding-top:4rem;padding-bottom:2rem}
   .puzzle-heading{margin-bottom:1rem}.puzzle-heading h2{font-size:clamp(2rem,10vw,3.15rem)}
   .puzzle-layout{grid-template-columns:1fr;gap:1rem}
