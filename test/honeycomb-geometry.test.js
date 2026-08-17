@@ -9,6 +9,7 @@ const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const has = (rule) => assert.ok(css.includes(rule), `Missing honeycomb geometry: ${rule}`);
 
 test('desktop honeycomb is a true edge-sharing 3-4-3 lattice', () => {
+  has('--hc-cell:clamp(115px,11.875vw,170px)');
   has('width:calc(var(--hc-cell)*4);height:calc((var(--hc-cell)/.866)*2.5)');
   has('.cover-honeycomb.hc-1{top:0;left:calc(var(--hc-cell)*.5)}');
   has('.cover-honeycomb.hc-3{top:0;left:calc(var(--hc-cell)*2.5)}');
@@ -19,12 +20,17 @@ test('desktop honeycomb is a true edge-sharing 3-4-3 lattice', () => {
 });
 
 test('mobile honeycomb is five interlocking rows of two', () => {
+  has('--hc-cell:clamp(97.5px,30vw,131.25px)');
   has('width:calc(var(--hc-cell)*2.5);height:calc((var(--hc-cell)/.866)*4)');
   has('.cover-honeycomb.hc-1,.cover-honeycomb.hc-2{top:0}');
   has('.cover-honeycomb.hc-3,.cover-honeycomb.hc-4{top:calc((var(--hc-cell)/.866)*.75)}');
   has('.cover-honeycomb.hc-5,.cover-honeycomb.hc-6{top:calc((var(--hc-cell)/.866)*1.5)}');
   has('.cover-honeycomb.hc-7,.cover-honeycomb.hc-8{top:calc((var(--hc-cell)/.866)*2.25)}');
   has('.cover-honeycomb.hc-9,.cover-honeycomb.hc-10{top:calc((var(--hc-cell)/.866)*3)}');
+});
+
+test('the phone art-direction override preserves the same 25 percent enlargement', () => {
+  assert.match(html.replace(/\s+/g, ''), /--hc-cell:min\(38\.025vw,152\.1px\)/);
 });
 
 test('all ten comb labels use the approved upright handwritten face at a readable scale', () => {

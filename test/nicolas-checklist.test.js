@@ -43,8 +43,8 @@ test('the Deck presents all 54 cards and keeps the two-card draw centered side b
   assert.match(html, /\.draw-table \.card\{flex:0 0 min\(42vw,150px\);max-width:min\(42vw,150px\)\}/);
 });
 
-test('the Deck uses Nicolas’s approved August 15 QPMN artwork export', () => {
-  assert.match(html, /Draft-WUVGQXWWMG \(draft 642581364, saved 2026-08-15\)/);
+test('the Deck uses Nicolas’s current Latest And Greatest QPMN artwork export', () => {
+  assert.match(html, /Latest And Greatest \(draft 642581364, product instance 646548898, saved 2026-08-16\)/);
 
   for (let card = 1; card <= 54; card += 1) {
     const number = String(card).padStart(2, '0');
@@ -56,11 +56,34 @@ test('the Deck uses Nicolas’s approved August 15 QPMN artwork export', () => {
   }
 
   const revisedCard = readFileSync(new URL('../assets/web/deck-cards/card-16.jpg', import.meta.url));
+  const qpmnManifest = JSON.parse(readFileSync(
+    new URL('../assets/web/deck-cards/qpmn-latest-and-greatest.json', import.meta.url),
+    'utf8',
+  ));
   assert.equal(
     createHash('sha256').update(revisedCard).digest('hex'),
-    '70a5e2375e27aedc90b9aa2b68b941b74b44436d1c5cec6a9a02aa694f0b88fe',
+    qpmnManifest.cards.find((card) => card.card === 16).websiteSha256,
   );
   assert.match(html, /Being kind is the right thing to do\. I can always feel it\./);
+});
+
+test('the Deck is pinned to the current Latest And Greatest QPMN canvas assignments', () => {
+  const manifest = JSON.parse(readFileSync(
+    new URL('../assets/web/deck-cards/qpmn-latest-and-greatest.json', import.meta.url),
+    'utf8',
+  ));
+  assert.equal(manifest.draftId, 642581364);
+  assert.equal(manifest.productInstanceId, 646548898);
+  assert.equal(manifest.cards.length, 54);
+  assert.equal(new Set(manifest.cards.map((card) => card.sourceHash)).size, 54);
+  for (const card of manifest.cards) {
+    const bytes = readFileSync(new URL(`../assets/web/deck-cards/${card.websiteFile}`, import.meta.url));
+    assert.equal(
+      createHash('sha256').update(bytes).digest('hex'),
+      card.websiteSha256,
+      `${card.websiteFile} should match its QPMN provenance checksum`,
+    );
+  }
 });
 
 test('every mantra card uses the current QPMN back artwork', () => {

@@ -8,10 +8,8 @@
 
   const finePointer = window.matchMedia('(pointer: fine) and (hover: hover)');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (!finePointer.matches || reducedMotion.matches) return;
+  if (!finePointer.matches) return;
 
-  const editableSelector =
-    'input, textarea, [contenteditable="true"], [contenteditable="plaintext-only"]';
   const interactiveSelector =
     'a, button, [role="button"], select, label, [tabindex]:not([tabindex="-1"])';
 
@@ -49,10 +47,9 @@
 
   const setHoverState = (event) => {
     const element = event.target instanceof Element ? event.target : null;
-    const overEditable = Boolean(element?.closest(editableSelector));
     const overInteractive = Boolean(element?.closest(interactiveSelector));
-    bee.classList.toggle('is-hovering', overInteractive && !overEditable);
-    bee.classList.toggle('is-visible', !overEditable);
+    bee.classList.toggle('is-hovering', overInteractive);
+    bee.classList.add('is-visible');
   };
 
   // Pages that embed this canonical page in an <iframe> (e.g. interim.html's
@@ -69,6 +66,7 @@
   const hideForIframe = () => bee.classList.remove('is-visible', 'is-hovering');
 
   const createPollenBurst = (x, y) => {
+    if (reducedMotion.matches) return;
     const count = 10;
     for (let index = 0; index < count; index += 1) {
       const pollen = document.createElement('i');
@@ -79,7 +77,8 @@
       pollen.style.top = `${y}px`;
       pollen.style.setProperty('--tbh-dx', `${Math.cos(theta) * distance}px`);
       pollen.style.setProperty('--tbh-dy', `${Math.sin(theta) * distance}px`);
-      document.body.append(pollen);
+      const pollenHost = bee.parentElement instanceof HTMLElement ? bee.parentElement : document.body;
+      pollenHost.append(pollen);
       pollen.addEventListener('animationend', () => pollen.remove(), { once: true });
     }
   };
@@ -147,9 +146,12 @@
   finePointer.addEventListener('change', (event) => {
     if (!event.matches) disable();
   }, { once: true });
-  reducedMotion.addEventListener('change', (event) => {
-    if (event.matches) disable();
-  }, { once: true });
+
+  window.TBH_BEE_CURSOR = {
+    mount(root = document.body) {
+      if (root instanceof Element) root.append(bee);
+    },
+  };
 
   animate();
 })();

@@ -5,7 +5,7 @@
 .book-checkin__veil{position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 46%,rgba(255,251,239,.42) 0%,rgba(250,240,215,.67) 48%,rgba(222,193,144,.82) 100%)}
 .book-checkin::before,.book-checkin::after{content:"";position:absolute;z-index:-1;left:-2%;width:104%;height:28px;background:rgba(255,250,236,.76);clip-path:polygon(0 45%,4% 14%,9% 54%,14% 22%,20% 66%,26% 30%,32% 74%,39% 20%,46% 62%,53% 26%,60% 71%,67% 18%,74% 58%,81% 24%,88% 69%,94% 30%,100% 56%,100% 100%,0 100%)}
 .book-checkin::before{top:0;transform:rotate(180deg)}
-.book-checkin::after{bottom:0}
+.book-checkin::after{bottom:-1px;height:clamp(112px,17vh,176px);background:linear-gradient(180deg,rgba(236,217,188,0) 0%,rgba(236,217,188,.62) 58%,#ecd9bc 100%);clip-path:none;pointer-events:none}
 .book-checkin__content{width:min(760px,100%);text-align:center;color:#3f2c19;text-shadow:0 1px 0 rgba(255,252,239,.8)}
 .book-checkin__eyebrow{display:inline-block;margin:0 0 .65rem;padding:.32rem .8rem;background:rgba(247,239,226,.78);font-size:clamp(.82rem,1.4vw,.96rem);transform:rotate(-1.2deg);clip-path:polygon(2% 8%,98% 0,100% 92%,0 100%)}
 .book-checkin h2{font-size:clamp(2.75rem,7vw,5.65rem);line-height:.94;color:#4f351d;text-shadow:0 2px 0 rgba(255,248,226,.8),0 12px 34px rgba(85,51,16,.18)}

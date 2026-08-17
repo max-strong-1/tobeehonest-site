@@ -1,0 +1,1961 @@
+{
+  "draftId": 642581364,
+  "draftName": "Latest And Greatest",
+  "productInstanceId": 646548898,
+  "exportedAt": "2026-08-16",
+  "canvas": {
+    "width": 216,
+    "height": 360,
+    "deliveryWidth": 900,
+    "deliveryHeight": 1500
+  },
+  "cards": [
+    {
+      "card": 1,
+      "sourceHash": "975040c188644b8ec8d22ec4653561d2.png",
+      "sourceName": "01.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 241,
+        "height": 401,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -11,
+          -14
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.059701492538152934,
+          -0.16417910447751893
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "975040c188644b8ec8d22ec4653561d2.png",
+        "975040c188644b8ec8d22ec4653561d2.png"
+      ],
+      "websiteFile": "card-01.jpg",
+      "websiteSha256": "403a5008c8e1a741b498585ffab90225b255f024d489e461abae680a1877e740"
+    },
+    {
+      "card": 2,
+      "sourceHash": "3c54fd3966ed09d911816baafc4bf04c.png",
+      "sourceName": "02.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 242,
+        "height": 402,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -16,
+          -15
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.14925373134255437,
+          -0.14925373134315834
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "3c54fd3966ed09d911816baafc4bf04c.png",
+        "3c54fd3966ed09d911816baafc4bf04c.png"
+      ],
+      "websiteFile": "card-02.jpg",
+      "websiteSha256": "51f9f6e23adc7a8551f93bde57ac431fb984f4f9f52bd3846ef3aed4c27b554b"
+    },
+    {
+      "card": 3,
+      "sourceHash": "ce3cabe600e69f2079a809cc2f3b1891.png",
+      "sourceName": "03.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 243,
+        "height": 404,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -20,
+          -15
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.10447761194126315,
+          0.3134328358210041
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "ce3cabe600e69f2079a809cc2f3b1891.png",
+        "ce3cabe600e69f2079a809cc2f3b1891.png"
+      ],
+      "websiteFile": "card-03.jpg",
+      "websiteSha256": "04be532647e8c482e02c98ea07065d66c2d4318b1df926748a915cf8c9e46501"
+    },
+    {
+      "card": 4,
+      "sourceHash": "a3a08ca9baf70fa4d3cb66336d2ac7aa.png",
+      "sourceName": "04.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 261,
+        "height": 436,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -7,
+          -25
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.2985074626870414,
+          -0.14925373134314412
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "a3a08ca9baf70fa4d3cb66336d2ac7aa.png",
+        "a3a08ca9baf70fa4d3cb66336d2ac7aa.png"
+      ],
+      "websiteFile": "card-04.jpg",
+      "websiteSha256": "c2e19c197a42bd6c302405ec11b9aed4f113911cf755aeb591d74fcb301446aa"
+    },
+    {
+      "card": 5,
+      "sourceHash": "c756fc5a51787c5f9558e611df02cf9a.png",
+      "sourceName": "05.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 233,
+        "height": 387,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -18,
+          -5
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.242424242424363,
+          0.25253141769255194
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "c756fc5a51787c5f9558e611df02cf9a.png",
+        "c756fc5a51787c5f9558e611df02cf9a.png"
+      ],
+      "websiteFile": "card-05.jpg",
+      "websiteSha256": "6e5e8cd8f7ccdd4bfe52a3914e96d548531721ced9a1537d9f1714ecb40329c4"
+    },
+    {
+      "card": 6,
+      "sourceHash": "dc747605870c87926021e418d2225100.png",
+      "sourceName": "06.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 229,
+        "height": 381,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -5,
+          -10
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.3434343434345237,
+          0.24243040759152734
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "dc747605870c87926021e418d2225100.png",
+        "dc747605870c87926021e418d2225100.png"
+      ],
+      "websiteFile": "card-06.jpg",
+      "websiteSha256": "c722027965afa233ed743500a5ca44e55250badd0d70fe719939c9d655fed9a1"
+    },
+    {
+      "card": 7,
+      "sourceHash": "3d2d01ed89f0864c75d809dfc73dad11.png",
+      "sourceName": "07.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 216,
+        "height": 360,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "pictureCount": 1,
+      "renderLayerHashes": [
+        "3d2d01ed89f0864c75d809dfc73dad11.png"
+      ],
+      "websiteFile": "card-07.jpg",
+      "websiteSha256": "3c990303f6ba2085ed9e2f32fb4906761c8d3e55967b6c2602294f584690efe9"
+    },
+    {
+      "card": 8,
+      "sourceHash": "8cbf5eb65f37407e9bbc853a71aec916.png",
+      "sourceName": "The Sun Stone Theory (14).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 317,
+        "height": 527,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -51,
+          -38
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -16.791044776118326,
+          0.3134328358210965
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "ca373a51130845783ac3b6966128f4ac.png",
+        "8cbf5eb65f37407e9bbc853a71aec916.png"
+      ],
+      "websiteFile": "card-08.jpg",
+      "websiteSha256": "fc2df4009021e9b4bc47473ab6ca64b6e9ba77a828e61d4ff5a07d91a67b4bc4"
+    },
+    {
+      "card": 9,
+      "sourceHash": "36e77231674e6d4089a90b6c5ca970b2.png",
+      "sourceName": "09.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 216,
+        "height": 360,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "pictureCount": 1,
+      "renderLayerHashes": [
+        "36e77231674e6d4089a90b6c5ca970b2.png"
+      ],
+      "websiteFile": "card-09.jpg",
+      "websiteSha256": "8e7e9f7d4c9c48081cb017c4f9f5847905f9fb6f135ec48db882244817214ba9"
+    },
+    {
+      "card": 10,
+      "sourceHash": "af98f101ed05c60e68a457f5d21e3698.png",
+      "sourceName": "The Sun Stone Theory - 2026-08-14T160159.331.png",
+      "sourceWidth": 1875,
+      "sourceHeight": 2813,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 265,
+        "height": 397,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -16,
+          -14
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.17910447761076398,
+          0.04477611940305337
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "3a9f53963179bdfed375bb057a4eb869.png",
+        "af98f101ed05c60e68a457f5d21e3698.png"
+      ],
+      "websiteFile": "card-10.jpg",
+      "websiteSha256": "ea520bcf29099a60cf2eb0af9917f02f3fe094c2f4954ff93923d4cfd1148135"
+    },
+    {
+      "card": 11,
+      "sourceHash": "b7d7706929cb051f25cdd074e24c057d.png",
+      "sourceName": "11.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 238,
+        "height": 397,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          -1
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.20895522387988308,
+          0.02985074626879225
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "b7d7706929cb051f25cdd074e24c057d.png",
+        "b7d7706929cb051f25cdd074e24c057d.png"
+      ],
+      "websiteFile": "card-11.jpg",
+      "websiteSha256": "7f706379ff71a217e6ae4c61b49cf3d440178a231f29f86b81075a89809c259a"
+    },
+    {
+      "card": 12,
+      "sourceHash": "b46205fc1ef255db9f816dbca115e505.png",
+      "sourceName": "The Sun Stone Theory - 2026-08-06T182702.897.png",
+      "sourceWidth": 3938,
+      "sourceHeight": 5906,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 241,
+        "height": 400,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -17,
+          -22
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -12.61194029850708,
+          -0.37313432835809834
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "a4aa6704bd10d8b47af4c51748a41ab6.png",
+        "b46205fc1ef255db9f816dbca115e505.png"
+      ],
+      "websiteFile": "card-12.jpg",
+      "websiteSha256": "5778a5bf145f34ccff4adf8ef5df394f7bb799dd17982da461bde3e915bc48b1"
+    },
+    {
+      "card": 13,
+      "sourceHash": "679a83dcb50394405674df39b7cdd697.png",
+      "sourceName": "6.png",
+      "sourceWidth": 3937,
+      "sourceHeight": 5906,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 231,
+        "height": 383,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -14,
+          -17
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -12,
+          0
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "ba801d1983c94dc3bd91257b3106dba0.png",
+        "679a83dcb50394405674df39b7cdd697.png"
+      ],
+      "websiteFile": "card-13.jpg",
+      "websiteSha256": "3cfd357bb28d6008bbb7db73c66e40060bf66127bf079324a505a50b45be2be1"
+    },
+    {
+      "card": 14,
+      "sourceHash": "d42f9b74bf069afc3bb04954bf11c419.png",
+      "sourceName": "The Sun Stone Theory Puzzles (6).png",
+      "sourceWidth": 3938,
+      "sourceHeight": 5906,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 229,
+        "height": 381,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -12.89552238805905,
+          -0.22388059701476948
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "9f245b0a5a9326b1ef09bc54a91ee054.png",
+        "d42f9b74bf069afc3bb04954bf11c419.png"
+      ],
+      "websiteFile": "card-14.jpg",
+      "websiteSha256": "3fd4e65f45dbccb8498befb65fe37cc3b8f731ea08a655751a3beb64c08ee31b"
+    },
+    {
+      "card": 15,
+      "sourceHash": "de2783db506b841fe21fea63ec2485ff.png",
+      "sourceName": "15.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 244,
+        "height": 405,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -4,
+          -11
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.05970149253772661,
+          0.059701492537485024
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "de2783db506b841fe21fea63ec2485ff.png",
+        "de2783db506b841fe21fea63ec2485ff.png"
+      ],
+      "websiteFile": "card-15.jpg",
+      "websiteSha256": "093ba852a1d5209e08ef9342aea07f4f568d67719f914fcdc7329c3066476d74"
+    },
+    {
+      "card": 16,
+      "sourceHash": "86fec360736f1e53a13b6e2f983a65fd.png",
+      "sourceName": "16.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 223,
+        "height": 372,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -4,
+          -5
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.45730027548199814,
+          -0.3278236914600612
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "86fec360736f1e53a13b6e2f983a65fd.png",
+        "86fec360736f1e53a13b6e2f983a65fd.png"
+      ],
+      "websiteFile": "card-16.jpg",
+      "websiteSha256": "3172b49434370951d4db1ac8227743fe756dd6ba50d47ea680a4901e1267d500"
+    },
+    {
+      "card": 17,
+      "sourceHash": "7e192e74f35ef7447bc26f968ce72449.png",
+      "sourceName": "The Sun Stone Theory (89).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 233,
+        "height": 389,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -17,
+          -13
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -13.611940298506852,
+          -0.16417910447749762
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "9235cd57a68ee501962fba905fe7d94e.png",
+        "7e192e74f35ef7447bc26f968ce72449.png"
+      ],
+      "websiteFile": "card-17.jpg",
+      "websiteSha256": "160dc6e84e658b0951c736e4d322945f7abbdc11cb2d717df0df5cbb03785c4e"
+    },
+    {
+      "card": 18,
+      "sourceHash": "3a755269dc3275718ab9fe3cb0805d0c.png",
+      "sourceName": "Pottery wall.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 292,
+        "height": 487,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -15,
+          -35
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -17.07462686567149,
+          -0.29850746268650497
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "f6e98203a332ff2ed432eb2151b44e4a.png",
+        "3a755269dc3275718ab9fe3cb0805d0c.png"
+      ],
+      "websiteFile": "card-18.jpg",
+      "websiteSha256": "6d3ec403f7c0e61eee4d9607d7a03214493f0d4efe36f53339e473b5bd805660"
+    },
+    {
+      "card": 19,
+      "sourceHash": "72c1809561a0610537399e19a9100546.png",
+      "sourceName": "19.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 231,
+        "height": 387,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -8,
+          -13
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.37557392102883114,
+          -0.16437098255277327
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "72c1809561a0610537399e19a9100546.png",
+        "72c1809561a0610537399e19a9100546.png"
+      ],
+      "websiteFile": "card-19.jpg",
+      "websiteSha256": "0f60a54b4bed0063c0dbc91f9f44e7564c9868ba6736e26e66a84292ead82e8d"
+    },
+    {
+      "card": 20,
+      "sourceHash": "0b28a084d8c989f91a7f9782ea4834b6.png",
+      "sourceName": "Checkers Sun.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 293,
+        "height": 489,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -22,
+          -23
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -15.328358208954796,
+          0.35820895522398644
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "041dbed38c7c3c7a784f510f3417b425.png",
+        "0b28a084d8c989f91a7f9782ea4834b6.png"
+      ],
+      "websiteFile": "card-20.jpg",
+      "websiteSha256": "1b4b5abb0498f988869721be1c629bb70f0116536f3c79fec014950f367e6e73"
+    },
+    {
+      "card": 21,
+      "sourceHash": "91b4ad79db4010b827d31c5392e5c9f7.png",
+      "sourceName": "The Sun Stone Theory (98).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 291,
+        "height": 486,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -66,
+          -5
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -15.82089552238736,
+          0.2686567164180147
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "f80a7cae65408d10a817febcc051b78b.png",
+        "91b4ad79db4010b827d31c5392e5c9f7.png"
+      ],
+      "websiteFile": "card-21.jpg",
+      "websiteSha256": "b939e1c3063a9a17a9bf104473833c9fec1b8a64460a98438c43aa044d97b192"
+    },
+    {
+      "card": 22,
+      "sourceHash": "12a932e1973e93f02fe7f35a0fdf67dd.png",
+      "sourceName": "Mexico sweater.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 327,
+        "height": 543,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -31,
+          -58
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -16.507462686565333,
+          0.2985074626867945
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "a009f2802266f5889d1f1038dedebc9e.png",
+        "12a932e1973e93f02fe7f35a0fdf67dd.png"
+      ],
+      "websiteFile": "card-22.jpg",
+      "websiteSha256": "192c39699d56a11b94df9483467cdd3dd5ddc71f1c273fa156280f55d6d8c3a9"
+    },
+    {
+      "card": 23,
+      "sourceHash": "a0ab73cb841c75afa1da18b75e1883d7.png",
+      "sourceName": "The Sun Stone Theory (83).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 303,
+        "height": 455,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -27,
+          -5
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.07462686567060928,
+          0.29850746268682116
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "64d56ac689851fae57a1b94577da00d4.png",
+        "a0ab73cb841c75afa1da18b75e1883d7.png"
+      ],
+      "websiteFile": "card-23.jpg",
+      "websiteSha256": "23bfbd807d551c9b347521ec1e1242dcafaf29d3a34b4c3ed910c8f51047ecf7"
+    },
+    {
+      "card": 24,
+      "sourceHash": "ca495b16d1b2380f0f5eb831329db70b.png",
+      "sourceName": "Tigers.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 267,
+        "height": 443,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -6,
+          -12
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -14.850746268655797,
+          0.31343283582102544
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "4bf3628648e31dcdda69ced04a9c65a2.png",
+        "ca495b16d1b2380f0f5eb831329db70b.png"
+      ],
+      "websiteFile": "card-24.jpg",
+      "websiteSha256": "7ece152a826fd910dbbf1bb8dc58c229ef87a967ccb94660020aa2de643361c5"
+    },
+    {
+      "card": 25,
+      "sourceHash": "8ed74e2bc01be50d5afb104a6a5a17e4.png",
+      "sourceName": "25.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 216,
+        "height": 360,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "pictureCount": 1,
+      "renderLayerHashes": [
+        "8ed74e2bc01be50d5afb104a6a5a17e4.png"
+      ],
+      "websiteFile": "card-25.jpg",
+      "websiteSha256": "85aedef9b974d4b3f3c275f59803fef818959eb04e0ed38f56c71790de6bcb2a"
+    },
+    {
+      "card": 26,
+      "sourceHash": "9e227aa9f5a6f945a1fc7302882cb672.png",
+      "sourceName": "26.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 261,
+        "height": 434,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -32,
+          -18
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.13432835820970013,
+          0.08955223880608543
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "9e227aa9f5a6f945a1fc7302882cb672.png",
+        "9e227aa9f5a6f945a1fc7302882cb672.png"
+      ],
+      "websiteFile": "card-26.jpg",
+      "websiteSha256": "5a5a7b610c07917255431d72a10c24879d8f90d4f55464731454eebef24fe797"
+    },
+    {
+      "card": 27,
+      "sourceHash": "b1d1a53aad2ee9037cc038058f881772.png",
+      "sourceName": "27.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 216,
+        "height": 360,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "pictureCount": 1,
+      "renderLayerHashes": [
+        "b1d1a53aad2ee9037cc038058f881772.png"
+      ],
+      "websiteFile": "card-27.jpg",
+      "websiteSha256": "94b66e7d18e06cfb0579448b72b0678291bb7cc65b0a37a7d9ece1da80cb117a"
+    },
+    {
+      "card": 28,
+      "sourceHash": "cd75e96ef9e3e0d4e931ebdb4004cd8d.png",
+      "sourceName": "LV Cup.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 306,
+        "height": 511,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -68,
+          -29
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -16.537313432834964,
+          -0.32835820895507695
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "dcdaf2b07c8360bd949eb0ca0e5e961c.png",
+        "cd75e96ef9e3e0d4e931ebdb4004cd8d.png"
+      ],
+      "websiteFile": "card-28.jpg",
+      "websiteSha256": "cb432f602eb7452e030073d21f74973d14dcc64f0ed6a79f1e1f8e969fff0d42"
+    },
+    {
+      "card": 29,
+      "sourceHash": "8a61bf4c0595f2f12206f6c6525d8f1a.png",
+      "sourceName": "The Sun Stone Theory (99).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 235,
+        "height": 391,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -9,
+          -18
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -13.149253731342895,
+          -0.14925373134317255
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "916804998fc5f584c09a7543b0d90c17.png",
+        "8a61bf4c0595f2f12206f6c6525d8f1a.png"
+      ],
+      "websiteFile": "card-29.jpg",
+      "websiteSha256": "fcb8865a7ba6d4b3c1dca0d87b8d2c5bf63d1ca4ae8b5ace8b6f9c5ed0a8b5c2"
+    },
+    {
+      "card": 30,
+      "sourceHash": "139755587b06a9ce3e201023e5406bbf.png",
+      "sourceName": "30.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 216,
+        "height": 360,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "pictureCount": 1,
+      "renderLayerHashes": [
+        "139755587b06a9ce3e201023e5406bbf.png"
+      ],
+      "websiteFile": "card-30.jpg",
+      "websiteSha256": "8ca8d924667c7737e3f285134cc3b8b6c55a59471c3eb20e7d451dba4c718824"
+    },
+    {
+      "card": 31,
+      "sourceHash": "15bbd9da5db557f166b180c0eb4f8bba.png",
+      "sourceName": "31.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 250,
+        "height": 417,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -24,
+          -23
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.3731343283572528,
+          0.11940298507479952
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "15bbd9da5db557f166b180c0eb4f8bba.png",
+        "15bbd9da5db557f166b180c0eb4f8bba.png"
+      ],
+      "websiteFile": "card-31.jpg",
+      "websiteSha256": "952d385b500eeb127c2df19be27336f80e646d7ffa766a1074b54ccbc8ae6ca0"
+    },
+    {
+      "card": 32,
+      "sourceHash": "8fa53215c57c2e232cd6c99f468cbc48.png",
+      "sourceName": "32.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 216,
+        "height": 360,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "pictureCount": 1,
+      "renderLayerHashes": [
+        "8fa53215c57c2e232cd6c99f468cbc48.png"
+      ],
+      "websiteFile": "card-32.jpg",
+      "websiteSha256": "c61aaf99351a0385e1a6c95975a92be428fccc6926396af2ee0e27000d986814"
+    },
+    {
+      "card": 33,
+      "sourceHash": "7f4c2fb933442fcee94765659d35cbc9.png",
+      "sourceName": "The Sun Stone Theory - 2026-07-28T210842.410.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 242,
+        "height": 405,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -1,
+          -38
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -14.134328358208506,
+          -0.07462686567152943
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "216a7d5a234f0f2ccb883da218395b60.png",
+        "7f4c2fb933442fcee94765659d35cbc9.png"
+      ],
+      "websiteFile": "card-33.jpg",
+      "websiteSha256": "b66a5ec01b0bf917434b946b0ba16171fcac6667b0a5753cb0cffc19fdac0f00"
+    },
+    {
+      "card": 34,
+      "sourceHash": "0e6b422c43e0b56c265eee2dc5855574.png",
+      "sourceName": "34.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 227,
+        "height": 378,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -2,
+          -2
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.298507462687013,
+          0.28358208955229713
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "0e6b422c43e0b56c265eee2dc5855574.png",
+        "0e6b422c43e0b56c265eee2dc5855574.png"
+      ],
+      "websiteFile": "card-34.jpg",
+      "websiteSha256": "7fa6ea554d8192c72b88fe1887a942cdaad2e22c255ea551cb5db196729b5874"
+    },
+    {
+      "card": 35,
+      "sourceHash": "14fcd416eb9ff5052ab131035e93a062.png",
+      "sourceName": "The Sun Stone Theory (85).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 230,
+        "height": 383,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -4,
+          -7
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -11.895522388059646,
+          0.2985074626866151
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "54a583aeec4af8d7fd16c8c772bc4a18.png",
+        "14fcd416eb9ff5052ab131035e93a062.png"
+      ],
+      "websiteFile": "card-35.jpg",
+      "websiteSha256": "a34cafc56eaec04dffb164b66476f33a8081215a170309207289d47b033c1e39"
+    },
+    {
+      "card": 36,
+      "sourceHash": "fc3608911cd2aeeebe7e774f2b17d192.png",
+      "sourceName": "36.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 236,
+        "height": 392,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -1,
+          -3
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.044776119403252324,
+          -0.2089552238805581
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "fc3608911cd2aeeebe7e774f2b17d192.png",
+        "fc3608911cd2aeeebe7e774f2b17d192.png"
+      ],
+      "websiteFile": "card-36.jpg",
+      "websiteSha256": "7184092e63769585bca6741e09f3544081afe7eef2c79427eb6a8088100f3d33"
+    },
+    {
+      "card": 37,
+      "sourceHash": "d466cfa7cefce05521c5243c415bbede.png",
+      "sourceName": "37.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 220,
+        "height": 367,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -4,
+          -4
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.05970149253741397,
+          0.04477611940303916
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "d466cfa7cefce05521c5243c415bbede.png",
+        "d466cfa7cefce05521c5243c415bbede.png"
+      ],
+      "websiteFile": "card-37.jpg",
+      "websiteSha256": "807effe0d3fd25d5efe38986364f7f36ea28616856546cb6f08a7184ca0d235f"
+    },
+    {
+      "card": 38,
+      "sourceHash": "f0a56b8144b425c5953055d5ae2a5464.png",
+      "sourceName": "38.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 241,
+        "height": 402,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -8,
+          -22
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.07462686567214405,
+          0.10447761194040339
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "f0a56b8144b425c5953055d5ae2a5464.png",
+        "f0a56b8144b425c5953055d5ae2a5464.png"
+      ],
+      "websiteFile": "card-38.jpg",
+      "websiteSha256": "64ef09f6fb5d8f1373a98424e423e41fa141a64437c2caf8ea049a23ab1e42ad"
+    },
+    {
+      "card": 39,
+      "sourceHash": "5801cb451e9306c6f885e9a4ebd090ef.png",
+      "sourceName": "The Sun Stone Theory (77).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 231,
+        "height": 383,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          -14
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -12.641791044775914,
+          0.28358208955229713
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "aa13754d994c0634fd398a5429ab3d13.png",
+        "5801cb451e9306c6f885e9a4ebd090ef.png"
+      ],
+      "websiteFile": "card-39.jpg",
+      "websiteSha256": "576a3166cce15d560bc22838a62ba5b85e5735c660aab7f85163066a1cc7adbe"
+    },
+    {
+      "card": 40,
+      "sourceHash": "7cab7b2ed78aca6022f6d93c24fa4314.png",
+      "sourceName": "The Sun Stone Theory - 2026-08-06T183450.340.png",
+      "sourceWidth": 3938,
+      "sourceHeight": 5906,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 225,
+        "height": 376,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -11,
+          -15
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -12.358208955223546,
+          -0.16417910447753314
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "3495087fb126f590b54b7ca69374c23b.png",
+        "7cab7b2ed78aca6022f6d93c24fa4314.png"
+      ],
+      "websiteFile": "card-40.jpg",
+      "websiteSha256": "4160fe10b6d06997b13a5ae4c518bdbb0798e1c3ee58998264be3fc09caf2dec"
+    },
+    {
+      "card": 41,
+      "sourceHash": "02e8f403b9f44b5b116b5bb5eabc697f.png",
+      "sourceName": "41.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 247,
+        "height": 412,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -3,
+          -2
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.19402985074552248,
+          0.2835820895523895
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "02e8f403b9f44b5b116b5bb5eabc697f.png",
+        "02e8f403b9f44b5b116b5bb5eabc697f.png"
+      ],
+      "websiteFile": "card-41.jpg",
+      "websiteSha256": "4fe1e973a0a5468680663b34ec2a413cff01a6a8b85bfc64ede665024e6e5b26"
+    },
+    {
+      "card": 42,
+      "sourceHash": "91a3ab46ebef8a071f71eb485ba779ae.png",
+      "sourceName": "42.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 253,
+        "height": 420,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -3,
+          -22
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.11940298507531111,
+          -0.11940298507443714
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "91a3ab46ebef8a071f71eb485ba779ae.png",
+        "91a3ab46ebef8a071f71eb485ba779ae.png"
+      ],
+      "websiteFile": "card-42.jpg",
+      "websiteSha256": "e72d1d29db614997041e7d64bcd1c76ba6fccd2c03aff9be60599dcb094960d5"
+    },
+    {
+      "card": 43,
+      "sourceHash": "bed3dd47be7487ee361dcad615eb6256.png",
+      "sourceName": "The Sun Stone Theory - 2026-07-28T211309.239.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 297,
+        "height": 494,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -6,
+          -32
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -16.134328358208563,
+          -0.3134328358207945
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "fb55dcf7d9ce42e0d1db5b706ff7076f.png",
+        "bed3dd47be7487ee361dcad615eb6256.png"
+      ],
+      "websiteFile": "card-43.jpg",
+      "websiteSha256": "d1ccd076e16c42407f0dc4b864a9d5e54e5707e733128ba469135d9b2102625c"
+    },
+    {
+      "card": 44,
+      "sourceHash": "f4c85bd04c43b2601dd6549320ff1fc1.png",
+      "sourceName": "Flamingo in pool.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 323,
+        "height": 538,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -68,
+          -84
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -17.343283582088986,
+          0.1492537313433484
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "87d0b33381543b49a5d7247f65e16f23.png",
+        "f4c85bd04c43b2601dd6549320ff1fc1.png"
+      ],
+      "websiteFile": "card-44.jpg",
+      "websiteSha256": "b8f2c4efe65cbc5c1d435f3e8ce1d2ae121992d7f062ca352925e22d60a82f0b"
+    },
+    {
+      "card": 45,
+      "sourceHash": "023e4450ea7e60ca2e5cd7edf9e9f78f.png",
+      "sourceName": "45.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 253,
+        "height": 421,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -22,
+          -11
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.149253731342327,
+          -0.19402985074611934
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "023e4450ea7e60ca2e5cd7edf9e9f78f.png",
+        "023e4450ea7e60ca2e5cd7edf9e9f78f.png"
+      ],
+      "websiteFile": "card-45.jpg",
+      "websiteSha256": "60d77b0f95d5c664a27399d6cc2cbdfe647fcad4bb8ff5f10dd3c304836b1a2e"
+    },
+    {
+      "card": 46,
+      "sourceHash": "7a0bcad33789f22a2f57b9111bfa06fd.png",
+      "sourceName": "Porto Library.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 299,
+        "height": 499,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -27,
+          -24
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -16.0895522388046,
+          0.28358208955247477
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "4e58fae0d5171cd36e5c8d975aa8b026.png",
+        "7a0bcad33789f22a2f57b9111bfa06fd.png"
+      ],
+      "websiteFile": "card-46.jpg",
+      "websiteSha256": "38db088ef403b230ac775458cd5325d210570bd2afd02cc95385155b681dcf06"
+    },
+    {
+      "card": 47,
+      "sourceHash": "282712bc38ff2ef2b373d602f101a08d.png",
+      "sourceName": "47.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 216,
+        "height": 360,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "pictureCount": 1,
+      "renderLayerHashes": [
+        "282712bc38ff2ef2b373d602f101a08d.png"
+      ],
+      "websiteFile": "card-47.jpg",
+      "websiteSha256": "237cca557927f6aff135d5ab0326df58f97878c99e9a25ee0f72c63a8677e200"
+    },
+    {
+      "card": 48,
+      "sourceHash": "dd9d68921bf4221f5dd7e163aca7938a.png",
+      "sourceName": "48.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 239,
+        "height": 398,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -9,
+          -13
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.19402985074574985,
+          -0.17910447761178006
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "dd9d68921bf4221f5dd7e163aca7938a.png",
+        "dd9d68921bf4221f5dd7e163aca7938a.png"
+      ],
+      "websiteFile": "card-48.jpg",
+      "websiteSha256": "74db1d15eabcbaab276afffef1ae5dc1921c59d30c7d4260536c6697c04bae87"
+    },
+    {
+      "card": 49,
+      "sourceHash": "e3469ac6c2a2c4e791ee9b150e8afc14.png",
+      "sourceName": "The Sun Stone Theory (94).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 248,
+        "height": 414,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -23,
+          -8
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -13.32835820895437,
+          0.2835820895523682
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "2d2724cb14340e95fb887f518ebe1c5a.png",
+        "e3469ac6c2a2c4e791ee9b150e8afc14.png"
+      ],
+      "websiteFile": "card-49.jpg",
+      "websiteSha256": "4e1bb113a931a2e8f87095511485fd99249a983a6f1eb80eb5fd424e65e4e252"
+    },
+    {
+      "card": 50,
+      "sourceHash": "d9f38ddad04f416586c3ac2ae6a6f3cb.png",
+      "sourceName": "The Sun Stone Theory - 2026-07-31T213839.085.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 282,
+        "height": 423,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -34,
+          -46
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.20895522388101995,
+          -0.2686567164178477
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "72f4b3a660b372de06c2cea73849ea0e.png",
+        "d9f38ddad04f416586c3ac2ae6a6f3cb.png"
+      ],
+      "websiteFile": "card-50.jpg",
+      "websiteSha256": "dadaf84184cf43d5fb6156dd5e7fdd3cf695334966c3ce6ea821806df4b17000"
+    },
+    {
+      "card": 51,
+      "sourceHash": "fb22fef9031979ae6ad9d8ec98a21311.png",
+      "sourceName": "Cashews.png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 314,
+        "height": 522,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -20,
+          -40
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -16.835820895521124,
+          0.3134328358211107
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "0e76cfb6e663d0e31a2ee57da418a749.png",
+        "fb22fef9031979ae6ad9d8ec98a21311.png"
+      ],
+      "websiteFile": "card-51.jpg",
+      "websiteSha256": "e20fa802d640e2a654f15908c9fa1802a0b625f23721f6ad454798aaa25ebb00"
+    },
+    {
+      "card": 52,
+      "sourceHash": "379294416a27ee336c0f2fe6d45dd1c9.png",
+      "sourceName": "52.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 261,
+        "height": 434,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -20,
+          -18
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          0.05970149253803925,
+          0.3134328358210041
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "379294416a27ee336c0f2fe6d45dd1c9.png",
+        "379294416a27ee336c0f2fe6d45dd1c9.png"
+      ],
+      "websiteFile": "card-52.jpg",
+      "websiteSha256": "b0a5c9edbf18b38f0fd6a51fc0d195d8e05edea543b8bb640db2cc9af2dd7ac9"
+    },
+    {
+      "card": 53,
+      "sourceHash": "0ce7b57b076f8f133df641029bd4e943.png",
+      "sourceName": "The Sun Stone Theory (84).png",
+      "sourceWidth": 1500,
+      "sourceHeight": 2250,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 284,
+        "height": 475,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -9,
+          -9
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -14.835820895521834,
+          -0.328358208955148
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "30e9a3c2e591b695fd31d744e9395abc.png",
+        "0ce7b57b076f8f133df641029bd4e943.png"
+      ],
+      "websiteFile": "card-53.jpg",
+      "websiteSha256": "154195a0ee3301c1fad084b04a3f70e63f3d6a53e7ca8fb3ea459ef4eeb76348"
+    },
+    {
+      "card": 54,
+      "sourceHash": "601e8968df32ef1570d41885d7001968.png",
+      "sourceName": "54.png",
+      "sourceWidth": 900,
+      "sourceHeight": 1500,
+      "placement": {
+        "x": 0,
+        "y": 0,
+        "width": 245,
+        "height": 408,
+        "transform": [
+          1,
+          0,
+          0,
+          1,
+          -15,
+          -17
+        ],
+        "contentTransform": [
+          1,
+          0,
+          0,
+          1,
+          -0.1641791044769434,
+          -0.19402985074612644
+        ]
+      },
+      "pictureCount": 2,
+      "renderLayerHashes": [
+        "601e8968df32ef1570d41885d7001968.png",
+        "601e8968df32ef1570d41885d7001968.png"
+      ],
+      "websiteFile": "card-54.jpg",
+      "websiteSha256": "aedf9706b6c63eb14443caf9708441255019f9a7ade7bcb975f0b6af7244391c"
+    }
+  ],
+  "back": {
+    "sourceHash": "c30ac12d6fc13c4c6baf45900f4d906f.png",
+    "sourceName": "back.png",
+    "pictureCount": 1,
+    "renderLayerHashes": [
+      "c30ac12d6fc13c4c6baf45900f4d906f.png"
+    ],
+    "websiteFile": "card-back.jpg",
+    "websiteSha256": "8eaa382340e496aa2ac2092e5ad76c9756d8be171e570bed9a5cc1b302a18f2d"
+  }
+}

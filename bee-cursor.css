@@ -4,21 +4,8 @@
  */
 @media (pointer: fine) and (hover: hover) {
   html.bee-cursor-enabled,
-  html.bee-cursor-enabled body,
-  html.bee-cursor-enabled a,
-  html.bee-cursor-enabled button,
-  html.bee-cursor-enabled [role="button"],
-  html.bee-cursor-enabled [tabindex]:not([tabindex="-1"]),
-  html.bee-cursor-enabled label,
-  html.bee-cursor-enabled select {
+  html.bee-cursor-enabled * {
     cursor: none !important;
-  }
-
-  html.bee-cursor-enabled input,
-  html.bee-cursor-enabled textarea,
-  html.bee-cursor-enabled [contenteditable="true"],
-  html.bee-cursor-enabled [contenteditable="plaintext-only"] {
-    cursor: text !important;
   }
 }
 
@@ -110,8 +97,18 @@
   100% { opacity: 0; transform: translate3d(var(--tbh-dx), var(--tbh-dy), 0) scale(.15) rotate(90deg); }
 }
 
-@media (pointer: coarse), (hover: none), (prefers-reduced-motion: reduce) {
+@media (pointer: coarse), (hover: none) {
   .tbh-bee-cursor,
+  .tbh-pollen {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tbh-bee-cursor .tbh-wing {
+    animation: none !important;
+  }
+
   .tbh-pollen {
     display: none !important;
   }
