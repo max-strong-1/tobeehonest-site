@@ -1647,7 +1647,6 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="draw-end" id="drawEnd" hidden>
           <p class="draw-end-line" id="drawEndLine"></p>
-          <button class="tag-btn" type="button" id="deckBuyCta">Bring the deck home — $49</button>
         </div>
       </div>
 
@@ -2452,7 +2451,7 @@ const DECK_DATA=[
   const {bindMantraCard}=await import('./assets/web/mantra-card-controller.js');
   const table=document.getElementById('drawTable'),counter=document.getElementById('drawCounter');
   const moreBtn=document.getElementById('drawMoreBtn'),resetBtn=document.getElementById('drawReset');
-  const endBox=document.getElementById('drawEnd'),endLine=document.getElementById('drawEndLine'),buyCta=document.getElementById('deckBuyCta');
+  const endBox=document.getElementById('drawEnd'),endLine=document.getElementById('drawEndLine');
   if(!table)return;
   const FEATURED=[11,4,26,15],pool=DECK_DATA.filter(c=>!FEATURED.includes(c.n)),CAP=2;
   let order=[],revealed=0;
@@ -2469,7 +2468,6 @@ const DECK_DATA=[
   };
   const start=()=>{order=shuffle(pool);revealed=0;table.innerHTML='';endBox.hidden=true;moreBtn.hidden=true;resetBtn.hidden=false;update();order.slice(0,CAP).forEach(c=>table.appendChild(build(c)))};
   resetBtn.addEventListener('click',start);
-  buyCta?.addEventListener('click',()=>{const open=document.getElementById('deckOrderOpen'),form=document.getElementById('deckOrderForm');open?.scrollIntoView({behavior:'smooth',block:'center'});if(open&&form?.hidden)open.click()});
   start();
 })();
 /* ---------- per-tier interactions ---------- */
