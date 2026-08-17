@@ -7,6 +7,7 @@ export const checkoutSchema = z.object({
   artworkId: z.string().regex(/^[a-z0-9][a-z0-9-]{0,79}$/).optional(),
   size: z.enum(["12x16", "20x28"]).optional(),
   frameColor: z.enum(["gold", "second"]).optional(),
+  mat: z.enum(["White", "Black"]).optional(),
   quantity: z.number().int().min(1).max(10).default(1)
 }).strict().superRefine((value, ctx) => {
   if (value.product === "framed-art") {
@@ -70,7 +71,8 @@ export function resolveCheckoutItem(input) {
       product: "framed-art",
       artworkId: input.artworkId,
       size: input.size,
-      frameColor: input.frameColor
+      frameColor: input.frameColor,
+      ...(input.mat ? { mat: input.mat } : {})
     }
   };
 }

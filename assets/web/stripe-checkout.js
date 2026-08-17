@@ -1,6 +1,7 @@
 export async function startStripeCheckout({
   product,
   quantity = 1,
+  payload = {},
   idempotencyKey = globalThis.crypto?.randomUUID?.() || `${product}-${Date.now()}`,
   fetchImpl = globalThis.fetch,
   navigate = (url) => globalThis.location.assign(url)
@@ -11,7 +12,7 @@ export async function startStripeCheckout({
       "Content-Type": "application/json",
       "Idempotency-Key": idempotencyKey
     },
-    body: JSON.stringify({ product, quantity })
+    body: JSON.stringify({ product, quantity, ...payload })
   });
   let body = {};
   try {
@@ -42,6 +43,7 @@ export function bindStripeCheckoutButton({
   button,
   errorBox,
   product,
+  payload,
   startCheckout = startStripeCheckout
 }) {
   const readyLabel = button.textContent;
@@ -54,7 +56,11 @@ export function bindStripeCheckoutButton({
     button.textContent = "Opening secure checkout…";
 
     try {
-      await startCheckout({ product, quantity: 1 });
+      await startCheckout({
+        product,
+        quantity: 1,
+        payload: typeof payload === "function" ? payload() : payload
+      });
     } catch (error) {
       errorBox.textContent = error instanceof Error
         ? error.message

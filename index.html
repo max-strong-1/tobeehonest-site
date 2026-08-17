@@ -1652,7 +1652,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       </div>
 
       <div class="deck-cta">
-        <button class="tag-btn" id="deckOrderOpen" aria-expanded="false" aria-controls="deckOrderForm">Order the Deck</button>
+        <button class="tag-btn" id="deckOrderOpen" aria-expanded="false" aria-controls="deckOrderForm">Order the Deck — $49</button>
+        <p class="puzzle-checkout-error" id="deckCheckoutError" role="alert" hidden></p>
         <form class="order-form" id="deckOrderForm" hidden data-vendor="QPMN" data-airtable-table="Mantra Deck Orders" novalidate>
           <div class="field-row">
             <div class="field">
@@ -2614,12 +2615,25 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   if(!openBtn||!form||!confirm)return;
 
   const deckPriceLine=document.getElementById('deckPriceLine');
-  if(deckPriceLine)deckPriceLine.textContent=`Launch price: $${TBH_PRICES.deck} each · confirmed by email before any payment`;
+  if(deckPriceLine)deckPriceLine.textContent=`Launch price: $${TBH_PRICES.deck} each · secure checkout on Stripe`;
 
-  openBtn.addEventListener('click',()=>{
-    form.hidden=false;confirm.hidden=true;openBtn.hidden=true;
-    openBtn.setAttribute('aria-expanded','true');
-    form.querySelector('input,select,textarea')?.focus();
+  /* Stripe checkout is live for the deck. The email/order-intent form below stays
+     in the markup as a dormant fallback; this button now opens Stripe directly. */
+  const deckErr=document.getElementById('deckCheckoutError');
+  openBtn.addEventListener('click',async()=>{
+    deckErr.hidden=true;deckErr.textContent='';
+    const label=openBtn.textContent;
+    openBtn.disabled=true;openBtn.setAttribute('aria-busy','true');
+    openBtn.textContent='Opening secure checkout…';
+    try{
+      const {startStripeCheckout}=await import('./assets/web/stripe-checkout.js');
+      await startStripeCheckout({product:'deck'});
+    }catch(err){
+      deckErr.textContent=err instanceof Error?err.message:'Checkout is temporarily unavailable.';
+      deckErr.hidden=false;
+    }finally{
+      openBtn.disabled=false;openBtn.removeAttribute('aria-busy');openBtn.textContent=label;
+    }
   });
 
   form.addEventListener('submit',async e=>{
@@ -3137,10 +3151,11 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     const size=sizeSelect.value;
     const price=TBH_PRICES.gallery[size];
     if(priceLine)priceLine.textContent = price!=null
-      ? `$${price} · ${size.replace('x','×')} in print, framed & matted · confirmed by email before any payment`
+      ? `$${price} · ${size.replace('x','×')} in print, framed & matted · ${size!=='12x18'&&frameColorSelect.value!=='Black'?'secure checkout on Stripe':'confirmed by email before any payment'}`
       : '';
   }
   sizeSelect.addEventListener('change',applySize);
+  frameColorSelect.addEventListener('change',syncPriceLine);
 
   /* A modal dialog paints in the browser's top layer. Move the one canonical bee into
      that layer while the viewer is open instead of reviving a native hand or pointer. */
@@ -3164,6 +3179,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     mountMatArt.src=art.src;
     titleEl.textContent=p.title;
     artworkInput.value=p.title;
+    artworkInput.dataset.slug=p.slug;
     // Opens dressed the way the wall is currently showing it, so clicking a framed
     // piece does not strip the frame out from under the visitor.
     // Opens dressed the way the wall is showing it: Antique Gold over the mat the catalog
@@ -3197,8 +3213,29 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
 
   const errBox=document.getElementById('galleryOrderErr');
   const btn=document.getElementById('gallerySubmitBtn');
+  /* Stripe-eligible combos check out directly (print size -> glaze size, viewer
+     colour -> catalog colourway). 12x18 and Black frames keep the email path until
+     their Prodigi SKUs / colourway slots exist server-side. */
+  const STRIPE_GLAZE={'8x12':'12x16','16x24':'20x28'};
+  const STRIPE_COLOUR={'Antique Gold':'gold','Brown':'second'};
   form.addEventListener('submit',async e=>{
     e.preventDefault();
+    const glaze=STRIPE_GLAZE[sizeSelect.value],colour=STRIPE_COLOUR[frameColorSelect.value];
+    if(glaze&&colour&&artworkInput.dataset.slug){
+      errBox.hidden=true;btn.disabled=true;btn.setAttribute('aria-busy','true');
+      try{
+        const {startStripeCheckout}=await import('./assets/web/stripe-checkout.js');
+        await startStripeCheckout({product:'framed-art',payload:{
+          artworkId:artworkInput.dataset.slug,size:glaze,frameColor:colour,mat:matSelect.value}});
+      }catch(err){
+        errBox.textContent=err instanceof Error?err.message:'Checkout is temporarily unavailable.';
+        errBox.hidden=false;
+        errBox.scrollIntoView({behavior:'smooth',block:'center'});
+      }finally{
+        btn.disabled=false;btn.removeAttribute('aria-busy');
+      }
+      return;
+    }
     if(!form.checkValidity()){form.reportValidity();return}
     errBox.hidden=true;btn.disabled=true;btn.setAttribute('aria-busy','true');
     const payload={
