@@ -58,7 +58,10 @@ export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
     : {
         sku: item.vendorSku,
         copies: item.quantity,
-        sizing: "fillPrintArea",
+        /* 12x18 prints ship in the 16x24 mounted frame (Prodigi has no 16x22):
+         * its print area is 12x20, so fitPrintArea letterboxes the art with 1"
+         * of white top/bottom that reads as part of the snow-white mat. */
+        sizing: item.sizing || "fillPrintArea",
         attributes: { color: frameColorAttribute(item.metadata) },
         assets: [{ printArea: "default", url: `${assetBase}/${encodeURIComponent(item.metadata.artworkId)}.jpg` }]
       };

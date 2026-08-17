@@ -1405,7 +1405,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
               <li>765 × 525 mm when complete</li>
               <li>Portrait Sun Bird artwork printed on the tin lid</li>
             </ul>
-            <button class="tag-btn puzzle-checkout" id="sunBirdCheckout" type="button">Buy the Sun Bird puzzle</button>
+            <button class="tag-btn puzzle-checkout" id="sunBirdCheckout" type="button">Buy the Sun Bird puzzle — $49 + shipping</button>
             <p class="puzzle-checkout-note"><strong>Made to order and final sale.</strong> Please review the artwork, dimensions, tin, and piece-cut preview before purchasing. Secure checkout opens on Stripe.</p>
             <p class="puzzle-checkout-error" id="sunBirdCheckoutError" role="alert" hidden></p>
           </div>
@@ -2230,9 +2230,10 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 /* Prices confirmed by Kel 2026-08-07. Gallery keys are PRINT sizes — the artwork the
    customer receives — not glaze/frame sizes. Prodigi's mount adds a fixed 2" border per
    side, so glaze = print + 4": 8x12 -> CFPM-12x16, 16x24 -> CFPM-20x28 (both confirmed);
-   12x18 -> 16x22 glaze, whose SKU is NOT yet confirmed in Prodigi's catalogue. Keep these
-   strings byte-identical with the Airtable Size select — fulfillment joins on them.
-   Customer pays tax AND shipping on top of every price here. */
+   12x18 -> CFPM-16x24 (no 16x22 in Prodigi's range; fitPrintArea letterboxes the art,
+   the extra white blends into the snow-white mat). Keep these strings byte-identical
+   with the Airtable Size select — fulfillment joins on them.
+   Customer pays shipping on top of every price here; tax is on us. */
 const TBH_PRICES = { deck: 49, book: 59,
   gallery: { "8x12": 249, "12x18": 279, "16x24": 429 } };
 
@@ -2613,7 +2614,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   if(!openBtn||!form||!confirm)return;
 
   const deckPriceLine=document.getElementById('deckPriceLine');
-  if(deckPriceLine)deckPriceLine.textContent=`Launch price: $${TBH_PRICES.deck} each · secure checkout on Stripe`;
+  if(deckPriceLine)deckPriceLine.textContent=`Launch price: $${TBH_PRICES.deck} each + shipping · secure checkout on Stripe`;
 
   /* Stripe checkout is live for the deck. The email/order-intent form below stays
      in the markup as a dormant fallback; this button now opens Stripe directly. */
@@ -3149,7 +3150,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     const size=sizeSelect.value;
     const price=TBH_PRICES.gallery[size];
     if(priceLine)priceLine.textContent = price!=null
-      ? `$${price} · ${size.replace('x','×')} in print, framed & matted · ${size!=='12x18'&&frameColorSelect.value!=='Black'?'secure checkout on Stripe':'confirmed by email before any payment'}`
+      ? `$${price} + shipping · ${size.replace('x','×')} in print, framed & matted · ${frameColorSelect.value!=='Black'?'secure checkout on Stripe':'confirmed by email before any payment'}`
       : '';
   }
   sizeSelect.addEventListener('change',applySize);
@@ -3211,10 +3212,10 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
 
   const errBox=document.getElementById('galleryOrderErr');
   const btn=document.getElementById('gallerySubmitBtn');
-  /* Stripe-eligible combos check out directly (print size -> glaze size, viewer
-     colour -> catalog colourway). 12x18 and Black frames keep the email path until
-     their Prodigi SKUs / colourway slots exist server-side. */
-  const STRIPE_GLAZE={'8x12':'12x16','16x24':'20x28'};
+  /* Stripe-eligible combos check out directly (print size -> catalog size key,
+     viewer colour -> catalog colourway). Black frames keep the email path until
+     their colourway slots exist server-side. */
+  const STRIPE_GLAZE={'8x12':'12x16','12x18':'12x18','16x24':'20x28'};
   const STRIPE_COLOUR={'Antique Gold':'gold','Brown':'second'};
   form.addEventListener('submit',async e=>{
     e.preventDefault();

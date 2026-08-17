@@ -5,7 +5,7 @@ import { isKnownArtworkSlug } from "./artwork-allowlist.js";
 export const checkoutSchema = z.object({
   product: z.enum(["deck", "framed-art", "puzzle"]),
   artworkId: z.string().regex(/^[a-z0-9][a-z0-9-]{0,79}$/).optional(),
-  size: z.enum(["12x16", "20x28"]).optional(),
+  size: z.enum(["12x16", "12x18", "20x28"]).optional(),
   frameColor: z.enum(["gold", "second"]).optional(),
   mat: z.enum(["White", "Black"]).optional(),
   quantity: z.number().int().min(1).max(10).default(1)
@@ -22,6 +22,11 @@ export const checkoutSchema = z.object({
 const variants = {
   "12x16:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_12X16_US" },
   "12x16:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_12X16_US" },
+  /* 12x18 print rides in the 16x24 mounted frame (no 16x22 in Prodigi's range);
+   * fitPrintArea letterboxes the 2:3 art in the 12x20 print area — the extra
+   * white blends into the snow-white mat. */
+  "12x18:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X18_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X18_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_16X24_US", sizing: "fitPrintArea" },
+  "12x18:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X18_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X18_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_16X24_US", sizing: "fitPrintArea" },
   "20x28:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28_US" },
   "20x28:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28_US" }
 };
@@ -70,6 +75,7 @@ export function resolveCheckoutItem(input) {
     stripePriceId: configured(variant.stripePriceEnv),
     stripeShippingRateId: configured(variant.shippingRateEnv),
     vendorSku: configured(variant.prodigiSkuEnv),
+    ...(variant.sizing ? { sizing: variant.sizing } : {}),
     quantity: input.quantity,
     metadata: {
       product: "framed-art",
