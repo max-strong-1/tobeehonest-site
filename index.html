@@ -268,10 +268,17 @@ body.viewer-open .back{display:none}
   48%{transform:translate3d(-9vw,-28vh,0) rotate(18deg)}
   73%{transform:translate3d(23vw,-20vh,0) rotate(14deg)}}
 @media(min-width:1051px){
-  .cover-panel{max-width:400px;justify-self:start}
-  /* The exact center overlapped the left paper panel. Return roughly 15% of the
-     earlier centering move, plus the optical clearance needed by the torn edge. */
-  .cover-honeycomb{position:absolute;left:calc(50% + 68px);top:50svh;transform:translate(-50%,-50%)}
+  /* Keep the complete scrapbook, including its Join the Hive tag, inside a short
+     laptop viewport. These are true dimensions rather than a visual scale transform,
+     so the panel's layout and interactive bounds stay aligned. */
+  .cover-panel{max-width:360px;justify-self:start}
+  .cover-panel .panel{padding:1.65rem 1.7rem 1.75rem}
+  .cover-logo{width:176px;height:176px;margin-bottom:.9rem}
+  .cover-panel h1{font-size:clamp(2.15rem,3.35vw,2.85rem);margin-bottom:.7rem}
+  .cover-panel .lede{font-size:1rem;line-height:1.45;margin-bottom:1rem}
+  /* The torn-paper artwork opens up toward the lower right. Anchor the comb there
+     so it uses that negative space and no longer crowds the scrapbook headline. */
+  .cover-honeycomb{position:absolute;left:calc(50% + 132px);top:54svh;transform:translate(-50%,-50%)}
 }
 @media(max-width:1050px){
   .cover-content{grid-template-columns:1fr;align-content:start;padding-top:6.5vh}
