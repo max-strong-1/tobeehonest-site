@@ -37,6 +37,7 @@ test('all ten comb labels use the approved upright handwritten face at a readabl
   has(".cover-honeycomb.hc-cell{font-family:'ShantellSans',cursive;font-style:normal}");
   has(".cover-honeycomb.hc-cell.hc-label{font-family:inherit;font-weight:500;font-size:clamp(.8rem,1.6vw,1rem);line-height:1.08");
   has("font-family:inherit;font-size:clamp(.94rem,4.5vw,1.125rem);line-height:1.04;max-width:90%;transform:none");
+  has(".cover-honeycomb.hc-8.hc-label{font-family:'ShantellSans',cursive;font-style:normal;font-weight:500;font-size:clamp(.66rem,3vw,.78rem);line-height:1.03;max-width:98%}");
 });
 
 test('the ten hero combs stay in the approved order', () => {
@@ -52,7 +53,7 @@ test('the ten hero combs stay in the approved order', () => {
     'The Coloring Book',
     'The Podcast “Nikko &amp; The Kool Kids”',
     'Make It Yours! Customs Products',
-    'The Community Market',
+    'The Community Marketplace',
     'The Story',
     'Under Construction…',
   ]);
@@ -60,4 +61,6 @@ test('the ten hero combs stay in the approved order', () => {
   assert.match(hero, /hc-10 hc-placeholder/);
   assert.match(hero, /hc-7"[^>]*data-jump="t-yours"/);
   assert.match(hero, /hc-9"[^>]*data-jump="t-story"/);
+  assert.match(hero, /aria-label="Open The Community Marketplace"/);
+  assert.doesNotMatch(hero, /aria-label="Open The Community Market"|The Community<br>Market<\/span>/);
 });

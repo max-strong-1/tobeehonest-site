@@ -90,10 +90,11 @@
   .cover-honeycomb .hc-7,.cover-honeycomb .hc-8{top:calc((var(--hc-cell) / .866) * 2.25)}
   .cover-honeycomb .hc-9,.cover-honeycomb .hc-10{top:calc((var(--hc-cell) / .866) * 3)}
   .cover-honeycomb .hc-cell .hc-label{font-family:inherit;font-size:clamp(.94rem,4.5vw,1.125rem);line-height:1.04;max-width:90%;transform:none}
-  /* "Construction" and "Community" are the longest label words; at the small
-     cell sizes (cell caps at 105px, label box ~77-89px) they overrun the
-     hexagon's inscribed width and the clip-path cuts them off. */
-  .cover-honeycomb .hc-8 .hc-label,.cover-honeycomb .hc-10 .hc-label{font-size:clamp(.6rem,2.6vw,.7rem);max-width:96%}
+  /* Keep the canonical Marketplace name intact. Its second line is the longest
+     hero word, so fit it with the approved upright Shantell Sans face instead of
+     shortening the product name to solve a layout problem. */
+  .cover-honeycomb .hc-8 .hc-label{font-family:'Shantell Sans',cursive;font-style:normal;font-weight:500;font-size:clamp(.66rem,3vw,.78rem);line-height:1.03;max-width:98%}
+  .cover-honeycomb .hc-10 .hc-label{font-size:clamp(.6rem,2.6vw,.7rem);max-width:96%}
   .puzzle-tier-inner{padding-top:4rem;padding-bottom:2rem}
   .puzzle-heading{margin-bottom:1rem}.puzzle-heading h2{font-size:clamp(2rem,10vw,3.15rem)}
   .puzzle-layout{grid-template-columns:1fr;gap:1rem}
