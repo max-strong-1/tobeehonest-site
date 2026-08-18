@@ -55,6 +55,19 @@ async function alertFundingOwner({ subject, text }) {
     console.error("funding alert failed to send:", error?.message));
 }
 
+/* Which vendor shipping tier did the customer buy? Stripe records the chosen
+ * shipping rate id on the session; if it is one of our Express rates, the
+ * vendor order must be Express too — otherwise the customer paid for speed
+ * they would not get. Fail-soft to Standard when the id is absent/unknown. */
+const EXPRESS_RATE_ENVS = ["DECK", "PUZZLE", "FRAME_12X16", "FRAME_16X24", "FRAME_20X28"]
+  .map(k => `STRIPE_SHIPPING_RATE_${k}_US_EXPRESS`);
+export function shippingMethodFromSession(session) {
+  const chosen = session?.shipping_cost?.shipping_rate;
+  if (!chosen) return "Standard";
+  const id = typeof chosen === "string" ? chosen : chosen.id;
+  return EXPRESS_RATE_ENVS.some(name => process.env[name]?.trim() === id) ? "Express" : "Standard";
+}
+
 export async function fulfillPaidCheckout({ session, item }) {
   requireEnabled("COMMERCE_FULFILLMENT_ENABLED", "Live fulfillment requires explicit approval.");
   if (session.payment_status !== "paid") {
@@ -65,7 +78,7 @@ export async function fulfillPaidCheckout({ session, item }) {
   const adapter = ADAPTERS[vendor];
   if (!adapter) throw new Problem(422, "Unsupported Vendor", "No fulfillment adapter exists for this item.");
 
-  if (adapter.selfIdempotent) return adapter.create({ session, item });
+  if (adapter.selfIdempotent) return adapter.create({ session, item, shippingMethod: shippingMethodFromSession(session) });
 
   requireEnabled("QPMN_ENABLED", "QPMN fulfillment requires explicit approval.");
 
@@ -103,7 +116,8 @@ export async function fulfillPaidCheckout({ session, item }) {
       checkoutSessionId: session.id,
       recipient: qpmnRecipient(session),
       quantity: item.quantity,
-      resalePrice: qpmnResalePrice(session, item.quantity)
+      resalePrice: qpmnResalePrice(session, item.quantity),
+      shippingMethod: shippingMethodFromSession(session)
     });
     await recordStage(claim.recordId, { "Stage": STAGE_DONE, "Receipt ID": String(result.id) });
     return result;

@@ -162,6 +162,10 @@ if (
   bindStripeCheckoutButton({
     button: checkout,
     errorBox: checkoutError,
-    product: "puzzle"
+    product: "puzzle",
+    /* payload resolved at click time so the customer's zone pick is honored */
+    payload: () => ({
+      shipping: checkout.closest("div,section")?.querySelector(".ship-zone")?.value || "us"
+    })
   });
 }

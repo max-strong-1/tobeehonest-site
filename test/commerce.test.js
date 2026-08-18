@@ -16,6 +16,7 @@ test("deck rejects unexpected client-controlled fields", () => {
 test("Sun Bird puzzle resolves only server-approved Stripe and fulfillment identifiers", () => {
   process.env.STRIPE_PRICE_PUZZLE_SUN_BIRD = "price_puzzle_test";
   process.env.STRIPE_SHIPPING_RATE_PUZZLE_US = "shr_puzzle_test";
+  process.env.STRIPE_SHIPPING_RATE_PUZZLE_US_EXPRESS = "shr_puzzle_test-express";
   process.env.PRODIGI_SKU_PUZZLE_SUN_BIRD = "JIGSAW-PUZZLE-1000";
 
   const input = parseCheckoutInput({ product: "puzzle", quantity: 1 });
@@ -25,10 +26,11 @@ test("Sun Bird puzzle resolves only server-approved Stripe and fulfillment ident
     vendor: "prodigi",
     product: "puzzle",
     stripePriceId: "price_puzzle_test",
-    stripeShippingRateId: "shr_puzzle_test",
+    stripeShippingRateIds: ["shr_puzzle_test", "shr_puzzle_test-express"],
+    allowedCountries: ["US"],
     vendorSku: "JIGSAW-PUZZLE-1000",
     quantity: 1,
-    metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
+    metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000", shippingZone: "us" }
   });
   assert.throws(
     () => parseCheckoutInput({ product: "puzzle", quantity: 1, price: 1 }),
@@ -45,10 +47,11 @@ test("puzzle Checkout Session uses trusted price, shipping, return route, and me
     vendor: "prodigi",
     product: "puzzle",
     stripePriceId: "price_puzzle_test",
-    stripeShippingRateId: "shr_puzzle_test",
+    stripeShippingRateIds: ["shr_puzzle_test", "shr_puzzle_test-express"],
+    allowedCountries: ["US"],
     vendorSku: "JIGSAW-PUZZLE-1000",
     quantity: 1,
-    metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
+    metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000", shippingZone: "us" }
   };
 
   assert.deepEqual(
@@ -59,13 +62,14 @@ test("puzzle Checkout Session uses trusted price, shipping, return route, and me
       success_url: "https://review.example/?checkout=success&session_id={CHECKOUT_SESSION_ID}#puzzles",
       cancel_url: "https://review.example/?checkout=cancelled#puzzles",
       shipping_address_collection: { allowed_countries: ["US"] },
-      shipping_options: [{ shipping_rate: "shr_puzzle_test" }],
+      shipping_options: [{ shipping_rate: "shr_puzzle_test" }, { shipping_rate: "shr_puzzle_test-express" }],
       phone_number_collection: { enabled: true },
       customer_creation: "always",
       metadata: {
         product: "puzzle",
         artworkId: "sun-bird",
         pieceCount: "1000",
+        shippingZone: "us",
         vendor: "prodigi",
         vendorSku: "JIGSAW-PUZZLE-1000",
         quantity: "1"
@@ -93,6 +97,7 @@ test("catalog resolves approved server-side identifiers", () => {
   process.env.STRIPE_PRICE_FRAME_12X16_GOLD = "price_test";
   process.env.PRODIGI_SKU_FRAME_12X16_GOLD = "sku_test";
   process.env.STRIPE_SHIPPING_RATE_FRAME_12X16_US = "shr_frame_test";
+  process.env.STRIPE_SHIPPING_RATE_FRAME_12X16_US_EXPRESS = "shr_frame_test-express";
   const item = resolveCheckoutItem(parseCheckoutInput({ product: "framed-art", artworkId: "leopard-stare", size: "12x16", frameColor: "gold", quantity: 2 }));
   assert.equal(item.stripePriceId, "price_test");
   assert.equal(item.vendorSku, "sku_test");
@@ -157,7 +162,7 @@ test("Prodigi maps a paid Sun Bird puzzle to separate jigsaw and lid print areas
     item: {
       vendorSku: "JIGSAW-PUZZLE-1000",
       quantity: 1,
-      metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
+      metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000", shippingZone: "us" }
     },
     fetchImpl
   });

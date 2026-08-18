@@ -17,9 +17,9 @@ export function buildCheckoutSessionParams(item, siteUrl) {
     line_items: [{ price: item.stripePriceId, quantity: item.quantity }],
     success_url: successUrl.toString(),
     cancel_url: cancelUrl.toString(),
-    shipping_address_collection: { allowed_countries: ["US"] },
-    ...(item.stripeShippingRateId
-      ? { shipping_options: [{ shipping_rate: item.stripeShippingRateId }] }
+    shipping_address_collection: { allowed_countries: item.allowedCountries || ["US"] },
+    ...(item.stripeShippingRateIds?.length
+      ? { shipping_options: item.stripeShippingRateIds.map(id => ({ shipping_rate: id })) }
       : {}),
     ...(item.product === "puzzle"
       ? { phone_number_collection: { enabled: true } }

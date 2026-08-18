@@ -8,6 +8,7 @@ export const checkoutSchema = z.object({
   size: z.enum(["12x16", "12x18", "20x28"]).optional(),
   frameColor: z.enum(["gold", "second"]).optional(),
   mat: z.enum(["White", "Black"]).optional(),
+  shipping: z.enum(["us", "international", "canada"]).default("us"),
   quantity: z.number().int().min(1).max(10).default(1)
 }).strict().superRefine((value, ctx) => {
   if (value.product === "framed-art") {
@@ -20,16 +21,35 @@ export const checkoutSchema = z.object({
 /* Shipping rates are per frame SIZE — color is a Prodigi attribute and does not
  * change the shipment, so both colors of a size share one Stripe rate. */
 const variants = {
-  "12x16:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_12X16_US" },
-  "12x16:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_12X16_US" },
+  "12x16:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_12X16" },
+  "12x16:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X16_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X16_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_12X16" },
   /* 12x18 print rides in the 16x24 mounted frame (no 16x22 in Prodigi's range);
    * fitPrintArea letterboxes the 2:3 art in the 12x20 print area — the extra
    * white blends into the snow-white mat. */
-  "12x18:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X18_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X18_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_16X24_US", sizing: "fitPrintArea" },
-  "12x18:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X18_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X18_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_16X24_US", sizing: "fitPrintArea" },
-  "20x28:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28_US" },
-  "20x28:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28_US" }
+  "12x18:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X18_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X18_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_16X24", sizing: "fitPrintArea" },
+  "12x18:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_12X18_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_12X18_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_16X24", sizing: "fitPrintArea" },
+  "20x28:gold": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_GOLD", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_GOLD", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28" },
+  "20x28:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28" }
 };
+
+/* Shipping zones. Three zones because vendor costs split three ways: US has
+ * Standard + Express; UK/EU/AU/APAC is cheap (Prodigi prints in-region); Canada
+ * has no local Prodigi facility and frames ship at ~$95, so it gets its own
+ * enforced zone — Stripe's allowed_countries stops a Canadian address from
+ * riding the cheap international rate. */
+export const ZONE_COUNTRIES = {
+  us: ["US"],
+  international: ["GB", "IE", "FR", "DE", "ES", "IT", "NL", "BE", "AT", "PT", "DK", "SE", "NO", "FI", "CH", "PL", "CZ", "AU", "NZ", "JP", "SG"],
+  canada: ["CA"]
+};
+
+/* Per-zone shipping-rate env suffixes; the base name comes from the variant.
+ * US gets two options (customer picks Standard or Express at Stripe checkout). */
+function zoneRates(baseEnv, zone) {
+  if (zone === "international") return [configured(`${baseEnv}_INTL`)];
+  if (zone === "canada") return [configured(`${baseEnv}_CA`)];
+  return [configured(`${baseEnv}_US`), configured(`${baseEnv}_US_EXPRESS`)];
+}
 
 function configured(name) {
   const value = process.env[name]?.trim();
@@ -43,10 +63,11 @@ export function resolveCheckoutItem(input) {
       vendor: "prodigi",
       product: "puzzle",
       stripePriceId: configured("STRIPE_PRICE_PUZZLE_SUN_BIRD"),
-      stripeShippingRateId: configured("STRIPE_SHIPPING_RATE_PUZZLE_US"),
+      stripeShippingRateIds: zoneRates("STRIPE_SHIPPING_RATE_PUZZLE", input.shipping),
+      allowedCountries: ZONE_COUNTRIES[input.shipping],
       vendorSku: configured("PRODIGI_SKU_PUZZLE_SUN_BIRD"),
       quantity: input.quantity,
-      metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000" }
+      metadata: { product: "puzzle", artworkId: "sun-bird", pieceCount: "1000", shippingZone: input.shipping }
     };
   }
 
@@ -55,10 +76,11 @@ export function resolveCheckoutItem(input) {
       vendor: "qpmn",
       product: "deck",
       stripePriceId: configured("STRIPE_PRICE_DECK"),
-      stripeShippingRateId: configured("STRIPE_SHIPPING_RATE_DECK_US"),
+      stripeShippingRateIds: zoneRates("STRIPE_SHIPPING_RATE_DECK", input.shipping),
+      allowedCountries: ZONE_COUNTRIES[input.shipping],
       vendorSku: configured("QPMN_DECK_SKU"),
       quantity: input.quantity,
-      metadata: { product: "deck" }
+      metadata: { product: "deck", shippingZone: input.shipping }
     };
   }
 
@@ -73,7 +95,8 @@ export function resolveCheckoutItem(input) {
     vendor: "prodigi",
     product: "framed-art",
     stripePriceId: configured(variant.stripePriceEnv),
-    stripeShippingRateId: configured(variant.shippingRateEnv),
+    stripeShippingRateIds: zoneRates(variant.shippingRateEnv, input.shipping),
+    allowedCountries: ZONE_COUNTRIES[input.shipping],
     vendorSku: configured(variant.prodigiSkuEnv),
     ...(variant.sizing ? { sizing: variant.sizing } : {}),
     quantity: input.quantity,
@@ -82,6 +105,7 @@ export function resolveCheckoutItem(input) {
       artworkId: input.artworkId,
       size: input.size,
       frameColor: input.frameColor,
+      shippingZone: input.shipping,
       ...(input.mat ? { mat: input.mat } : {})
     }
   };

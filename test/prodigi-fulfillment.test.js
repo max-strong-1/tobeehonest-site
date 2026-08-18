@@ -90,6 +90,7 @@ test("checkout resolve rejects an artworkId that is not in the approved gallery 
   process.env.STRIPE_PRICE_FRAME_12X16_GOLD = "price_test";
   process.env.PRODIGI_SKU_FRAME_12X16_GOLD = "sku_test";
   process.env.STRIPE_SHIPPING_RATE_FRAME_12X16_US = "shr_frame_test";
+  process.env.STRIPE_SHIPPING_RATE_FRAME_12X16_US_EXPRESS = "shr_frame_test-express";
   assert.throws(
     () => resolveCheckoutItem(parseCheckoutInput({ product: "framed-art", artworkId: "some-made-up-slug", size: "12x16", frameColor: "gold", quantity: 1 })),
 /approved gallery catalog/i
@@ -100,6 +101,7 @@ test("checkout resolve accepts a real gallery slug", () => {
   process.env.STRIPE_PRICE_FRAME_12X16_GOLD = "price_test";
   process.env.PRODIGI_SKU_FRAME_12X16_GOLD = "sku_test";
   process.env.STRIPE_SHIPPING_RATE_FRAME_12X16_US = "shr_frame_test";
+  process.env.STRIPE_SHIPPING_RATE_FRAME_12X16_US_EXPRESS = "shr_frame_test-express";
   const item = resolveCheckoutItem(parseCheckoutInput({ product: "framed-art", artworkId: "leopard-stare", size: "12x16", frameColor: "gold", quantity: 1 }));
   assert.equal(item.metadata.artworkId, "leopard-stare");
 });

@@ -32,7 +32,7 @@ function frameColorAttribute(metadata) {
   return color;
 }
 
-export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
+export async function createProdigiOrder({ session, item, shippingMethod = "Standard", fetchImpl = fetch }) {
   const apiKey = requireEnv("PRODIGI_API_KEY");
   const assetBase = requireEnv("PRODIGI_ASSET_BASE_URL").replace(/\/$/, "");
   const shipping = session.shipping_details || session.collected_information?.shipping_details;
@@ -68,7 +68,7 @@ export async function createProdigiOrder({ session, item, fetchImpl = fetch }) {
   const payload = {
     idempotencyKey: `stripe-${session.id}`,
     merchantReference: session.id,
-    shippingMethod: "Standard",
+    shippingMethod,
     recipient: {
       name: shipping.name,
       email: session.customer_details?.email,

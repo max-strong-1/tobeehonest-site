@@ -103,6 +103,7 @@ export async function createQpmnOrder({
   recipient,
   quantity,
   resalePrice,
+  shippingMethod = "Standard",
   fetchImpl = fetch
 } = {}) {
   const config = qpmnConfig();
@@ -131,7 +132,7 @@ export async function createQpmnOrder({
         designs: []
       }
     }],
-    shippingMethod: "Standard",
+    shippingMethod,
     paymentMethod: "PayPal",
     currency: "USD",
     status: "processing",
