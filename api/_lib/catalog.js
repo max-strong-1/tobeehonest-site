@@ -8,7 +8,7 @@ export const checkoutSchema = z.object({
   size: z.enum(["12x16", "12x18", "20x28"]).optional(),
   frameColor: z.enum(["gold", "second"]).optional(),
   mat: z.enum(["White", "Black"]).optional(),
-  shipping: z.enum(["us", "international", "canada"]).default("us"),
+  shipping: z.enum(["us", "international"]).default("us"),
   quantity: z.number().int().min(1).max(10).default(1)
 }).strict().superRefine((value, ctx) => {
   if (value.product === "framed-art") {
@@ -32,22 +32,19 @@ const variants = {
   "20x28:second": { stripePriceEnv: "STRIPE_PRICE_FRAME_20X28_SECOND", prodigiSkuEnv: "PRODIGI_SKU_FRAME_20X28_SECOND", shippingRateEnv: "STRIPE_SHIPPING_RATE_FRAME_20X28" }
 };
 
-/* Shipping zones. Three zones because vendor costs split three ways: US has
- * Standard + Express; UK/EU/AU/APAC is cheap (Prodigi prints in-region); Canada
- * has no local Prodigi facility and frames ship at ~$95, so it gets its own
- * enforced zone — Stripe's allowed_countries stops a Canadian address from
- * riding the cheap international rate. */
+/* Shipping zones. US has Standard + Express; UK/EU/AU/APAC is cheap because
+ * Prodigi prints in-region. Canada is deliberately NOT served (Kel 2026-08-18):
+ * no Prodigi facility there and frames ship at ~$95 — allowed_countries keeps
+ * CA addresses out entirely. */
 export const ZONE_COUNTRIES = {
   us: ["US"],
-  international: ["GB", "IE", "FR", "DE", "ES", "IT", "NL", "BE", "AT", "PT", "DK", "SE", "NO", "FI", "CH", "PL", "CZ", "AU", "NZ", "JP", "SG"],
-  canada: ["CA"]
+  international: ["GB", "IE", "FR", "DE", "ES", "IT", "NL", "BE", "AT", "PT", "DK", "SE", "NO", "FI", "CH", "PL", "CZ", "AU", "NZ", "JP", "SG"]
 };
 
 /* Per-zone shipping-rate env suffixes; the base name comes from the variant.
  * US gets two options (customer picks Standard or Express at Stripe checkout). */
 function zoneRates(baseEnv, zone) {
   if (zone === "international") return [configured(`${baseEnv}_INTL`)];
-  if (zone === "canada") return [configured(`${baseEnv}_CA`)];
   return [configured(`${baseEnv}_US`), configured(`${baseEnv}_US_EXPRESS`)];
 }
 
