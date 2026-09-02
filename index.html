@@ -495,10 +495,16 @@ blockquote.pull{margin:1.2rem 0;padding:1.1rem 1.4rem;background:var(--paper-dee
   /* An outside outline is clipped away by the hexagon. These nested inset rings live
      inside the clipped shape, so the keyboard focus state remains unmistakable. */
   box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 7px var(--bark),inset 0 -4px 8px rgba(112,70,10,.18)}
-.directory-cell.foreman-listing{background:linear-gradient(145deg,#1b2635,#0d1420 70%);color:#fff7df}
+.directory-cell.deadon-listing{
+  background:linear-gradient(145deg,#18324d 0%,#31445a 24%,#795019 42%,#b97a19 100%);
+  color:#fff7df
+}
+.directory-cell.dvpix-listing{background:linear-gradient(145deg,#353535,#080808 72%);color:#fff}
 .directory-cell img{display:block;width:clamp(46px,7vw,62px);height:clamp(46px,7vw,62px);
   object-fit:cover;border-radius:50%;box-shadow:0 0 0 2px rgba(255,248,225,.86)}
-.directory-cell.foreman-listing img{border-radius:18%;box-shadow:0 0 0 2px rgba(239,193,73,.72)}
+.directory-cell.deadon-listing img{border-radius:18%;box-shadow:0 0 0 2px rgba(239,193,73,.72)}
+.directory-cell.dvpix-listing img{width:clamp(50px,8vw,68px);height:clamp(50px,8vw,68px);
+  object-fit:contain;border-radius:8%;box-shadow:none}
 .directory-cell.madyson-listing{padding:0;color:#fff;background:#e93c76}
 .directory-cell.madyson-listing::before,.directory-cell.madyson-listing::after{content:none}
 .directory-cell.madyson-listing>img{position:absolute;inset:0;z-index:0;width:100%;height:100%;
@@ -1522,13 +1528,13 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
                  own torn-paper lettering. The overlaid caption printed both a second time,
                  in a different typeface, across the bottom third of his artwork. -->
             <span class="book-cover" style="display:flex" aria-hidden="false">
-              <img class="book-cover-art" src="assets/web/book-cover-sunstone-theory-2026-08-13.webp"
+              <img class="book-cover-art" src="assets/web/book-cover-sunstone-theory-2026-09-01.png"
                    alt="The Sun Stone Theory by Nicolas Bettinger — a torn-paper tower rising through coloured rings beneath the words Journey through the depths of your inner power"
                    loading="lazy" decoding="async">
             </span>
           </button>
           <p class="book-hint hand" id="bookHint">psst — open the cover</p>
-          <p class="price-line" style="text-align:center">Launch price: $59 · confirmed by email before any payment</p>
+          <p class="price-line" style="text-align:center">Launch price: $29 · confirmed by email before any payment</p>
         </div>
         <div>
           <h2 class="book-title">The Sun Stone Theory</h2>
@@ -1926,10 +1932,10 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <div class="directory-version offset">
           <div class="directory-hive" role="list" aria-label="Community business directory">
             <div class="directory-row">
-              <a class="directory-cell foreman-listing" role="listitem" href="https://4manai.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Foreman AI website">
-                <img src="assets/web/foreman-f-mark.jpg" alt="Foreman AI gold F logo" loading="lazy">
-                <h4>Foreman AI</h4>
-                <p>Agent systems and automation for blue-collar businesses.</p>
+              <a class="directory-cell deadon-listing" role="listitem" href="https://deadonai.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Dead On AI website">
+                <img src="assets/web/dead-on-ai-avatar.svg" alt="Dead On AI dead-center O precision logo" loading="lazy">
+                <h4>Dead On AI</h4>
+                <p>Construction intelligence from opportunity to completion.</p>
               </a>
               <a class="directory-cell madyson-listing" role="listitem" href="https://www.madysons.art/" target="_blank" rel="noopener noreferrer" aria-label="Visit Art by Madyson website">
                 <img src="assets/web/madyson-directory.webp" alt="Madyson's painted portrait of a woman with green hair, red glasses, and pink bubblegum" loading="lazy">
@@ -1937,7 +1943,11 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
               </a>
             </div>
             <div class="directory-row">
-              <div class="directory-cell open-seat" role="listitem"><h4>Future crew member</h4><p>A logo and short business story will live inside this cell.</p></div>
+              <a class="directory-cell dvpix-listing" role="listitem" href="https://dvpix.net/" target="_blank" rel="noopener noreferrer" aria-label="Visit DVpix.NET website">
+                <img src="assets/web/dvpix-logo.png" alt="DVpix.NET camera logo" loading="lazy">
+                <h4>DVpix.NET</h4>
+                <p>David Wong blends high-end event photography with real-time, magazine-ready delivery.</p>
+              </a>
             </div>
             <div class="directory-row">
               <div class="directory-cell open-seat" role="listitem"><h4>Future crew member</h4><p>A community business can grow into this row with permission.</p></div>
