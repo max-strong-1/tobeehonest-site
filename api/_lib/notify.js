@@ -38,7 +38,8 @@ async function sendEmail({ to, subject, text, replyTo }) {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(8000) // a stalled Resend must not eat the webhook invocation
     });
     if (!res.ok) console.error("email failed:", res.status, (await res.text()).slice(0, 200));
     return { skipped: false, ok: res.ok };
@@ -73,7 +74,7 @@ function formatMoney(amountTotal, currency) {
    plain text: no HTML template, no marketing copy, no ship-date promises. */
 export async function sendCustomerConfirmation({ session, item }) {
   try {
-    const to = session.customer_details?.email;
+    const to = session.customer_details?.email || session.customer_email;
     if (!to) {
       console.warn("customer confirmation skipped: no customer email on session", session?.id);
       return { skipped: true, reason: "no-email" };
