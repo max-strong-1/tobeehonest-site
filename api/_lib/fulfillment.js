@@ -103,8 +103,9 @@ export async function fulfillPaidCheckout({ session, item }) {
        and a duplicate "your order is confirmed" email is a minor annoyance, not a
        financial risk, so this is accepted rather than adding a ledger claim to a
        vendor path that deliberately has none. */
-    sendCustomerConfirmation({ session, item: confirmationItem }).catch(error =>
-      console.error("customer confirmation failed to send:", error?.message));
+    // Awaited on purpose: a serverless function may freeze once the handler returns,
+    // killing an un-awaited fetch. sendCustomerConfirmation never throws.
+    await sendCustomerConfirmation({ session, item: confirmationItem });
     return adapter.create({ session, item, shippingMethod: shippingMethodFromSession(session) });
   }
 
@@ -143,8 +144,7 @@ export async function fulfillPaidCheckout({ session, item }) {
      row — every redelivered webhook for this session hits the branch above instead
      and returns early. That makes this the natural "first processed, send once"
      gate for the customer email on the non-idempotent (QPMN) path. */
-  sendCustomerConfirmation({ session, item: confirmationItem }).catch(error =>
-    console.error("customer confirmation failed to send:", error?.message));
+  await sendCustomerConfirmation({ session, item: confirmationItem }); // never throws; awaited so the function stays alive
 
   try {
     const result = await adapter.create({

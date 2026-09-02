@@ -60,7 +60,12 @@ export async function sendOrderAlert({ subject, text, to, replyTo }) {
 function formatMoney(amountTotal, currency) {
   const cents = Number(amountTotal);
   if (!Number.isFinite(cents)) return "";
-  return `$${(cents / 100).toFixed(2)} ${String(currency || "usd").toUpperCase()}`;
+  const code = String(currency || "usd").toUpperCase();
+  try {
+    return `${new Intl.NumberFormat("en-US", { style: "currency", currency: code }).format(cents / 100)} ${code}`;
+  } catch {
+    return `${(cents / 100).toFixed(2)} ${code}`;
+  }
 }
 
 /* Customer-facing order confirmation. Buyers got nothing after paying before this —
