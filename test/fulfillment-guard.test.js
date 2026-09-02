@@ -174,3 +174,68 @@ test("an unknown vendor is rejected rather than silently skipped", async () => {
   );
   delete process.env.COMMERCE_FULFILLMENT_ENABLED;
 });
+
+test("a redelivered webhook for the same QPMN session sends the customer confirmation only once", async () => {
+  process.env.COMMERCE_FULFILLMENT_ENABLED = "true";
+  process.env.AIRTABLE_TOKEN = "airtable-test";
+  process.env.AIRTABLE_BASE_ID = "app-test";
+  process.env.AIRTABLE_FULFILLMENT_TABLE_ID = "ledger-test";
+  process.env.QPMN_ENABLED = "true";
+  process.env.QPMN_STORE_TOKEN = "store-token-test";
+  process.env.QPMN_STORE_PRODUCT_ID_DECK = "642564817";
+  process.env.RESEND_API_KEY = "resend-test";
+
+  const { fulfillPaidCheckout } = await import("../api/_lib/fulfillment.js");
+  let ledgerHasRow = false;
+  let resendCalls = 0;
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options = {}) => {
+    if (url.includes("api.airtable.com")) {
+      const body = JSON.parse(options.body);
+      if (body.performUpsert) {
+        if (!ledgerHasRow) {
+          ledgerHasRow = true;
+          return { ok: true, json: async () => ({ records: [{ id: "rec-dup", fields: {} }], createdRecords: ["rec-dup"] }) };
+        }
+        // Second call: record already exists and has reached the terminal stage.
+        return { ok: true, json: async () => ({ records: [{ id: "rec-dup", fields: { Stage: "paid" } }], createdRecords: [] }) };
+      }
+      return { ok: true, json: async () => ({ records: [{ id: "rec-dup" }] }) };
+    }
+    if (url.includes("api.resend.com")) {
+      resendCalls += 1;
+      return { ok: true, json: async () => ({ id: "email_dup" }) };
+    }
+    if (url.includes("qpmarketnetwork.com")) {
+      return { ok: true, json: async () => ({ id: "qpmn-order-1" }) };
+    }
+    throw new Error(`unexpected fetch: ${url}`);
+  };
+
+  const session = {
+    id: "cs_dup_confirm", payment_status: "paid", amount_subtotal: 4900, amount_total: 4900, currency: "usd",
+    customer_details: { email: "buyer@example.test" },
+    shipping_details: {
+      name: "Buyer Example",
+      address: { line1: "1 Main St", city: "Austin", state: "TX", postal_code: "78701", country: "US" }
+    }
+  };
+  const item = { vendor: "qpmn", vendorSku: "legacy", quantity: 1, metadata: { product: "deck" } };
+
+  try {
+    await fulfillPaidCheckout({ session, item });
+    // Give the fire-and-forget confirmation email a tick to run.
+    await new Promise(resolve => setTimeout(resolve, 10));
+    assert.equal(resendCalls, 1, "first (claiming) delivery should send exactly one confirmation");
+
+    await fulfillPaidCheckout({ session, item }); // simulated Stripe redelivery
+    await new Promise(resolve => setTimeout(resolve, 10));
+    assert.equal(resendCalls, 1, "redelivered webhook must not send a second confirmation");
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const name of [
+      "COMMERCE_FULFILLMENT_ENABLED", "AIRTABLE_TOKEN", "AIRTABLE_BASE_ID", "AIRTABLE_FULFILLMENT_TABLE_ID",
+      "QPMN_ENABLED", "QPMN_STORE_TOKEN", "QPMN_STORE_PRODUCT_ID_DECK", "RESEND_API_KEY"
+    ]) delete process.env[name];
+  }
+});

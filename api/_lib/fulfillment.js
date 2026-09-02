@@ -2,8 +2,23 @@ import { Problem } from "./http.js";
 import { requireEnabled } from "./config.js";
 import { createProdigiOrder } from "./prodigi.js";
 import { createQpmnOrder } from "./qpmn.js";
-import { sendOrderAlert } from "./notify.js";
+import { sendOrderAlert, sendCustomerConfirmation } from "./notify.js";
 import { claimFulfillment, recordStage, STAGE_DONE } from "./fulfillment-ledger.js";
+import { ARTWORK_ALLOWLIST } from "./artwork-allowlist.js";
+
+/* Turn item.metadata.product / artworkId into a human-readable name for the
+   customer confirmation email. Falls back to the raw product string when there
+   is no clean lookup (no catalog module maps product/vendorSku -> display name). */
+const PRODUCT_LABELS = { deck: "Mantra Deck", puzzle: "Sun Bird Puzzle" };
+function productNameFromItem(item) {
+  const metadata = item?.metadata || {};
+  if (metadata.product === "framed-art" && metadata.artworkId) {
+    const known = ARTWORK_ALLOWLIST.find(entry => entry.slug === metadata.artworkId);
+    const title = known?.title || metadata.artworkId;
+    return metadata.size ? `${title} (Framed Art, ${metadata.size})` : `${title} (Framed Art)`;
+  }
+  return PRODUCT_LABELS[metadata.product] || metadata.product || "your order";
+}
 
 /* Vendors differ in whether they protect us from duplicate submission.
 
@@ -78,7 +93,20 @@ export async function fulfillPaidCheckout({ session, item }) {
   const adapter = ADAPTERS[vendor];
   if (!adapter) throw new Problem(422, "Unsupported Vendor", "No fulfillment adapter exists for this item.");
 
-  if (adapter.selfIdempotent) return adapter.create({ session, item, shippingMethod: shippingMethodFromSession(session) });
+  const confirmationItem = { ...item, productName: productNameFromItem(item) };
+
+  if (adapter.selfIdempotent) {
+    /* Prodigi absorbs a replayed webhook itself (idempotencyKey), but nothing here
+       dedupes the CUSTOMER EMAIL on that path — there is no ledger claim for
+       self-idempotent vendors (see the comment on ADAPTERS above). A Stripe retry
+       could in theory send a second confirmation. Payment is captured either way
+       and a duplicate "your order is confirmed" email is a minor annoyance, not a
+       financial risk, so this is accepted rather than adding a ledger claim to a
+       vendor path that deliberately has none. */
+    sendCustomerConfirmation({ session, item: confirmationItem }).catch(error =>
+      console.error("customer confirmation failed to send:", error?.message));
+    return adapter.create({ session, item, shippingMethod: shippingMethodFromSession(session) });
+  }
 
   requireEnabled("QPMN_ENABLED", "QPMN fulfillment requires explicit approval.");
 
@@ -110,6 +138,13 @@ export async function fulfillPaidCheckout({ session, item }) {
     });
     return { duplicate: true, alreadyFulfilled: false, needsAttention: true, stage: claim.stage };
   }
+
+  /* claim.claimed is only ever true for the ONE caller that just created the ledger
+     row — every redelivered webhook for this session hits the branch above instead
+     and returns early. That makes this the natural "first processed, send once"
+     gate for the customer email on the non-idempotent (QPMN) path. */
+  sendCustomerConfirmation({ session, item: confirmationItem }).catch(error =>
+    console.error("customer confirmation failed to send:", error?.message));
 
   try {
     const result = await adapter.create({
