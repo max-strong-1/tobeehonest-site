@@ -67,24 +67,18 @@ test('the Deck uses Nicolas’s current Latest And Greatest QPMN artwork export'
   assert.match(html, /Being kind is the right thing to do\. I can always feel it\./);
 });
 
-test('the Deck is pinned to the current Latest And Greatest QPMN canvas assignments', () => {
+test('the Deck is pinned to Nico’s August 28 QPMN draft and finished composites', () => {
   const manifest = JSON.parse(readFileSync(
     new URL('../assets/web/deck-cards/qpmn-latest-and-greatest.json', import.meta.url),
     'utf8',
   ));
-  assert.equal(manifest.draftId, 642581364);
-  assert.equal(manifest.draftName, 'Latest And Greatest');
-  assert.equal(manifest.productInstanceId, 646548898);
+  assert.equal(manifest.draftId, 697930784);
+  assert.equal(manifest.draftName, 'Draft-TUUFUPSBNP-Copy');
+  assert.equal(manifest.productInstanceId, 697930721);
   assert.equal(manifest.cards.length, 54);
-  assert.equal(new Set(manifest.cards.map((card) => card.sourceHash)).size, 54);
+  assert.equal(new Set(manifest.cards.map((card) => card.websiteSha256)).size, 54);
   for (const card of manifest.cards) {
-    assert.equal(card.visibleLayerZ, 0, `${card.websiteFile} should use QPMN's visible completed-card layer`);
-    assert.equal(
-      card.sourceHash,
-      card.renderLayerHashes[0],
-      `${card.websiteFile} should not cover its mantra with a higher-numbered working layer`,
-    );
-    assert.match(card.sourceName, /^\d{2}\.png$/);
+    assert.ok(card.sourceFiles.length > 0, `${card.websiteFile} retains its source provenance`);
     const bytes = readFileSync(new URL(`../assets/web/deck-cards/${card.websiteFile}`, import.meta.url));
     assert.equal(
       createHash('sha256').update(bytes).digest('hex'),
@@ -92,6 +86,8 @@ test('the Deck is pinned to the current Latest And Greatest QPMN canvas assignme
       `${card.websiteFile} should match its QPMN provenance checksum`,
     );
   }
+  assert.match(html, /I am wealthy in many ways, but something I can't afford is the price of regret\./);
+  assert.match(html, /I may not be able to change the past; but I can taint the present and jeopardize the future\./);
 });
 
 test('every mantra card uses the current QPMN back artwork', () => {

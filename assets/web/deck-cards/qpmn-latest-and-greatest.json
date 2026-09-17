@@ -1,2019 +1,514 @@
 {
-  "draftId": 642581364,
-  "draftName": "Latest And Greatest",
-  "productInstanceId": 646548898,
-  "exportedAt": "2026-08-17T05:50:13.709Z",
-  "provenanceNote": "Final card fronts captured 2026-08-17 from the live QPMN Preview grid of draft 642581364 / instance 646548898 (Latest And Greatest) — the finished composites incl. text elements, guide + edge-label layers excluded, cropped at the solid card boundary. Operator (Kel) visually approved all 54 on the review contact sheet before these hashes were written. See scripts/verify-deck-assets.mjs.",
+  "draftId": 697930784,
+  "productInstanceId": 697930721,
+  "draftName": "Draft-TUUFUPSBNP-Copy",
+  "savedDate": "2026-08-28",
+  "exportedAt": "2026-09-17",
+  "provenanceNote": "Rendered from the saved QPMN draft selected at Max's direction. Includes saved printing layers, image transforms and original outlined text SVGs; excludes guides and crops to the physical card boundary.",
   "canvas": {
     "width": 216,
     "height": 360,
-    "deliveryWidth": 900,
-    "deliveryHeight": 1500
+    "physicalCrop": [
+      8.9858,
+      8.9858,
+      197.1496,
+      341.4615
+    ],
+    "deliveryWidth": 792,
+    "deliveryHeight": 1368
   },
   "cards": [
     {
       "card": 1,
-      "sourceHash": "975040c188644b8ec8d22ec4653561d2.png",
-      "sourceName": "01.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "975040c188644b8ec8d22ec4653561d2.png",
-        "975040c188644b8ec8d22ec4653561d2.png"
-      ],
       "websiteFile": "card-01.jpg",
-      "websiteSha256": "3ffc52318100c5a0b934c2073431f7cc6720ec9482668e2e86a1673b0aff7319",
-      "visibleLayerZ": 0
+      "websiteSha256": "3be63f7bbef1812c2d00835eea8022c2ee81698a67e2d9a8fb15033c9ff7ca55",
+      "sourceFiles": [
+        "975040c188644b8ec8d22ec4653561d2.png"
+      ]
     },
     {
       "card": 2,
-      "sourceHash": "3c54fd3966ed09d911816baafc4bf04c.png",
-      "sourceName": "02.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "3c54fd3966ed09d911816baafc4bf04c.png",
-        "3c54fd3966ed09d911816baafc4bf04c.png"
-      ],
       "websiteFile": "card-02.jpg",
-      "websiteSha256": "afde84aae65bf635b11c48b2612092595bfbc2098636289ae658219e022191f1",
-      "visibleLayerZ": 0
+      "websiteSha256": "02f33842445c9c37ab9bbe3f2b8be109cafb09438cd7a0e64cd48f91f29be431",
+      "sourceFiles": [
+        "3c54fd3966ed09d911816baafc4bf04c.png"
+      ]
     },
     {
       "card": 3,
-      "sourceHash": "ce3cabe600e69f2079a809cc2f3b1891.png",
-      "sourceName": "03.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "ce3cabe600e69f2079a809cc2f3b1891.png",
-        "ce3cabe600e69f2079a809cc2f3b1891.png"
-      ],
       "websiteFile": "card-03.jpg",
-      "websiteSha256": "ff3e774b2f2fa0140d1f3e73af60e0a27f7f20c37535e3afdd129cb920edba0f",
-      "visibleLayerZ": 0
+      "websiteSha256": "be2c2a470e483bd5c661b685c2cfab087778a319ebaca4e843e2e7c40052e9fe",
+      "sourceFiles": [
+        "ce3cabe600e69f2079a809cc2f3b1891.png"
+      ]
     },
     {
       "card": 4,
-      "sourceHash": "a3a08ca9baf70fa4d3cb66336d2ac7aa.png",
-      "sourceName": "04.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "a3a08ca9baf70fa4d3cb66336d2ac7aa.png",
-        "a3a08ca9baf70fa4d3cb66336d2ac7aa.png"
-      ],
       "websiteFile": "card-04.jpg",
-      "websiteSha256": "d824d9cb3c27838f1ed9db21a701fcd021447343ba942af9fa9b59c87d9d61bc",
-      "visibleLayerZ": 0
+      "websiteSha256": "239fa771bd8fc60dbde0efb6b8c3fd391b4f63bc3497b7b6dff643b186a3b76a",
+      "sourceFiles": [
+        "a3a08ca9baf70fa4d3cb66336d2ac7aa.png"
+      ]
     },
     {
       "card": 5,
-      "sourceHash": "c756fc5a51787c5f9558e611df02cf9a.png",
-      "sourceName": "05.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "c756fc5a51787c5f9558e611df02cf9a.png",
-        "c756fc5a51787c5f9558e611df02cf9a.png"
-      ],
       "websiteFile": "card-05.jpg",
-      "websiteSha256": "1aadd516b52a06cf4ec628b940e7b75df84241cae0e4f02369aac46201cc37fb",
-      "visibleLayerZ": 0
+      "websiteSha256": "4fa44110ebd27f7b5f3b36d46191e228782b988df35d04586aceec7fbf048d92",
+      "sourceFiles": [
+        "c756fc5a51787c5f9558e611df02cf9a.png"
+      ]
     },
     {
       "card": 6,
-      "sourceHash": "dc747605870c87926021e418d2225100.png",
-      "sourceName": "06.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "dc747605870c87926021e418d2225100.png",
-        "dc747605870c87926021e418d2225100.png"
-      ],
       "websiteFile": "card-06.jpg",
-      "websiteSha256": "ba3ecdafd5875818f9ebd3b0b6295e5689687c966ae214f8f82720436ec758e3",
-      "visibleLayerZ": 0
+      "websiteSha256": "09fcd25d788fc4f9cf73c314a318d3ceade9e511fe3083cac09a91939eb252a8",
+      "sourceFiles": [
+        "dc747605870c87926021e418d2225100.png"
+      ]
     },
     {
       "card": 7,
-      "sourceHash": "3d2d01ed89f0864c75d809dfc73dad11.png",
-      "sourceName": "07.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 1,
-      "renderLayerHashes": [
-        "3d2d01ed89f0864c75d809dfc73dad11.png"
-      ],
       "websiteFile": "card-07.jpg",
-      "websiteSha256": "592405bcbeb5aa869d2045e2d5c74f56bd54ebfe9568eaec932b9891ce35e85c",
-      "visibleLayerZ": 0
+      "websiteSha256": "1441232a799c3a8c21a7a688fe504111536d440a98cc809f188af778f823749b",
+      "sourceFiles": [
+        "3d2d01ed89f0864c75d809dfc73dad11.png"
+      ]
     },
     {
       "card": 8,
-      "sourceHash": "ca373a51130845783ac3b6966128f4ac.png",
-      "sourceName": "08.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "ca373a51130845783ac3b6966128f4ac.png",
-        "8cbf5eb65f37407e9bbc853a71aec916.png"
-      ],
       "websiteFile": "card-08.jpg",
-      "websiteSha256": "728d048c7865ce753ea390f750020479a399b183f7b35ab42fd173d8580528b4",
-      "visibleLayerZ": 0
+      "websiteSha256": "9c4f3a60041ba41785dfa9eae155185fe516b0c6e2d2de14f56017d4f0c37dea",
+      "sourceFiles": [
+        "ca373a51130845783ac3b6966128f4ac.png",
+        "8cbf5eb65f37407e9bbc853a71aec916.png",
+        "pc-preview/c4d10b46f796cc9434064d17baf39d39.svg"
+      ]
     },
     {
       "card": 9,
-      "sourceHash": "36e77231674e6d4089a90b6c5ca970b2.png",
-      "sourceName": "09.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 1,
-      "renderLayerHashes": [
-        "36e77231674e6d4089a90b6c5ca970b2.png"
-      ],
       "websiteFile": "card-09.jpg",
-      "websiteSha256": "c54d6b9cb118dde057f01b83a5c7cd1fcc9524c0e5229e0501b34c646537b8ff",
-      "visibleLayerZ": 0
+      "websiteSha256": "038b001d6535ebbc2151ff9b00f2bc7c3e5982c94dcec4b80b7e2a9a1c17d6a5",
+      "sourceFiles": [
+        "36e77231674e6d4089a90b6c5ca970b2.png"
+      ]
     },
     {
       "card": 10,
-      "sourceHash": "3a9f53963179bdfed375bb057a4eb869.png",
-      "sourceName": "10.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "3a9f53963179bdfed375bb057a4eb869.png",
-        "af98f101ed05c60e68a457f5d21e3698.png"
-      ],
       "websiteFile": "card-10.jpg",
-      "websiteSha256": "0fb7dcf876d26bfef0f145ebe793af2a792357a08af6ed1004a7f019f361117d",
-      "visibleLayerZ": 0
+      "websiteSha256": "b4e92145bbde28c40fca2b14ac911380448b58908c4797526cbdb031f3b292aa",
+      "sourceFiles": [
+        "3a9f53963179bdfed375bb057a4eb869.png",
+        "af98f101ed05c60e68a457f5d21e3698.png",
+        "pc-preview/cf8f6791295e56023a48d65cf521c82a.svg"
+      ]
     },
     {
       "card": 11,
-      "sourceHash": "b7d7706929cb051f25cdd074e24c057d.png",
-      "sourceName": "11.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "b7d7706929cb051f25cdd074e24c057d.png",
-        "b7d7706929cb051f25cdd074e24c057d.png"
-      ],
       "websiteFile": "card-11.jpg",
-      "websiteSha256": "a6469d28d6156542d95b1d8d0272d25b037791816ef9ee2c52cf79e07a7915d1",
-      "visibleLayerZ": 0
+      "websiteSha256": "205dde42165a22b08421edb99247695b9793fd8eeefa21beb726765cbb015d69",
+      "sourceFiles": [
+        "b7d7706929cb051f25cdd074e24c057d.png"
+      ]
     },
     {
       "card": 12,
-      "sourceHash": "a4aa6704bd10d8b47af4c51748a41ab6.png",
-      "sourceName": "12.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "a4aa6704bd10d8b47af4c51748a41ab6.png",
-        "b46205fc1ef255db9f816dbca115e505.png"
-      ],
       "websiteFile": "card-12.jpg",
-      "websiteSha256": "fef726a1fd2c96b332bf642fe8588eefbbc488ccb7e8329c8d56ddaecccc7904",
-      "visibleLayerZ": 0
+      "websiteSha256": "68b123105b7ced611048c3baa9af5afeebe172355e3e5e6b12dde1fffb5e9306",
+      "sourceFiles": [
+        "a4aa6704bd10d8b47af4c51748a41ab6.png",
+        "b46205fc1ef255db9f816dbca115e505.png",
+        "pc-preview/0ecb1f64bc1ac1cc6fbb86a4d981b2df.svg"
+      ]
     },
     {
       "card": 13,
-      "sourceHash": "ba801d1983c94dc3bd91257b3106dba0.png",
-      "sourceName": "13.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "ba801d1983c94dc3bd91257b3106dba0.png",
-        "679a83dcb50394405674df39b7cdd697.png"
-      ],
       "websiteFile": "card-13.jpg",
-      "websiteSha256": "1efbc9f5aca83a960e0af1ca5211e6c63cbdf620f3e029e718c1baf4fa7f55db",
-      "visibleLayerZ": 0
+      "websiteSha256": "5c4030d26d11ccfdde8d8ff1e05498f900e89f82353483a18dc63fb07fdd8a7a",
+      "sourceFiles": [
+        "ba801d1983c94dc3bd91257b3106dba0.png",
+        "679a83dcb50394405674df39b7cdd697.png",
+        "pc-preview/b07a7a1c41521555cd742479eaa82eac.svg"
+      ]
     },
     {
       "card": 14,
-      "sourceHash": "9f245b0a5a9326b1ef09bc54a91ee054.png",
-      "sourceName": "14.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "9f245b0a5a9326b1ef09bc54a91ee054.png",
-        "d42f9b74bf069afc3bb04954bf11c419.png"
-      ],
       "websiteFile": "card-14.jpg",
-      "websiteSha256": "f4de5617c9f2ba62bd0fc7a02401bdefe293e268c63adf74b852dd81f32ec25b",
-      "visibleLayerZ": 0
+      "websiteSha256": "6cef546f8a88598ae0c9d8d062c17a59dd554f5de7fffbf132add00482380774",
+      "sourceFiles": [
+        "9f245b0a5a9326b1ef09bc54a91ee054.png",
+        "d42f9b74bf069afc3bb04954bf11c419.png",
+        "pc-preview/3373c2b91a3b2e8037d466c57bd3d48f.svg"
+      ]
     },
     {
       "card": 15,
-      "sourceHash": "de2783db506b841fe21fea63ec2485ff.png",
-      "sourceName": "15.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "de2783db506b841fe21fea63ec2485ff.png",
-        "de2783db506b841fe21fea63ec2485ff.png"
-      ],
       "websiteFile": "card-15.jpg",
-      "websiteSha256": "322dca59118fa8aa104b7e6be3548396df87ef99803dd0c9b0bcd37b43252c2f",
-      "visibleLayerZ": 0
+      "websiteSha256": "6f359b3c0e8e94047e409bb7d03fa10aa45d0e71b39d9ea33edc3265d5d836d5",
+      "sourceFiles": [
+        "de2783db506b841fe21fea63ec2485ff.png"
+      ]
     },
     {
       "card": 16,
-      "sourceHash": "86fec360736f1e53a13b6e2f983a65fd.png",
-      "sourceName": "16.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "86fec360736f1e53a13b6e2f983a65fd.png",
-        "86fec360736f1e53a13b6e2f983a65fd.png"
-      ],
       "websiteFile": "card-16.jpg",
-      "websiteSha256": "3033eecbd754e77487d32e7481ec21b49900ecd9fe4607a3740d0565a3f9a3aa",
-      "visibleLayerZ": 0
+      "websiteSha256": "b9bd00a22da13c976caf806490b0fcfd2420a66458be39c446c5f114719d5b43",
+      "sourceFiles": [
+        "86fec360736f1e53a13b6e2f983a65fd.png"
+      ]
     },
     {
       "card": 17,
-      "sourceHash": "9235cd57a68ee501962fba905fe7d94e.png",
-      "sourceName": "17.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "9235cd57a68ee501962fba905fe7d94e.png",
-        "7e192e74f35ef7447bc26f968ce72449.png"
-      ],
       "websiteFile": "card-17.jpg",
-      "websiteSha256": "090c30b1f67edf1ed74e3b46dbf7cf76529df7c1306a750f80f57faa61dc77e8",
-      "visibleLayerZ": 0
+      "websiteSha256": "6a8c07cac0f3d6823dc1ce2596904b8b1e14f98d7721b76f8bfa74c93e1b3f82",
+      "sourceFiles": [
+        "9235cd57a68ee501962fba905fe7d94e.png",
+        "7e192e74f35ef7447bc26f968ce72449.png",
+        "pc-preview/8fd40801e689a2ec69dddfe606095a60.svg"
+      ]
     },
     {
       "card": 18,
-      "sourceHash": "f6e98203a332ff2ed432eb2151b44e4a.png",
-      "sourceName": "18.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "f6e98203a332ff2ed432eb2151b44e4a.png",
-        "3a755269dc3275718ab9fe3cb0805d0c.png"
-      ],
       "websiteFile": "card-18.jpg",
-      "websiteSha256": "724410808802fdb25d54d358f39228644de24c6170695d9764a7dee91ed09105",
-      "visibleLayerZ": 0
+      "websiteSha256": "652d9bea0ae7349a569a8b8354d9efb45d25c9b74dee79a4538dac33bae8c0b6",
+      "sourceFiles": [
+        "f6e98203a332ff2ed432eb2151b44e4a.png",
+        "3a755269dc3275718ab9fe3cb0805d0c.png",
+        "pc-preview/a406d95b64239618b56aa7c4f3139e46.svg"
+      ]
     },
     {
       "card": 19,
-      "sourceHash": "72c1809561a0610537399e19a9100546.png",
-      "sourceName": "19.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "72c1809561a0610537399e19a9100546.png",
-        "72c1809561a0610537399e19a9100546.png"
-      ],
       "websiteFile": "card-19.jpg",
-      "websiteSha256": "6e9d1bf5a7b9c17c3a8a7dfa4e4496898c9a97ba891c26306963bdc078556554",
-      "visibleLayerZ": 0
+      "websiteSha256": "8bae744258c30b45b87acabb27b0715d4d72ef922b92bac653a18816cde37ced",
+      "sourceFiles": [
+        "72c1809561a0610537399e19a9100546.png"
+      ]
     },
     {
       "card": 20,
-      "sourceHash": "041dbed38c7c3c7a784f510f3417b425.png",
-      "sourceName": "20.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "041dbed38c7c3c7a784f510f3417b425.png",
-        "0b28a084d8c989f91a7f9782ea4834b6.png"
-      ],
       "websiteFile": "card-20.jpg",
-      "websiteSha256": "686d7a23d57f8ab8293ee85877f5b8fd539e5537df77b35249c280e60203c707",
-      "visibleLayerZ": 0
+      "websiteSha256": "e6e86d4333d7101765b536c974db132f1f3a323d863997beed9bad4136e23cd7",
+      "sourceFiles": [
+        "041dbed38c7c3c7a784f510f3417b425.png",
+        "0b28a084d8c989f91a7f9782ea4834b6.png",
+        "pc-preview/37e2b0d947590715518dacef7ce4ddf4.svg"
+      ]
     },
     {
       "card": 21,
-      "sourceHash": "f80a7cae65408d10a817febcc051b78b.png",
-      "sourceName": "21.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "f80a7cae65408d10a817febcc051b78b.png",
-        "91b4ad79db4010b827d31c5392e5c9f7.png"
-      ],
       "websiteFile": "card-21.jpg",
-      "websiteSha256": "ce1554fb4fc8763b97a6d7e41f9137e453a7e31b01ac03fe0723bc05a3794644",
-      "visibleLayerZ": 0
+      "websiteSha256": "6425f4bf4e3a7e97547e59aeb758f1f3313ca9938db0f4fcd16aeb15c9d7bec7",
+      "sourceFiles": [
+        "f80a7cae65408d10a817febcc051b78b.png",
+        "91b4ad79db4010b827d31c5392e5c9f7.png",
+        "pc-preview/99537bcf1c4edc207467e83bcd6f6883.svg",
+        "pc-preview/31c6ed629655ceb066d0a94022eb4ab1.svg"
+      ]
     },
     {
       "card": 22,
-      "sourceHash": "a009f2802266f5889d1f1038dedebc9e.png",
-      "sourceName": "22.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "a009f2802266f5889d1f1038dedebc9e.png",
-        "12a932e1973e93f02fe7f35a0fdf67dd.png"
-      ],
       "websiteFile": "card-22.jpg",
-      "websiteSha256": "a9e6a962293147c7b4f8c7c239ac66cc440c716652a35ab8cb4dcb570d4f3a1f",
-      "visibleLayerZ": 0
+      "websiteSha256": "116da3187e17ec49294ff5d1f5018c86588100eb41a796b7d0fafba1e00fc184",
+      "sourceFiles": [
+        "a009f2802266f5889d1f1038dedebc9e.png",
+        "12a932e1973e93f02fe7f35a0fdf67dd.png",
+        "pc-preview/afe930a91c41432dfcaeddc56615ce17.svg"
+      ]
     },
     {
       "card": 23,
-      "sourceHash": "64d56ac689851fae57a1b94577da00d4.png",
-      "sourceName": "23.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "64d56ac689851fae57a1b94577da00d4.png",
-        "a0ab73cb841c75afa1da18b75e1883d7.png"
-      ],
       "websiteFile": "card-23.jpg",
-      "websiteSha256": "bb7684f33c09a416e2840866f8834569053f7c176257c7cbb6bbbf688ae62e65",
-      "visibleLayerZ": 0
+      "websiteSha256": "1941534e9b6f3a56e1b0583f942f4327ebeae98bf0d09ed59852f8c032074b39",
+      "sourceFiles": [
+        "64d56ac689851fae57a1b94577da00d4.png",
+        "a0ab73cb841c75afa1da18b75e1883d7.png",
+        "pc-preview/b59d2efbbbbc87ecfb97a8494cf853e7.svg"
+      ]
     },
     {
       "card": 24,
-      "sourceHash": "4bf3628648e31dcdda69ced04a9c65a2.png",
-      "sourceName": "24.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "4bf3628648e31dcdda69ced04a9c65a2.png",
-        "ca495b16d1b2380f0f5eb831329db70b.png"
-      ],
       "websiteFile": "card-24.jpg",
-      "websiteSha256": "803d839500b4a84429999005e1d23bc8e70f2ee5da695810ed871d833f056963",
-      "visibleLayerZ": 0
+      "websiteSha256": "e1bbe2ce46b73c9792ba9d6ce5e948d73b5413510804e6067eaa8ce10d3d08f5",
+      "sourceFiles": [
+        "4bf3628648e31dcdda69ced04a9c65a2.png",
+        "ca495b16d1b2380f0f5eb831329db70b.png",
+        "pc-preview/e5dff67cca9ffb74eeaa30a46d73e6e5.svg"
+      ]
     },
     {
       "card": 25,
-      "sourceHash": "8ed74e2bc01be50d5afb104a6a5a17e4.png",
-      "sourceName": "25.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 1,
-      "renderLayerHashes": [
-        "8ed74e2bc01be50d5afb104a6a5a17e4.png"
-      ],
       "websiteFile": "card-25.jpg",
-      "websiteSha256": "60a1fa0eed3428a469956c3b0f6ad3fcc908fccece41b863bbdcd7cec7ae22a1",
-      "visibleLayerZ": 0
+      "websiteSha256": "00a4880f2c5216c0ffd136d3bccd2f2839dc41b5f9d818147f2e062546f84f3a",
+      "sourceFiles": [
+        "8ed74e2bc01be50d5afb104a6a5a17e4.png"
+      ]
     },
     {
       "card": 26,
-      "sourceHash": "9e227aa9f5a6f945a1fc7302882cb672.png",
-      "sourceName": "26.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "9e227aa9f5a6f945a1fc7302882cb672.png",
-        "9e227aa9f5a6f945a1fc7302882cb672.png"
-      ],
       "websiteFile": "card-26.jpg",
-      "websiteSha256": "3afcbc5fcbc60236781b3ee0bd49f4b938a3418621b1397d1e0ff17d3af0927a",
-      "visibleLayerZ": 0
+      "websiteSha256": "ce6f40cc5e1bb153c9fe5b82ffd70845714fc64db2646b2ba10b996451b26918",
+      "sourceFiles": [
+        "9e227aa9f5a6f945a1fc7302882cb672.png"
+      ]
     },
     {
       "card": 27,
-      "sourceHash": "b1d1a53aad2ee9037cc038058f881772.png",
-      "sourceName": "27.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 1,
-      "renderLayerHashes": [
-        "b1d1a53aad2ee9037cc038058f881772.png"
-      ],
       "websiteFile": "card-27.jpg",
-      "websiteSha256": "ad6142c7a9949887552ee9ee9cd9b702fd04a0d26b2e158027cd378b4651e59c",
-      "visibleLayerZ": 0
+      "websiteSha256": "a5ee3394c02757817d53f8728102b0951852c8bea340651354eba9f81701a48a",
+      "sourceFiles": [
+        "b1d1a53aad2ee9037cc038058f881772.png"
+      ]
     },
     {
       "card": 28,
-      "sourceHash": "dcdaf2b07c8360bd949eb0ca0e5e961c.png",
-      "sourceName": "28.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "dcdaf2b07c8360bd949eb0ca0e5e961c.png",
-        "cd75e96ef9e3e0d4e931ebdb4004cd8d.png"
-      ],
       "websiteFile": "card-28.jpg",
-      "websiteSha256": "e99f2076494c4177f9e0af3cfb970031bff487b2633e9d9e0273e7ddd1b89d1e",
-      "visibleLayerZ": 0
+      "websiteSha256": "1f630e89b8ede484391f6a33d2be1a62fdce63c5e8bef55cc6c389916938078c",
+      "sourceFiles": [
+        "dcdaf2b07c8360bd949eb0ca0e5e961c.png",
+        "cd75e96ef9e3e0d4e931ebdb4004cd8d.png",
+        "pc-preview/8a18bc9aa8dad694cd7a740177760397.svg"
+      ]
     },
     {
       "card": 29,
-      "sourceHash": "916804998fc5f584c09a7543b0d90c17.png",
-      "sourceName": "29.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "916804998fc5f584c09a7543b0d90c17.png",
-        "8a61bf4c0595f2f12206f6c6525d8f1a.png"
-      ],
       "websiteFile": "card-29.jpg",
-      "websiteSha256": "1519efec91b124c2b1b69d674f12c05a6ac04fb7fc4cd178b31d7d15e86a775c",
-      "visibleLayerZ": 0
+      "websiteSha256": "3172686053d741b966be0b6257e26c4c222ed8c60364095a3db092e388bd93e3",
+      "sourceFiles": [
+        "916804998fc5f584c09a7543b0d90c17.png",
+        "8a61bf4c0595f2f12206f6c6525d8f1a.png",
+        "pc-preview/cd1d0d87ab540ffb0b4617755ebfaab0.svg"
+      ]
     },
     {
       "card": 30,
-      "sourceHash": "139755587b06a9ce3e201023e5406bbf.png",
-      "sourceName": "30.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 1,
-      "renderLayerHashes": [
-        "139755587b06a9ce3e201023e5406bbf.png"
-      ],
       "websiteFile": "card-30.jpg",
-      "websiteSha256": "788a26296ed48f2f517d83ff9be9cc3626918853334071e77ceca19b5ac36253",
-      "visibleLayerZ": 0
+      "websiteSha256": "5dc88ca8e7fee29a53d0890492965b41542d0093996dbece7808fa97d7873466",
+      "sourceFiles": [
+        "139755587b06a9ce3e201023e5406bbf.png"
+      ]
     },
     {
       "card": 31,
-      "sourceHash": "15bbd9da5db557f166b180c0eb4f8bba.png",
-      "sourceName": "31.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "15bbd9da5db557f166b180c0eb4f8bba.png",
-        "15bbd9da5db557f166b180c0eb4f8bba.png"
-      ],
       "websiteFile": "card-31.jpg",
-      "websiteSha256": "fd8542bb3dfa0e920a8f20856265a15f0a5b0e774b704bb3f75b490219346089",
-      "visibleLayerZ": 0
+      "websiteSha256": "b102a568defb9b6807ee382c90d5a2f6a2e7e42f56cd59dd280a6c728558a44f",
+      "sourceFiles": [
+        "15bbd9da5db557f166b180c0eb4f8bba.png"
+      ]
     },
     {
       "card": 32,
-      "sourceHash": "8fa53215c57c2e232cd6c99f468cbc48.png",
-      "sourceName": "32.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 1,
-      "renderLayerHashes": [
-        "8fa53215c57c2e232cd6c99f468cbc48.png"
-      ],
       "websiteFile": "card-32.jpg",
-      "websiteSha256": "70ba267fc3cde5d5ff3ccde24c2f1fa4d72598e8f47473bffe395f23908627f5",
-      "visibleLayerZ": 0
+      "websiteSha256": "9e6a4b7a85c34a328128f0d65befcd73fc7bbbaa5270717ab38057971d5d1d63",
+      "sourceFiles": [
+        "8fa53215c57c2e232cd6c99f468cbc48.png"
+      ]
     },
     {
       "card": 33,
-      "sourceHash": "216a7d5a234f0f2ccb883da218395b60.png",
-      "sourceName": "33.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "216a7d5a234f0f2ccb883da218395b60.png",
-        "7f4c2fb933442fcee94765659d35cbc9.png"
-      ],
       "websiteFile": "card-33.jpg",
-      "websiteSha256": "9930788d03f93022d0b8db098d14b243f629fc999564cea8b675f60c8029d96f",
-      "visibleLayerZ": 0
+      "websiteSha256": "13c949f1d21824ddac2731ebb2061f6bcc781c2b169b40877203abab7af9561c",
+      "sourceFiles": [
+        "216a7d5a234f0f2ccb883da218395b60.png",
+        "7f4c2fb933442fcee94765659d35cbc9.png",
+        "pc-preview/5484449ab8d9a94eae7a0e3b08064311.svg"
+      ]
     },
     {
       "card": 34,
-      "sourceHash": "0e6b422c43e0b56c265eee2dc5855574.png",
-      "sourceName": "34.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "0e6b422c43e0b56c265eee2dc5855574.png",
-        "0e6b422c43e0b56c265eee2dc5855574.png"
-      ],
       "websiteFile": "card-34.jpg",
-      "websiteSha256": "b486732ba5d47f41b2fb74998297c10776694b78c21e1cffe7515ef0dc72fdf1",
-      "visibleLayerZ": 0
+      "websiteSha256": "9809535149eb713242fc7836408bcf2d125ecdb7edd919d5d9a48f975c666d83",
+      "sourceFiles": [
+        "0e6b422c43e0b56c265eee2dc5855574.png"
+      ]
     },
     {
       "card": 35,
-      "sourceHash": "54a583aeec4af8d7fd16c8c772bc4a18.png",
-      "sourceName": "35.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "54a583aeec4af8d7fd16c8c772bc4a18.png",
-        "14fcd416eb9ff5052ab131035e93a062.png"
-      ],
       "websiteFile": "card-35.jpg",
-      "websiteSha256": "e997a85dde68629a04ad117deafdf3c6ff7177853a2d6d7d8c35458e8601134c",
-      "visibleLayerZ": 0
+      "websiteSha256": "ee90172b98ce3ac3b9e0edfbff423eaf225ac7878e6720da02432de1951eaa15",
+      "sourceFiles": [
+        "54a583aeec4af8d7fd16c8c772bc4a18.png",
+        "14fcd416eb9ff5052ab131035e93a062.png",
+        "pc-preview/bc7bfd761e2d27f07b04c4d04b404212.svg"
+      ]
     },
     {
       "card": 36,
-      "sourceHash": "fc3608911cd2aeeebe7e774f2b17d192.png",
-      "sourceName": "36.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "fc3608911cd2aeeebe7e774f2b17d192.png",
-        "fc3608911cd2aeeebe7e774f2b17d192.png"
-      ],
       "websiteFile": "card-36.jpg",
-      "websiteSha256": "1fbe9ba015e137075b975c8fc8bbe09c087dd273d2e6c65de393180c1f32d8d5",
-      "visibleLayerZ": 0
+      "websiteSha256": "d0b296e91eb178908d2812efe5141ce0bf948ffcdafd0dce48932982039b3a54",
+      "sourceFiles": [
+        "fc3608911cd2aeeebe7e774f2b17d192.png"
+      ]
     },
     {
       "card": 37,
-      "sourceHash": "d466cfa7cefce05521c5243c415bbede.png",
-      "sourceName": "37.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "d466cfa7cefce05521c5243c415bbede.png",
-        "d466cfa7cefce05521c5243c415bbede.png"
-      ],
       "websiteFile": "card-37.jpg",
-      "websiteSha256": "0ca059713e004956af8f8ce401e28b3c5d44b079be0cdacb639bcc4c9d507963",
-      "visibleLayerZ": 0
+      "websiteSha256": "4dc518fc6a23974d3d48c907fe15ac8033500de1f690cb8b3b6dfb6ae710ffed",
+      "sourceFiles": [
+        "d466cfa7cefce05521c5243c415bbede.png"
+      ]
     },
     {
       "card": 38,
-      "sourceHash": "f0a56b8144b425c5953055d5ae2a5464.png",
-      "sourceName": "38.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "f0a56b8144b425c5953055d5ae2a5464.png",
-        "f0a56b8144b425c5953055d5ae2a5464.png"
-      ],
       "websiteFile": "card-38.jpg",
-      "websiteSha256": "7347d485d19a68f4f50044a515b200704a1fc33aa2d5fbf34c0c733535c0a7e4",
-      "visibleLayerZ": 0
+      "websiteSha256": "119b110c763532375247e24c91de01089dee38a62bc10c2739bd9189c32d81fb",
+      "sourceFiles": [
+        "f0a56b8144b425c5953055d5ae2a5464.png"
+      ]
     },
     {
       "card": 39,
-      "sourceHash": "aa13754d994c0634fd398a5429ab3d13.png",
-      "sourceName": "39.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "aa13754d994c0634fd398a5429ab3d13.png",
-        "5801cb451e9306c6f885e9a4ebd090ef.png"
-      ],
       "websiteFile": "card-39.jpg",
-      "websiteSha256": "f7a1cfa616874e1eaf9b38fb8f076234f57fa8ebbe91ed915a6ab17afe9e48b7",
-      "visibleLayerZ": 0
+      "websiteSha256": "7091446197e60629fcb1d60c11107351d1ec1118ae3050e4a6debd3197f27288",
+      "sourceFiles": [
+        "aa13754d994c0634fd398a5429ab3d13.png",
+        "5801cb451e9306c6f885e9a4ebd090ef.png",
+        "pc-preview/e791c58b9fa529c446456f28300763c7.svg"
+      ]
     },
     {
       "card": 40,
-      "sourceHash": "3495087fb126f590b54b7ca69374c23b.png",
-      "sourceName": "40.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "3495087fb126f590b54b7ca69374c23b.png",
-        "7cab7b2ed78aca6022f6d93c24fa4314.png"
-      ],
       "websiteFile": "card-40.jpg",
-      "websiteSha256": "76ada92af0be1860322be4142e7be78c06d8d449ea3c49ba358207dc0b2b6b8d",
-      "visibleLayerZ": 0
+      "websiteSha256": "35c881703d992abfa99599e670f16d54f23056a2e1bb8309f7b65de1c0f3e0fd",
+      "sourceFiles": [
+        "3495087fb126f590b54b7ca69374c23b.png",
+        "7cab7b2ed78aca6022f6d93c24fa4314.png",
+        "pc-preview/416d8b3225102f0394bf2c9146e034ee.svg"
+      ]
     },
     {
       "card": 41,
-      "sourceHash": "02e8f403b9f44b5b116b5bb5eabc697f.png",
-      "sourceName": "41.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "02e8f403b9f44b5b116b5bb5eabc697f.png",
-        "02e8f403b9f44b5b116b5bb5eabc697f.png"
-      ],
       "websiteFile": "card-41.jpg",
-      "websiteSha256": "3c49202b1ecfd738ac998e7c25845f127ca674831659fc0230b7455cda42a18e",
-      "visibleLayerZ": 0
+      "websiteSha256": "8f9e1c62ae61ed249cd364cb9b0462b5f08ec2b72638b23b367459577483a34a",
+      "sourceFiles": [
+        "02e8f403b9f44b5b116b5bb5eabc697f.png"
+      ]
     },
     {
       "card": 42,
-      "sourceHash": "91a3ab46ebef8a071f71eb485ba779ae.png",
-      "sourceName": "42.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "91a3ab46ebef8a071f71eb485ba779ae.png",
-        "91a3ab46ebef8a071f71eb485ba779ae.png"
-      ],
       "websiteFile": "card-42.jpg",
-      "websiteSha256": "579e82633a542c3a0b16f22e8dd1df870635bdde02fda383d993c5b3d8143f61",
-      "visibleLayerZ": 0
+      "websiteSha256": "2686c074e2ba9a6135678b79522df876facccc82f5c8d256cd2745f31268176a",
+      "sourceFiles": [
+        "91a3ab46ebef8a071f71eb485ba779ae.png"
+      ]
     },
     {
       "card": 43,
-      "sourceHash": "fb55dcf7d9ce42e0d1db5b706ff7076f.png",
-      "sourceName": "43.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "fb55dcf7d9ce42e0d1db5b706ff7076f.png",
-        "bed3dd47be7487ee361dcad615eb6256.png"
-      ],
       "websiteFile": "card-43.jpg",
-      "websiteSha256": "88f00487fb7f3e40c28d2254cdf6be139d1d7a7b29cbff36b20807127540c3cc",
-      "visibleLayerZ": 0
+      "websiteSha256": "b86ea47b0837ff4b71131f7d824d2359c3e413235974b7e9c4d2d47db7a26646",
+      "sourceFiles": [
+        "fb55dcf7d9ce42e0d1db5b706ff7076f.png",
+        "bed3dd47be7487ee361dcad615eb6256.png",
+        "pc-preview/a1ad62a45a2fb8bb5b5a330f360dceb3.svg"
+      ]
     },
     {
       "card": 44,
-      "sourceHash": "87d0b33381543b49a5d7247f65e16f23.png",
-      "sourceName": "44.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "87d0b33381543b49a5d7247f65e16f23.png",
-        "f4c85bd04c43b2601dd6549320ff1fc1.png"
-      ],
       "websiteFile": "card-44.jpg",
-      "websiteSha256": "a4bee9817d680a769fcc34c9b043cafeca133f2b38831da122a41e46a60bd1a5",
-      "visibleLayerZ": 0
+      "websiteSha256": "4f160397cc7a08b3d8472423c92112d8167ae95a1a2b0cfbddda3337fca9989e",
+      "sourceFiles": [
+        "87d0b33381543b49a5d7247f65e16f23.png",
+        "f4c85bd04c43b2601dd6549320ff1fc1.png",
+        "pc-preview/1c07b23025b9f291d17b9c3f7fdaaf84.svg"
+      ]
     },
     {
       "card": 45,
-      "sourceHash": "023e4450ea7e60ca2e5cd7edf9e9f78f.png",
-      "sourceName": "45.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "023e4450ea7e60ca2e5cd7edf9e9f78f.png",
-        "023e4450ea7e60ca2e5cd7edf9e9f78f.png"
-      ],
       "websiteFile": "card-45.jpg",
-      "websiteSha256": "0aa86670b421382725f68c6e7ea8df5dffb6bab19144f42b3352e4b67e9a89db",
-      "visibleLayerZ": 0
+      "websiteSha256": "b887c479af909b113941be08ea3205a226cd3074984cbfbf8950ff84c030d797",
+      "sourceFiles": [
+        "023e4450ea7e60ca2e5cd7edf9e9f78f.png"
+      ]
     },
     {
       "card": 46,
-      "sourceHash": "4e58fae0d5171cd36e5c8d975aa8b026.png",
-      "sourceName": "46.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "4e58fae0d5171cd36e5c8d975aa8b026.png",
-        "7a0bcad33789f22a2f57b9111bfa06fd.png"
-      ],
       "websiteFile": "card-46.jpg",
-      "websiteSha256": "8dd8d1480171fa6cfb42877e04fc0ba5f9c1cceb14526413d59bc328c4b3275c",
-      "visibleLayerZ": 0
+      "websiteSha256": "31a263080fafc4511da0971fc94b339874933acfa793461e7ae29eb15933120e",
+      "sourceFiles": [
+        "4e58fae0d5171cd36e5c8d975aa8b026.png",
+        "7a0bcad33789f22a2f57b9111bfa06fd.png",
+        "pc-preview/7457a9e222a55f09fa6ddd0d73ebad26.svg"
+      ]
     },
     {
       "card": 47,
-      "sourceHash": "282712bc38ff2ef2b373d602f101a08d.png",
-      "sourceName": "47.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 1,
-      "renderLayerHashes": [
-        "282712bc38ff2ef2b373d602f101a08d.png"
-      ],
       "websiteFile": "card-47.jpg",
-      "websiteSha256": "c2c8320d031ebbc4ccaac4e41d6ba863fae043c00f026505f93e0dfe10e813bd",
-      "visibleLayerZ": 0
+      "websiteSha256": "c8375484c7c78a92497a9dce2cf4933de18628328bb1d492f3bed7b8ccd197f8",
+      "sourceFiles": [
+        "282712bc38ff2ef2b373d602f101a08d.png"
+      ]
     },
     {
       "card": 48,
-      "sourceHash": "dd9d68921bf4221f5dd7e163aca7938a.png",
-      "sourceName": "48.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "dd9d68921bf4221f5dd7e163aca7938a.png",
-        "dd9d68921bf4221f5dd7e163aca7938a.png"
-      ],
       "websiteFile": "card-48.jpg",
-      "websiteSha256": "7cc438a527fc8447a6aa725b6aff55ce410216dee7f0cead01c4175e44426d45",
-      "visibleLayerZ": 0
+      "websiteSha256": "79b44d00e16d9c6640e8341b6ab551db14d50890bda3d1005b5a23e0804d42d6",
+      "sourceFiles": [
+        "dd9d68921bf4221f5dd7e163aca7938a.png"
+      ]
     },
     {
       "card": 49,
-      "sourceHash": "2d2724cb14340e95fb887f518ebe1c5a.png",
-      "sourceName": "49.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "2d2724cb14340e95fb887f518ebe1c5a.png",
-        "e3469ac6c2a2c4e791ee9b150e8afc14.png"
-      ],
       "websiteFile": "card-49.jpg",
-      "websiteSha256": "2860a93882248ec1abde06fc83c5949af6744bd9a0e95ca06450d77bf9f210c9",
-      "visibleLayerZ": 0
+      "websiteSha256": "1c9b4ee7821d5139cd2fdcec1342fe6eb615e661f07e88b909449dfdff23c954",
+      "sourceFiles": [
+        "2d2724cb14340e95fb887f518ebe1c5a.png",
+        "e3469ac6c2a2c4e791ee9b150e8afc14.png",
+        "pc-preview/e29e190cbdb35ef24a62d2d65d89f1f2.svg",
+        "pc-preview/e093e132b001122125c999b07411428c.svg",
+        "pc-preview/8c7259252301b3bd8692c653bb2b8d1d.svg"
+      ]
     },
     {
       "card": 50,
-      "sourceHash": "72f4b3a660b372de06c2cea73849ea0e.png",
-      "sourceName": "50.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "72f4b3a660b372de06c2cea73849ea0e.png",
-        "d9f38ddad04f416586c3ac2ae6a6f3cb.png"
-      ],
       "websiteFile": "card-50.jpg",
-      "websiteSha256": "4afedeb9fdfd2c0a92c9d0f377ce4e70996eb04e7330e609b0bf0f8e780fcaa2",
-      "visibleLayerZ": 0
+      "websiteSha256": "771034ba9b2c3dd8cba621d9b92935fbcbd05b29e3290b8b3a0ae66c73eff97d",
+      "sourceFiles": [
+        "72f4b3a660b372de06c2cea73849ea0e.png",
+        "pc-preview/482b5716bc33b90add1f9bbb24e59edc.svg",
+        "d9f38ddad04f416586c3ac2ae6a6f3cb.png",
+        "pc-preview/1541e30855b85b96e337337ed843ed0a.svg"
+      ]
     },
     {
       "card": 51,
-      "sourceHash": "0e76cfb6e663d0e31a2ee57da418a749.png",
-      "sourceName": "51.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "0e76cfb6e663d0e31a2ee57da418a749.png",
-        "fb22fef9031979ae6ad9d8ec98a21311.png"
-      ],
       "websiteFile": "card-51.jpg",
-      "websiteSha256": "0c9aa8be0819c0d51421a976ca7f7d6e378277e916037d4cd95f52fee3f41cfe",
-      "visibleLayerZ": 0
+      "websiteSha256": "d6bd5b753f23b881662ef0695e944180b96536be8f97e765e4196ced49133b6d",
+      "sourceFiles": [
+        "0e76cfb6e663d0e31a2ee57da418a749.png",
+        "fb22fef9031979ae6ad9d8ec98a21311.png",
+        "pc-preview/23cced2c3bcc8edcfa0a46c6ccf03ea6.svg"
+      ]
     },
     {
       "card": 52,
-      "sourceHash": "379294416a27ee336c0f2fe6d45dd1c9.png",
-      "sourceName": "52.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "379294416a27ee336c0f2fe6d45dd1c9.png",
-        "379294416a27ee336c0f2fe6d45dd1c9.png"
-      ],
       "websiteFile": "card-52.jpg",
-      "websiteSha256": "16bb239134e5482e4c18dba4d68721309fa483156132c7f0b944ab7e76a43082",
-      "visibleLayerZ": 0
+      "websiteSha256": "a56a3092ade05d6df2befd120e0896a584c3cb44b123d1e7b6b5f3b1a2eca54b",
+      "sourceFiles": [
+        "379294416a27ee336c0f2fe6d45dd1c9.png"
+      ]
     },
     {
       "card": 53,
-      "sourceHash": "30e9a3c2e591b695fd31d744e9395abc.png",
-      "sourceName": "53.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "30e9a3c2e591b695fd31d744e9395abc.png",
-        "0ce7b57b076f8f133df641029bd4e943.png"
-      ],
       "websiteFile": "card-53.jpg",
-      "websiteSha256": "2b8952802cc19d498613ec166d1a35651072cb8d4c04bdc67951395118a92280",
-      "visibleLayerZ": 0
+      "websiteSha256": "22e77c2f1b51a5a1766cbba9ee8fde1b37a630f165ec69161acdff65cb6e509d",
+      "sourceFiles": [
+        "30e9a3c2e591b695fd31d744e9395abc.png",
+        "0ce7b57b076f8f133df641029bd4e943.png",
+        "pc-preview/22aef03be320dcbbf2a63300680d5a36.svg"
+      ]
     },
     {
       "card": 54,
-      "sourceHash": "601e8968df32ef1570d41885d7001968.png",
-      "sourceName": "54.png",
-      "sourceWidth": 900,
-      "sourceHeight": 1500,
-      "placement": {
-        "x": 0,
-        "y": 0,
-        "width": 216,
-        "height": 360,
-        "transform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ],
-        "contentTransform": [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0
-        ]
-      },
-      "pictureCount": 2,
-      "renderLayerHashes": [
-        "601e8968df32ef1570d41885d7001968.png",
-        "601e8968df32ef1570d41885d7001968.png"
-      ],
       "websiteFile": "card-54.jpg",
-      "websiteSha256": "3d23583f3f8ea7b46d93bff40d84940f35aff62a32c05c1b4a891ea0d41e1335",
-      "visibleLayerZ": 0
+      "websiteSha256": "55efa0eb96142e90b324dde4081560cd85583f72a3b99c234e1f002d212e6634",
+      "sourceFiles": [
+        "601e8968df32ef1570d41885d7001968.png",
+        "3ce2574f4494894f4f92507b8d15dcaf.png",
+        "pc-preview/020827e4d0759331cde98724ccac8681.svg"
+      ]
     }
   ],
   "back": {
-    "sourceHash": "c30ac12d6fc13c4c6baf45900f4d906f.png",
-    "sourceName": "back.png",
-    "pictureCount": 1,
-    "renderLayerHashes": [
-      "c30ac12d6fc13c4c6baf45900f4d906f.png"
-    ],
     "websiteFile": "card-back.jpg",
-    "websiteSha256": "8eaa382340e496aa2ac2092e5ad76c9756d8be171e570bed9a5cc1b302a18f2d",
-    "visibleLayerZ": 0
-  },
-  "sourceModifiedAt": "2026-08-17T01:59:37.843Z",
-  "layerOrder": "QPMN renders lower layerZ in front; completed mantra card is visible layerZ 0"
+    "websiteSha256": "79e4e2b3ec60e375da535727af64ac3ddc36ecdacb8c938b383603fa7f8edbca"
+  }
 }

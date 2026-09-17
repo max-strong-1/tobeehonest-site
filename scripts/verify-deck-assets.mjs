@@ -19,9 +19,9 @@ export const MANIFEST_PATH = join(DECK_DIR, "qpmn-latest-and-greatest.json");
 // The canonical QPMN source of truth. Changing these is a deliberate act:
 // it means a genuinely newer deck revision was exported and re-verified.
 export const CANONICAL = {
-  draftId: 642581364,
-  productInstanceId: 646548898,
-  draftName: "Latest And Greatest",
+  draftId: 697930784,
+  productInstanceId: 697930721,
+  draftName: "Draft-TUUFUPSBNP-Copy",
   cardCount: 54
 };
 
@@ -70,7 +70,10 @@ export async function verifyDeckAssets() {
 
   // The card back ships alongside the fronts and is referenced by index.html.
   try {
-    await readFile(join(DECK_DIR, "card-back.jpg"));
+    const bytes = await readFile(join(DECK_DIR, "card-back.jpg"));
+    if (!manifest.back?.websiteSha256 || sha256(bytes) !== manifest.back.websiteSha256) {
+      problems.push("card-back.jpg does not match the pinned manifest");
+    }
   } catch {
     problems.push("missing card-back.jpg");
   }
