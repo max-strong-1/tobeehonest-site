@@ -2,7 +2,7 @@ import { Problem } from "./http.js";
 import { requireEnabled } from "./config.js";
 import { createProdigiOrder } from "./prodigi.js";
 import { createQpmnOrder } from "./qpmn.js";
-import { sendOrderAlert, sendCustomerConfirmation } from "./notify.js";
+import { sendOrderAlert, sendCustomerConfirmation, sendPaidOrderAlert, sendFulfillmentFailureAlert } from "./notify.js";
 import { claimFulfillment, recordStage, STAGE_DONE } from "./fulfillment-ledger.js";
 import { ARTWORK_ALLOWLIST } from "./artwork-allowlist.js";
 
@@ -105,8 +105,14 @@ export async function fulfillPaidCheckout({ session, item }) {
        vendor path that deliberately has none. */
     // Awaited on purpose: a serverless function may freeze once the handler returns,
     // killing an un-awaited fetch. sendCustomerConfirmation never throws.
+    await sendPaidOrderAlert({ session, item: confirmationItem });
     await sendCustomerConfirmation({ session, item: confirmationItem });
-    return adapter.create({ session, item, shippingMethod: shippingMethodFromSession(session) });
+    try {
+      return await adapter.create({ session, item, shippingMethod: shippingMethodFromSession(session) });
+    } catch (error) {
+      await sendFulfillmentFailureAlert({ session, item: confirmationItem, error });
+      throw error;
+    }
   }
 
   requireEnabled("QPMN_ENABLED", "QPMN fulfillment requires explicit approval.");
@@ -145,6 +151,7 @@ export async function fulfillPaidCheckout({ session, item }) {
      and returns early. That makes this the natural "first processed, send once"
      gate for the customer email on the non-idempotent (QPMN) path. */
   await sendCustomerConfirmation({ session, item: confirmationItem }); // never throws; awaited so the function stays alive
+  await sendPaidOrderAlert({ session, item: confirmationItem });
 
   try {
     const result = await adapter.create({

@@ -95,7 +95,10 @@ export async function createProdigiOrder({ session, item, shippingMethod = "Stan
      a precise "MissingRequiredAttributes: color" and all the operator saw was 502. */
   if (!response.ok) {
     console.error("prodigi order rejected:", response.status, JSON.stringify(result).slice(0, 600));
-    throw new Problem(502, "Fulfillment Provider Error", "Prodigi did not accept the order.");
+    const error = new Problem(502, "Fulfillment Provider Error", "Prodigi did not accept the order.");
+    error.operatorDetail = [result.outcome, result.message].filter(Boolean).join(": ").slice(0, 200)
+      || `Prodigi returned HTTP ${response.status}`;
+    throw error;
   }
   return result;
 }

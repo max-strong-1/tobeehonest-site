@@ -35,6 +35,52 @@ test("a self-idempotent vendor is never gated by the ledger", async () => {
   }
 });
 
+test("a paid puzzle rejected by Prodigi alerts operators and remains a failed webhook", async () => {
+  process.env.COMMERCE_FULFILLMENT_ENABLED = "true";
+  process.env.PRODIGI_API_KEY = "prodigi-test";
+  process.env.PRODIGI_ASSET_BASE_URL = "https://assets.example.test";
+  process.env.RESEND_API_KEY = "resend-test";
+  process.env.ORDER_ALERT_TO = "operator@example.test";
+
+  const { fulfillPaidCheckout } = await import("../api/_lib/fulfillment.js");
+  const originalFetch = globalThis.fetch;
+  const originalError = console.error;
+  const emails = [];
+  globalThis.fetch = async (url, options = {}) => {
+    if (url.includes("api.resend.com")) {
+      emails.push({ headers: options.headers, body: JSON.parse(options.body) });
+      return { ok: true };
+    }
+    if (url.includes("api.sandbox.prodigi.com")) {
+      return {
+        ok: false,
+        status: 500,
+        json: async () => ({ outcome: "PaymentFailed", message: "No card details" })
+      };
+    }
+    throw new Error(`unexpected fetch: ${url}`);
+  };
+  console.error = () => {};
+  try {
+    await assert.rejects(fulfillPaidCheckout({
+      session: {
+        id: "cs_puzzle_failure", payment_status: "paid", amount_total: 7895, currency: "usd",
+        customer_details: { email: "buyer@example.test" },
+        shipping_details: { name: "Buyer", address: { line1: "1 Main St", city: "Austin", postal_code: "78701", country: "US" } }
+      },
+      item: { vendor: "prodigi", vendorSku: "JIGSAW-PUZZLE-1000", quantity: 1, metadata: { product: "puzzle", artworkId: "sun-bird" } }
+    }), /Prodigi did not accept the order/);
+    assert.deepEqual(emails.map(email => email.headers["Idempotency-Key"]), [
+      "paid-order/cs_puzzle_failure", undefined, "fulfillment-failed/cs_puzzle_failure"
+    ]);
+    assert.match(emails[2].body.text, /PaymentFailed: No card details/);
+  } finally {
+    globalThis.fetch = originalFetch;
+    console.error = originalError;
+    for (const name of ["COMMERCE_FULFILLMENT_ENABLED", "PRODIGI_API_KEY", "PRODIGI_ASSET_BASE_URL", "RESEND_API_KEY", "ORDER_ALERT_TO"]) delete process.env[name];
+  }
+});
+
 test("a non-idempotent vendor refuses to run at all without a ledger", async () => {
   process.env.COMMERCE_FULFILLMENT_ENABLED = "true";
   process.env.QPMN_ENABLED = "true";
@@ -226,11 +272,11 @@ test("a redelivered webhook for the same QPMN session sends the customer confirm
     await fulfillPaidCheckout({ session, item });
     // Give the fire-and-forget confirmation email a tick to run.
     await new Promise(resolve => setTimeout(resolve, 10));
-    assert.equal(resendCalls, 1, "first (claiming) delivery should send exactly one confirmation");
+    assert.equal(resendCalls, 2, "first delivery should send one customer confirmation and one operator alert");
 
     await fulfillPaidCheckout({ session, item }); // simulated Stripe redelivery
     await new Promise(resolve => setTimeout(resolve, 10));
-    assert.equal(resendCalls, 1, "redelivered webhook must not send a second confirmation");
+    assert.equal(resendCalls, 2, "redelivered webhook must not send a second confirmation or alert");
   } finally {
     globalThis.fetch = originalFetch;
     for (const name of [

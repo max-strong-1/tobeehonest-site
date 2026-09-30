@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { sendCustomerConfirmation } from "../api/_lib/notify.js";
+import { sendCustomerConfirmation, sendPaidOrderAlert, sendFulfillmentFailureAlert } from "../api/_lib/notify.js";
 
 function baseSession(overrides = {}) {
   return {
@@ -97,6 +97,55 @@ test("a Resend 500 resolves without throwing and reports ok:false", async () => 
     const result = await sendCustomerConfirmation({ session, item });
     assert.equal(result.skipped, false);
     assert.equal(result.ok, false);
+  } finally {
+    globalThis.fetch = originalFetch;
+    delete process.env.RESEND_API_KEY;
+  }
+});
+
+test("paid-order and fulfillment-failure alerts go to operators with distinct stable keys", async () => {
+  process.env.RESEND_API_KEY = "key-test";
+  process.env.ORDER_ALERT_TO = "owner@example.test,operator@example.test";
+  const calls = [];
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (_url, options) => {
+    calls.push({ headers: options.headers, body: JSON.parse(options.body) });
+    return { ok: true };
+  };
+  try {
+    const session = baseSession();
+    const order = { ...item, vendor: "prodigi" };
+    await sendPaidOrderAlert({ session, item: order });
+    await sendFulfillmentFailureAlert({
+      session, item: order, error: { operatorDetail: "PaymentFailed: No card details" }
+    });
+
+    assert.equal(calls.length, 2);
+    assert.deepEqual(calls[0].body.to, ["owner@example.test", "operator@example.test"]);
+    assert.equal(calls[0].headers["Idempotency-Key"], "paid-order/cs_test_123");
+    assert.match(calls[0].body.text, /Fulfillment has not yet been confirmed/);
+    assert.equal(calls[1].headers["Idempotency-Key"], "fulfillment-failed/cs_test_123");
+    assert.match(calls[1].body.subject, /ACTION REQUIRED/);
+    assert.match(calls[1].body.text, /PaymentFailed: No card details/);
+  } finally {
+    globalThis.fetch = originalFetch;
+    delete process.env.RESEND_API_KEY;
+    delete process.env.ORDER_ALERT_TO;
+  }
+});
+
+test("operator alert fallback uses Nicolas's known address when production override is absent", async () => {
+  process.env.RESEND_API_KEY = "key-test";
+  delete process.env.ORDER_ALERT_TO;
+  const originalFetch = globalThis.fetch;
+  let recipients;
+  globalThis.fetch = async (_url, options) => {
+    recipients = JSON.parse(options.body).to;
+    return { ok: true };
+  };
+  try {
+    await sendPaidOrderAlert({ session: baseSession(), item: { ...item, vendor: "prodigi" } });
+    assert.deepEqual(recipients, ["bettinger.nicolas@gmail.com", "kel@4manai.com"]);
   } finally {
     globalThis.fetch = originalFetch;
     delete process.env.RESEND_API_KEY;

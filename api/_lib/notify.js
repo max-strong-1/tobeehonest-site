@@ -16,16 +16,15 @@
    environment, pass an explicit `to` to sendOrderAlert rather than trusting the
    ambient config.
 
-   UNVERIFIED: mail to nicolas@tobeehonest.com has never been observed arriving. If
-   that mailbox does not deliver, production alerts reach nobody but Kel. Confirm the
-   address before launch. */
-const DEFAULT_ALERT_TO = "nicolas@tobeehonest.com,kel@4manai.com";
+   Use Nicolas's known correspondence address here. Delivery to
+   nicolas@tobeehonest.com has never been confirmed. */
+const DEFAULT_ALERT_TO = "bettinger.nicolas@gmail.com,kel@4manai.com";
 
 /* Shared raw-Resend sender. `to` may be a string or an array; both sendOrderAlert
    and sendCustomerConfirmation funnel through this so there is exactly one place
    that talks to Resend and exactly one failure-handling policy: never throw, log
    and report ok:false instead. */
-async function sendEmail({ to, subject, text, replyTo }) {
+async function sendEmail({ to, subject, text, replyTo, idempotencyKey }) {
   const key = process.env.RESEND_API_KEY?.trim();
   const recipients = Array.isArray(to) ? to : String(to).split(",").map(s => s.trim()).filter(Boolean);
   if (!key) {
@@ -35,9 +34,11 @@ async function sendEmail({ to, subject, text, replyTo }) {
   const payload = { from: "To Bee Honest <kel@4manai.com>", to: recipients, subject, text };
   if (replyTo) payload.reply_to = replyTo;
   try {
+    const headers = { Authorization: `Bearer ${key}`, "Content-Type": "application/json" };
+    if (idempotencyKey) headers["Idempotency-Key"] = idempotencyKey;
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      headers,
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(8000) // a stalled Resend must not eat the webhook invocation
     });
@@ -49,12 +50,13 @@ async function sendEmail({ to, subject, text, replyTo }) {
   }
 }
 
-export async function sendOrderAlert({ subject, text, to, replyTo }) {
+export async function sendOrderAlert({ subject, text, to, replyTo, idempotencyKey }) {
   return sendEmail({
     to: to || process.env.ORDER_ALERT_TO || DEFAULT_ALERT_TO,
     subject,
     text,
-    replyTo
+    replyTo,
+    idempotencyKey
   });
 }
 
@@ -67,6 +69,43 @@ function formatMoney(amountTotal, currency) {
   } catch {
     return `${(cents / 100).toFixed(2)} ${code}`;
   }
+}
+
+/* A paid checkout is not proof the print partner accepted an order. Keep the
+   operator's receipt separate from the failure alert below. Stripe can retry a
+   webhook, so use a stable key for the same email request (Resend retains it for
+   24 hours). */
+export async function sendPaidOrderAlert({ session, item }) {
+  return sendOrderAlert({
+    subject: `Paid order received — ${item.productName || item.metadata?.product || "To Bee Honest"}`,
+    text: [
+      "A customer paid for a To Bee Honest order. Fulfillment has not yet been confirmed.",
+      "",
+      `Item: ${item.productName || item.metadata?.product || "Order"}`,
+      `Quantity: ${item.quantity}`,
+      `Total paid: ${formatMoney(session.amount_total, session.currency)}`,
+      `Customer email: ${session.customer_details?.email || session.customer_email || "(unavailable)"}`,
+      `Stripe checkout: ${session.id}`,
+      `Fulfillment vendor: ${item.vendor}`
+    ].join("\n"),
+    idempotencyKey: `paid-order/${session.id}`
+  });
+}
+
+export async function sendFulfillmentFailureAlert({ session, item, error }) {
+  return sendOrderAlert({
+    subject: `ACTION REQUIRED — fulfillment failed — ${session.id}`,
+    text: [
+      "A customer has paid, but the fulfillment partner did not accept the order.",
+      "Do not ask the customer to pay again. Resolve the vendor issue and reconcile this checkout.",
+      "",
+      `Item: ${item.productName || item.metadata?.product || "Order"}`,
+      `Stripe checkout: ${session.id}`,
+      `Vendor: ${item.vendor}`,
+      `Reason: ${error?.operatorDetail || error?.message || "Unknown error"}`
+    ].join("\n"),
+    idempotencyKey: `fulfillment-failed/${session.id}`
+  });
 }
 
 /* Customer-facing order confirmation. Buyers got nothing after paying before this —
