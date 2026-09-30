@@ -2947,6 +2947,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   const mountCropProof=document.getElementById('mountCropProof');
   const mountMatOption=document.getElementById('mountMatOption');
   if(!dialog||!form)return;
+  const zoneNear=el=>el?.closest('div,form,section')?.querySelector('.ship-zone')?.value||document.querySelector('.ship-zone')?.value||'us';
 
   /* Prodigi Classic moulding, 20mm face. Six stops so the strip has a profile. */
   const FRAMES=[
