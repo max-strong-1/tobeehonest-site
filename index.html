@@ -1006,6 +1006,8 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 .swatches input:checked+.chip{color:var(--ink);background:var(--sun);
   box-shadow:inset 0 0 0 1px var(--sun)}
 .swatches input:focus-visible+.chip{outline:2px solid var(--sun);outline-offset:3px}
+.swatches label:has(input:disabled){cursor:not-allowed}
+.swatches input:disabled+.chip{opacity:.5;cursor:not-allowed}
 /* the order form, inside the viewer */
 .viewer-side .order-form{background:none;box-shadow:none;padding:0;margin:0;max-width:none}
 .viewer-side .order-form label{color:#a2937a}
@@ -2219,7 +2221,6 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         <select id="galleryFrameColor" name="Frame Color" class="sr-only" tabindex="-1" aria-hidden="true">
           <option value="Antique Gold">Antique Gold</option>
           <option value="Brown">Brown</option>
-          <option value="Black">Black</option>
         </select>
         <select id="galleryMat" name="Mat" class="sr-only" tabindex="-1" aria-hidden="true">
           <option value="White">White</option>
@@ -2236,30 +2237,14 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <p class="price-line" id="galleryPriceLine"></p>
         <div class="field">
-          <label for="galleryName">Your name</label>
-          <input type="text" id="galleryName" name="Customer Name" autocomplete="name" required>
+          <label class="ship-zone-wrap">Ships to&nbsp;<select class="ship-zone"><option value="us" selected>United States</option><option value="international">International — UK · EU · AU + more</option></select></label>
         </div>
-        <div class="field">
-          <label for="galleryEmail">Email</label>
-          <input type="email" id="galleryEmail" name="Customer Email" autocomplete="email" required>
-        </div>
-        <div class="field">
-          <div class="form-row"><label class="ship-zone-wrap">Ships to&nbsp;<select class="ship-zone"><option value="us" selected>United States</option><option value="international">International — UK · EU · AU + more</option></select></label></div>
-        <label for="galleryAddress">Ship to</label>
-          <textarea id="galleryAddress" name="Ship-To Address" autocomplete="shipping street-address" required></textarea>
-        </div>
-        <p class="form-note">No payment today — we'll email you to confirm price and payment before anything ships.</p>
-        <!-- honeypot: hidden from people, catnip for bots -->
-        <div class="hp-field" aria-hidden="true">
-          <label for="galleryCompanyWebsite">Company website</label>
-          <input type="text" id="galleryCompanyWebsite" name="company_website" tabindex="-1" autocomplete="off">
-        </div>
+        <p class="form-note">Pay securely on Stripe, where you'll enter your contact and shipping details. After payment succeeds, we'll submit your print for production.</p>
         <div class="form-actions">
-          <button class="tag-btn viewer-buy" type="submit" id="gallerySubmitBtn">Bring it home</button>
+          <button class="tag-btn viewer-buy" type="submit" id="gallerySubmitBtn">Secure checkout</button>
         </div>
         <p class="form-error" id="galleryOrderErr" role="alert" hidden></p>
       </form>
-      <p class="order-confirm" id="galleryOrderConfirm" role="status" hidden>🐝 Saved — we'll email you to confirm your print, price and payment. Nothing is charged today.</p>
     </div>
   </div>
 </dialog>
@@ -2933,7 +2918,6 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
 (()=>{
   const dialog=document.getElementById('galleryOrderDialog');
   const form=document.getElementById('galleryOrderForm');
-  const confirm=document.getElementById('galleryOrderConfirm');
   const artworkInput=document.getElementById('galleryArtwork');
   const sizeSelect=document.getElementById('gallerySize');
   const frameColorSelect=document.getElementById('galleryFrameColor');
@@ -2955,7 +2939,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
      ramp:'#ba944d 0%,#b8914c 22%,#c5a151 42%,#c5a252 62%,#c9a657 82%,#c6a253 100%'},
     {value:'Brown',    label:'Walnut',      chip:'#5a3922',
      ramp:'#6b432c 0%,#4d341a 22%,#5a3922 42%,#623e21 62%,#69452b 82%,#5b3b26 100%'},
-    {value:'Black',    label:'Black',       chip:'#1a1a1a',
+    {value:'Black',    label:'Black — coming soon', unavailable:true, chip:'#1a1a1a',
      ramp:'#242424 0%,#151515 22%,#171717 42%,#161616 62%,#1d1d1d 82%,#161616 100%'}
   ];
   const MATS=[
@@ -2966,7 +2950,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
   function buildSwatches(host,options,name,onPick){
     host.innerHTML=options.map((o,i)=>`
       <label>
-        <input type="radio" name="${name}" value="${o.value}"${i===0?' checked':''}>
+        <input type="radio" name="${name}" value="${o.value}"${i===0?' checked':''}${o.unavailable?' disabled':''}>
         <span class="chip"><i style="background:${o.chip};${o.chip==='transparent'
           ?'box-shadow:inset 0 0 0 1px rgba(214,196,160,.45);background:repeating-linear-gradient(45deg,rgba(214,196,160,.18) 0 4px,transparent 4px 8px)':''}"></i>${o.label}</span>
       </label>`).join('');
@@ -3192,7 +3176,7 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     const size=sizeSelect.value;
     const price=TBH_PRICES.gallery[size];
     if(priceLine)priceLine.textContent = price!=null
-      ? `$${price} + shipping · ${size.replace('x','×')} in print, framed & matted · ${frameColorSelect.value!=='Black'?'secure checkout on Stripe':'confirmed by email before any payment'}`
+      ? `$${price} + shipping · ${size.replace('x','×')} in print, framed & matted · secure checkout on Stripe`
       : '';
   }
   sizeSelect.addEventListener('change',applySize);
@@ -3213,7 +3197,6 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
     const p=GALLERY_CATALOG[Number(btn.dataset.index)];
     if(!p)return;
     opener=btn;
-    form.hidden=false;confirm.hidden=true;
     form.reset();
     art.src=`assets/prints/${p.slug}.jpg`;
     art.alt=p.alt;
@@ -3254,54 +3237,32 @@ document.querySelector('#t-join form').addEventListener('submit',async e=>{
 
   const errBox=document.getElementById('galleryOrderErr');
   const btn=document.getElementById('gallerySubmitBtn');
-  /* Stripe-eligible combos check out directly (print size -> catalog size key,
-     viewer colour -> catalog colourway). Black frames keep the email path until
-     their colourway slots exist server-side. */
+  /* Every selectable gallery combination uses Stripe. The black preview stays
+     unavailable until it has an approved price and fulfillment catalog variant. */
   const STRIPE_GLAZE={'8x12':'12x16','12x18':'12x18','16x24':'20x28'};
   const STRIPE_COLOUR={'Antique Gold':'gold','Brown':'second'};
   form.addEventListener('submit',async e=>{
     e.preventDefault();
     const glaze=STRIPE_GLAZE[sizeSelect.value],colour=STRIPE_COLOUR[frameColorSelect.value];
-    if(glaze&&colour&&artworkInput.dataset.slug){
-      errBox.hidden=true;btn.disabled=true;btn.setAttribute('aria-busy','true');
-      try{
-        const {startStripeCheckout}=await import('./assets/web/stripe-checkout.js');
-        await startStripeCheckout({product:'framed-art',payload:{
-          artworkId:artworkInput.dataset.slug,size:glaze,frameColor:colour,mat:matSelect.value,shipping:zoneNear(form)}});
-      }catch(err){
-        errBox.textContent=err instanceof Error?err.message:'Checkout is temporarily unavailable.';
-        errBox.hidden=false;
-        errBox.scrollIntoView({behavior:'smooth',block:'center'});
-      }finally{
-        btn.disabled=false;btn.removeAttribute('aria-busy');
-      }
+    if(!glaze||!colour||!artworkInput.dataset.slug){
+      errBox.textContent='That frame option is not available for checkout yet.';
+      errBox.hidden=false;
       return;
     }
-    if(!form.checkValidity()){form.reportValidity();return}
     errBox.hidden=true;btn.disabled=true;btn.setAttribute('aria-busy','true');
-    const payload={
-      product:'gallery',
-      artwork:artworkInput.value,
-      size:sizeSelect.value,
-      frameColor:frameColorSelect.value,
-      mat:matSelect.value,
-      customerName:document.getElementById('galleryName').value,
-      customerEmail:document.getElementById('galleryEmail').value,
-      shipTo:document.getElementById('galleryAddress').value,
-      company_website:document.getElementById('galleryCompanyWebsite').value
-    };
+    const readyLabel=btn.textContent;
+    btn.textContent='Opening secure checkout…';
     try{
-      const r=await fetch('/api/order-intent',{method:'POST',
-        headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      if(!r.ok)throw new Error('order-intent '+r.status);
-      form.hidden=true;confirm.hidden=false;
-      confirm.setAttribute('tabindex','-1');confirm.focus();
+      const {startStripeCheckout}=await import('./assets/web/stripe-checkout.js');
+      await startStripeCheckout({product:'framed-art',payload:{
+        artworkId:artworkInput.dataset.slug,size:glaze,frameColor:colour,mat:matSelect.value,shipping:zoneNear(form)}});
     }catch(err){
-      errBox.textContent="That didn't go through — nothing was saved. Try again, or email nicolas@tobeehonest.com and we'll take it by hand.";
+      errBox.textContent=err instanceof Error?err.message:'Checkout is temporarily unavailable.';
       errBox.hidden=false;
       errBox.scrollIntoView({behavior:'smooth',block:'center'});
     }finally{
       btn.disabled=false;btn.removeAttribute('aria-busy');
+      btn.textContent=readyLabel;
     }
   });
 })();
