@@ -36,7 +36,7 @@ FORM: Hybrid of pinned concepts 1+2 (page-turn mechanics on a tier stack), per o
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Shantell+Sans:ital,wght@0,400;0,500;1,400&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="bee-cursor.css">
+<link rel="stylesheet" href="bee-cursor.css" media="(pointer: fine) and (hover: hover)">
 <link rel="stylesheet" href="assets/web/sun-bird-puzzle.css">
 <style>
 :root{
@@ -2507,7 +2507,7 @@ const DECK_DATA=[
   const build=card=>{
     const num=String(card.n).padStart(2,'0'),el=document.createElement('div');
     el.className='card';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-pressed','false');el.setAttribute('aria-label','Mantra card, face down. Activate to reveal it.');
-    el.innerHTML='<div class="card-inner"><div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt="" loading="lazy" decoding="async"></div><div class="card-face card-front has-photo" aria-hidden="true"><img class="card-photo" alt="" aria-hidden="true"><span class="sr-only">“'+card.m+'”</span></div></div>';
+    el.innerHTML='<div class="card-inner"><div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt="" loading="lazy" decoding="async"></div><div class="card-face card-front has-photo" aria-hidden="true"><img class="card-photo" alt="" aria-hidden="true" loading="lazy" decoding="async"><span class="sr-only">“'+card.m+'”</span></div></div>';
     bindMantraCard(el,{mantra:card.m,imageSrc:'assets/web/deck-cards/card-'+num+'.jpg',onFirstReveal:()=>{revealed++;update();if(revealed>=CAP){endLine.textContent='Two found their way to you today. Fifty-four live in the full deck.';endBox.hidden=false}}});
     return el;
   };
