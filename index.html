@@ -30,11 +30,13 @@ FORM: Hybrid of pinned concepts 1+2 (page-turn mechanics on a tier stack), per o
 <meta name="twitter:description" content="A book, a deck of mantras, an art gallery, and a growing universe of playful ways to feel better about being you.">
 <meta name="twitter:image" content="https://tobeehonest.com/assets/web/social-share-tower-logo-v4.png">
 <meta name="twitter:image:alt" content="To Bee Honest logo — a watercolour bee on a yellow flower">
+<!-- Only the measured mobile LCP image is preloaded; match picture's candidate selection. -->
+<link rel="preload" as="image" type="image/webp" media="(max-width:560px)" href="assets/web/cover-hero-sky-rings-v2-941.webp" imagesrcset="assets/web/cover-hero-sky-rings-v2-480.webp 480w, assets/web/cover-hero-sky-rings-v2-941.webp 941w" imagesizes="100vw" fetchpriority="high">
 <link rel="icon" href="assets/IMG_5190.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Shantell+Sans:ital,wght@0,400;0,500;1,400&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="bee-cursor.css">
+<link rel="stylesheet" href="bee-cursor.css" media="(pointer: fine) and (hover: hover)">
 <link rel="stylesheet" href="assets/web/sun-bird-puzzle.css">
 <style>
 :root{
@@ -1284,8 +1286,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
     <div class="tier-inner">
       <div class="cover-art" aria-hidden="true">
         <picture>
+          <source media="(max-width:560px)" type="image/webp" srcset="assets/web/cover-hero-sky-rings-v2-480.webp 480w, assets/web/cover-hero-sky-rings-v2-941.webp 941w" sizes="100vw">
           <source media="(max-width:560px)" srcset="assets/web/cover-hero-sky-rings-v2.png">
-          <img src="assets/web/cover-hero.jpg" alt="">
+          <img src="assets/web/cover-hero.jpg" alt="" loading="eager" fetchpriority="high">
         </picture>
       </div>
       <div class="hero-bees" aria-hidden="true">
@@ -1319,7 +1322,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
             <!-- The real logo, static (client call 2026-08-07 — the animated reveal is out).
                  The artwork already draws its own brown ring, so nothing here adds a second
                  one; see .cover-logo. -->
-            <img class="cover-logo" src="assets/IMG_5190.jpeg"
+            <img class="cover-logo" src="assets/web/cover-logo-220.webp" srcset="assets/web/cover-logo-220.webp 220w, assets/web/cover-logo-440.webp 440w" sizes="(max-width:560px) 96px, (min-width:1051px) 176px, 220px"
                  alt="To Bee Honest — a watercolour bee on a yellow flower inside a hand-drawn ring"
                  width="220" height="220" decoding="sync">
             <h1>Scrapbook for your <em>inner world</em>.</h1>
@@ -1420,10 +1423,16 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 
         <article class="puzzle-product" id="sunBirdProduct" data-revealed="false">
           <div class="puzzle-tin">
-            <img src="assets/web/sun-bird-puzzle-tin-approved.png" alt="Prodigi’s large white metal puzzle tin with Nicolas’s approved Sun Bird 1,000-piece lid artwork centered at a reduced scale, leaving a generous white border" loading="lazy" width="1254" height="1254">
+            <picture>
+              <source type="image/webp" data-srcset="assets/web/sun-bird-puzzle-tin-approved-320.webp 320w, assets/web/sun-bird-puzzle-tin-approved-640.webp 640w, assets/web/sun-bird-puzzle-tin-approved-1254.webp 1254w" sizes="(max-width:520px) 150px, (max-width:820px) 185px, 235px">
+              <img data-src="assets/web/sun-bird-puzzle-tin-approved.png" alt="Prodigi’s large white metal puzzle tin with Nicolas’s approved Sun Bird 1,000-piece lid artwork centered at a reduced scale, leaving a generous white border" loading="lazy" width="1254" height="1254">
+            </picture>
           </div>
           <figure class="puzzle-cut-preview">
-            <img src="assets/web/sun-bird-puzzle-prodigi-preview.png" alt="The Sun Bird artwork on Prodigi’s photographed 1,000-piece jigsaw, preserving the manufacturer’s physical piece style and loose-piece presentation" loading="lazy" width="1254" height="1254">
+            <picture>
+              <source type="image/webp" data-srcset="assets/web/sun-bird-puzzle-prodigi-preview-320.webp 320w, assets/web/sun-bird-puzzle-prodigi-preview-640.webp 640w, assets/web/sun-bird-puzzle-prodigi-preview-1254.webp 1254w" sizes="(max-width:520px) 150px, (max-width:820px) 185px, 235px">
+              <img data-src="assets/web/sun-bird-puzzle-prodigi-preview.png" alt="The Sun Bird artwork on Prodigi’s photographed 1,000-piece jigsaw, preserving the manufacturer’s physical piece style and loose-piece presentation" loading="lazy" width="1254" height="1254">
+            </picture>
             <figcaption class="hand">Prodigi-style 1,000-piece product preview—matched to the manufacturer’s physical piece geometry.</figcaption>
           </figure>
           <div class="puzzle-product-copy">
@@ -1487,7 +1496,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
   <!-- BOOK -->
   <section class="tier below" id="t-book" data-title="The Book" aria-label="The Book" hidden>
     <section class="book-checkin" aria-labelledby="bookCheckinTitle">
-      <img class="book-checkin__art" src="assets/IMG_5791.jpeg" alt="" aria-hidden="true">
+      <img class="book-checkin__art" src="assets/IMG_5791.jpeg" alt="" aria-hidden="true" loading="lazy" decoding="async">
       <div class="book-checkin__veil" aria-hidden="true"></div>
       <div class="book-checkin__content">
         <p class="book-checkin__eyebrow hand">genuine check in</p>
@@ -1509,7 +1518,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
     </section>
 
     <div class="book-product" id="bookDetails">
-      <div class="tier-bg-photo" aria-hidden="true"><img src="assets/web/butterfly-tower.jpg" alt=""></div>
+      <div class="tier-bg-photo" aria-hidden="true"><img src="assets/web/butterfly-tower.jpg" alt="" loading="lazy" decoding="async"></div>
       <div class="tier-inner">
       <!-- The chapter head used to sit centred above the grid, which pushed the book
            down far enough that you had to scroll to see the bottom of it. Title, kicker
@@ -1631,9 +1640,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
       <div class="deck">
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I mean, what am I supposed to do? I am just a Demigod, as we all are." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt=""></div>
+            <div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt="" loading="lazy" decoding="async"></div>
           <div class="card-face card-front has-photo">
-            <img class="card-photo" src="assets/web/deck-cards/card-11.jpg" alt="" aria-hidden="true">
+            <img class="card-photo" src="assets/web/deck-cards/card-11.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             <span class="sr-only">“I mean, what am I supposed to do? I am just a Demigod, as we all are.”</span>
           </div>
           </div>
@@ -1641,9 +1650,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Standing in my power is a gift to the community. My surplus is your gain, everybody wins." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt=""></div>
+            <div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt="" loading="lazy" decoding="async"></div>
           <div class="card-face card-front has-photo">
-            <img class="card-photo" src="assets/web/deck-cards/card-04.jpg" alt="" aria-hidden="true">
+            <img class="card-photo" src="assets/web/deck-cards/card-04.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             <span class="sr-only">“Standing in my power is a gift to the community. My surplus is your gain, everybody wins.”</span>
           </div>
           </div>
@@ -1651,9 +1660,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="I have no way to know, but I have every reason to trust." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt=""></div>
+            <div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt="" loading="lazy" decoding="async"></div>
           <div class="card-face card-front has-photo">
-            <img class="card-photo" src="assets/web/deck-cards/card-26.jpg" alt="" aria-hidden="true">
+            <img class="card-photo" src="assets/web/deck-cards/card-26.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             <span class="sr-only">“I have no way to know, but I have every reason to trust.”</span>
           </div>
           </div>
@@ -1661,9 +1670,9 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
         </div>
         <div class="card" tabindex="0" role="button" aria-pressed="false" data-mantra="Mediocrity is not on the menu; I am on a diet of reaching for the stars." aria-label="Mantra card, face down. Activate to reveal it.">
           <div class="card-inner">
-            <div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt=""></div>
+            <div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt="" loading="lazy" decoding="async"></div>
           <div class="card-face card-front has-photo">
-            <img class="card-photo" src="assets/web/deck-cards/card-15.jpg" alt="" aria-hidden="true">
+            <img class="card-photo" src="assets/web/deck-cards/card-15.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             <span class="sr-only">“Mediocrity is not on the menu; I am on a diet of reaching for the stars.”</span>
           </div>
           </div>
@@ -1795,7 +1804,7 @@ dialog.order-dialog::backdrop{background:rgba(12,9,5,.86)}
 
   <!-- MAKE IT YOURS -->
   <section class="tier below" id="t-yours" data-title="Make It Yours" aria-label="Make It Yours" hidden>
-    <div class="tier-bg-photo" aria-hidden="true"><img src="assets/web/butterfly-tower.jpg" alt=""></div>
+    <div class="tier-bg-photo" aria-hidden="true"><img src="assets/web/butterfly-tower.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="tier-inner">
       <div class="ch-head"><h2>Make It Yours!</h2><p class="hand">a commissioned piece, built from your own photo</p></div>
       <div class="two-col">
@@ -2377,6 +2386,16 @@ function paint(){
   });
   backBtn.hidden = cur===0;
   const t=tiers[cur]; t.scrollTop=0;
+  // The next chapter stays rendered under the cover. Native lazy loading alone
+  // therefore fetches its product previews early; activate them only on entry.
+  t.querySelectorAll('source[data-srcset]').forEach(source=>{
+    source.srcset=source.dataset.srcset;
+    source.removeAttribute('data-srcset');
+  });
+  t.querySelectorAll('img[data-src]').forEach(img=>{
+    img.src=img.dataset.src;
+    img.removeAttribute('data-src');
+  });
   document.body.classList.toggle('gallery-active',t.id==='t-gallery');
   t.querySelector('h1,h2')?.setAttribute('tabindex','-1');
 }
@@ -2488,7 +2507,7 @@ const DECK_DATA=[
   const build=card=>{
     const num=String(card.n).padStart(2,'0'),el=document.createElement('div');
     el.className='card';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-pressed','false');el.setAttribute('aria-label','Mantra card, face down. Activate to reveal it.');
-    el.innerHTML='<div class="card-inner"><div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt=""></div><div class="card-face card-front has-photo" aria-hidden="true"><img class="card-photo" alt="" aria-hidden="true"><span class="sr-only">“'+card.m+'”</span></div></div>';
+    el.innerHTML='<div class="card-inner"><div class="card-face card-back"><img src="assets/web/deck-cards/card-back.jpg" alt="" loading="lazy" decoding="async"></div><div class="card-face card-front has-photo" aria-hidden="true"><img class="card-photo" alt="" aria-hidden="true" loading="lazy" decoding="async"><span class="sr-only">“'+card.m+'”</span></div></div>';
     bindMantraCard(el,{mantra:card.m,imageSrc:'assets/web/deck-cards/card-'+num+'.jpg',onFirstReveal:()=>{revealed++;update();if(revealed>=CAP){endLine.textContent='Two found their way to you today. Fifty-four live in the full deck.';endBox.hidden=false}}});
     return el;
   };
