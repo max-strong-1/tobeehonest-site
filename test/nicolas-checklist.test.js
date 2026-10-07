@@ -5,14 +5,21 @@ import test from 'node:test';
 
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const checklistCss = readFileSync(new URL('../assets/web/nicolas-checklist.css', import.meta.url), 'utf8');
+const puzzleCss = readFileSync(new URL('../assets/web/sun-bird-puzzle.css', import.meta.url), 'utf8');
 
-test('the approved Sun Bird lid and Prodigi-style 1,000-piece product preview are installed', () => {
-  assert.equal(existsSync(new URL('../assets/web/sun-bird-puzzle-lid-approved.webp', import.meta.url)), true);
-  assert.equal(existsSync(new URL('../assets/web/sun-bird-puzzle-prodigi-preview.png', import.meta.url)), true);
-  assert.match(html, /assets\/web\/sun-bird-puzzle-prodigi-preview\.png/);
+test('the landscape Sun Bird game and actual product photos are installed', () => {
+  assert.equal(existsSync(new URL('../assets/web/sun-bird-puzzle-landscape.webp', import.meta.url)), true);
+  assert.equal(existsSync(new URL('../assets/web/sun-bird-real-tin.webp', import.meta.url)), true);
+  assert.equal(existsSync(new URL('../assets/web/sun-bird-real-pieces.webp', import.meta.url)), true);
+  assert.match(html, /assets\/web\/sun-bird-real-pieces\.webp/);
+  assert.match(puzzleCss, /grid-template-columns:repeat\(5,1fr\);grid-template-rows:repeat\(2,1fr\)/);
+  assert.match(puzzleCss, /background-size:500% 200%/);
+  assert.match(puzzleCss, /sun-bird-puzzle-landscape\.webp/);
+  assert.match(html, /data-slot="4"[^>]*--x:100%;--y:0%/);
+  assert.match(html, /data-slot="9"[^>]*--x:100%;--y:100%/);
   assert.doesNotMatch(html, /assets\/web\/sun-bird-puzzle-cutmap\.svg/);
   assert.doesNotMatch(html, /assets\/web\/sun-bird-puzzle-outline\.webp/);
-  assert.match(html, /Prodigi-style 1,000-piece product preview/);
+  assert.doesNotMatch(html, /Prodigi-style 1,000-piece product preview/);
 });
 
 test('the Book begins with a problem, a solution handoff, and Nicolas preface', () => {
@@ -101,19 +108,26 @@ test('every mantra card uses the current QPMN back artwork', () => {
   assert.doesNotMatch(deck, /assets\/prints\/tower-of-knowledge-print-proof\.png/);
 });
 
-test('the Coloring Book keeps the realistic mockup with Nicolas’s approved cover', () => {
+test('the Coloring Book uses Nicolas’s final cover and four actual page examples', () => {
   assert.match(html, /id="t-coloring"/);
-  assert.match(html, /assets\/web\/coloring-book-mockup-approved\.png/);
-  assert.doesNotMatch(html, /src="assets\/web\/coloring-book-cover-approved\.jpeg"/);
-  assert.match(html, /A real preview—not a checkout/);
+  assert.match(html, /assets\/web\/coloring-book-final-cover\.webp/);
+  for (let index = 1; index <= 4; index += 1) {
+    assert.match(html, new RegExp(`assets/web/coloring-book-page-${index}\\.webp`));
+  }
+  assert.doesNotMatch(html, /assets\/web\/coloring-book-mockup-approved\.png/);
+  assert.match(html, /not taking payment on this site until the Prodigi print files and checkout are ready/);
   assert.doesNotMatch(html, /hc-5 hc-placeholder/);
 });
 
-test('puzzle presentation uses the approved lid on Prodigi’s real large-tin photography', () => {
-  assert.equal(existsSync(new URL('../assets/web/sun-bird-puzzle-tin-approved.png', import.meta.url)), true);
-  assert.match(html, /assets\/web\/sun-bird-puzzle-tin-approved\.png/);
+test('puzzle presentation uses Nicolas’s real landscape tin and pieces photographs', () => {
+  assert.equal(existsSync(new URL('../assets/web/sun-bird-real-tin.webp', import.meta.url)), true);
+  assert.equal(existsSync(new URL('../assets/web/sun-bird-real-pieces.webp', import.meta.url)), true);
+  assert.match(html, /assets\/web\/sun-bird-real-tin\.webp/);
+  assert.match(html, /assets\/web\/sun-bird-real-pieces\.webp/);
+  assert.doesNotMatch(html, /assets\/web\/sun-bird-puzzle-tin-approved\.png/);
   assert.doesNotMatch(html, /class="puzzle-tin-lid"|class="puzzle-tin-side"/);
-  assert.match(checklistCss, /\.puzzle-tin\s*\{[\s\S]*?aspect-ratio:1/);
+  assert.match(checklistCss, /\.puzzle-tin\s*\{[\s\S]*?aspect-ratio:auto/);
+  assert.match(html, /Landscape Sun Bird artwork printed on the tin lid/);
   assert.match(html, /Made to order and final sale\./);
   assert.match(html, /id="sunBirdCheckout"[^>]*>Buy the Sun Bird puzzle/);
   assert.match(html, /id="sunBirdCheckoutError" role="alert" hidden/);
@@ -167,7 +181,7 @@ test('every product comb explains the applicable supplier return conditions befo
   }
 
   assert.match(book, /return terms before I pay/);
-  assert.match(coloring, /return conditions before checkout/);
+  assert.match(coloring, /format, price, shipping, and return terms/);
   assert.match(market, /supplier’s rules and conditions/);
   assert.match(market, /before payment/);
 });

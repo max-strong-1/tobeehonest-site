@@ -23,6 +23,16 @@ if (
   game && pieces.length === 10 && targets.size === 10 && status && reset &&
   product && checkout && checkoutError
 ) {
+  // Scatter the ten slices rather than showing a nearly assembled image in the tray.
+  const trayHomes = [
+    [60, 53], [6, 6], [78, 52], [42, 5], [24, 54],
+    [78, 7], [6, 52], [60, 7], [24, 7], [42, 51],
+  ];
+  for (const piece of pieces) {
+    const [left, top] = trayHomes[Number(piece.dataset.pieceId)];
+    piece.style.setProperty("--piece-left", `${left}%`);
+    piece.style.setProperty("--piece-top", `${top}%`);
+  }
   let state = createJigsawState(pieces.map((piece) => piece.dataset.pieceId));
   let drag = null;
 
