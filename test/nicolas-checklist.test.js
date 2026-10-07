@@ -14,6 +14,8 @@ test('the landscape Sun Bird game and actual product photos are installed', () =
   assert.match(html, /assets\/web\/sun-bird-real-pieces\.webp/);
   assert.match(puzzleCss, /grid-template-columns:repeat\(5,1fr\);grid-template-rows:repeat\(2,1fr\)/);
   assert.match(puzzleCss, /background-size:500% 200%/);
+  assert.match(puzzleCss, /\.sun-bird-board\{[^}]*padding:0;gap:0;/);
+  assert.match(puzzleCss, /\.sun-bird-target\.filled\{[^}]*clip-path:none;border:0;/);
   assert.match(puzzleCss, /sun-bird-puzzle-landscape\.webp/);
   assert.match(html, /data-slot="4"[^>]*--x:100%;--y:0%/);
   assert.match(html, /data-slot="9"[^>]*--x:100%;--y:100%/);
