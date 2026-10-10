@@ -101,12 +101,17 @@ test('every mantra card uses the current QPMN back artwork', () => {
   assert.doesNotMatch(deck, /assets\/prints\/tower-of-knowledge-print-proof\.png/);
 });
 
-test('the Coloring Book keeps the realistic mockup with Nicolas’s approved cover', () => {
-  assert.match(html, /id="t-coloring"/);
-  assert.match(html, /assets\/web\/coloring-book-mockup-approved\.png/);
-  assert.doesNotMatch(html, /src="assets\/web\/coloring-book-cover-approved\.jpeg"/);
-  assert.match(html, /A real preview—not a checkout/);
-  assert.doesNotMatch(html, /hc-5 hc-placeholder/);
+test('the published Coloring Book links directly to its verified Lulu edition', () => {
+  const section = html.match(/<!-- COLORING BOOK -->([\s\S]*?)<!-- BOOK -->/)?.[1] ?? '';
+  assert.match(section, /assets\/web\/coloring-book-lulu-front\.webp/);
+  assert.equal(existsSync(new URL('../assets/web/coloring-book-lulu-front.webp', import.meta.url)), true);
+  assert.match(section, /id="coloringLuluPurchase" href="https:\/\/www\.lulu\.com\/shop\/nicolas-bettinger\/the-sun-stone-theory-coloring-book\/paperback\/product-nv5r98q\.html"/);
+  assert.match(section, /29 detailed illustrations · 57 pages/);
+  assert.match(section, /8.5 × 11 inches/);
+  assert.match(section, /coil binding/);
+  assert.match(section, /\$29 USD on Lulu/);
+  assert.match(section, /3–5 business days; shipping time is additional/);
+  assert.doesNotMatch(section, /being confirmed|being finalized|tell me when it is ready|data-jump|stripe|Thick,/i);
 });
 
 test('puzzle presentation uses the approved lid on Prodigi’s real large-tin photography', () => {
